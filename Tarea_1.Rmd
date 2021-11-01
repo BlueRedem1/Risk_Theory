@@ -231,7 +231,7 @@ $$e^{-\frac{w}{200}} = \frac{10+3\sqrt{10}}{10}\Leftrightarrow w = 200\ln\Big(\f
 Lo cual es imposible pues $w\in(0,\infty)$, entonces consideramos la otra raiz.
 $$e^{-\frac{w}{200}} = \frac{10-3\sqrt{10}}{10}\Leftrightarrow w = 200\ln\Big(\frac{10}{10-3\sqrt{10}}\Big)\approx 593.9478011$$
 
-$$\therefore VaR_{0.9}(X_1 + X_2) = 593.9478011$$
+$$ \boxed{\therefore VaR_{0.9}(X_1 + X_2) = 593.9478011}$$
 
 b) Observemos que nuestro desarrollo en a) hasta (1) fue independiente del nivel al que se quería calcular el $VaR$ entonces:
 $$0.95 = 1 + e^{-\frac{w}{200}}(e^{-\frac{w}{200}}-2)$$
@@ -247,7 +247,7 @@ $$e^{-\frac{w}{200}} = \frac{10+\sqrt{95}}{10}\Leftrightarrow w = 200\ln\Big(\fr
 Lo cual es imposible pues $w\in(0,\infty)$, entonces consideramos la otra raiz.
 $$e^{-\frac{w}{200}} = \frac{10-\sqrt{95}}{10}\Leftrightarrow w = 200\ln\Big(\frac{10}{10-\sqrt{95}}\Big)\approx 735.2276694$$
 
-$$\therefore VaR_{0.95}(X_1 + X_2) = 735.2276694 _\blacksquare$$
+$$\boxed{\therefore VaR_{0.95}(X_1 + X_2) = 735.2276694 _\blacksquare}$$
 
 
 
@@ -268,7 +268,7 @@ Usando el inciso a) calcula el $VaR_p\left ( X \right )$ y $TVaR_p\left ( X \rig
 ${}$\newline
 **Solución:**
 
-$VaR$: Sabemos que el $VaR$ a un nivel de confianza $\alpha$, es el cuantil $\alpha$ de la distribución. Buscamos $p \in (b, \infty)$ tal que:
+a) $VaR$: Sabemos que el $VaR$ a un nivel de confianza $\alpha$, es el cuantil $\alpha$ de la distribución. Buscamos $p \in (b, \infty)$ tal que:
 
 \begin{align*} & \int_{b}^{p}\frac{ab^{a}}{x^{a+1}} dx = \alpha\\
                &= ab^{a} \int_{b}^{p}\frac{1}{x^{a+1}} dx = \alpha\\
@@ -294,11 +294,96 @@ $VaR$: Sabemos que el $VaR$ a un nivel de confianza $\alpha$, es el cuantil $\al
                &= p = b(1-\alpha)^{-\frac{1}{a}}
 \end{align*}
 
-$$ \therefore VaR_{\alpha}(X) = b(1 - \alpha)^{-\frac{1}{a}}$$               
+$$  \boxed{\therefore VaR_{\alpha}(X) = b(1 - \alpha)^{-\frac{1}{a}}}$$               
 Si X $\sim$ pareto(a,b); la cual es la expresión de las notas :D $_\blacksquare$
 
+TVaR: Supongamos que $a > 1$, ya que de entrada, $\mathbb{E}[X] = \infty$, si $a \leq 1$. Además de que $\frac{ab(1-\alpha)^-\frac{1}{a}}{a-1} > 0 \Leftrightarrow a > 1$; que es la fórmula a la que debemos llegar, acorde a las notas, y no tendría sentido que la esperanza condicional fuera negativa, si $ x > b > 0$.
 
-# Falta copiar el resto de la 4
+Sabemos que, si $X$ es una v.a. no-negativa tal que $X \in L^{1}$ (es decir, $\mathbb{E}[X] < \infty$)
+
+\begin{align*} TVaR_{\alpha}(x) &=  VaR_{\alpha}(x) + \int_{VaR_{\alpha}(x)}^{\infty} S_{x}(t)dt\\
+                                &\implies S_{x}(t) = 1 - F_{x}(t)\\ 
+                                &= 1 - \int_{b}^{t}\frac{ab^{a}}{x^{a+1}}dx\\
+                                &= 1 - ab \int_{b}^{t} x^{-[a+1]}dx\\
+                                &= 1 - ab[-\frac{x^{-(a+1)+1}}{a}] |_{b}^{t}\\
+                                &= 1 - ab[-\frac{x^{-(a)}}{a}] |_{b}^{t}\\
+                                &= 1 - ab[-\frac{t^{-a}}{a} - [-\frac{b^{-a}}{a}]]\\
+                                &= 1 - \frac{ab}{a}[-t^{-a} + b^{-a}]\\
+                                &= 1 - [-[\frac{b}{t}]^{a} + [\frac{b}{b}]^{a}]\\
+                                &= 1 + [\frac{b}{t}]^{a} - 1\\
+                                &= [\frac{b}{b}]^{a}
+\end{align*}
+
+Susituyendo con lo obtenido anteriormente:
+
+$$ VaR_{\alpha}(x) + \frac{\int_{VaR_{\alpha}(x)}^{\infty} S_{x}(t)dt}{1 - \alpha} = b(1 - \alpha)^{-\frac{1}{a}} + \frac{\int_{b(1 - \alpha)^{-\frac{1}{a}}}^{\infty}(\frac{b}{t})^{a}dt}{1 - \alpha}$$
+Calculamos la integral: 
+
+\begin{align*} & \int_{b(1 - \alpha)^{-\frac{1}{a}}}^{\infty}(\frac{b}{t})^{a}dt = b^{a} \int_{b(1 - \alpha)^{-\frac{1}{a}}}^{\infty}{t}^{-a}dt\\
+               &= b^{a}[(\frac{t^{-a+1}}{-a+1})]|_{b(1 - \alpha)^{-\frac{1}{a}}}^{\infty}\\
+               &= b^{a}[\lim_{t\rightarrow \infty}(\frac{t^{1-a}}{1-a}* \frac{[b(1 - \alpha)^{-\frac{1}{a}}]^{1-a}}{1 - a})]\\
+               &= -\frac{b^{a}[b^{1-a}(1-\alpha)^{-\frac{1}{a}[1-a]}]}{1-a}\\
+               &= -\frac{b^{a}b^{(1-a)}(1 - \alpha)^{-\frac{1}{a}-(-\frac{a}{a})}}{1-a}\\
+               &= -\frac{b(1-\alpha)^{1-\frac{1}{a}}}{1-a}\\
+               &= -\frac{b(1-\alpha)}{(1-a)(1-\alpha)^{\frac{1}{a}}}\\
+               &= -\frac{b(1-\alpha)(1-\alpha)^{-\frac{1}{a}}}{1-a}\\
+               &= \frac{b(1-\alpha)(1-\alpha)^{-\frac{1}{a}}}{a-1}
+\end{align*}
+
+Sustituyendo, tenemos que: 
+$$ VaR_{\alpha}(x) + \frac{\int_{VaR_{\alpha}(x)}^{\infty} S_{x}(t)dt}{1 - \alpha} = $$
+
+\begin{align*} &= b(1-\alpha)^{-\frac{1}{a}} + \frac{b(1-\alpha)(1-\alpha)^{-\frac{1}{a}}}{a-1(1 - \alpha)}\\
+               &= b(1-\alpha)^{-\frac{1}{a}} [1 + \frac{1}{a - 1}]\\
+               &= b(1-\alpha)^{-\frac{1}{a}} [\frac{a - 1 + 1}{a - 1}]\\
+               &= b(1-\alpha)^{-\frac{1}{a}} [\frac{a}{a - 1}]\\
+               &= \frac{ab(1 - \alpha)^{-\frac{1}{a}}}{a-1}\\
+               &= (\frac{a}{a-1})(VaR_{\alpha}(x))
+\end{align*}
+
+Que es justo lo que teníamos en las notas. $_\blacksquare$
+
+b) Dado $\mathbb{E}[X] = 100$ y $Var[X] = 20000$, para una $Pareto(a,b)$ sabemos que:
+
+$\mathbb{E}[X]: \frac{ab}{a-1}$ y $Var(X) = \frac{ab^{2}}{a(a-1)^{2}(a-2)} = [\frac{ab}{(a-1)}]^{2}\frac{1}{a(a-2)} = \frac{\mathbb{E}^{2}[X]}{a^{2}-2a}$, igualando tenemos:
+
+\begin{align*} & 100 =  \frac{ab}{a-1} \implies \frac{(a-1)100}{a} = b\\
+               &= 20000 = \frac{100^{2}}{a^{2}-2a} = \frac{10000}{a^{2}-2a}\\
+\end{align*}
+
+Dividiendo entre 10000: 
+
+\begin{align*} & 2 = \frac{1}{a^{2}-2a}\\
+               &= 2a^{2}-4a = 1\\
+       \implies&  2a^{2}-4a -1 = 0\\
+               &= \frac{-(-4)\pm \sqrt{4^{2}-4(2)(-1)}}{2(2)}\\
+               &= \frac{4\pm \sqrt{16+8}}{4}\\
+               &= \frac{4\pm \sqrt{24}}{4}\\
+               &= 1 \pm \sqrt{\frac{24}{16}}\\
+               &= 1 \pm \sqrt{\frac{3}{2}}
+\end{align*}
+
+Como $\sqrt{\frac{3}{2}} > 1 \rightarrow 1 - \sqrt{\frac{3}{2}} < 0$
+
+Como debemos tener $a > 0$, entonces tomamos $a = 1 +\sqrt{\frac{3}{2}}$
+
+Sustituyendo:
+
+\begin{align*} & \frac{(a-1)100}{a} = b \rightarrow \frac{(1 + \sqrt{\frac{3}{2}}-1)100}{\sqrt{\frac{3}{2}}} = b \rightarrow \frac{100\sqrt{\frac{3}{2}}}{\sqrt{\frac{3}{2}}}= b \rightarrow b = 100\\
+\end{align*}
+
+$$ \implies VaR_{.65}(X) = b(1-\alpha)^{\frac{-1}{a}} = 100 (1-.65)^{\frac{-1}{1 + \sqrt{\frac{3}{2}}}}$$
+En R..
+# duda
+
+\begin{align*} &\implies TVaR_{.65}(X) = \frac{ab(1-\alpha)^{\frac{-1}{a}}}{a-1} =  \frac{(1+\sqrt{\frac{3}{2}})(100)(1-.65)^{\frac{-1}{1+\sqrt{\frac{3}{2}}}}}{1 + \sqrt{\frac{3}{2}} - 1}\\
+               &= \frac{(1+\sqrt{\frac{3}{2}})(100)(1-.65)^{\frac{-1}{1+\sqrt{\frac{3}{2}}}}}{ \sqrt{\frac{3}{2}}}\\
+               &= \frac{(1 + \sqrt{\frac{3}{2}})}{\sqrt{\frac{3}{2}}} * (100)(1-.65)^{\frac{-1}{1 + \sqrt{\frac{3}{2}}}}\\
+               &= \frac{(1 + \sqrt{\frac{3}{2}})}{\sqrt{\frac{3}{2}}} * VaR_{.65}(X)
+\end{align*}
+
+En R...
+# duda
 
 **Ejercicio 5.**
 \newline
@@ -353,7 +438,7 @@ $$-\infty< x<0\Rightarrow x\in(-\infty, 0)$$
 
 Que coincide con el soporte de una $Weibull(\theta_2-\theta_1,0,1)$.
 
-$$\therefore a_n = \theta_2\qquad b_n = \frac{1}{n}\qquad\forall n\in\N$$ $_\blacksquare$
+$$ \boxed{\therefore a_n = \theta_2\qquad b_n = \frac{1}{n}\qquad\forall n\in\mathbb{N}}$$ $_\blacksquare$
 
 
 **Ejercicio 6.**
@@ -427,7 +512,7 @@ ${}$\newline
 a) Ver el código
 
 Una vez visto el código, nos quedamos con la Poisson, ya que presenta una estadística menor que la bonimial y binomial negativa. Además, la binomial nos toparía el número de reclamaciones hasta una $n$, sin embargo la Poisson tiene el plus de que corre sobre todo $\mathbb{N}$.
-Entonces, la elegimod dado que su estadística para la prueba de la Ji-cuadrada es menor, lo que indica un error menor, además de que tiene la ventaja de que sobre todo $\mathbb{N}$ y es más realista, ya que no nos topa un límite de reclamaciones.
+Entonces, la elegimod dado que su estadística para la prueba de la Ji-cuadrada es menor, lo que indica un error menor, además de que tiene la ventaja de que sobre todo $\mathbb{N}$ y es más realista, ya que no nos topa un límite de reclamaciones. $_\blacksquare$
 
 b) Le ajustamos el parámetro $\lambda = \overline{X}$ (Ver el código), ya que es su estimador por momentos y de máxima verosimilitud. Así:
 
@@ -435,11 +520,11 @@ b) Le ajustamos el parámetro $\lambda = \overline{X}$ (Ver el código), ya que 
                & \implies  b = \lambda = \overline{X} 
 \end{align*}
 
-Ver el código para el valor exacto.
+Ver el código para el valor exacto. $_\blacksquare$
 
 c) Ver el código en R.
 
-Una vez visto, para el punto 46, esto porque parece un "Outlayer", ya que se separa bastante de los demás datos; Quizás pudieramos modificar la probabilidad para ese punto, con el fin de reducir el error que presenta ahí al acumular un poco más de probabilidad ahí, utilizando el hecho de que es de clase (a, b, i).
+Una vez visto, para el punto 46, esto porque parece un "Outlayer", ya que se separa bastante de los demás datos; Quizás pudieramos modificar la probabilidad para ese punto, con el fin de reducir el error que presenta ahí al acumular un poco más de probabilidad ahí, utilizando el hecho de que es de clase (a, b, i). $_\blacksquare$
 
 
 **Ejercicio 9.**
@@ -466,7 +551,7 @@ Veamos que:
 \end{align*}
 $$\Rightarrow \E[N] = a\E[N] +a+b$$
 $$\Rightarrow (1-a)\E[N] = a+b$$
-$$\therefore \mathbb{E}[N] = \frac{a+b}{1-a} _\blacksquare$$ 
+$$ \boxed{\therefore \mathbb{E}[N] = \frac{a+b}{1-a} _\blacksquare}$$ 
 
 
 **Ejercicio 10.**
@@ -500,6 +585,6 @@ Entonces veamos que:
 $$P_0 = p^r = 0.8^{1.5} = 0.7155541753$$
 Entonces:
 $$P_2 = P_1\Big(a+\frac{b}{2}\Big)= P_0 (a+b)\Big(a+\frac{b}{2}\Big) = 0.7155541753(0.2+0.1)(0.2+0.05) = 0.7155541753(0.3)(0.25)$$
-$$\therefore P_2 = 0.0535665631 _\blacksquare$$ 
+$$ \boxed{\therefore P_2 = 0.0535665631 _\blacksquare}$$ 
 
 
