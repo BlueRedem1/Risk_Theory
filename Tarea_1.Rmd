@@ -1,0 +1,505 @@
+---
+output: pdf_document
+header-includes:
+- \usepackage[utf8]{inputenc}
+- \usepackage{geometry}
+- \usepackage{amsmath}
+- \usepackage{amssymb}
+- \usepackage{tabularx}
+- \newcommand{\E}{\mathbb{E}}
+- \newcommand{\Ep}{\mathbb{E}_{\mathbb{P}}}
+- \newcommand{\Eq}{\mathbb{E}_{\mathbb{Q}}}
+- \newcommand{\R}{\mathbb{R}}
+- \newcommand{\N}{\mathbb{N}}
+- \newcommand{\I}{\mathbb{I}}
+- \newcommand{\F}{\mathcal{F}}
+- \newcommand{\G}{\mathcal{G}}
+- \newcommand{\p}{\mathbb{P}}
+- \newcommand{\q}{\mathbb{Q}}
+---
+
+```{r pressure2, echo=FALSE, out.width = '200%'}
+knitr::include_graphics("CARATULAA.PNG")
+```
+
+\newpage
+
+**Ejercicio 1.**
+\newline
+
+Suponiendo que $\hat{\theta}=(\hat{\theta}_1,...,\hat{\theta}_n)$ con $n\geq 0$, es un estimador máximo verosímil para el parámetro $\theta = ( \theta_1,...,\theta_n)$. Sea $\tau$ una función de $\theta$, demuestre que $\hat{\tau(\theta)}$ es estimador máximo verosímil de $\tau(\theta)$.
+\newline
+
+Detalla cada uno de los pasos en tu demostración.
+\newline
+**Solución:**
+
+Usaremos la función de verosimilitud inducida por $\tau(\theta)$; la cual se denota comunmente en la literatura como $L^{*}$ y que está dada por:
+
+$$ L^{*}(n) = Sup_{(\theta|\tau(\theta) = \eta)} {L(\theta|X)} $$
+Donde $\eta = \tau(\theta)$
+
+Esto debido a que la función no necesariamente es inyectiva, entonces podría haber más de un valor $\theta_{k}$ para el que $\tau(\theta) = \eta$ ((por ejemplo, si $\hat{\theta}$ es el EMV de $\theta$, podría pasar que, si $\tau(\theta) = \theta^{2}$, entonces $\theta_{k} = -\hat{\theta}$; pasa que $[\hat{\theta}]^{2}\tau(\hat{\theta}) = \tau(\theta_{k}) = \tau(-\hat{\theta}) = [-\hat{\theta}]^{2})$) y la relación entre la maximización sobre $\eta$ y sobre $\theta$ se podría romper en estos casos. 
+
+Ahora, sea $\hat{\eta}$ el valor que maximiza $L^{*}(\eta)$, entonces tenemos que:
+
+\begin{align*}
+L^{*}(\hat{\eta}) &= sup_{\eta}L^{*}(\eta)\\
+                  &= sup_{\eta}[sup_{(\theta|\tau(\theta) = \eta)} (L(\theta|X))]
+\end{align*}
+
+Pero, notemos que esta "maximización iterada" (es, decir, primero maximizar a $L(\theta|X)$ sobre las $\theta$ que cumplen que $\tau(\theta) = \eta$ (pasó donde variamos $\theta$, sujeto a $\tau(\theta) = \eta$), y después sobre $\eta$ (paso donde variamos $\eta$)), a final de cuentas es maximizar variando $\theta$ sin restricción alguna, puesto que como comentamos, a final de cuentas terminamos variando $\eta$ por lo que, al final, pasa que; es lo mismo maximizar variando $\theta$ sin restricción.
+
+\begin{align*}
+sup_{\eta}[sup_{(\theta|\tau(\theta) = \eta)} (L(\theta|X))] &= sup_{\theta} L(\theta|X)
+\end{align*}
+
+Pero, además, 
+
+$$ L(\hat{\theta}) = sup_{(\theta|\tau(\theta)=\tau(\hat{\theta}))} L(\theta)  $$ 
+Ya que, si bien puede existir más de una $\theta_{k} : \tau(\theta_{k}) = \tau(\hat{\theta})$, de ese conjunto, únicamente $\hat{\theta}$ es la que maximiza, a final de cuentas ya que es el EMV de $\theta$, la función $L(\theta|X)$, pero; por la definición de $L^{*}(\eta)$
+
+$$ sup_{(\theta|\tau(\theta)=\tau(\hat{\theta}))} L(\theta) = L^{*}(\tau(\hat{\theta}))$$
+Y de esta serie de igualdades concluimos que:
+
+$$ L^{*}(\hat{\eta}) =  L^{*}(\tau(\hat{\theta})) $$
+$$ \boxed{\therefore \hat{\eta} = \tau(\hat{\theta})} _\blacksquare$$
+
+**Ejercicio 2.**
+\newline
+
+Se define como una medida de riesgo $\rho$ como una función de variables aleatorias a los reales que cumple las siguientes 3 propiedades:
+\begin{enumerate}
+\item[a)]$\rho(\bar{0}) = 0$ donde $\bar{0}$ es la variable aleatoria que vale cero en todo el espacio muestra.
+\item[b)] Para toda $a \in R$ y $X$ v.a., se tiene que $\rho(X + a) = \rho(X) +a$.
+         
+\item[c)] Para cuales quiera $X,Y$ v.a.´s. Si $X \leq Y$ en el sentido de que todos los valores de $X$ son menores a los de $Y$, entonces $\rho(X) \leq \rho(Y)$.
+\end{enumerate}
+Con esta definición demuestre que $VaR$ y $TVaR$ son medidas de riesgo. Por otro lado, encuentre alguna función de variables aleatorias que $\mathbf{no}$ sea medida de riesgo argumentando tu respuesta debidamente.
+\newline
+**Solución:**
+
+\textbullet $VaR$
+
+Demostremos la siguiente proposición:
+
+Lema 1:
+Sea $X$ una v.a., $a\in\R\backslash\{0\},b\in\R$ y $\alpha\in(0,1)$ entonces:
+$$VaR_{\alpha}(aX+b) = aVaR_{\alpha}(X)+b$$
+
+\textit{Demostración:}
+
+\begin{align*}
+    VaR_{\alpha}(aX+b) & := \inf\{x\in\R: \p(aX+b\leq x)\geq \alpha\}\\
+    & = \inf\{x\in\R: \p(X\leq \frac{x-b}{a})\geq \alpha\}\\
+    & = \inf\{ax+b\in\R: \p(X\leq x)\geq \alpha\}\\
+    & = a\inf\{x\in\R: \p(X\leq x)\geq \alpha\} + b\\
+    & = a VaR_{\alpha}(X) + b\\
+\end{align*}
+
+\begin{align*}
+    \boxed{\therefore  VaR_{\alpha}(aX+b) = a VaR_{\alpha}(X) + b}
+\end{align*}
+
+Ahora veamos que:
+$$\p(\Bar{0}\leq x) = \I_{[0,\infty)}(x)\qquad\forall x\in\R$$
+
+Entonces:
+$$\{x\in\R:\p(\Bar{0}\leq x)\geq \alpha \} = [0,\infty)\qquad \forall\alpha\in(0,1)$$
+$$\Rightarrow \inf\{x\in\R:\p(\Bar{0}\leq x)\geq \alpha \} = \inf\{[0,\infty)\} = 0\qquad \forall\alpha\in(0,1)$$
+
+
+\begin{align*}
+    \boxed{\therefore VaR_{\alpha}(\Bar{0}) = 0 \qquad\forall \alpha\in(0,1)}
+\end{align*}
+
+Sean $X\leq Y$ v.a.'s  y sea $\omega\in\Omega$ y $l\in\mathbb{R}$ entonces, si
+    $$l< X(\omega) \Rightarrow l< Y(\omega)$$
+    De esta manera se tiene que:
+    $$\{l<X\}:=\{\omega\in\Omega:l<X(\omega)\} \subseteq\{\omega\in\Omega:l<Y(\omega)\} =:\{l<Y\}$$
+    $$\Rightarrow \mathbb{P}(l<X)\leq \mathbb{P}(l<Y)\quad\forall l\in \mathbb{R}$$
+    Veamos ahora que si $l\in \mathbb{R}$ es t.q. $\mathbb{P}(l<Y)\le 1-\alpha \Rightarrow \mathbb{P}(l<X)\le 1-\alpha$, lo que implica que:
+    $$\{l\in\mathbb{R}: \mathbb{P}(l<Y)\le1-\alpha\}\subseteq\{l\in\mathbb{R}: \mathbb{P}(l<X)\le1-\alpha\} $$
+    Usando las propiedades del infimo se tiene:
+    $$\inf\{l\in\mathbb{R}: \mathbb{P}(l<X)\le1-\alpha\}\le \inf\{l\in\mathbb{R}: \mathbb{P}(l<Y)\le1-\alpha\}$$
+
+\begin{align*}
+    \boxed{\therefore VaR_{\alpha}(X)\le VaR_{\alpha}(Y) \quad\forall\alpha\in(0,1)}
+\end{align*}
+    
+\begin{center}
+    \textbf{Por lo tanto $VaR$ es una medida de riesgo}
+\end{center}
+
+\textbullet $TVaR$
+
+Recordemos por lo visto en clase la siguiente representación del $TVaR$:
+$$TVaR_{\alpha}(X) = \frac{1}{1-\alpha}\int_{\pi_\alpha}^{\infty}xf(x)\ dx\qquad\forall\alpha\in(0,1)$$
+Considerando el cambio de variable $u = F(x)\Rightarrow du = f(x)dx, x = F^{-1}(u) = \pi_{u} = VaR_{u}(X)$, se tiene:
+\begin{align*}
+    \boxed{\therefore TVaR_{\alpha}(X) = \frac{1}{1-\alpha}\int_{\alpha}^{1}VaR_{u}(X)\ du\qquad\forall\alpha\in(0,1)}
+\end{align*}
+
+Entonces veamos que:
+$$TVaR_{\alpha}(\Bar{0}) = \frac{1}{1-\alpha}\int_{\alpha}^{1}VaR_{u}(\Bar{0})\ du = \frac{1}{1-\alpha}\int_{\alpha}^{1}0\ du = 0\qquad\forall\alpha\in(0,1)$$
+\begin{align*}
+    \boxed{\therefore TVaR_{\alpha}(\Bar{0})=0 \quad\forall\alpha\in(0,1)}
+\end{align*}
+
+A su vez, sean $a\in\R\backslash\{0\}, b\in\R$ entonces:
+$$TVaR_{\alpha}(aX+b)=\frac{1}{1-\alpha}\int_{\alpha}^{1}VaR_{u}(aX+b)\ du = \frac{1}{1-\alpha}\int_{\alpha}^{1}aVaR_{u}(X)+b\ du=$$
+$$a\frac{1}{1-\alpha}\int_{\alpha}^{1}VaR_{u}(X)\ du+\frac{1}{1-\alpha}\int_{\alpha}^{1}b\ du=a\frac{1}{1-\alpha}\int_{\alpha}^{1}VaR_{u}(X)\ du+b=$$ 
+$$\frac{a}{1-\alpha}\int_{\alpha}^{1}VaR_{u}(X)\ du + b  = aTVaR_{\alpha}(X) +b$$
+
+\begin{align*}
+    \boxed{\therefore TVaR_{\alpha}(aX+b)= aTVaR_{\alpha}(X) +b \quad\forall\alpha\in(0,1)}
+\end{align*}
+
+Ahora sean $X\leq Y$ v.a.'s y $\alpha\in(0,1)$, entonces:
+$$ VaR_{u}(X)\le VaR_{u}(Y) \quad\forall u\in(\alpha,1)$$
+$$\Rightarrow \int_{\alpha}^{1}VaR_{u}(X)\ du \leq \int_{\alpha}^{1}VaR_{u}(Y)\ du$$
+$$\Rightarrow \frac{1}{1-\alpha}\int_{\alpha}^{1}VaR_{u}(X)\ du \leq\frac{1}{1-\alpha} \int_{\alpha}^{1}VaR_{u}(Y)\ du$$
+$$\Rightarrow TVaR_{\alpha}(X)\leq  TVaR_{\alpha}(Y)$$
+    
+\begin{align*}
+    \boxed{\therefore TVaR_{\alpha}(X)\leq  TVaR_{\alpha}(Y) \quad\forall\alpha\in(0,1)}
+\end{align*}
+
+\begin{center}
+    \textbf{Por lo tanto $TVaR$ es una medida de riesgo}
+\end{center}
+
+\textbullet $Var(\cdot) := \E[(\cdot - \E[\cdot])^2]$ la varianza de una varible aleatoria. Veamos que no es medida de riesgo pues si consideramos $a\in \mathbb{R}\backslash\{0\}$ entonces:
+$$Var(X+a) = Var(X)$$
+
+\begin{center}
+    \textbf{Por lo tanto $Var$ NO es una medida de riesgo} $_\blacksquare$
+\end{center}
+
+
+**Ejercicio 3.**
+\newline
+
+Sean $X_1\thicksim exp\Big(\frac{1}{100}\Big)$ y $X_2\thicksim exp\Big(\frac{1}{200}\Big)$ las v.a. que modelan dos riesgos independientes. Calcular:
+\begin{enumerate}
+    \item[a)] $VaR_{0.9}(X_1 + X_2)$ de forma teórica y de forma muestral usando 10,000 simulaciones
+    \item[b)] $VaR_{0.95}(X_1 + X_2)$ de forma teórica y de forma muestral usando 10,000 simulaciones
+\end{enumerate}
+**Solución:**
+
+Consideremos lo siguiente, sean $X\thicksim exp(\lambda_x)$ y $Y\thicksim exp(\lambda_y)$ v.a. independientes y definimos $Z:= X+Y$ entonces:
+
+\begin{align*}
+    f_{Z}(z) &= (f_{Y}*f_{X})(z)\\
+    &= \int_{-\infty}^{\infty} f_{Y}(z-x)f_{X}(x)\ dx\\
+    &= \int_{0}^{z} \lambda_y e^{-\lambda_{y} (z-x)} \lambda_x e^{-\lambda_{x} x}\ dx\\
+    &= \lambda_x \lambda_y e^{-\lambda_y z} \int_{0}^{z} e^{-(\lambda_x -\lambda_y)x}\ dx\\
+    &= \frac{\lambda_x \lambda_y}{\lambda_x-\lambda_y} e^{-\lambda_y z} \int_{0}^{z} (\lambda_x-\lambda_y)e^{-(\lambda_x -\lambda_y)x}\ dx\\
+    &= \frac{\lambda_{x} \lambda_y}{\lambda_x-\lambda_y} e^{-\lambda_y z} F_{exp(\lambda_x-\lambda_y)}(z)\\
+    &= \frac{\lambda_x \lambda_y}{\lambda_x-\lambda_y} e^{-\lambda_y z} (1-e^{-(\lambda_x - \lambda_y)z})\\
+    &= \frac{\lambda_x \lambda_y}{\lambda_x-\lambda_y} (e^{-\lambda_y z} - e^{-\lambda_x z})
+\end{align*}
+
+De esta manera:
+$$F_{X+Y}(w) = \int_{0}^{w} \frac{\lambda_x \lambda_y}{\lambda_x-\lambda_y} (e^{-\lambda_y z} - e^{-\lambda_x z})\ dz$$
+
+Ahora consideremos lo anterior para calcular los $VaR$ al nivel correspondiente
+
+a)
+$$F_{X_1+X_2}(w) = 0.9 \Leftrightarrow  \frac{
+\frac{1}{100(200)}}{\frac{1}{100}-\frac{1}{200}}\int_{0}^{w}  (e^{-\frac{z}{200}} - e^{-\frac{z}{100}})\ dz = 0.9$$
+\begin{align*}
+    0.9 & = \frac{\frac{1}{100(200)}}{\frac{1}{100}-\frac{1}{200}}\int_{0}^{w}  (e^{-\frac{z}{200}} - e^{-\frac{z}{100}})\ dz\\
+    & = \frac{\frac{1}{100(200)}}{\frac{100}{100(200)}} \Big[\int_{0}^{w}  e^{-\frac{z}{200}}\ dz - \int_{0}^{w}  e^{-\frac{z}{100}}\ dz\Big]\\
+    & = \frac{1}{100}[200(1-e^{-\frac{w}{200}}) - 100 (1-e^{-\frac{w}{100}})]\\
+    & = 2(1-e^{-\frac{w}{200}}) - (1-e^{-\frac{w}{100}})\\
+    & = 1 + e^{-\frac{w}{200}}(e^{-\frac{w}{200}}-2)\\
+\end{align*}
+$\Rightarrow$
+\begin{equation}
+    0.9 = 1 + e^{-\frac{w}{200}}(e^{-\frac{w}{200}}-2)
+\end{equation}
+$$-0.1 = e^{-\frac{w}{200}}(e^{-\frac{w}{200}}-2)$$
+
+Ahora consideremos el siguiente polinomio:
+$$x^2 - 2x+0.1 = 0$$
+
+De esta forma sus raices son:
+$$x = \frac{10\pm 3\sqrt{10}}{10}$$
+Entonces:
+$$e^{-\frac{w}{200}} = \frac{10+3\sqrt{10}}{10}\Leftrightarrow w = 200\ln\Big(\frac{10}{10+3\sqrt{10}}\Big)\approx -133.4307825$$
+Lo cual es imposible pues $w\in(0,\infty)$, entonces consideramos la otra raiz.
+$$e^{-\frac{w}{200}} = \frac{10-3\sqrt{10}}{10}\Leftrightarrow w = 200\ln\Big(\frac{10}{10-3\sqrt{10}}\Big)\approx 593.9478011$$
+
+$$\therefore VaR_{0.9}(X_1 + X_2) = 593.9478011$$
+
+b) Observemos que nuestro desarrollo en a) hasta (1) fue independiente del nivel al que se quería calcular el $VaR$ entonces:
+$$0.95 = 1 + e^{-\frac{w}{200}}(e^{-\frac{w}{200}}-2)$$
+$$-0.05 = e^{-\frac{w}{200}}(e^{-\frac{w}{200}}-2)$$
+
+Ahora consideremos el siguiente polinomio:
+$$x^2 - 2x+0.05 = 0$$
+
+De esta forma sus raices son:
+$$x = \frac{10\pm \sqrt{95}}{10}$$
+Entonces:
+$$e^{-\frac{w}{200}} = \frac{10+\sqrt{95}}{10}\Leftrightarrow w = 200\ln\Big(\frac{10}{10+\sqrt{95}}\Big)\approx -136.0812147$$
+Lo cual es imposible pues $w\in(0,\infty)$, entonces consideramos la otra raiz.
+$$e^{-\frac{w}{200}} = \frac{10-\sqrt{95}}{10}\Leftrightarrow w = 200\ln\Big(\frac{10}{10-\sqrt{95}}\Big)\approx 735.2276694$$
+
+$$\therefore VaR_{0.95}(X_1 + X_2) = 735.2276694 _\blacksquare$$
+
+
+
+**Ejercicio 4.**
+\newline
+
+Haciendo uso de la definición de $VaR_p\left ( X \right )$ y $TVaR_p\left ( X \right )$ 
+\begin{enumerate}
+\item[a)] obten la formula general suponiendo que $X\sim Pareto\left ( a,b \right )$
+\item[b)] Supongamos que las pérdidas anuales $X\sim Pareto\left ( a,b \right )$, además sabemos:
+
+i) $\mathbb{E}\left [ X \right ]=100$
+
+ii) $Var\left [ X \right ]=20,000$
+
+\end{enumerate}
+Usando el inciso a) calcula el $VaR_p\left ( X \right )$ y $TVaR_p\left ( X \right )$ con un nivel de confianza del 65%
+${}$\newline
+**Solución:**
+
+$VaR$: Sabemos que el $VaR$ a un nivel de confianza $\alpha$, es el cuantil $\alpha$ de la distribución. Buscamos $p \in (b, \infty)$ tal que:
+
+\begin{align*} & \int_{b}^{p}\frac{ab^{a}}{x^{a+1}} dx = \alpha\\
+               &= ab^{a} \int_{b}^{p}\frac{1}{x^{a+1}} dx = \alpha\\
+               &= ab^{a} \int_{b}^{p} x^{-[a+1]} dx = \alpha\\
+               &= ab^{a} [\frac{x^{-[a-1]+1}}{-a}] |_{b}^{p} = \alpha\\
+               &= ab^{a} [\frac{x^{-a}}{-a} |_{b}^{p} = \alpha\\
+               &= ab^{a} [\frac{-p^{-a}}{a} -[-\frac{b^{-a}}{a}]] = \alpha\\
+               &= ab^{a} [\frac{-p^{-a}}{a} + \frac{b^{-a}}{a}] = \alpha\\
+               &= b^{a} [-p^{-a} + b^{-a}] = \alpha\\
+               &= -[\frac{b}{p}]^{a} + [\frac{b}{b}]^{a} = \alpha\\
+               &= -[\frac{b}{p}]^{a} + 1 = \alpha\\
+               &= [\frac{b}{p}]^{a} - 1 = -\alpha\\
+               &= [\frac{b}{p}]^{a} = 1-\alpha\\
+               &= aln[\frac{b}{p}] = ln[1-\alpha]\\
+               &= ln[{b}] - ln[{p}] = \frac{ln[1-\alpha]}{a}\\
+               &= ln[{b}] - \frac{ln[1-\alpha]}{a} = ln[p]\\
+               &= p = e^{ln[b]-\frac{ln[a-\alpha]}{a}}\\
+\end{align*}
+\newpage
+\begin{align*}
+               &= p = \frac{e^{ln[b]}}{e^{ln[(1-a)^\frac{1}{a}]}}\\
+               &= p = \frac{b}{(a-\alpha)^{1}{a}}\\
+               &= p = b(1-\alpha)^{-\frac{1}{a}}
+\end{align*}
+
+$$ \therefore VaR_{\alpha}(X) = b(1 - \alpha)^{-\frac{1}{a}}$$               
+Si X $\sim$ pareto(a,b); la cual es la expresión de las notas :D $_\blacksquare$
+
+
+# Falta copiar el resto de la 4
+
+**Ejercicio 5.**
+\newline
+
+Sea $X_1,..,X_n$ una muestra de $v.a.i.i.d.$ con distribución Uniforme$(\theta_1,\theta_2)$ con $\theta_1<\theta_2$, dadas las constantes de normalización $a_n$ y $b_n$, sabemos que: la distribución de valores extremos a la que converge es una distribución $$Weibull(\theta_2-\theta_1,0,1)$$
+\begin{enumerate}
+\item[a)] Determine los valores de $a_n$ y $b_n$.
+\end{enumerate}
+${}$\newline
+**Solución**
+
+Sean $X_1,..., X_n$ una muestra de v.a. i.i.d. con distribución $Unif(\theta_1,\theta_2)$ con $\theta_1<\theta_2$, dadas las constantes de
+normalización $a_n$ y $b_n$ sabemos que: la distribución de valores extremos a la que converge es una distribución 
+$$Weibull(\theta_2-\theta_1,0,1)$$
+Determine los valores de $a_n$ y $b_n$
+
+Por hipótesis sabemos que:
+\begin{equation}
+    \lim_{n\to\infty}\p\Big(\frac{M_n - a_n}{b_n}\leq x\Big) = e^{\frac{x}{\theta_2-\theta_1}}
+\end{equation}
+
+Donde $M_n:= \max\{X_1,...,X_n\}\quad \forall n\in\N$, y dado que tenemos que las v.a. son i.i.d. entonces:
+$$F_{M_n}(x) = (F_{X_1}(x))^n = \Big(\frac{x-\theta_1}{\theta_2-\theta_1}\Big)^n \qquad \forall n\in\N$$
+
+Sabemos a su vez que:
+\begin{equation}
+    \lim_{n\to\infty} \Big(1+\frac{x}{n}\Big)^n = e^x \quad \forall x\in\R
+\end{equation}
+
+Observando (2) y (3) deberíamos tener que:
+$$\lim_{n\to\infty}\p\Big(\frac{M_n - a_n}{b_n}\leq x\Big)=e^{\frac{x}{\theta_2-\theta_1}} = \lim_{n\to\infty} \Big(1+\frac{x}{(\theta_2-\theta_1)n}\Big)^n$$
+$$\Rightarrow \lim_{n\to\infty}\p\Big(\frac{M_n - a_n}{b_n}\leq x\Big) =\lim_{n\to\infty} \Big(1+\frac{x}{(\theta_2-\theta_1)n}\Big)^n$$
+Por otro lado, notemos que:
+$$\p\Big(\frac{M_n - a_n}{b_n}\leq x\Big) = \p(M_n\leq b_n x+ a_n) =F_{M_n}(b_nx+a_n) = \Big(\frac{b_nx+a_n-\theta_1}{\theta_2-\theta_1}\Big)^n \qquad \forall n\in\N$$
+De esta manera:
+$$\lim_{n\to\infty} \Big(\frac{b_nx+a_n-\theta_1}{\theta_2-\theta_1}\Big)^n = \lim_{n\to\infty} \Big(1+\frac{x}{(\theta_2-\theta_1)n}\Big)^n$$
+
+Así buscamos $a_n$ y $b_n$ que nos permitan obtener el límite derecho, entonces observemos que:
+$$\lim_{n\to\infty} \Big(\frac{b_nx+a_n-\theta_1}{\theta_2-\theta_1}\Big)^n =\lim_{n\to\infty} \Big(\frac{a_n-\theta_1}{\theta_2-\theta_1}+\frac{b_nx}{\theta_2 - \theta_1}\Big)^n$$
+
+Con lo anterior proponemos $a_n = \theta_2$ y $b_n = \frac{1}{n}\qquad\forall n\in\N$
+
+De esta forma $a_n$ y $b_n$ seleccionados de la manera enterior nos permiten obtener la distribución deseada, sin embargo, aún requerimos ver qué sucede con el soporte, y veremos si efectivamente nuestra propuesta nos permite obtener el soporte de una $Weibull$.
+
+Sabemos que si:
+$$\theta_1 < b_n x + a_n <\theta_2$$
+$$\Rightarrow \theta_1 < \frac{x}{n} +\theta_2< \theta_2$$
+$$\Rightarrow \theta_1-\theta_2 < \frac{x}{n}< 0$$
+$$\Rightarrow n(\theta_1-\theta_2)< x<0$$
+Considerando el límite cuando $n\longrightarrow \infty$ entonces:
+$$-\infty< x<0\Rightarrow x\in(-\infty, 0)$$
+
+Que coincide con el soporte de una $Weibull(\theta_2-\theta_1,0,1)$.
+
+$$\therefore a_n = \theta_2\qquad b_n = \frac{1}{n}\qquad\forall n\in\N$$ $_\blacksquare$
+
+
+**Ejercicio 6.**
+\newline
+
+Sea $X_1,...,X_n$ una muestra de v.a.i.i.d con distribución exponencial con media $\frac{1}{\lambda}$.
+\begin{enumerate}
+\item[a)] Determinar las constantes $a_n$ y $b_n$ tales que la distribución de valores extremos converga a una distribución Gumbel con parámetros $\alpha=\frac{1}{\lambda}$ y $\beta=0$.
+\item[b)] Para un valor de $\lambda$ (ustedes pueden elegirlo), simular una muestra lo suficientemente grande para que las 3 pruebas de bondad de ajuste vistas en clase concluyan que proviene de la distribución deseada. Comparar la función de distribución de valores extremos teórica y la función de distribución empírica.
+\end{enumerate}
+${}$\newline
+**Solución**
+
+
+**Ejercicio 7.**
+\newline
+
+Para una distribución de clase $\left ( a,b,0 \right )$ 
+\begin{enumerate}
+\item[a)] Determina la media de la distribución haciendo uso de la siguiente información:
+\begin{enumerate}
+\item[i)] $P_k=0.0768$
+\item[ii)] $P_{k+1}=P_{k+2}=0.08192$
+\item[iii)] $P_{k+3}=0.078432$
+\end{enumerate}
+\end{enumerate}
+${}$\newline
+**Solución**
+
+Dado que la distribución es de clase $(a,b,0)$ entonces cumple con la relación recursiva:
+$$P_k = P_{k-1}\Big(a+\frac{b}{k}\Big)$$
+
+De esta manera y por (ii) se tiene:
+$$P_{k+1} = P_{k+2} = P_{k+1}\Big(a+\frac{b}{k+2}\Big)\Rightarrow P_{k+1}= P_{k+1}\Big(a+\frac{b}{k+2}\Big)\Rightarrow 1 = \Big(a+\frac{b}{k+2}\Big)$$
+
+También notemos que:
+$$P_{k}\Big(a+\frac{b}{k+1}\Big) = P_{k+1}\Rightarrow 0.0768\Big(a+\frac{b}{k+1}\Big) = 0.08192\Rightarrow a+\frac{b}{k+1} = \frac{16}{15}$$
+
+Y por último notemos que:
+$$ P_{k+2}\Big(a+\frac{b}{k+3}\Big)= P_{k+3} = 0.078432\Rightarrow 0.08192 \Big(a+\frac{b}{k+3}\Big) = 0.078432\Rightarrow a+\frac{b}{k+3} = 0.957421875$$
+
+Entonces:
+\begin{align}
+    (k+2)a + b & = k+2\\
+    (k+1)a + b & = \frac{16(k+1)}{15}\\
+    (k+3)a + b & = 0.957421875(k+3)
+\end{align}
+Restando (4) con (5) y (6) con (4) obtenemos:
+\begin{align*}
+    a & = 1-\frac{(k+1)}{15}\\
+    a & = 0.957421875 -(0.042578125)(k+2)
+\end{align*}
+$$\Rightarrow 1-\frac{(k+1)}{15} = 0.957421875 -(0.042578125)(k+2)$$
+$$\Rightarrow 0.042578125 = \frac{k+1}{15} - (0.042578125)(k+2) = 0.024088542(k+1) - 0.042578125$$
+$$\Rightarrow 2(0.042578125) = 0.024088542(k+1)$$
+
+#Falta terminar el 7
+
+**Ejercicio 8.**
+\newline
+
+En el archivo \textbf{NumeroReclamos.csv} contiene el historial del número de reclamos mensuales que tiene una aseguradora. Suponiendo que la distribución de dicha muestra pertenece a la clase $(a,b,0)$,
+\begin{enumerate}
+\item[a)] Proponga una distirbución que se ajuste a la frecuencia. Justifica tu respuesta.
+\item[b)] Dado el inciso anterior, estimar los parámetros asociados a la distribución propuesta y posteriormente calcular los parámetros $a$ y $b$.
+\item[c)] Compara las probabilidades empíricas de la muestra con las probabilidades de la distribución ajustada para los puntos $45,41,...,55$. ¿cuál es la diferencia más grande?¿cómo se podría reducir dicho error?  
+\end{enumerate}
+${}$\newline
+**Solución**
+
+a) Ver el código
+
+Una vez visto el código, nos quedamos con la Poisson, ya que presenta una estadística menor que la bonimial y binomial negativa. Además, la binomial nos toparía el número de reclamaciones hasta una $n$, sin embargo la Poisson tiene el plus de que corre sobre todo $\mathbb{N}$.
+Entonces, la elegimod dado que su estadística para la prueba de la Ji-cuadrada es menor, lo que indica un error menor, además de que tiene la ventaja de que sobre todo $\mathbb{N}$ y es más realista, ya que no nos topa un límite de reclamaciones.
+
+b) Le ajustamos el parámetro $\lambda = \overline{X}$ (Ver el código), ya que es su estimador por momentos y de máxima verosimilitud. Así:
+
+\begin{align*} & \implies  a = 0\\
+               & \implies  b = \lambda = \overline{X} 
+\end{align*}
+
+Ver el código para el valor exacto.
+
+c) Ver el código en R.
+
+Una vez visto, para el punto 46, esto porque parece un "Outlayer", ya que se separa bastante de los demás datos; Quizás pudieramos modificar la probabilidad para ese punto, con el fin de reducir el error que presenta ahí al acumular un poco más de probabilidad ahí, utilizando el hecho de que es de clase (a, b, i).
+
+
+**Ejercicio 9.**
+\newline
+Sea $N$ una v.a. con distribución de probabilidad de clase $(a,b,0)$. A partir de la definición clásica de esperanza, demuestre que
+$$E(N) = \frac{a+b}{1-a}$$
+
+${}$
+**Solución**
+
+Veamos que:
+\begin{align*}
+    \E[N] & = \sum_{k = 1}^{\infty} k\p(N = k)\\
+    & = \sum_{k=1}^{\infty} kP_k\\
+    & = \sum_{k=1}^{\infty} kP_{k-1}\Big(a+\frac{b}{k}\Big)\\
+    & = \sum_{k=1}^{\infty} (ak+b)P_{k-1}\\
+\end{align*}
+\newpage
+\begin{align*}
+    & = \sum_{m=0}^{\infty} a(m+1)P_{m} + bP_{m}\\
+    & = a\sum_{m=0}^{\infty}mP_{m}+a\sum_{m=0}^{\infty}P_{m} + b\sum_{m=0}^{\infty}P_{m}\\
+    & = a\sum_{m=1}^{\infty} mP_{m} + (a+b)(1)\\
+    & = a \E[N] + a+b
+\end{align*}
+$$\Rightarrow \E[N] = a\E[N] +a+b$$
+$$\Rightarrow (1-a)\E[N] = a+b$$
+$$\therefore \mathbb{E}[N] = \frac{a+b}{1-a} _\blacksquare$$ 
+
+
+**Ejercicio 10.**
+\newline
+
+Para una distribución de clase $\left ( a,b,0 \right )$ tenemos:
+\begin{enumerate}
+\item[i)] $\frac{P_2}{P_1}=0.25$
+\item[ii)] $\frac{P_4}{P_3}=0.225$
+\end{enumerate}
+${}$\newline
+a) Encuentra el valor de $P_2$
+\newline
+**Solución**
+
+Dado que la distribución es de clase $(a,b,0)$ entonces debe cumplir la siguiente fórmula recursiva:
+$$P_k = P_{k-1}\Big(a+\frac{b}{k}\Big)$$
+De esta manera, necesariamente tenemos que:
+$$a+\frac{b}{2} = 0.25\qquad a+\frac{b}{4} = 0.225$$
+$$\Rightarrow 2a+b = 0.5\qquad 2a+\frac{b}{2} = 0.45$$
+$$\Rightarrow \frac{b}{2} = 0.5-0.45 =0.05 \Rightarrow b = 0.1$$
+Así tenemos que:
+$$a+\frac{b}{2} = 0.25\Rightarrow a+\frac{0.1}{2} = a+0.05 = 0.25$$
+$$\Rightarrow a = 0.2$$
+$$\therefore a=0.2\qquad b = 0.1$$
+Dado que $a>0$ y $b>0$ entonces la distribución tiene por función de densidad la de una variable aleatoria $BinNeg(r,p)$, así observemos que:
+$$a = 1-p\Rightarrow 0.2 = 1-p \Rightarrow p = 0.8$$
+$$b = (r-1)(1-p) \Rightarrow 0.1 = (r-1)(0.2)\Rightarrow 0.5 = r-1$$
+$$\therefore r = 1.5\qquad p = 0.8$$
+Entonces veamos que:
+$$P_0 = p^r = 0.8^{1.5} = 0.7155541753$$
+Entonces:
+$$P_2 = P_1\Big(a+\frac{b}{2}\Big)= P_0 (a+b)\Big(a+\frac{b}{2}\Big) = 0.7155541753(0.2+0.1)(0.2+0.05) = 0.7155541753(0.3)(0.25)$$
+$$\therefore P_2 = 0.0535665631 _\blacksquare$$ 
+
+
