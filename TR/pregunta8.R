@@ -122,5 +122,4 @@ max(abs(Comparacion$Diferencia))
 which(Comparacion$Diferencia==max(abs(Comparacion$Diferencia)))
 #Como i=1 es para el punto 45, i=2 es para el punto 46
 mean(Comparacion$Diferencia)
-plot(kernel((Data3$n)/150))
-kernel()
+

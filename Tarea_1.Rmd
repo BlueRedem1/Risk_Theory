@@ -169,7 +169,7 @@ $$\Rightarrow TVaR_{\alpha}(X)\leq  TVaR_{\alpha}(Y)$$
     \textbf{Por lo tanto $TVaR$ es una medida de riesgo}
 \end{center}
 
-\textbullet $Var(\cdot) := \E[(\cdot - \E[\cdot])^2]$ la varianza de una varible aleatoria. Veamos que no es medida de riesgo pues si consideramos $a\in \mathbb{R}\backslash\{0\}$ entonces:
+\textbullet $Var(\cdot) := \mathbb{E}[(\cdot - \mathbb{E}[\cdot])^2]$ la varianza de una varible aleatoria. Veamos que no es medida de riesgo pues si consideramos $a\in \mathbb{R}\backslash\{0\}$ entonces:
 $$Var(X+a) = Var(X)$$
 
 \begin{center}
@@ -314,7 +314,7 @@ Sabemos que, si $X$ es una v.a. no-negativa tal que $X \in L^{1}$ (es decir, $\m
                                 &= [\frac{b}{b}]^{a}
 \end{align*}
 
-Susituyendo con lo obtenido anteriormente:
+Sustituyendo con lo obtenido anteriormente:
 
 $$ VaR_{\alpha}(x) + \frac{\int_{VaR_{\alpha}(x)}^{\infty} S_{x}(t)dt}{1 - \alpha} = b(1 - \alpha)^{-\frac{1}{a}} + \frac{\int_{b(1 - \alpha)^{-\frac{1}{a}}}^{\infty}(\frac{b}{t})^{a}dt}{1 - \alpha}$$
 Calculamos la integral: 
@@ -373,8 +373,14 @@ Sustituyendo:
 \end{align*}
 
 $$ \implies VaR_{.65}(X) = b(1-\alpha)^{\frac{-1}{a}} = 100 (1-.65)^{\frac{-1}{1 + \sqrt{\frac{3}{2}}}}$$
-En R..
-# duda
+En R hacemos lo siguiente para obtener el valor numerico exacto...
+
+```{r}
+Var <- 100*(1-.65)^(-1 / (1 + sqrt(3/2)))
+Var
+```
+Por lo tanto el valor exacto del VaR es 160.3012 $_\blacksquare$
+
 
 \begin{align*} &\implies TVaR_{.65}(X) = \frac{ab(1-\alpha)^{\frac{-1}{a}}}{a-1} =  \frac{(1+\sqrt{\frac{3}{2}})(100)(1-.65)^{\frac{-1}{1+\sqrt{\frac{3}{2}}}}}{1 + \sqrt{\frac{3}{2}} - 1}\\
                &= \frac{(1+\sqrt{\frac{3}{2}})(100)(1-.65)^{\frac{-1}{1+\sqrt{\frac{3}{2}}}}}{ \sqrt{\frac{3}{2}}}\\
@@ -382,8 +388,14 @@ En R..
                &= \frac{(1 + \sqrt{\frac{3}{2}})}{\sqrt{\frac{3}{2}}} * VaR_{.65}(X)
 \end{align*}
 
-En R...
-# duda
+En R hacemos lo siguiente para obtener el valor numerico exacto...
+
+```{r}
+TVar <- ((1 + sqrt(3/2))/sqrt(3/2)) * Var
+TVar
+```
+Por lo tanto el valor exacto del TVaR es 291.1866 $_\blacksquare$
+
 
 **Ejercicio 5.**
 \newline
@@ -456,19 +468,7 @@ ${}$\newline
 **Ejercicio 7.**
 \newline
 
-Para una distribución de clase $\left ( a,b,0 \right )$ 
-\begin{enumerate}
-\item[a)] Determina la media de la distribución haciendo uso de la siguiente información:
-\begin{enumerate}
-\item[i)] $P_k=0.0768$
-\item[ii)] $P_{k+1}=P_{k+2}=0.08192$
-\item[iii)] $P_{k+3}=0.078432$
-\end{enumerate}
-\end{enumerate}
-${}$\newline
-**Solución**
-
-Dado que la distribución es de clase $(a,b,0)$ entonces cumple con la relación recursiva:
+Sea N la distribución de clase $(a,b,0)$, entonces cumple con la relación recursiva:
 $$P_k = P_{k-1}\Big(a+\frac{b}{k}\Big)$$
 
 De esta manera y por (ii) se tiene:
@@ -478,24 +478,38 @@ También notemos que:
 $$P_{k}\Big(a+\frac{b}{k+1}\Big) = P_{k+1}\Rightarrow 0.0768\Big(a+\frac{b}{k+1}\Big) = 0.08192\Rightarrow a+\frac{b}{k+1} = \frac{16}{15}$$
 
 Y por último notemos que:
-$$ P_{k+2}\Big(a+\frac{b}{k+3}\Big)= P_{k+3} = 0.078432\Rightarrow 0.08192 \Big(a+\frac{b}{k+3}\Big) = 0.078432\Rightarrow a+\frac{b}{k+3} = 0.957421875$$
+$$ P_{k+2}\Big(a+\frac{b}{k+3}\Big)= P_{k+3} = 0.0786432\Rightarrow 0.08192 \Big(a+\frac{b}{k+3}\Big) = 0.0786432\Rightarrow a+\frac{b}{k+3} = \dfrac{24}{25}$$
 
 Entonces:
 \begin{align}
     (k+2)a + b & = k+2\\
     (k+1)a + b & = \frac{16(k+1)}{15}\\
-    (k+3)a + b & = 0.957421875(k+3)
+    (k+3)a + b & = \frac{24(k+3)}{25}
 \end{align}
 Restando (4) con (5) y (6) con (4) obtenemos:
 \begin{align*}
-    a & = 1-\frac{(k+1)}{15}\\
-    a & = 0.957421875 -(0.042578125)(k+2)
+    a & = \frac{15(k+2)-16(k+1)}{15} = \frac{-k+14}{15}\qquad (4)-(5)\\
+    a & = \frac{24(k+3)-25(k+2)}{15} = \frac{-k+22}{25}\qquad (6)-(4)
 \end{align*}
-$$\Rightarrow 1-\frac{(k+1)}{15} = 0.957421875 -(0.042578125)(k+2)$$
-$$\Rightarrow 0.042578125 = \frac{k+1}{15} - (0.042578125)(k+2) = 0.024088542(k+1) - 0.042578125$$
-$$\Rightarrow 2(0.042578125) = 0.024088542(k+1)$$
+$$\Rightarrow \frac{-k+14}{15} = \frac{-k+22}{25}$$
+$$\Rightarrow -25k+350= -15k+330$$
+$$\Rightarrow 20 = 10k$$
+$$\Rightarrow k=2$$
 
-#Falta terminar el 7
+Por lo tanto, $a=\dfrac{-k+14}{15}=\dfrac{-2+14}{15}=\dfrac{12}{15}=\dfrac{4}{5}$.\\
+
+A su vez, por (4) tenemos que $b=k+2-(k+2)a=4-4a=\dfrac{20-16}{5}=\dfrac{4}{5}$.\\
+
+Por lo que, $N$ es una distribución de la clase/familia ($a=\dfrac{4}{5}>0$, $b=\dfrac{4}{5}>0$, 0), entonces $N$ tiene una distribución binomial negativa cuyos parámetros se calculan de la siguiente manera:
+
+$$a=1-p\Rightarrow p=1-\dfrac{4}{5}=\dfrac{1}{5}$$
+$$b=(r-1)(1-p)=(r-1)\Big(1-\dfrac{1}{5}\Big)=(r-1)\Big(\dfrac{4}{5}\Big)$$
+$$\Rightarrow r-1=\dfrac{\frac{4}{5}}{\frac{4}{5}}=1$$
+$$\Rightarrow r=2$$
+
+De esta manera, $N\sim \ BinNeg\Big(2,\dfrac{1}{5}\Big)$, por lo que la media de la distribución es
+
+$$\mathbb{E}[N]=\dfrac{r(1-p)}{p}=\dfrac{2(1-\frac{1}{5})}{\frac{1}{5}}=\dfrac{2(\frac{4}{5})}{\frac{1}{5}}=8 _\blacksquare$$
 
 **Ejercicio 8.**
 \newline
@@ -508,6 +522,112 @@ En el archivo \textbf{NumeroReclamos.csv} contiene el historial del número de r
 \end{enumerate}
 ${}$\newline
 **Solución**
+
+```{r, message = FALSE}
+library(tidyverse) #Cargamos la libreria "tidyverse"
+```
+
+```{r}
+#Inciso a y b (se hicieron juntos usando los estimadores por momentos)
+Data<-read.csv('TR/NumeroReclamos.csv') #Cargamos la base de datos "Número de reclamos"
+Data2<-Data[,-1,drop=F] #Quitamos la columna X
+Data3<-Data2 %>% 
+  count(Numero.de.reclamos.mensuales) #Agrupamos por numero de reclamaciones mensuales y 
+                                      #contamos la frecuencia de dicho número
+ggplot(Data3,aes(x=Numero.de.reclamos.mensuales,y=n))+geom_point() #Imprimimos la gráfica
+
+##Poisson
+lambda=mean(Data$Numero.de.reclamos.mensuales) #Usamos el estimador por momentos de Lambda
+poisson_ej<-function(x){ #SOLO NOS SIRVE PARA LLENAR EL VECTOR DE PROBABILIDADES TEORICAS Y GRAFICAR
+  return(dpois(x,lambda))
+}
+probas_p<-c(ppois(36,lambda=lambda)) #Hacemos un for para llenar un vector con las probabilidades
+x<-c(sum(Data3$n[1:3]))              #de las categorías Primero agrupamos los datos, donde la primera
+for (i in 37:62){                    #categoría va de 0-36, posterioremente se siguen de 1 en 1, y 
+  if(i==62){                         #de 62 -> infinito es la proxima categoría.
+    x[i-35]<-sum(Data3$n[(i-33):32])
+    probas_p[i-35]<-ppois(i,lambda=lambda,lower.tail=F)+dpois(i,lambda=lambda)
+    break
+  }
+  probas_p[i-35]<-dpois(i,lambda=lambda)
+  x[i-35]<-Data3$n[i-33]
+}
+sum(probas_p) #Comprobamos que sumen 1 las probas 
+sum(x)        #Comprobamos que haya 150 datos en la suma de las categorías
+freq<-as.data.frame(x) #Las frecuencias de las categorías las convertimos en DataFrame
+chisq.test(freq$x,p=probas_p) #Hacemos la prueba 
+plot_probas<-c() #Llenamos un vector de probabilidades teoricas para graficar
+for (i in 1:100){
+  plot_probas[i]<-poisson_ej(i)
+}
+plot_probas<-as.data.frame(plot_probas) #Imprimimos la gráfica
+ggplot()+
+  geom_point(data=Data3,aes(x=Numero.de.reclamos.mensuales,y=n/150))+
+  geom_line(data=plot_probas,aes(y=plot_probas,x=1:100))
+
+media<-mean(Data3$Numero.de.reclamos.mensuales) #Calculamos la media de los datos (por gusto)
+varianza<-var(Data3$Numero.de.reclamos.mensuales) #Calculamos la varianza (por gusto)
+
+##Binomial
+primer_momento<-mean(Data$Numero.de.reclamos.mensuales) #Primer momento muestral
+segundo_momento<-mean((Data$Numero.de.reclamos.mensuales)^2) #Segundo momento muestral
+#Calculamos los estimadores por momentos (n fue redondeada)
+p=primer_momento/(primer_momento^2/(primer_momento^2+primer_momento-segundo_momento))
+n=ceiling((primer_momento^2/(primer_momento^2+primer_momento-segundo_momento)))
+probas_b<-c(pbinom(36,size=n,p=p)) #Hacemos un for para llenar un vector con las probabilidades
+x<-c(sum(Data3$n[1:3]))            #de las categorías Primero agrupamos los datos, donde la primera
+for (i in 37:62){                  #categoría va de 0-36, posterioremente se siguen de 1 en 1, y 
+  if(i==62){                       #de 62 -> infinito es la proxima categoría.
+    x[i-35]<-sum(Data3$n[(i-33):32])
+    probas_b[i-35]<-pbinom(i,size=n,p=p,lower.tail=F)+dbinom(i,size=n,p=p)
+    break
+  }
+  probas_b[i-35]<-dbinom(i,size=n,p=p)
+  x[i-35]<-Data3$n[i-33]
+}
+sum(probas_b) #Comprobamos que sumen 1 las probas 
+sum(x)        #Comprobamos que haya 150 datos en la suma de las categorías
+freq<-as.data.frame(x) #Las frecuencias de las categorías las convertimos en DataFrame
+chisq.test(freq$x,p=probas_b) #Hacemos la prueba 
+plot_probas<-c()  #Llenamos un vector de probabilidades teoricas para graficar
+for (i in 1:100){
+  plot_probas[i]<-dbinom(i,size=n,p=p)
+}
+plot_probas<-as.data.frame(plot_probas) #Imprimimos la gráfica
+ggplot()+
+  geom_point(data=Data3,aes(x=Numero.de.reclamos.mensuales,y=n/150))+
+  geom_line(data=plot_probas,aes(y=plot_probas,x=1:100))
+
+##Binomial-Negativa
+p=1-(mean(Data3$Numero.de.reclamos.mensuales))/(var(Data3$Numero.de.reclamos.mensuales))
+r<-ceiling((mean(Data3$Numero.de.reclamos.mensuales))^2/(var(Data3$Numero.de.reclamos.mensuales)
+                                                         -mean(Data3$Numero.de.reclamos.mensuales)))
+
+probas_n<-c(pnbinom(36,size=r,p=p)) #Hacemos un for para llenar un vector con las probabilidades 
+x<-c(sum(Data3$n[1:3]))             #de las categorías Primero agrupamos los datos, donde la primera 
+for (i in 37:62){                   #categoría va de 0-36, posterioremente se siguen de 1 en 1, y 
+  if(i==62){                        #de 62 -> infinito es la proxima categoría.
+    x[i-35]<-sum(Data3$n[(i-33):32])
+    probas_n[i-35]<-pnbinom(i,size=r,p=p,lower.tail=F)+dnbinom(i,size=r,p=p)
+    break
+  }
+  probas_n[i-35]<-dnbinom(i,size=r,p=p)
+  x[i-35]<-Data3$n[i-33]
+}
+sum(probas_n) #Comprobamos que sumen 1 las probas 
+sum(x)        #Comprobamos que haya 150 datos en la suma de las categorías
+freq<-as.data.frame(x) #Las frecuencias de las categorías las convertimos en DataFrame
+chisq.test(freq$x,p=probas_n) #Hacemos la prueba 
+plot_probas<-c() #Llenamos un vector de probabilidades teoricas para graficar
+for (i in 1:100){
+  plot_probas[i]<-dnbinom(i,size=r,p=p)
+}
+plot_probas<-as.data.frame(plot_probas) #Imprimimos la gráfica
+ggplot()+
+  geom_point(data=Data3,aes(x=Numero.de.reclamos.mensuales,y=n/150))+
+  geom_line(data=plot_probas,aes(y=plot_probas,x=1:100))
+```
+
 
 a) Ver el código
 
@@ -522,6 +642,23 @@ b) Le ajustamos el parámetro $\lambda = \overline{X}$ (Ver el código), ya que 
 
 Ver el código para el valor exacto. $_\blacksquare$
 
+```{r}
+#Inciso c
+probas_teoricas<-c() #Volvemos a obtener las probas teoricas de la Poisson 
+for (i in 45:55){ #Iteramos para k desde 45 - 55
+  probas_teoricas[i-44]<-poisson_ej(i)
+}
+Comparacion<-data.frame('Empiricas'=Data3$n[12:22]/150,'Teoricas'=probas_teoricas) 
+#Convertimos el anterior renglon en un DataFrame para comparar probas teoricas con empíricas.
+Comparacion<-Comparacion %>% #Agregamos una columna con la diferencia entre estas 2
+  mutate('Diferencia'=Empiricas-Teoricas)
+max(abs(Comparacion$Diferencia)) #Obtenemos la diferencias maxima en valor absoluto
+which(Comparacion$Diferencia==max(abs(Comparacion$Diferencia))) #Vemos para que k es esa diferencia
+#Como i=1 es para el punto 45, i=2 es para el punto 46
+mean(Comparacion$Diferencia) #Obtenemos el error promedio (por gusto)
+```
+
+
 c) Ver el código en R.
 
 Una vez visto, para el punto 46, esto porque parece un "Outlayer", ya que se separa bastante de los demás datos; Quizás pudieramos modificar la probabilidad para ese punto, con el fin de reducir el error que presenta ahí al acumular un poco más de probabilidad ahí, utilizando el hecho de que es de clase (a, b, i). $_\blacksquare$
@@ -530,8 +667,7 @@ Una vez visto, para el punto 46, esto porque parece un "Outlayer", ya que se sep
 **Ejercicio 9.**
 \newline
 Sea $N$ una v.a. con distribución de probabilidad de clase $(a,b,0)$. A partir de la definición clásica de esperanza, demuestre que
-$$E(N) = \frac{a+b}{1-a}$$
-
+$$\mathbb{E}(N) = \frac{a+b}{1-a}$$
 ${}$
 **Solución**
 
@@ -541,16 +677,13 @@ Veamos que:
     & = \sum_{k=1}^{\infty} kP_k\\
     & = \sum_{k=1}^{\infty} kP_{k-1}\Big(a+\frac{b}{k}\Big)\\
     & = \sum_{k=1}^{\infty} (ak+b)P_{k-1}\\
-\end{align*}
-\newpage
-\begin{align*}
     & = \sum_{m=0}^{\infty} a(m+1)P_{m} + bP_{m}\\
     & = a\sum_{m=0}^{\infty}mP_{m}+a\sum_{m=0}^{\infty}P_{m} + b\sum_{m=0}^{\infty}P_{m}\\
     & = a\sum_{m=1}^{\infty} mP_{m} + (a+b)(1)\\
     & = a \E[N] + a+b
 \end{align*}
-$$\Rightarrow \E[N] = a\E[N] +a+b$$
-$$\Rightarrow (1-a)\E[N] = a+b$$
+$$\Rightarrow \mathbb{E}[N] = a\mathbb{E}[N] +a+b$$
+$$\Rightarrow (1-a)\mathbb{E}[N] = a+b$$
 $$ \boxed{\therefore \mathbb{E}[N] = \frac{a+b}{1-a} _\blacksquare}$$ 
 
 
