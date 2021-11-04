@@ -291,6 +291,30 @@ ii) $Var\left [ X \right ]=20,000$
 Usando el inciso a) calcula el $VaR_p\left ( X \right )$ y $TVaR_p\left ( X \right )$ con un nivel de confianza del 65%
 ${}$\newline
 **Solución:**
+Nota: Lo hicimos para la Pareto que definió el profesor y posteriormente para la Pareto que viene en las tablas del PDF "Medidas de Riesgo" 
+$\textbf{Pareto que definió el profesor}$
+a) $VaR$: Sabemos que el $VaR$ a un nivel de confianza $\alpha$, es el cuantil $\alpha$ de la distribución. Buscamos $p \in (b, \infty)$ tal que:
+
+\begin{align*} & \int_{0}^{p}\frac{ab^{a}}{(b + x)^{a+1}} dx = \alpha\\
+\end{align*}
+Pero
+
+\begin{align*}  & \int_{0}^{p}\frac{ab^{a}}{(b + x)^{a+1}} dx = F_{X}(p) = 1 - \left[\frac{b}{(b+p)}\right]^{a}\\
+\textbf{buscamos p tal que:}\implies & 1 - \left[\frac{b}{(b+p)}\right]^{a} = \alpha\\
+            \implies & 1 - \alpha = \left[\frac{b}{(b+p)}\right]^{a}\\
+            \implies & ln(1 - \alpha) = aln\left[\frac{b}{(b+p)}\right]\\
+            \implies & ln(1 - \alpha) = a\left[ln(b) - ln(b+p)\right]\\
+            \implies & \frac{ln(1 - \alpha)}{a} = ln(b) - ln(b+p)\\
+            \implies & ln(b+p) = ln(b) - \frac{ln(1 - \alpha)}{a}\\
+            \implies & b + p = e^{ln(b)-\frac{ln(1 - \alpha)}{a}}\\
+            \implies & p + b = e^{ln(b)}e^{-ln\left[(1 - \alpha)^{\frac{1}{a}}\right]}\\
+            \implies & p + b = b\left[1 - \alpha\right]^{-\frac{1}{a}}\\
+            \implies & p = \frac{b}{(1 - \alpha)^{\frac{1}{a}}} - b
+\end{align*}
+
+
+
+$\textbf{Pareto que viene en las tablas del PDF "Medidas de Riesgo"}$
 
 a) $VaR$: Sabemos que el $VaR$ a un nivel de confianza $\alpha$, es el cuantil $\alpha$ de la distribución. Buscamos $p \in (b, \infty)$ tal que:
 
