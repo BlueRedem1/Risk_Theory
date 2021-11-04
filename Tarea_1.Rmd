@@ -548,36 +548,53 @@ n<-1000 #Tomamos n suficientemente grande
 a<-1   #Definimos el valor de la constante a_n
 b<-log(n)/lambda   #Definimos el valor de la constante b_n
 
-set.seed(27)  #Colocamos una semilla
+set.seed(30)  #Colocamos una semilla para la consistencia de los intervalos
 sim<-(replicate(n=10000,
                 expr=max(rexp(n=n,rate=lambda)))-b)/a
 
 #Realizamos las 3 pruebas para verificar la distribución deseada
 
 ks.test(unique(sim),"gumbel") #Kolmogorov-Smirnov
-#Vemos que el p-value = .7212, por lo que no se rechaza la hipotesis nula, y eso 
+#Vemos que el p-value = .2303, por lo que no se rechaza la hipotesis nula, y eso 
 #nos hace saber que sigue la distribución deseada.
 
 goftest::ad.test(sim,null=gumbel) #Anderson-Darling
-#Vemos que el p-value = .8118, por lo que no se rechaza la hipotesis nula, y eso 
+#Vemos que el p-value = .4658, por lo que no se rechaza la hipotesis nula, y eso 
 #nos hace saber que sigue la distribución deseada.
 
-corte<- cut(x=sim,breaks=seq(min(sim),max(sim)+1,1)) #Definimos los cortes para 
-observados<-table(corte);observados                  #partir nuestros datos
+corte<- cut(x=sim,breaks=seq(min(sim),max(sim)+.3,.33)) #Definimos los cortes 
+observados<-table(corte);observados                  #para partir nuestros datos
 length(observados)
-int1<-gumbel(-0.126)-gumbel(-Inf)
-int2<-gumbel(0.874)-gumbel(-0.126)
-int3<-gumbel(1.87)-gumbel(0.874)
-int4<-gumbel(2.87)-gumbel(1.87)
-int5<-gumbel(3.87)-gumbel(2.87)
-int6<-gumbel(4.87)-gumbel(3.87)
-int7<-gumbel(5.87)-gumbel(4.87)
-int8<-gumbel(6.87)-gumbel(5.87)
-int9<-gumbel(Inf)-gumbel(6.87)
-esperados<-c(int1,int2,int3,int4,int5,int6,int7,int8, int9)
-chisq.test(x=observados,p=esperados) #Ji-cuadrada
+int1<-gumbel(-0.934)-gumbel(-Inf)
+int2<-gumbel(-0.604)-gumbel(-0.934)
+int3<-gumbel(-0.274)-gumbel(-0.604)
+int4<-gumbel(0.0559)-gumbel(-0.274)
+int5<-gumbel(0.386)-gumbel(0.0559)
+int6<-gumbel(0.716)-gumbel(0.386)
+int7<-gumbel(1.05)-gumbel(0.716)
+int8<-gumbel(1.38)-gumbel(1.05)
+int9<-gumbel(1.71)-gumbel(1.38)
+int10<-gumbel(2.04)-gumbel(1.71)
+int11<-gumbel(2.37)-gumbel(2.04)
+int12<-gumbel(2.7)-gumbel(2.37)
+int13<-gumbel(3.03)-gumbel(2.7)
+int14<-gumbel(3.36)-gumbel(3.03)
+int15<-gumbel(3.69)-gumbel(3.36)
+int16<-gumbel(4.02)-gumbel(3.69)
+int17<-gumbel(4.35)-gumbel(4.02)
+int18<-gumbel(Inf)-gumbel(4.35)
 
-#Realizamos los plots 
+esperados<-c(int1, int2, int3, int4, int5,int6, int7, int8, int9, int10, int11, 
+             int12, int13, int14, int15, int16, int17, int18)
+chisq.test(x=observados,p=esperados) #Ji-cuadrada
+#Vemos que el p-value = .4621, por lo que no se rechaza la hipotesis nula, y eso 
+#nos hace saber que sigue la distribución deseada.
+
+#Por lo tanto, una vez que pasó los 3 test de bonda de ajuste, concluimos que
+#la distribución deseada si es la distribución Gumbel.
+
+#Realizamos los plots para visualizar la comparación de la función de distribu
+#ción de los valores extremos teórica y la funcón de distribución empirica.
 
 plot(gumbel,from=-2,to=10,col="slateblue2",lwd=2,
      main="Distribución\n Teórica vs Empírica",
@@ -587,6 +604,8 @@ plot(ecdf(sim),verticals=T,xlim=c(-2,10),ad=T,col="darkgoldenrod1",lwd=1.5,lty=2
 
 legend("bottomright", 
        lty=1,lwd=c(1.5),legend=c("Teórica","Empírica"), col=c("slateblue2","darkgoldenrod1"))
+
+#Vemos que ambas distribuciones son estadísticamente identicas
 ```
 
 
@@ -805,9 +824,6 @@ Veamos que:
     \E[N] & = \sum_{k = 1}^{\infty} k\p(N = k)\\
     & = \sum_{k=1}^{\infty} kP_k\\
     & = \sum_{k=1}^{\infty} kP_{k-1}\Big(a+\frac{b}{k}\Big)\\
-\end{align*}
-\newpage
-\begin{align*}
     & = \sum_{k=1}^{\infty} (ak+b)P_{k-1}\\
     & = \sum_{m=0}^{\infty} a(m+1)P_{m} + bP_{m}\\
     & = a\sum_{m=0}^{\infty}mP_{m}+a\sum_{m=0}^{\infty}P_{m} + b\sum_{m=0}^{\infty}P_{m}\\

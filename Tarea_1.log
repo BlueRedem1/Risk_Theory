@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  4 NOV 2021 12:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  4 NOV 2021 12:51
 entering extended mode
 **./Tarea_1.tex
 (Tarea_1.tex
@@ -575,15 +575,15 @@ t>
 File: Tarea_1_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
 <use Tarea_1_files/figure-latex/unnamed-chunk-4-1.pdf>
 Package pdftex.def Info: Tarea_1_files/figure-latex/unnamed-chunk-4-1.pdf  used
- on input line 912.
+ on input line 934.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [16]
-Underfull \hbox (badness 10000) in paragraph at lines 914--915
+Underfull \hbox (badness 10000) in paragraph at lines 942--943
 
  []
 
 [17 <./Tarea_1_files/figure-latex/unnamed-chunk-4-1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 960--961
+Underfull \hbox (badness 10000) in paragraph at lines 988--989
 
  []
 
@@ -593,11 +593,12 @@ t>
 File: Tarea_1_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
 <use Tarea_1_files/figure-latex/unnamed-chunk-6-1.pdf>
 Package pdftex.def Info: Tarea_1_files/figure-latex/unnamed-chunk-6-1.pdf  used
- on input line 992.
+ on input line 1020.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 996.
+(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 1024.
+
 
 [19 <./Tarea_1_files/figure-latex/unnamed-chunk-6-1.pdf>]
 <Tarea_1_files/figure-latex/unnamed-chunk-6-2.pdf, id=136, 469.755pt x 325.215p
@@ -605,26 +606,26 @@ t>
 File: Tarea_1_files/figure-latex/unnamed-chunk-6-2.pdf Graphic file (type pdf)
 <use Tarea_1_files/figure-latex/unnamed-chunk-6-2.pdf>
 Package pdftex.def Info: Tarea_1_files/figure-latex/unnamed-chunk-6-2.pdf  used
- on input line 1063.
+ on input line 1091.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[20 <./Tarea_1_files/figure-latex/unnamed-chunk-6-2.pdf>]
-<Tarea_1_files/figure-latex/unnamed-chunk-6-3.pdf, id=146, 469.755pt x 325.215p
+[20] [21 <./Tarea_1_files/figure-latex/unnamed-chunk-6-2.pdf>]
+<Tarea_1_files/figure-latex/unnamed-chunk-6-3.pdf, id=150, 469.755pt x 325.215p
 t>
 File: Tarea_1_files/figure-latex/unnamed-chunk-6-3.pdf Graphic file (type pdf)
 <use Tarea_1_files/figure-latex/unnamed-chunk-6-3.pdf>
 Package pdftex.def Info: Tarea_1_files/figure-latex/unnamed-chunk-6-3.pdf  used
- on input line 1138.
+ on input line 1166.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[21] [22 <./Tarea_1_files/figure-latex/unnamed-chunk-6-3.pdf>]
+[22 <./Tarea_1_files/figure-latex/unnamed-chunk-6-3.pdf>]
 <Tarea_1_files/figure-latex/unnamed-chunk-6-4.pdf, id=160, 469.755pt x 325.215p
 t>
 File: Tarea_1_files/figure-latex/unnamed-chunk-6-4.pdf Graphic file (type pdf)
 <use Tarea_1_files/figure-latex/unnamed-chunk-6-4.pdf>
 Package pdftex.def Info: Tarea_1_files/figure-latex/unnamed-chunk-6-4.pdf  used
- on input line 1209.
+ on input line 1237.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[23 <./Tarea_1_files/figure-latex/unnamed-chunk-6-4.pdf>] [24]
-Underfull \hbox (badness 10000) in paragraph at lines 1315--1316
+[23] [24 <./Tarea_1_files/figure-latex/unnamed-chunk-6-4.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 1342--1343
 
  []
 
@@ -655,7 +656,7 @@ s/type1/public/lm/lmtt10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmtti10.pfb
 ex/fonts/type1/public/amsfonts/symbols/msam7.pfb><D:/Miktwx LaTex/fonts/type1/p
 ublic/amsfonts/symbols/msbm10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/
 symbols/msbm7.pfb>
-Output written on Tarea_1.pdf (26 pages, 621703 bytes).
+Output written on Tarea_1.pdf (26 pages, 622468 bytes).
 PDF statistics:
  293 PDF objects out of 1000 (max. 8388607)
  42 named destinations out of 1000 (max. 500000)
