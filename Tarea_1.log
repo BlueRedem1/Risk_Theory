@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  4 NOV 2021 13:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  4 NOV 2021 15:51
 entering extended mode
 **./Tarea_1.tex
 (Tarea_1.tex
@@ -524,116 +524,120 @@ Underfull \hbox (badness 10000) in paragraph at lines 130--135
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 191--192
+Underfull \hbox (badness 10000) in paragraph at lines 192--193
 
  []
 
 [2]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
-01.
+02.
 (D:\Miktwx LaTex\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [3] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 312--313
+Underfull \hbox (badness 10000) in paragraph at lines 313--314
 
  []
 
 [5] [6]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
-98.
+99.
 (D:\Miktwx LaTex\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 408.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 409.
 
-Underfull \hbox (badness 10000) in paragraph at lines 439--440
-
- []
-
-[7] [8] [9] [10] [11] [12]
-Underfull \hbox (badness 10000) in paragraph at lines 647--648
+Underfull \hbox (badness 10000) in paragraph at lines 440--441
 
  []
 
-[13]
-Underfull \hbox (badness 10000) in paragraph at lines 712--713
+[7] [8] [9] [10] [11] [12] [13]
+Underfull \hbox (badness 10000) in paragraph at lines 750--751
+
+ []
+
+[14] [15]
+Underfull \hbox (badness 10000) in paragraph at lines 814--815
 
  []
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 735.
+LaTeX Warning: Command \' invalid in math mode on input line 837.
 
-[14]
+[16]
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-801.
+903.
 (D:\Miktwx LaTex\tex/latex/lm\ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [15] [16]
-<Tarea_1_files/figure-latex/unnamed-chunk-4-1.pdf, id=105, 469.755pt x 325.215p
-t>
-File: Tarea_1_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
-<use Tarea_1_files/figure-latex/unnamed-chunk-4-1.pdf>
-Package pdftex.def Info: Tarea_1_files/figure-latex/unnamed-chunk-4-1.pdf  used
- on input line 957.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[17]
-Underfull \hbox (badness 10000) in paragraph at lines 965--966
-
+) [17]
+Overfull \vbox (0.3289pt too high) detected at line 1022
  []
 
-[18 <./Tarea_1_files/figure-latex/unnamed-chunk-4-1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 1011--1012
-
- []
-
-[19]
-<Tarea_1_files/figure-latex/unnamed-chunk-6-1.pdf, id=129, 469.755pt x 325.215p
+[18]
+<Tarea_1_files/figure-latex/unnamed-chunk-6-1.pdf, id=115, 469.755pt x 325.215p
 t>
 File: Tarea_1_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
 <use Tarea_1_files/figure-latex/unnamed-chunk-6-1.pdf>
 Package pdftex.def Info: Tarea_1_files/figure-latex/unnamed-chunk-6-1.pdf  used
- on input line 1043.
+ on input line 1059.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-
-LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 1047.
-
-
-[20 <./Tarea_1_files/figure-latex/unnamed-chunk-6-1.pdf>]
-<Tarea_1_files/figure-latex/unnamed-chunk-6-2.pdf, id=140, 469.755pt x 325.215p
-t>
-File: Tarea_1_files/figure-latex/unnamed-chunk-6-2.pdf Graphic file (type pdf)
-<use Tarea_1_files/figure-latex/unnamed-chunk-6-2.pdf>
-Package pdftex.def Info: Tarea_1_files/figure-latex/unnamed-chunk-6-2.pdf  used
- on input line 1114.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[21] [22 <./Tarea_1_files/figure-latex/unnamed-chunk-6-2.pdf>]
-<Tarea_1_files/figure-latex/unnamed-chunk-6-3.pdf, id=154, 469.755pt x 325.215p
-t>
-File: Tarea_1_files/figure-latex/unnamed-chunk-6-3.pdf Graphic file (type pdf)
-<use Tarea_1_files/figure-latex/unnamed-chunk-6-3.pdf>
-Package pdftex.def Info: Tarea_1_files/figure-latex/unnamed-chunk-6-3.pdf  used
- on input line 1189.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[23 <./Tarea_1_files/figure-latex/unnamed-chunk-6-3.pdf>]
-<Tarea_1_files/figure-latex/unnamed-chunk-6-4.pdf, id=164, 469.755pt x 325.215p
-t>
-File: Tarea_1_files/figure-latex/unnamed-chunk-6-4.pdf Graphic file (type pdf)
-<use Tarea_1_files/figure-latex/unnamed-chunk-6-4.pdf>
-Package pdftex.def Info: Tarea_1_files/figure-latex/unnamed-chunk-6-4.pdf  used
- on input line 1260.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[24] [25 <./Tarea_1_files/figure-latex/unnamed-chunk-6-4.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 1365--1366
+[19]
+Underfull \hbox (badness 10000) in paragraph at lines 1067--1068
 
  []
 
-[26] [27] (Tarea_1.aux) ) 
+[20 <./Tarea_1_files/figure-latex/unnamed-chunk-6-1.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 1113--1114
+
+ []
+
+[21]
+<Tarea_1_files/figure-latex/unnamed-chunk-8-1.pdf, id=139, 469.755pt x 325.215p
+t>
+File: Tarea_1_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pdf)
+<use Tarea_1_files/figure-latex/unnamed-chunk-8-1.pdf>
+Package pdftex.def Info: Tarea_1_files/figure-latex/unnamed-chunk-8-1.pdf  used
+ on input line 1145.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
+(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 1149.
+
+
+[22 <./Tarea_1_files/figure-latex/unnamed-chunk-8-1.pdf>]
+<Tarea_1_files/figure-latex/unnamed-chunk-8-2.pdf, id=150, 469.755pt x 325.215p
+t>
+File: Tarea_1_files/figure-latex/unnamed-chunk-8-2.pdf Graphic file (type pdf)
+<use Tarea_1_files/figure-latex/unnamed-chunk-8-2.pdf>
+Package pdftex.def Info: Tarea_1_files/figure-latex/unnamed-chunk-8-2.pdf  used
+ on input line 1216.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[23] [24 <./Tarea_1_files/figure-latex/unnamed-chunk-8-2.pdf>]
+<Tarea_1_files/figure-latex/unnamed-chunk-8-3.pdf, id=164, 469.755pt x 325.215p
+t>
+File: Tarea_1_files/figure-latex/unnamed-chunk-8-3.pdf Graphic file (type pdf)
+<use Tarea_1_files/figure-latex/unnamed-chunk-8-3.pdf>
+Package pdftex.def Info: Tarea_1_files/figure-latex/unnamed-chunk-8-3.pdf  used
+ on input line 1291.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[25 <./Tarea_1_files/figure-latex/unnamed-chunk-8-3.pdf>]
+<Tarea_1_files/figure-latex/unnamed-chunk-8-4.pdf, id=175, 469.755pt x 325.215p
+t>
+File: Tarea_1_files/figure-latex/unnamed-chunk-8-4.pdf Graphic file (type pdf)
+<use Tarea_1_files/figure-latex/unnamed-chunk-8-4.pdf>
+Package pdftex.def Info: Tarea_1_files/figure-latex/unnamed-chunk-8-4.pdf  used
+ on input line 1362.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[26] [27 <./Tarea_1_files/figure-latex/unnamed-chunk-8-4.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 1467--1468
+
+ []
+
+[28] [29] (Tarea_1.aux) ) 
 Here is how much of TeX's memory you used:
- 13354 strings out of 478927
- 197731 string characters out of 2866168
- 554625 words of memory out of 3000000
+ 13358 strings out of 478927
+ 197759 string characters out of 2866168
+ 557625 words of memory out of 3000000
  30823 multiletter control sequences out of 15000+600000
  453021 words of font info for 111 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -656,10 +660,10 @@ s/type1/public/lm/lmtt10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmtti10.pfb
 ex/fonts/type1/public/amsfonts/symbols/msam7.pfb><D:/Miktwx LaTex/fonts/type1/p
 ublic/amsfonts/symbols/msbm10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/
 symbols/msbm7.pfb>
-Output written on Tarea_1.pdf (27 pages, 626940 bytes).
+Output written on Tarea_1.pdf (29 pages, 635712 bytes).
 PDF statistics:
- 298 PDF objects out of 1000 (max. 8388607)
- 43 named destinations out of 1000 (max. 500000)
+ 308 PDF objects out of 1000 (max. 8388607)
+ 47 named destinations out of 1000 (max. 500000)
  28703 words of extra memory for PDF output out of 29859 (max. 10000000)
 
 

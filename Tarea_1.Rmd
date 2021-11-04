@@ -37,6 +37,7 @@ Detalla cada uno de los pasos en tu demostración.
 Usaremos la función de verosimilitud inducida por $\tau(\theta)$; la cual se denota comunmente en la literatura como $L^{*}$ y que está dada por:
 
 $$ L^{*}(n) = Sup_{(\theta|\tau(\theta) = \eta)} {L(\theta|X)} $$
+
 Donde $\eta = \tau(\theta)$
 
 Esto debido a que la función no necesariamente es inyectiva, entonces podría haber más de un valor $\theta_{k}$ para el que $\tau(\theta) = \eta$ ((por ejemplo, si $\hat{\theta}$ es el EMV de $\theta$, podría pasar que, si $\tau(\theta) = \theta^{2}$, entonces $\theta_{k} = -\hat{\theta}$; pasa que $[\hat{\theta}]^{2}\tau(\hat{\theta}) = \tau(\theta_{k}) = \tau(-\hat{\theta}) = [-\hat{\theta}]^{2})$) y la relación entre la maximización sobre $\eta$ y sobre $\theta$ se podría romper en estos casos. 
@@ -62,7 +63,7 @@ Ya que, si bien puede existir más de una $\theta_{k} : \tau(\theta_{k}) = \tau(
 $$ sup_{(\theta|\tau(\theta)=\tau(\hat{\theta}))} L(\theta) = L^{*}(\tau(\hat{\theta}))$$
 Y de esta serie de igualdades concluimos que:
 
-$$ L^{*}(\hat{\eta}) =  L^{*}(\tau(\hat{\theta})) $$
+$$ L^{*}(\hat{\eta}) =  L^{*}(\tau(\hat{\theta}))$$
 $$ \boxed{\therefore \hat{\eta} = \tau(\hat{\theta})} _\blacksquare$$
 
 **Ejercicio 2.**
@@ -291,8 +292,11 @@ ii) $Var\left [ X \right ]=20,000$
 Usando el inciso a) calcula el $VaR_p\left ( X \right )$ y $TVaR_p\left ( X \right )$ con un nivel de confianza del 65%
 ${}$\newline
 **Solución:**
+
 Nota: Lo hicimos para la Pareto que definió el profesor y posteriormente para la Pareto que viene en las tablas del PDF "Medidas de Riesgo" 
+
 $\textbf{Pareto que definió el profesor}$
+
 a) $VaR$: Sabemos que el $VaR$ a un nivel de confianza $\alpha$, es el cuantil $\alpha$ de la distribución. Buscamos $p \in (b, \infty)$ tal que:
 
 \begin{align*} & \int_{0}^{p}\frac{ab^{a}}{(b + x)^{a+1}} dx = \alpha\\
@@ -312,7 +316,72 @@ Pero
             \implies & p = \frac{b}{(1 - \alpha)^{\frac{1}{a}}} - b
 \end{align*}
 
+$$\boxed{\therefore VaR_{\alpha}(X) = b(1 - \alpha)^{-\frac{1}{a}} - b _\blacksquare}$$
+Si X $\sim$ pareto(a,b); que es la expresión de las notas :D $_\blacksquare$
 
+TVaR: Supongamos que $a > 1$, ya que de entrada, $\mathbb{E}[X] = \infty$, si $a \leq 1$. Además de que $\frac{ab(1-\alpha)^{-\frac{1}{a}}}{a-1} > 0 \Leftrightarrow a > 1$; que es la fórmula a la que debemos llegar, acorde a las notas, y no tendría sentido que la esperanza condicional fuera negativa, si $x > b > 0$.
+
+Sabemos que, si $X$ es una v.a. no-negativa tal que $X \in L^{1}$ (es decir, $\mathbb{E}[X] < \infty$)
+
+\begin{align*} TVaR_{\alpha}(x) &=  VaR_{\alpha}(x) + \frac{\int_{VaR_{\alpha}(x)}^{\infty} S_{x}(t)dt}{1 - \alpha}\\
+                        \implies& S_{x}(t) = 1 - F_{x}(t) = 1 - \left[1-\left[\frac{b}{(b+x)}\right]^{a}\right]\\  
+                                &= 1 - 1 + \left[\frac{b}{b+x}\right]^{a} = \left[\frac{b}{b+x}\right]^{a}\\
+\end{align*}
+Sustituyendo con lo obtenido anteriormente:
+
+$$ VaR_{\alpha}(x) + \frac{\int_{VaR_{\alpha}(x)}^{\infty} S_{x}(t)dt}{1 - \alpha} = b(1 - \alpha)^{-\frac{1}{a}} + \frac{\int_{b(1 - \alpha)^{-\frac{1}{a}}-b}^{\infty}\left(\frac{b}{b+t}\right)^{a}dt}{1 - \alpha}$$
+Calculamos la integral:
+$$\int_{b(1 - \alpha)^{-\frac{1}{a}} - b} ^{\infty}\left(\frac{b}{b+t}\right)^{a}dt = b^{a} \int_{b((1 - \alpha)^{-\frac{1}{a}}-1)}^{\infty}\left[\frac{1}{b+t}\right]^{a}dt = b^{a} \int_{b((1 - \alpha)^{-\frac{1}{a}}-1)}^{\infty}(b + t)^{-a}dt$$
+\begin{align*} & b^{a}\left[\frac{(b + t)^{1-a}}{1-a}\right]|_{b((1 - \alpha)^{-\frac{1}{a}}-1)}^{\infty}\\
+               &= b^{a}\left[\lim_{t\rightarrow \infty}\left[\frac{1}{(1-a)(b+t)^{a-1}}\right] - \frac{[b+b[(1-\alpha)^{-\frac{1}{a}}-1]]^{1-a}}{(1 - a)}\right]\\
+\end{align*}
+Como suponemos $a>1 \implies a-1>0$; entonces $\lim_{1\rightarrow \infty}\left[\frac{1}{(1-a)(b+t)^{a-1}}\right] = 0$
+\begin{align*} &= - b^{a}\left[-0 + \left[\frac{b + b(1-\alpha)^{\frac{-1}{a}}-b}{1-a}\right]^{1-a}\right]\\
+               &= -b^{a}\left[\frac{b^{1-a}(1-\alpha)^{\frac{-(1-a)}{a}}}{1 - a}\right]\\
+               &= -b^{a}\left[\frac{b^{1-a}(1-\alpha)^{\frac{a-1}{a}}}{1 - a}\right]\\
+               &= -b^{a}\left[\frac{b^{1-a}(1-\alpha)(1-\alpha)^{\frac{-1}{a}}}{1 - a}\right]\\
+               &= -b^{a}\left[\frac{b}{b^{a}}\left[\frac{(1-\alpha)}{(1 - \alpha)(1-\alpha)^{\frac{1}{a}}}\right]\right]\\
+               &= -b\left[\frac{(1-\alpha)}{(1 - \alpha)(1-\alpha)^{\frac{1}{a}}}\right]\\
+       \implies& \frac{\int_{b(1 - \alpha)^{-\frac{1}{a}}-b}^{\infty}\left(\frac{b}{b+t}\right)^{a}dt}{1 - \alpha} = \frac{-b\left[\frac{(1-\alpha)}{(1 - \alpha)(1-\alpha)^{\frac{1}{a}}}\right]}{1 - \alpha} = \frac{-b}{(1-a)(1-\alpha)^{\frac{1}{a}}}\\
+       \implies& TVar = b(1-\alpha)^{-\frac{1}{a}}-b -b\left[\frac{1}{(1-a)(1-\alpha)^{\frac{1}{a}}}\right]\\
+               &= \frac{b}{(1-\alpha)^{\frac{1}{a}}} -b -b\left[\frac{1}{(1-a)(1-\alpha)^{\frac{1}{a}}}\right]\\
+               &= \frac{b}{(1-\alpha)^{\frac{1}{a}}} \left[1-\frac{1}{(1-a)}\right]-b\\
+               &= \frac{b}{(1-\alpha)^{\frac{1}{a}}} \left[\frac{1-a-1}{(1-a)}\right]-b = \frac{b}{(1-\alpha)^{\frac{1}{a}}}\left[\frac{a}{a-1}\right]\\
+               &= \frac{ab}{(1-\alpha)^{\frac{1}{a}}(a-1)}-b\\
+               &= b\left[\frac{a}{(1-\alpha)^{\frac{1}{a}}(a-1)} - 1 \right]
+\end{align*}
+
+$$ \boxed{\therefore TVaR = b\left[\frac{a}{(1-\alpha)^{\frac{1}{a}}(a-1)} - 1 \right]_\blacksquare}$$
+
+b) Dado $\mathbb{E}[X] = 100$ y $Var[X] = 20000$, para una $Pareto(a,b)$ sabemos que:
+
+$\mathbb{E}[X]: \frac{b}{a-1}$ y $Var(X) = \frac{ab^{2}}{(a-1)^{2}(a-2)} = \frac{a}{a-2}\left[\frac{b}{(a-1)}\right]^{2} = \frac{a}{(a-2)} \mathbb{E}^{2}[X] = \frac{a}{(a-2)} (100)^{2}$, igualando tenemos:
+
+\begin{align*} & \frac{20000}{10000} =  \frac{a}{a-2}\\ 
+       \implies& 2 = \frac{a}{a-2} \implies 2a - 4 = a\\
+       \implies& 2a - a = 4 \implies a = 4\\
+\end{align*}
+
+Luego, $(a-1)(100) = b \implies (4-1)(100) = b$
+$$ \implies 3(100) = b$$
+$$ \implies 300 = b $$
+Calculando a manita las cuentas tenemos que:
+
+$$ \boxed{VaR = 90.03559562 \quad \text{y}\quad TVaR =220.0474608 _\blacksquare } $$
+
+En R hacemos lo siguiente para obtener el valor numerico exacto...
+
+```{r}
+Var <- (300*(1-.65)^-(1 / 4))-300
+Var
+```
+Por lo tanto el valor exacto del $VaR$ es 90.0356 $_\blacksquare$
+
+```{r}
+TVar <- 300*((4)/((1-.65)^(1/4)*(4-1))-1)
+TVar
+```
+Por lo tanto el valor exacto del $TVaR$ es 220.0475 $_\blacksquare$
 
 $\textbf{Pareto que viene en las tablas del PDF "Medidas de Riesgo"}$
 
@@ -320,14 +389,14 @@ a) $VaR$: Sabemos que el $VaR$ a un nivel de confianza $\alpha$, es el cuantil $
 
 \begin{align*} & \int_{b}^{p}\frac{ab^{a}}{x^{a+1}} dx = \alpha\\
                &= ab^{a} \int_{b}^{p}\frac{1}{x^{a+1}} dx = \alpha\\
-\end{align*}
-\newpage
-\begin{align*}
                &= ab^{a} \int_{b}^{p} x^{-[a+1]} dx = \alpha\\
                &= ab^{a} \left[\frac{x^{-[a-1]+1}}{-a}\right] |_{b}^{p} = \alpha\\
                &= ab^{a} \left[\frac{x^{-a}}{-a}\right] |_{b}^{p} = \alpha\\
                &= ab^{a} \left[\frac{-p^{-a}}{a} -\left[-\frac{b^{-a}}{a}\right]\right] = \alpha\\
                &= ab^{a} \left[\frac{-p^{-a}}{a} + \frac{b^{-a}}{a}\right] = \alpha\\
+\end{align*}
+\newpage
+\begin{align*}
                &= b^{a} \left[-p^{-a} + b^{-a}\right] = \alpha\\
                &= -\left[\frac{b}{p}\right]^{a} + \left[\frac{b}{b}\right]^{a} = \alpha\\
                &= -\left[\frac{b}{p}\right]^{a} + 1 = \alpha\\
@@ -345,7 +414,7 @@ a) $VaR$: Sabemos que el $VaR$ a un nivel de confianza $\alpha$, es el cuantil $
 $$  \boxed{\therefore VaR_{\alpha}(X) = b(1 - \alpha)^{-\frac{1}{a}}}$$               
 Si X $\sim$ pareto(a,b); la cual es la expresión de las notas :D $_\blacksquare$
 
-TVaR: Supongamos que $a > 1$, ya que de entrada, $\mathbb{E}[X] = \infty$, si $a \leq 1$. Además de que $\frac{ab(1-\alpha)^-\frac{1}{a}}{a-1} > 0 \Leftrightarrow a > 1$; que es la fórmula a la que debemos llegar, acorde a las notas, y no tendría sentido que la esperanza condicional fuera negativa, si $ x > b > 0$.
+TVaR: Supongamos que $a > 1$, ya que de entrada, $\mathbb{E}[X] = \infty$, si $a \leq 1$. Además de que $\frac{ab(1-\alpha)^{-\frac{1}{a}}}{a-1} > 0 \Leftrightarrow a > 1$; que es la fórmula a la que debemos llegar, acorde a las notas, y no tendría sentido que la esperanza condicional fuera negativa, si $ x > b > 0$.
 
 Sabemos que, si $X$ es una v.a. no-negativa tal que $X \in L^{1}$ (es decir, $\mathbb{E}[X] < \infty$)
 
@@ -354,6 +423,9 @@ Sabemos que, si $X$ es una v.a. no-negativa tal que $X \in L^{1}$ (es decir, $\m
                                 &= 1 - \int_{b}^{t}\frac{ab^{a}}{x^{a+1}}dx\\
                                 &= 1 - ab \int_{b}^{t} x^{-[a+1]}dx\\
                                 &= 1 - ab\left[-\frac{x^{-(a+1)+1}}{a}\right] |_{b}^{t}\\
+\end{align*}
+\newpage
+\begin{align*}
                                 &= 1 - ab\left[-\frac{x^{-(a)}}{a}\right] |_{b}^{t}\\
                                 &= 1 - ab\left[-\frac{t^{-a}}{a} - \left[-\frac{b^{-a}}{a}\right]\right]\\
                                 &= 1 - \frac{ab}{a}\left[-t^{-a} + b^{-a}\right]\\
@@ -373,9 +445,6 @@ Calculamos la integral:
                &= -\frac{b^{a}\left[b^{1-a}(1-\alpha)^{-\frac{1}{a}[1-a]}\right]}{1-a}\\
                &= -\frac{b^{a}b^{(1-a)}(1 - \alpha)^{-\frac{1}{a}-(-\frac{a}{a})}}{1-a}\\
                &= -\frac{b(1-\alpha)^{1-\frac{1}{a}}}{1-a}\\
-\end{align*}
-\newpage
-\begin{align*}
                &= -\frac{b(1-\alpha)}{(1-a)(1-\alpha)^{\frac{1}{a}}}\\
                &= -\frac{b(1-\alpha)(1-\alpha)^{-\frac{1}{a}}}{1-a}\\
                &= \frac{b(1-\alpha)(1-\alpha)^{-\frac{1}{a}}}{a-1}
@@ -407,9 +476,6 @@ Dividiendo entre 10000:
 \begin{align*} & 2 = \frac{1}{a^{2}-2a}\\
                &= 2a^{2}-4a = 1\\
        \implies&  2a^{2}-4a -1 = 0\\
-\end{align*}
-\newpage
-\begin{align*}
                &= \frac{-(-4)\pm \sqrt{4^{2}-4(2)(-1)}}{2(2)}\\
                &= \frac{4\pm \sqrt{16+8}}{4}\\
                &= \frac{4\pm \sqrt{24}}{4}\\
@@ -439,9 +505,6 @@ Por lo tanto el valor exacto del VaR es 160.3012 $_\blacksquare$
 \begin{align*} &\implies TVaR_{.65}(X) = \frac{ab(1-\alpha)^{\frac{-1}{a}}}{a-1} =  \frac{\left(1+\sqrt{\frac{3}{2}}\right)(100)(1-.65)^{\frac{-1}{1+\sqrt{\frac{3}{2}}}}}{1 + \sqrt{\frac{3}{2}} - 1}\\
                &= \frac{\left(1 + \sqrt{\frac{3}{2}}\right)(100)(1-.65)^{\frac{-1}{1+\sqrt{\frac{3}{2}}}}}{ \sqrt{\frac{3}{2}}}\\
                &= \frac{\left(1 + \sqrt{\frac{3}{2}}\right)}{\sqrt{\frac{3}{2}}} * (100)(1-.65)^{\frac{-1}{1 + \sqrt{\frac{3}{2}}}}\\
-\end{align*}
-\newpage
-\begin{align*}
                &= \frac{\left(1 + \sqrt{\frac{3}{2}}\right)}{\sqrt{\frac{3}{2}}} * VaR_{.65}(X)
 \end{align*}
 
@@ -507,7 +570,7 @@ $$-\infty< x<0\Rightarrow x\in(-\infty, 0)$$
 
 Que coincide con el soporte de una $Weibull(\theta_2-\theta_1,0,1)$.
 
-$$ \boxed{\therefore a_n = \theta_2\qquad b_n = \frac{1}{n}\qquad\forall n\in\mathbb{N}}$$ $_\blacksquare$
+$$ \boxed{\therefore a_n = \theta_2\qquad b_n = \frac{1}{n}\qquad\forall n\in\mathbb{N}_\blacksquare}$$ 
 
 
 **Ejercicio 6.**
@@ -617,7 +680,7 @@ chisq.test(x=observados,p=esperados) #Ji-cuadrada
 #Por lo tanto, una vez que pasó los 3 test de bonda de ajuste, concluimos que
 #la distribución deseada si es la distribución Gumbel.
 
-#Realizamos los plots para visualizar la comparación de la función de distribu
+#Realizamos el plot para visualizar la comparación de la función de distribu
 #ción de los valores extremos teórica y la funcón de distribución empirica.
 
 plot(gumbel,from=-2,to=10,col="slateblue2",lwd=2,
@@ -631,11 +694,6 @@ legend("bottomright",
 
 #Vemos que ambas distribuciones son estadísticamente identicas
 ```
-
-
-
-
-
 
 **Ejercicio 7.**
 \newline
