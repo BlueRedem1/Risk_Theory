@@ -740,7 +740,7 @@ ggplot()+
 
 a) Ver el código
 
-Una vez visto el código, nos quedamos con la Poisson, ya que presenta una estadística menor que la binomial y binomial negativa. Además, la binomial nos toparía el número de reclamaciones hasta una $n$, sin embargo la Poisson tiene el plus de que corre sobre todo $\mathbb{N}$. Tambien porque el parametro $n$ es muy grande y teniamos que cuando $n \rightarrow \infty$ converge a una Poisson, por lo que es otra razón para escoger dicha distribución.
+Una vez visto el código, nos quedamos con la Poisson, ya que presenta una estadística menor que la binomial y binomial negativa. Además, la binomial nos toparía el número de reclamaciones hasta una $n$, sin embargo la Poisson tiene el plus de que corre sobre todo $\mathbb{N}$.
 Entonces, la elegimos dado que su estadística para la prueba de la Ji-cuadrada es menor, lo que indica un error menor, además de que tiene la ventaja de que sobre todo $\mathbb{N}$ y es más realista, ya que no nos topa un límite de reclamaciones. $_\blacksquare$
 
 b) Le ajustamos el parámetro $\lambda = \overline{X}$ (Ver el código), ya que es su estimador por momentos y de máxima verosimilitud. Así:
