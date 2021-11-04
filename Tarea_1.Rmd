@@ -296,6 +296,9 @@ a) $VaR$: Sabemos que el $VaR$ a un nivel de confianza $\alpha$, es el cuantil $
 
 \begin{align*} & \int_{b}^{p}\frac{ab^{a}}{x^{a+1}} dx = \alpha\\
                &= ab^{a} \int_{b}^{p}\frac{1}{x^{a+1}} dx = \alpha\\
+\end{align*}
+\newpage
+\begin{align*}
                &= ab^{a} \int_{b}^{p} x^{-[a+1]} dx = \alpha\\
                &= ab^{a} \left[\frac{x^{-[a-1]+1}}{-a}\right] |_{b}^{p} = \alpha\\
                &= ab^{a} \left[\frac{x^{-a}}{-a}\right] |_{b}^{p} = \alpha\\
@@ -380,6 +383,9 @@ Dividiendo entre 10000:
 \begin{align*} & 2 = \frac{1}{a^{2}-2a}\\
                &= 2a^{2}-4a = 1\\
        \implies&  2a^{2}-4a -1 = 0\\
+\end{align*}
+\newpage
+\begin{align*}
                &= \frac{-(-4)\pm \sqrt{4^{2}-4(2)(-1)}}{2(2)}\\
                &= \frac{4\pm \sqrt{16+8}}{4}\\
                &= \frac{4\pm \sqrt{24}}{4}\\
@@ -407,11 +413,11 @@ Por lo tanto el valor exacto del VaR es 160.3012 $_\blacksquare$
 
 
 \begin{align*} &\implies TVaR_{.65}(X) = \frac{ab(1-\alpha)^{\frac{-1}{a}}}{a-1} =  \frac{\left(1+\sqrt{\frac{3}{2}}\right)(100)(1-.65)^{\frac{-1}{1+\sqrt{\frac{3}{2}}}}}{1 + \sqrt{\frac{3}{2}} - 1}\\
+               &= \frac{\left(1 + \sqrt{\frac{3}{2}}\right)(100)(1-.65)^{\frac{-1}{1+\sqrt{\frac{3}{2}}}}}{ \sqrt{\frac{3}{2}}}\\
+               &= \frac{\left(1 + \sqrt{\frac{3}{2}}\right)}{\sqrt{\frac{3}{2}}} * (100)(1-.65)^{\frac{-1}{1 + \sqrt{\frac{3}{2}}}}\\
 \end{align*}
 \newpage
 \begin{align*}
-               &= \frac{\left(1 + \sqrt{\frac{3}{2}}\right)(100)(1-.65)^{\frac{-1}{1+\sqrt{\frac{3}{2}}}}}{ \sqrt{\frac{3}{2}}}\\
-               &= \frac{\left(1 + \sqrt{\frac{3}{2}}\right)}{\sqrt{\frac{3}{2}}} * (100)(1-.65)^{\frac{-1}{1 + \sqrt{\frac{3}{2}}}}\\
                &= \frac{\left(1 + \sqrt{\frac{3}{2}}\right)}{\sqrt{\frac{3}{2}}} * VaR_{.65}(X)
 \end{align*}
 
@@ -530,7 +536,8 @@ La cual es una distribución $Gumbel \left(\alpha = \frac{1}{\lambda}, \beta = 0
 
 $$ \boxed{\therefore a_{n} = 1 \quad \text{y} \quad b_{n} = \frac{ln(n)}{\lambda} _\blacksquare}$$
 
-b)
+b) Realizamos el siguiente código para ver que si cumple con las 3 pruebas de bondad de ajuste, es decir:
+- Anderson-Darling, Kolmogorov Smirnov y Ji cuadrada
 ```{r}
 library(actuar)
 gumbel<-function(x){
@@ -548,8 +555,12 @@ sim<-(replicate(n=10000,
 #Realizamos las 3 pruebas para verificar la distribución deseada
 
 ks.test(unique(sim),"gumbel") #Kolmogorov-Smirnov
+#Vemos que el p-value = .7212, por lo que no se rechaza la hipotesis nula, y eso 
+#nos hace saber que sigue la distribución deseada.
 
-goftest::ad.test(sim,null="gumbel", alpha = 0.5, scale = 0) #Anderson-Darling
+goftest::ad.test(sim,null=gumbel) #Anderson-Darling
+#Vemos que el p-value = .8118, por lo que no se rechaza la hipotesis nula, y eso 
+#nos hace saber que sigue la distribución deseada.
 
 corte<- cut(x=sim,breaks=seq(min(sim),max(sim)+1,1)) #Definimos los cortes para 
 observados<-table(corte);observados                  #partir nuestros datos
