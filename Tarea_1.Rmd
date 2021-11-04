@@ -297,23 +297,20 @@ a) $VaR$: Sabemos que el $VaR$ a un nivel de confianza $\alpha$, es el cuantil $
 \begin{align*} & \int_{b}^{p}\frac{ab^{a}}{x^{a+1}} dx = \alpha\\
                &= ab^{a} \int_{b}^{p}\frac{1}{x^{a+1}} dx = \alpha\\
                &= ab^{a} \int_{b}^{p} x^{-[a+1]} dx = \alpha\\
-               &= ab^{a} [\frac{x^{-[a-1]+1}}{-a}] |_{b}^{p} = \alpha\\
-               &= ab^{a} [\frac{x^{-a}}{-a} |_{b}^{p} = \alpha\\
-               &= ab^{a} [\frac{-p^{-a}}{a} -[-\frac{b^{-a}}{a}]] = \alpha\\
-               &= ab^{a} [\frac{-p^{-a}}{a} + \frac{b^{-a}}{a}] = \alpha\\
-               &= b^{a} [-p^{-a} + b^{-a}] = \alpha\\
-               &= -[\frac{b}{p}]^{a} + [\frac{b}{b}]^{a} = \alpha\\
-               &= -[\frac{b}{p}]^{a} + 1 = \alpha\\
-               &= [\frac{b}{p}]^{a} - 1 = -\alpha\\
-               &= [\frac{b}{p}]^{a} = 1-\alpha\\
-               &= aln[\frac{b}{p}] = ln[1-\alpha]\\
-               &= ln[{b}] - ln[{p}] = \frac{ln[1-\alpha]}{a}\\
-               &= ln[{b}] - \frac{ln[1-\alpha]}{a} = ln[p]\\
-               &= p = e^{ln[b]-\frac{ln[a-\alpha]}{a}}\\
-\end{align*}
-\newpage
-\begin{align*}
-               &= p = \frac{e^{ln[b]}}{e^{ln[(1-a)^\frac{1}{a}]}}\\
+               &= ab^{a} \left[\frac{x^{-[a-1]+1}}{-a}\right] |_{b}^{p} = \alpha\\
+               &= ab^{a} \left[\frac{x^{-a}}{-a}\right] |_{b}^{p} = \alpha\\
+               &= ab^{a} \left[\frac{-p^{-a}}{a} -\left[-\frac{b^{-a}}{a}\right]\right] = \alpha\\
+               &= ab^{a} \left[\frac{-p^{-a}}{a} + \frac{b^{-a}}{a}\right] = \alpha\\
+               &= b^{a} \left[-p^{-a} + b^{-a}\right] = \alpha\\
+               &= -\left[\frac{b}{p}\right]^{a} + \left[\frac{b}{b}\right]^{a} = \alpha\\
+               &= -\left[\frac{b}{p}\right]^{a} + 1 = \alpha\\
+               &= \left[\frac{b}{p}\right]^{a} - 1 = -\alpha\\
+               &= \left[\frac{b}{p}\right]^{a} = 1-\alpha\\
+               &= aln\left[\frac{b}{p}\right] = ln[1-\alpha]\\
+               &= ln\left[{b}\right] - ln\left[{p}\right] = \frac{ln\left[1-\alpha\right]}{a}\\
+               &= ln\left[{b}\right] - \frac{ln\left[1-\alpha\right]}{a} = ln\left[p\right]\\
+               &= p = e^{ln\left[b\right]-\frac{ln\left[a-\alpha\right]}{a}}\\
+               &= p = \frac{e^{ln[b]}}{e^{ln\left[(1-a)^\frac{1}{a}\right]}}\\
                &= p = \frac{b}{(a-\alpha)^{1}{a}}\\
                &= p = b(1-\alpha)^{-\frac{1}{a}}
 \end{align*}
@@ -329,26 +326,29 @@ Sabemos que, si $X$ es una v.a. no-negativa tal que $X \in L^{1}$ (es decir, $\m
                                 &\implies S_{x}(t) = 1 - F_{x}(t)\\ 
                                 &= 1 - \int_{b}^{t}\frac{ab^{a}}{x^{a+1}}dx\\
                                 &= 1 - ab \int_{b}^{t} x^{-[a+1]}dx\\
-                                &= 1 - ab[-\frac{x^{-(a+1)+1}}{a}] |_{b}^{t}\\
-                                &= 1 - ab[-\frac{x^{-(a)}}{a}] |_{b}^{t}\\
-                                &= 1 - ab[-\frac{t^{-a}}{a} - [-\frac{b^{-a}}{a}]]\\
-                                &= 1 - \frac{ab}{a}[-t^{-a} + b^{-a}]\\
-                                &= 1 - [-[\frac{b}{t}]^{a} + [\frac{b}{b}]^{a}]\\
-                                &= 1 + [\frac{b}{t}]^{a} - 1\\
-                                &= [\frac{b}{b}]^{a}
+                                &= 1 - ab\left[-\frac{x^{-(a+1)+1}}{a}\right] |_{b}^{t}\\
+                                &= 1 - ab\left[-\frac{x^{-(a)}}{a}\right] |_{b}^{t}\\
+                                &= 1 - ab\left[-\frac{t^{-a}}{a} - \left[-\frac{b^{-a}}{a}\right]\right]\\
+                                &= 1 - \frac{ab}{a}\left[-t^{-a} + b^{-a}\right]\\
+                                &= 1 - \left[-\left[\frac{b}{t}\right]^{a} + \left[\frac{b}{b}\right]^{a}\right]\\
+                                &= 1 + \left[\frac{b}{t}\right]^{a} - 1\\
+                                &= \left[\frac{b}{b}\right]^{a}
 \end{align*}
 
 Sustituyendo con lo obtenido anteriormente:
 
-$$ VaR_{\alpha}(x) + \frac{\int_{VaR_{\alpha}(x)}^{\infty} S_{x}(t)dt}{1 - \alpha} = b(1 - \alpha)^{-\frac{1}{a}} + \frac{\int_{b(1 - \alpha)^{-\frac{1}{a}}}^{\infty}(\frac{b}{t})^{a}dt}{1 - \alpha}$$
+$$ VaR_{\alpha}(x) + \frac{\int_{VaR_{\alpha}(x)}^{\infty} S_{x}(t)dt}{1 - \alpha} = b(1 - \alpha)^{-\frac{1}{a}} + \frac{\int_{b(1 - \alpha)^{-\frac{1}{a}}}^{\infty}\left(\frac{b}{t}\right)^{a}dt}{1 - \alpha}$$
 Calculamos la integral: 
 
-\begin{align*} & \int_{b(1 - \alpha)^{-\frac{1}{a}}}^{\infty}(\frac{b}{t})^{a}dt = b^{a} \int_{b(1 - \alpha)^{-\frac{1}{a}}}^{\infty}{t}^{-a}dt\\
-               &= b^{a}[(\frac{t^{-a+1}}{-a+1})]|_{b(1 - \alpha)^{-\frac{1}{a}}}^{\infty}\\
-               &= b^{a}[\lim_{t\rightarrow \infty}(\frac{t^{1-a}}{1-a}* \frac{[b(1 - \alpha)^{-\frac{1}{a}}]^{1-a}}{1 - a})]\\
-               &= -\frac{b^{a}[b^{1-a}(1-\alpha)^{-\frac{1}{a}[1-a]}]}{1-a}\\
+\begin{align*} & \int_{b(1 - \alpha)^{-\frac{1}{a}}}^{\infty}\left(\frac{b}{t}\right)^{a}dt = b^{a} \int_{b(1 - \alpha)^{-\frac{1}{a}}}^{\infty}{t}^{-a}dt\\
+               &= b^{a}\left[\left(\frac{t^{-a+1}}{-a+1}\right)\right]|_{b(1 - \alpha)^{-\frac{1}{a}}}^{\infty}\\
+               &= b^{a}\left[\lim_{t\rightarrow \infty}\left(\frac{t^{1-a}}{1-a}* \frac{[b(1 - \alpha)^{-\frac{1}{a}}]^{1-a}}{1 - a}\right)\right]\\
+               &= -\frac{b^{a}\left[b^{1-a}(1-\alpha)^{-\frac{1}{a}[1-a]}\right]}{1-a}\\
                &= -\frac{b^{a}b^{(1-a)}(1 - \alpha)^{-\frac{1}{a}-(-\frac{a}{a})}}{1-a}\\
                &= -\frac{b(1-\alpha)^{1-\frac{1}{a}}}{1-a}\\
+\end{align*}
+\newpage
+\begin{align*}
                &= -\frac{b(1-\alpha)}{(1-a)(1-\alpha)^{\frac{1}{a}}}\\
                &= -\frac{b(1-\alpha)(1-\alpha)^{-\frac{1}{a}}}{1-a}\\
                &= \frac{b(1-\alpha)(1-\alpha)^{-\frac{1}{a}}}{a-1}
@@ -358,18 +358,18 @@ Sustituyendo, tenemos que:
 $$ VaR_{\alpha}(x) + \frac{\int_{VaR_{\alpha}(x)}^{\infty} S_{x}(t)dt}{1 - \alpha} = $$
 
 \begin{align*} &= b(1-\alpha)^{-\frac{1}{a}} + \frac{b(1-\alpha)(1-\alpha)^{-\frac{1}{a}}}{a-1(1 - \alpha)}\\
-               &= b(1-\alpha)^{-\frac{1}{a}} [1 + \frac{1}{a - 1}]\\
-               &= b(1-\alpha)^{-\frac{1}{a}} [\frac{a - 1 + 1}{a - 1}]\\
-               &= b(1-\alpha)^{-\frac{1}{a}} [\frac{a}{a - 1}]\\
+               &= b(1-\alpha)^{-\frac{1}{a}} \left[1 + \frac{1}{a - 1}\right]\\
+               &= b(1-\alpha)^{-\frac{1}{a}} \left[\frac{a - 1 + 1}{a - 1}\right]\\
+               &= b(1-\alpha)^{-\frac{1}{a}} \left[\frac{a}{a - 1}\right]\\
                &= \frac{ab(1 - \alpha)^{-\frac{1}{a}}}{a-1}\\
-               &= (\frac{a}{a-1})(VaR_{\alpha}(x))
+               &= \left(\frac{a}{a-1}\right)(VaR_{\alpha}(x))
 \end{align*}
 
 Que es justo lo que teníamos en las notas. $_\blacksquare$
 
 b) Dado $\mathbb{E}[X] = 100$ y $Var[X] = 20000$, para una $Pareto(a,b)$ sabemos que:
 
-$\mathbb{E}[X]: \frac{ab}{a-1}$ y $Var(X) = \frac{ab^{2}}{a(a-1)^{2}(a-2)} = [\frac{ab}{(a-1)}]^{2}\frac{1}{a(a-2)} = \frac{\mathbb{E}^{2}[X]}{a^{2}-2a}$, igualando tenemos:
+$\mathbb{E}[X]: \frac{ab}{a-1}$ y $Var(X) = \frac{ab^{2}}{a(a-1)^{2}(a-2)} = \left[\frac{ab}{(a-1)}\right]^{2}\frac{1}{a(a-2)} = \frac{\mathbb{E}^{2}[X]}{a^{2}-2a}$, igualando tenemos:
 
 \begin{align*} & 100 =  \frac{ab}{a-1} \implies \frac{(a-1)100}{a} = b\\
                &= 20000 = \frac{100^{2}}{a^{2}-2a} = \frac{10000}{a^{2}-2a}\\
@@ -393,7 +393,7 @@ Como debemos tener $a > 0$, entonces tomamos $a = 1 +\sqrt{\frac{3}{2}}$
 
 Sustituyendo:
 
-\begin{align*} & \frac{(a-1)100}{a} = b \rightarrow \frac{(1 + \sqrt{\frac{3}{2}}-1)100}{\sqrt{\frac{3}{2}}} = b \rightarrow \frac{100\sqrt{\frac{3}{2}}}{\sqrt{\frac{3}{2}}}= b \rightarrow b = 100\\
+\begin{align*} & \frac{(a-1)100}{a} = b \rightarrow \frac{\left(1 + \sqrt{\frac{3}{2}}-1\right)100}{\sqrt{\frac{3}{2}}} = b \rightarrow \frac{100\sqrt{\frac{3}{2}}}{\sqrt{\frac{3}{2}}}= b \rightarrow b = 100\\
 \end{align*}
 
 $$ \implies VaR_{.65}(X) = b(1-\alpha)^{\frac{-1}{a}} = 100 (1-.65)^{\frac{-1}{1 + \sqrt{\frac{3}{2}}}}$$
@@ -406,10 +406,13 @@ Var
 Por lo tanto el valor exacto del VaR es 160.3012 $_\blacksquare$
 
 
-\begin{align*} &\implies TVaR_{.65}(X) = \frac{ab(1-\alpha)^{\frac{-1}{a}}}{a-1} =  \frac{(1+\sqrt{\frac{3}{2}})(100)(1-.65)^{\frac{-1}{1+\sqrt{\frac{3}{2}}}}}{1 + \sqrt{\frac{3}{2}} - 1}\\
-               &= \frac{(1+\sqrt{\frac{3}{2}})(100)(1-.65)^{\frac{-1}{1+\sqrt{\frac{3}{2}}}}}{ \sqrt{\frac{3}{2}}}\\
-               &= \frac{(1 + \sqrt{\frac{3}{2}})}{\sqrt{\frac{3}{2}}} * (100)(1-.65)^{\frac{-1}{1 + \sqrt{\frac{3}{2}}}}\\
-               &= \frac{(1 + \sqrt{\frac{3}{2}})}{\sqrt{\frac{3}{2}}} * VaR_{.65}(X)
+\begin{align*} &\implies TVaR_{.65}(X) = \frac{ab(1-\alpha)^{\frac{-1}{a}}}{a-1} =  \frac{\left(1+\sqrt{\frac{3}{2}}\right)(100)(1-.65)^{\frac{-1}{1+\sqrt{\frac{3}{2}}}}}{1 + \sqrt{\frac{3}{2}} - 1}\\
+\end{align*}
+\newpage
+\begin{align*}
+               &= \frac{\left(1 + \sqrt{\frac{3}{2}}\right)(100)(1-.65)^{\frac{-1}{1+\sqrt{\frac{3}{2}}}}}{ \sqrt{\frac{3}{2}}}\\
+               &= \frac{\left(1 + \sqrt{\frac{3}{2}}\right)}{\sqrt{\frac{3}{2}}} * (100)(1-.65)^{\frac{-1}{1 + \sqrt{\frac{3}{2}}}}\\
+               &= \frac{\left(1 + \sqrt{\frac{3}{2}}\right)}{\sqrt{\frac{3}{2}}} * VaR_{.65}(X)
 \end{align*}
 
 En R hacemos lo siguiente para obtener el valor numerico exacto...
@@ -442,7 +445,7 @@ Por hipótesis sabemos que:
 \end{equation}
 
 Donde $M_n:= \max\{X_1,...,X_n\}\quad \forall n\in\N$, y dado que tenemos que las v.a. son i.i.d. entonces:
-$$F_{M_n}(x) = (F_{X_1}(x))^n = \Big(\frac{x-\theta_1}{\theta_2-\theta_1}\Big)^n \qquad \forall n\in\N$$
+$$F_{M_n}(x) = (F_{X_1}(x))^n = \Big(\frac{x-\theta_1}{\theta_2-\theta_1}\Big)^n \qquad \forall n\in\mathbb{N}$$
 
 Sabemos a su vez que:
 \begin{equation}
@@ -453,7 +456,7 @@ Observando (2) y (3) deberíamos tener que:
 $$\lim_{n\to\infty}\p\Big(\frac{M_n - a_n}{b_n}\leq x\Big)=e^{\frac{x}{\theta_2-\theta_1}} = \lim_{n\to\infty} \Big(1+\frac{x}{(\theta_2-\theta_1)n}\Big)^n$$
 $$\Rightarrow \lim_{n\to\infty}\p\Big(\frac{M_n - a_n}{b_n}\leq x\Big) =\lim_{n\to\infty} \Big(1+\frac{x}{(\theta_2-\theta_1)n}\Big)^n$$
 Por otro lado, notemos que:
-$$\p\Big(\frac{M_n - a_n}{b_n}\leq x\Big) = \p(M_n\leq b_n x+ a_n) =F_{M_n}(b_nx+a_n) = \Big(\frac{b_nx+a_n-\theta_1}{\theta_2-\theta_1}\Big)^n \qquad \forall n\in\N$$
+$$\p\Big(\frac{M_n - a_n}{b_n}\leq x\Big) = \p(M_n\leq b_n x+ a_n) =F_{M_n}(b_nx+a_n) = \Big(\frac{b_nx+a_n-\theta_1}{\theta_2-\theta_1}\Big)^n \qquad \forall n\in\mathbb{N}$$
 De esta manera:
 $$\lim_{n\to\infty} \Big(\frac{b_nx+a_n-\theta_1}{\theta_2-\theta_1}\Big)^n = \lim_{n\to\infty} \Big(1+\frac{x}{(\theta_2-\theta_1)n}\Big)^n$$
 
@@ -700,6 +703,9 @@ Veamos que:
     \E[N] & = \sum_{k = 1}^{\infty} k\p(N = k)\\
     & = \sum_{k=1}^{\infty} kP_k\\
     & = \sum_{k=1}^{\infty} kP_{k-1}\Big(a+\frac{b}{k}\Big)\\
+\end{align*}
+\newpage
+\begin{align*}
     & = \sum_{k=1}^{\infty} (ak+b)P_{k-1}\\
     & = \sum_{m=0}^{\infty} a(m+1)P_{m} + bP_{m}\\
     & = a\sum_{m=0}^{\infty}mP_{m}+a\sum_{m=0}^{\infty}P_{m} + b\sum_{m=0}^{\infty}P_{m}\\
