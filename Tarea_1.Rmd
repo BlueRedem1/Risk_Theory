@@ -534,10 +534,10 @@ b)
 ```{r}
 library(actuar)
 gumbel<-function(x){
-  exp(-exp(-lambda * x))} #Definimos la funcion de distribucion obtenida en el 
-                          #inciso a  
-lambda = 7  #Tomamos el valor de lambda de nuestro agrado
-n<-1000  #Tomamos n suficientemente grande
+  exp(-exp(- lambda * x))} #Definimos la funcion de distribucion obtenida en el 
+                           #inciso a  
+lambda<-2  #Tomamos el valor de lambda de nuestro agrado
+n<-1000 #Tomamos n suficientemente grande
 a<-1   #Definimos el valor de la constante a_n
 b<-log(n)/lambda   #Definimos el valor de la constante b_n
 
@@ -547,26 +547,35 @@ sim<-(replicate(n=10000,
 
 #Realizamos las 3 pruebas para verificar la distribución deseada
 
-ks.test(sim,"gumbel") #Kolmogorov-Smirnov
+ks.test(unique(sim),"gumbel") #Kolmogorov-Smirnov
 
-#goftest::ad.test(sim,null="gumbel") Anderson-Darling
+goftest::ad.test(sim,null="gumbel", alpha = 0.5, scale = 0) #Anderson-Darling
 
-#corte<- cut(x=sim,breaks=seq(min(sim),max(sim)+8,1)) #Definimos los cortes para 
-#observados<-table(corte);observados                  #partir nuestros datos
-#length(observados)
-#int1<-gumbel(0.678)-gumbel(-Inf)
-#int2<-gumbel(1.68)-gumbel(0.678)
-#int3<-gumbel(2.68)-gumbel(1.68)
-#int4<-gumbel(3.68)-gumbel(2.68)
-#int5<-gumbel(4.68)-gumbel(3.68)
-#int6<-gumbel(5.68)-gumbel(4.68)
-#int7<-gumbel(6.68)-gumbel(5.68)
-#int8<-gumbel(7.68)-gumbel(6.68)
-#int9<-gumbel(Inf)-gumbel(7.68)
-#esperados<-c(int1,int2,int3,int4,int5,int6,int7,int8,int9)
-#chisq.test(x=observados,p=esperados) #Ji-cuadrada
+corte<- cut(x=sim,breaks=seq(min(sim),max(sim)+1,1)) #Definimos los cortes para 
+observados<-table(corte);observados                  #partir nuestros datos
+length(observados)
+int1<-gumbel(-0.126)-gumbel(-Inf)
+int2<-gumbel(0.874)-gumbel(-0.126)
+int3<-gumbel(1.87)-gumbel(0.874)
+int4<-gumbel(2.87)-gumbel(1.87)
+int5<-gumbel(3.87)-gumbel(2.87)
+int6<-gumbel(4.87)-gumbel(3.87)
+int7<-gumbel(5.87)-gumbel(4.87)
+int8<-gumbel(6.87)-gumbel(5.87)
+int9<-gumbel(Inf)-gumbel(6.87)
+esperados<-c(int1,int2,int3,int4,int5,int6,int7,int8, int9)
+chisq.test(x=observados,p=esperados) #Ji-cuadrada
 
 #Realizamos los plots 
+
+plot(gumbel,from=-2,to=10,col="slateblue2",lwd=2,
+     main="Distribución\n Teórica vs Empírica",
+     col.main="sienna1",ylab=expression(F[X](x))) # Teórica
+
+plot(ecdf(sim),verticals=T,xlim=c(-2,10),ad=T,col="darkgoldenrod1",lwd=1.5,lty=2)
+
+legend("bottomright", 
+       lty=1,lwd=c(1.5),legend=c("Teórica","Empírica"), col=c("slateblue2","darkgoldenrod1"))
 ```
 
 
