@@ -248,8 +248,32 @@ Lo cual es imposible pues $w\in(0,\infty)$, entonces consideramos la otra raiz.
 $$e^{-\frac{w}{200}} = \frac{10-\sqrt{95}}{10}\Leftrightarrow w = 200\ln\Big(\frac{10}{10-\sqrt{95}}\Big)\approx 735.2276694$$
 
 $$\boxed{\therefore VaR_{0.95}(X_1 + X_2) = 735.2276694 _\blacksquare}$$
+Veamos el código que implementa dicha simulación
 
+```{r}
+#X <- rexp(10000,1/100) 
+#Y <- rexp(10000,1/200)
+#Z = X+Y
+#quantile(Z, 0.9)
+#quantile(Z, 0.95)
 
+var_90 = 0
+var_95=0
+k = 1000 #Realizamos la simulación con ayuda de un for
+for (i in 1:k){
+  X <- rexp(10000,1/100)
+  Y <- rexp(10000,1/200)
+  Z = X+Y
+  var_90 = var_90+quantile(Z, 0.9)
+  var_95 = var_95+quantile(Z, 0.95)
+}
+var_90 = var_90/k
+var_95 = var_95/k
+
+print(paste0("VaR al 90%: ", var_90)) #Imprimimos el Var al 90%
+print(paste0("VaR al 95%: ", var_95)) #Imprimimos el Var al 95%
+```
+Por lo cual, vemos que estos valores son exactos y además muy parecidos a los que obtuvimos de manera teórica $_\blacksquare$
 
 **Ejercicio 4.**
 \newline
