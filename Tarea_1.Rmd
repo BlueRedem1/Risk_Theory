@@ -102,11 +102,11 @@ $$VaR_{\alpha}(aX+b) = aVaR_{\alpha}(X)+b$$
 \end{align*}
 
 Ahora veamos que:
-$$\p(\Bar{0}\leq x) = \I_{[0,\infty)}(x)\qquad\forall x\in\R$$
+$$\p(\Bar{0}\leq x) = \mathbb{I}_{[0,\infty)}(x)\qquad\forall x\in\mathbb{R}$$
 
 Entonces:
-$$\{x\in\R:\p(\Bar{0}\leq x)\geq \alpha \} = [0,\infty)\qquad \forall\alpha\in(0,1)$$
-$$\Rightarrow \inf\{x\in\R:\p(\Bar{0}\leq x)\geq \alpha \} = \inf\{[0,\infty)\} = 0\qquad \forall\alpha\in(0,1)$$
+$$\{x\in\mathbb{R}:\p(\Bar{0}\leq x)\geq \alpha \} = [0,\infty)\qquad \forall\alpha\in(0,1)$$
+$$\Rightarrow \inf\{x\in\mathbb{R}:\p(\Bar{0}\leq x)\geq \alpha \} = \inf\{[0,\infty)\} = 0\qquad \forall\alpha\in(0,1)$$
 
 
 \begin{align*}
@@ -631,8 +631,8 @@ ggplot()+
 
 a) Ver el código
 
-Una vez visto el código, nos quedamos con la Poisson, ya que presenta una estadística menor que la bonimial y binomial negativa. Además, la binomial nos toparía el número de reclamaciones hasta una $n$, sin embargo la Poisson tiene el plus de que corre sobre todo $\mathbb{N}$.
-Entonces, la elegimod dado que su estadística para la prueba de la Ji-cuadrada es menor, lo que indica un error menor, además de que tiene la ventaja de que sobre todo $\mathbb{N}$ y es más realista, ya que no nos topa un límite de reclamaciones. $_\blacksquare$
+Una vez visto el código, nos quedamos con la Poisson, ya que presenta una estadística menor que la binomial y binomial negativa. Además, la binomial nos toparía el número de reclamaciones hasta una $n$, sin embargo la Poisson tiene el plus de que corre sobre todo $\mathbb{N}$. Tambien porque el parametro $n$ es muy grande y teniamos que cuando $n \rightarrow \infty$ converge a una Poisson, por lo que es otra razón para escoger dicha distribución.
+Entonces, la elegimos dado que su estadística para la prueba de la Ji-cuadrada es menor, lo que indica un error menor, además de que tiene la ventaja de que sobre todo $\mathbb{N}$ y es más realista, ya que no nos topa un límite de reclamaciones. $_\blacksquare$
 
 b) Le ajustamos el parámetro $\lambda = \overline{X}$ (Ver el código), ya que es su estimador por momentos y de máxima verosimilitud. Así:
 
