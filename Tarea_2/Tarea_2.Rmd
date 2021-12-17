@@ -36,10 +36,58 @@ Para comprobar que lo que hiciste está bien realiza lo siguiente:
 
 \qquad b)  Considera una variable aleatoria $X\sim Exp\left(\lambda=\frac{1}{100}\right)$ ($E[X]=100$) a partir de ésta variable aleatoria, considera $d=27$, fija la semilla en 27 y genera una muestra aleatoria de tamaño $n=100,000$ de tu variable $Z$, realiza un histograma y compáralo con la función de densidad que construiste anteriormente.
 
+```{r}
+library(MASS)
+library(tidyverse)
+```
+
+
+```{r}
+#fijamos semilla
+set.seed(27)
+#simulamos
+data_ej1<-pmin(rexp(n=100000,rate=1/100),rep(27,100000))
+hist(data_ej1,probability = TRUE)
+```
+```{r}
+
+```
+
 \qquad c)  Obtén la esperanza muestral y teórica de $Z$ (puede ser utilizando comandos de R) ¿son parecidas?
+
+```{r}
+esperanza_empirica<-mean(data_ej1)
+esperanza_empirica
+```
+
+De lo obtenido:
+
+```{r}
+Esp_1<-(100-127*exp(-27/100))/(1-exp(-27/100))
+Prob_1=(1-exp(-27/100))
+Prob_2=1-Prob_1
+Esp_2=27
+Esp_Teorica<-Esp_1*Prob_1+Esp_2*Prob_2
+Esp_Teorica
+```
+Lo cual coincide bastante con la probabilidad empírica obtenida, siendo la diferencia
+de:
+```{r}
+Esp_Teorica-esperanza_empirica
+```
 
 \qquad d)  Realiza una prueba de bondad de ajuste Ji cuadrada que contraste los datos simulados de $Z$ con la función de densidad que construiste, en particular para cuando el asegurado asume una pérdida igual a $d$ y para cuando no, es decir, cuando $Z=d$ y cuando $Z<d$, explica y concluye tus resultados.
 
+```{r}
+cortes<-cut(data_ej1, breaks = c(0,27,Inf),right=FALSE)
+observados<-table(cortes)
+observados
+esperados<-c(Prob_1,Prob_2)
+chisq.test(x=observados,p=esperados) #Ji-cuadrada
+```
+No rechazamos la hipótesis nula, el p-value es altísimo, por lo que no hay evidencia
+estadísticamente significativa como para decir que no sigue la disttribución
+propuesta. **i.e, sí se distribuye de la manera propuesta teóricamente**
 # Ejercicio 2
 
 En clase se vio la modelación de la variable aleatoria de pérdida de una compañía de seguros ($Y$) para cuando se tiene un contrato de **deducible** y **monto máximo de beneficio**, sea $X$ la variable aleatoria que mide el monto de pérdida asociado a un siniestro definido en el intervalo $(a,b)$ con $0<a$, tomando $a<d<u<b$ el deducible y monto máximo de beneficio respectivamente que cobra **la aseguradora**, se tiene que:
