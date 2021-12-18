@@ -114,9 +114,70 @@ $$\mathbb{P}[X=x]=\frac{1}{10}\hspace{1cm}para\hspace{0.5cm}x=100,200,300,...,90
 Dicho contrato está sujeto a un deducible $d=200$, un monto máximo de beneficio $u=800$ y un coaseguro $\alpha=0.95$.
 \begin{enumerate}
 \item[a)] Calcula el monto promedio del costo por pérdida de la aseguradora ($\mathbb{E}[Y_L]$)
+
+```{r}
+alpha=0.95
+d=200
+u=800
+posibles_pagos<-c()
+for (i in seq(100,1000,by=100)){
+  posibles_pagos[i/100]<-min(max(alpha*(i-d),0),alpha*(u-d))
+}
+valores_ej3<-data.frame("Perdida"=seq(100,1000,by=100),"Pago"=posibles_pagos,
+                        "Probabilidad"=rep(1/10,10))
+valores_ej3
+valores_ej3_agrupados <- valores_ej3 %>%
+  group_by(Pago) %>%
+  summarise(Probabilidad=sum(Probabilidad))
+valores_ej3_agrupados
+```
+Entonces, la probabilidad teórica está dada por:
+```{r}
+esperanza_teorica_L3<-sum(valores_ej3$Pago*valores_ej3$Probabilidad)
+esperanza_teorica_L3
+```
+
 \item[b)] Fija una semilla en 100 y realiza $n=1,000,000$ simulaciones para calcular de forma muestral la esperanza del inciso anterior.
+```{r}
+set.seed(100)
+datos_ej3b<-sample(pmin(pmax(alpha*(seq(100,1000,by=100)-d),0),alpha*(u-d)),1000000,replace=T)
+esperanza_empirica_L3<-mean(datos_ej3b)
+esperanza_empirica_L3
+```
+Vemos que es muy similar, de hecho solo difiere por:
+```{r}
+esperanza_teorica_L3-esperanza_empirica_L3
+```
 \item[c)] Calcula el monto promedio del costo por pago de la aseguradora ($\mathbb{E}[Y_P]$)
+
+```{r}
+posibles_perdidas=posibles_pagos[posibles_pagos>0]
+pago<-data.frame("Pago_positivo"=posibles_perdidas,
+                 "Probabilidad"=rep((1/10)/(8/10),length(posibles_perdidas)))
+pago
+pago_agrupado<-pago %>%
+  group_by(Pago_positivo) %>%
+  summarise(Probabilidad=sum(Probabilidad))
+pago_agrupado
+```
+Entonces la esperanza teórica está dada por:
+
+```{r}
+esperanza_teorica_P3<-sum(pago$Pago_positivo*pago$Probabilidad)
+esperanza_teorica_P3
+```
 \item[d)] Fija una semilla en 100 y realiza $n=1,000,000$ simulaciones para calcular de forma muestral la esperanza del inciso anterior.
+```{r}
+set.seed(100)
+datos_ej3d<-sample(pmin(pmax(alpha*(seq(100,1000,by=100)-d),0),alpha*(u-d))[pmin(pmax(alpha*(seq(100,1000,by=100)-d),0),alpha*(u-d))>0],1000000,replace=T)
+esperanza_empirica_P3<-mean(datos_ej3d)
+esperanza_empirica_P3
+```
+Vemos que son bastante similares, de hecho solo difieren por:
+```{r}
+esperanza_teorica_P3-esperanza_empirica_P3
+```
+
 \end{enumerate}
 
 # Ejercicio 4
