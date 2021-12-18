@@ -251,6 +251,55 @@ Sea $X\sim Pareto(a,b)$ con soporte en $(0,\infty)$ la v.a. de los montos de un 
 \begin{itemize}
 \item[a)] Calcular la distribución de la variable de costo por pago cuando la póliza está sujeta a un deducible $d$.
 \item[b)] Para valores de $a,b$ y $d$ de su elección, comprueba que lo encontrado en el inciso anterior se cumple muestralmente comparando un histograma y la densidad teórica. Realiza una prueba de bondad de ajuste y concluye.
+
+```{r}
+library(actuar)
+```
+
+```{r}
+a=3
+b=2000
+d=500
+proba_0<-ppareto(d,shape=a,scale=b)
+proba_0
+set.seed(27)
+n=100000
+data_ej7<-c()
+j=1
+while(j<=n){
+  aux=max(rpareto(1,shape=a,scale=b)-d,0)
+  if(aux>0){
+    data_ej7[j]=aux
+    j=j+1
+    }
+}
+aux = function(x){dpareto(x,shape=a,scale=b+d)}
+MASS::truehist(data_ej7,xlim = c(0,quantile(data_ej7,0.95)))
+plot(aux,xlim = c(0,quantile(data_ej7,0.95)),add=T,lwd=3)
+```
+Gráficamente, vemos que se pega demasiado la línea al histograma.
+
+```{r}
+library(goftest)
+goftest::ad.test(data_ej7,"ppareto",shape=a,scale=b+d) #Anderson-Darling
+ks.test(unique(data_ej7),"ppareto",shape=a,scale=b+d)
+```
+Pasa ambos test sin ningún problema: Los p-values obtenidos en ambas pruebas son altísimos. Por lo que aceptamos la hipótesis nula de que 
+se distrubuye pareto(3,2500).
+De hecho, la esperanza muestral y teórica coinciden:
+
+```{r}
+esp_mues_ej7<-mean(data_ej7)
+esp_mues_ej7
+esp_teo_ej7<-(b+d)/(a-1)
+esp_teo_ej7
+```
+Difieren por:
+```{r}
+esp_mues_ej7-esp_teo_ej7
+```
+
+
 \end{itemize}
 
 
