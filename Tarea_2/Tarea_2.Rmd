@@ -333,6 +333,72 @@ $$
   \textit{Hint:} Use De Pril [ii].
 
   \item Programe, muestre y explique con comentarios la metodología encontrada.
+```{r}
+# x es donde queremos calcular la proba
+# n el número de pólizas
+# f := vector de probabilidades de X (ordenadas desde m) hasta z>=m
+# m es el monto mínimo de reclamación
+# todo es el argumento que nos dice si queremos imprimir todas las probas o solo la de x
+
+PrilII_General <- function(x,n,m,f,todo=F){
+  ############Preparativos#################
+  #Verificamos que el monto x sea al menos el monto mínimo de S
+  if(x<(m*n)){
+    return(paste("El monto mínimo de S es",n*m,";Por ello la proba de S=",x,",es 0"))
+  }
+  #Creamos un vector auxiliar para las probas de la suma
+  g<-(m*n):x
+  #Le ponemos nombres al vector de las probas de la suma
+  names(g)<-(m*n):x
+  #Le ponemos nombres al vector de probas de f.
+  #Como empieza en m, desplazamos dichas unidades, por eso se su,a
+  names(f)<-m:(m+(length(f)-1))
+  #Fórmula De Pril II
+  #Aquí k juega el rol del monto de los reclamos
+  for(k in (n*m):x){
+    #Si k es n*m, es la proba de que TODOS reclamen
+    if(k==n*m){
+      g[as.character(n*m)]=f[as.character(m)]^n
+    }
+    #Si no, entramos a la recursión
+    else{
+      #Creamos un auxiliar para la suma, irá guardando los valores de la suma
+      aux = 0
+      #Como encontramos en el inciso anterior que la suma corre de m+1 hasta
+      #k+m-n*m, es por ello que la suma corre en ese rango de valores
+      #Sin ambargo, le ponemos que corra hasta el mínimo entre k+m-n*m
+      #y el monto "m" + la longitud del vector de probabilidades-1, ya que 
+      #Ese es el último valor en el vector f; se considera que el resto que 
+      #hay entre dicho número y k tendrían proba 0, por lo que ya no se consideran
+      # en el cálculo.
+      
+      for(j in (m+1):min(k+m-n*m,m+length(f)-1)){
+        #Calculamos la suma como encontramos en la demostración
+        aux = aux + ((j*(n+1))/(k-(n*m)) - (m+k)/(k-(n*m)))*f[as.character(j)]*g[as.character(m+k-j)]
+      }
+      #dividimos la suma entre la proba de que un individuo reclame el monto "m"
+      #tal como encontramos en la demostración, y le asignamos al valor k su proba
+      g[as.character(k)]=aux/f[as.character(m)]
+    }
+  }
+  #Si todo es verdadero, regresamos todo el vector de probabilidades de la suma
+  if(todo){
+    return(g)
+  }else{
+    # de lo contrario, solo la proba del monto k
+    return(g[as.character(x)])
+  }
+  
+}
+# Comprobamos con el ejemplo visto el 16 de diciembre de 2021
+f_ej<-5:15-5:15
+names(f_ej)<-5:15
+f_ej[(as.character(c(5,10,15)))]<-c(3/16,3/16,5/8)
+m_ej=5
+n_ej=100
+PrilII_General(x=1235,n_ej,m_ej,f_ej,todo=F)
+#Obtenemos lo mismo que el profesor
+```
 
   \item Suponga que tiene $n=100$ pólizas/asegurados ($X_i$) independientes e idénticamente distribuidos tales que tienen una función de masa de probabilidad dada por
   
@@ -346,13 +412,41 @@ $$
   \end{tabular}
   \end{center}
   
+```{r}
+#Ponemos un vector con dichos datos proporcionados
+f<-10:25-10:25
+names(f)<-10:25
+f[(as.character(seq(10,25,by=5)))]<-c(2/5,1/5,1/4,3/20)
+m=10
+n=100
+```
+  
+  
   Calcule de manera "exacta" (numéricamente):
   
   \begin{enumerate}
     \item $\mathbb{P}[S=1570]$
+```{r}
+PrilII_General(x=1570,n=n,m=m,f=f,todo=F)
+```
+    
     \item $\mathbb{P}[S=900]$
+```{r}
+PrilII_General(x=900,n=n,m=m,f=f,todo=F)
+```
+Esta probabilidad es 0, ya que el monto mínimo de reclamación es $10$, y hay 
+$100$ pólizas, entonces el valor mínimo de S es $10*100=1000$
+    
     \item $\mathbb{P}[S\leq1,650]$
+```{r}
+sum(PrilII_General(x=1650,n=n,m=m,f=f,todo=T))
+```
+    
     \item $\mathbb{P}[S\geq1,560]$
+```{r}
+sum(PrilII_General(x=1560,n=n,m=m,f=f,todo=T))
+```
+    
   \end{enumerate}
 
   \textit{Hint:} Use los incisos anteriores.
