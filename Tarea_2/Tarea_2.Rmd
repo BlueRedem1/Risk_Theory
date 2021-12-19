@@ -338,7 +338,11 @@ $$
 # n el número de pólizas
 # f := vector de probabilidades de X (ordenadas desde m) hasta z>=m
 # m es el monto mínimo de reclamación
-# todo es el argumento que nos dice si queremos imprimir todas las probas o solo la de x
+# todo es el argumento que nos dice si queremos imprimir todas las probas puntuales
+# hasta x, así como lo siguiente: 
+# La probabilidad acumulada hasta dicho punto
+# Lla probabilidad de que S>x
+# La probabilidad de que S>=x
 
 PrilII_General <- function(x,n,m,f,todo=F){
   ############Preparativos#################
@@ -382,13 +386,15 @@ PrilII_General <- function(x,n,m,f,todo=F){
     }
   }
   #Si todo es verdadero, regresamos todo el vector de probabilidades de la suma
-  if(todo){
-    return(g)
-  }else{
-    # de lo contrario, solo la proba del monto k
-    return(g[as.character(x)])
-  }
-  
+    if(todo){
+      #Si todo es verdadero, devolvemos probas puntuales, acumulada, supervivencia
+      # y supervivencia inclusiva
+        return(list("Puntuales"=g,"Acumulada"=sum(g),"Supervivencia"=1-sum(g),
+                    "Supervivencia_inclusiva"=1-sum(g)+g[as.character(x)]))
+    }else{
+      # de lo contrario, solo la proba del monto k
+      return(g[as.character(x)])
+    }
 }
 # Comprobamos con el ejemplo visto el 16 de diciembre de 2021
 f_ej<-5:15-5:15
@@ -439,12 +445,15 @@ $100$ pólizas, entonces el valor mínimo de S es $10*100=1000$
     
     \item $\mathbb{P}[S\leq1,650]$
 ```{r}
-sum(PrilII_General(x=1650,n=n,m=m,f=f,todo=T))
+ej_9c<-PrilII_General(x=1650,n=n,m=m,f=f,todo=T)
+ej_9c$Acumulada
 ```
+    
     
     \item $\mathbb{P}[S\geq1,560]$
 ```{r}
-sum(PrilII_General(x=1560,n=n,m=m,f=f,todo=T))
+ej_9d<-PrilII_General(x=1560,n=n,m=m,f=f,todo=T)
+ej_9d$Supervivencia_inclusiva
 ```
     
   \end{enumerate}
