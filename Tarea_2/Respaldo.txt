@@ -21,7 +21,7 @@ knitr::include_graphics("CARATULA.PNG")
 ```
 \newpage
 
-# Ejercicio 1
+## Ejercicio 1
 
 En clase se vio la modelación de la variable aleatoria de pérdida de una compañía de seguros ($Y$) para cuando se tiene un contrato de **deducible**, sea $X$ la variable aleatoria que mide el monto de pérdida asociado a un siniestro, tomando $d>0$ el deducible que cobra **la aseguradora**, se tiene que:
 
@@ -41,13 +41,8 @@ Para comprobar que lo que hiciste está bien realiza lo siguiente:
 
 \qquad d)  Realiza una prueba de bondad de ajuste Ji cuadrada que contraste los datos simulados de $Z$ con la función de densidad que construiste, en particular para cuando el asegurado asume una pérdida igual a $d$ y para cuando no, es decir, cuando $Z=d$ y cuando $Z<d$, explica y concluye tus resultados.
 
-# Solución 
-## Inciso a) 
 
-
-
-
-# Ejercicio 2
+## Ejercicio 2
 
 En clase se vio la modelación de la variable aleatoria de pérdida de una compañía de seguros ($Y$) para cuando se tiene un contrato de **deducible** y **monto máximo de beneficio**, sea $X$ la variable aleatoria que mide el monto de pérdida asociado a un siniestro definido en el intervalo $(a,b)$ con $0<a$, tomando $a<d<u<b$ el deducible y monto máximo de beneficio respectivamente que cobra **la aseguradora**, se tiene que:
 
@@ -66,7 +61,7 @@ Para comprobar que lo que hiciste está bien realiza lo siguiente:
 \qquad d)  Obtenga la **mediana** muestral y teórica de $Z$ (puede ser utilizando comandos de R) ¿son parecidas?
 
 
-# Ejercicio 3
+## Ejercicio 3
 
 Sea $X$ la variable aleatoria que representa los montos de siniestro para un contrato. La función de masa de probabilidad está dada por:
 $$\mathbb{P}[X=x]=\frac{1}{10}\hspace{1cm}para\hspace{0.5cm}x=100,200,300,...,900,1000$$
@@ -79,7 +74,7 @@ Dicho contrato está sujeto a un deducible $d=200$, un monto máximo de benefici
 \end{enumerate}
 
 
-# Ejercicio 4
+## Ejercicio 4
 
 En clase se vio la modelación de la variable aleatoria de pérdida de una compañía de seguros ($Y$) para cuando se tiene un contrato de **deducible**, sea $X$ la variable aleatoria que mide el monto de pérdida asociado a un siniestro definido en el intervalo $(a,b)$ con $0<a$, tomando $a<d<b$ el deducible que cobra **la aseguradora**, se define como **deducible franquicia** tal que el pago de la compañía aseguradora está dado por:
 
@@ -104,7 +99,7 @@ Para comprobar que lo que hiciste está bien realiza lo siguiente:
 \qquad d)  Obtenga la **mediana** muestral y teórica de $Y$ (puede ser utilizando comandos de R) ¿son parecidas?
 
 
-# Ejercicio 5
+## Ejercicio 5
 
 Un deducible franquicia modifica el deducible ordinario agregando el deducible cuando hay un monto positivo pagado.
 
@@ -123,7 +118,7 @@ $$\mathbb{E}\left ( Y^{L} \right )=\mathbb{E}\left ( X \right )-\mathbb{E}\left 
 
 
 
-# Ejercicio 6
+## Ejercicio 6
 
 Mike es un especialista en acrobacias con motocicleta que se presenta en eventos de deportes extremos.
 
@@ -146,7 +141,7 @@ Con la información proporcionada
 $\mathbf{Hint:}$ Usa el ejericio anterior
 
 
-# Ejercicio 7
+## Ejercicio 7
 
 Sea $X\sim Pareto(a,b)$ con soporte en $(0,\infty)$ la v.a. de los montos de un siniestro.
 
@@ -156,7 +151,7 @@ Sea $X\sim Pareto(a,b)$ con soporte en $(0,\infty)$ la v.a. de los montos de un 
 \end{itemize}
 
 
-# Ejercicio 8
+## Ejercicio 8
 
 Sean $X_1,\dots,X_{100}$ los montos de siniestros independientes con distribución exponencial de media $1000$. Una aseguradora cubrirá todos los riesgos cuyas póliza están sujetas cada una a un deducible $d=100$.
 
@@ -169,7 +164,7 @@ Sean $X_1,\dots,X_{100}$ los montos de siniestros independientes con distribuci�
 
 
 
-# Ejercicio 9
+## Ejercicio 9
 
 Recordemos la formula de De Pril [ii]: Sean $X_1,X_2,\dots,X_n$ *v.a.i.i.d.* con valores en el conjunto $\mathbb{N}\cup\{0\}$. Para cada entero $j\geq 0$, defina la probabilidad $f_j=\mathbb{P}[X=j]$, y suponga $f_0\neq0$. Sea $\displaystyle S=\sum_{k=1}^n X_k$. Entonces las probabilidades $g_x = \mathbb{P}[S=x]$ se pueden calcular recursivamente mediante la fórmula
 
@@ -214,7 +209,7 @@ $$g_x =
 \end{enumerate}
 
 
-# Ejercicio 10
+## Ejercicio 10
 
 Una empresa tiene 500 trabajadores y desea asegurarlos por una asuma asegurada de \$100,000. Cada uno tiene una probabilidad de 0.15 de reclamar y de 0.85 de no durante cierto periodo de tiempo. Si $Y$ es la variable aleatoria que mide el monto a pagar de la aseguradora en un contrato por deducible asumiendo el riesgo de todo el portafolio anterior:
 
