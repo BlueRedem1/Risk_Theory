@@ -83,6 +83,7 @@ Se parece al monto de pago máximo, pero  iniciando desde $a$ en lugar desde 0.
 Sería la cobertura de monto de pago máximo = $d$; pero como dijimos, iniciando los "pagos" desde 0.
 
 Porque también, el payoff de un put corto desplazado a unidades. $_\blacksquare$
+
 ## Inciso b) 
 
 ```{r}
@@ -427,7 +428,7 @@ Muestra la construcción de una variable aleatoria $Y$ para este tipo de contrat
 
 \qquad a) **Exhibe de manera general cómo se construye su función de densidad en términos de la densidad de** $\mathbf{X}$, especificando el soporte de la variable aleatoria que estás construyendo.
 
-# Solución
+# Solución a
 
 Notemos que: $$Y = X \mathbb{I}_{\{X > d\}}$$
 
@@ -454,11 +455,11 @@ Para comprobar que lo que hiciste está bien realiza lo siguiente:
 
 \qquad b)  Considera una variable aleatoria $X\sim Exp\left(\lambda=\frac{1}{100}\right)$ ($E[X]=100$) a partir de ésta variable aleatoria, considera $d=50$, fija la semilla en 6 y genera una muestra aleatoria de tamaño $n=100,000$ de tu variable $Y$, realiza un histograma y compáralo con la función de densidad que construiste anteriormente.
 
-# Solución 
+# Solución b
 
 \qquad c)  Obtén la **esperanza** muestral y teórica de $Y$ (puede ser utilizando comandos de R) ¿son parecidas?
 
-# Solución
+# Solución c
 
 Notemos que:
 
@@ -491,7 +492,7 @@ dv = \frac{1}{100} e^{-\frac{y}{100}}dy \implies v = -e^{-\frac{y}{100}}\end{cas
 
 \qquad d)  Obtenga la **mediana** muestral y teórica de $Y$ (puede ser utilizando comandos de R) ¿son parecidas?
 
-# Solución
+# Solución d
 
 Recordemos que:
 $$Y = X\mathbb{I}_{\{X > d\}}(x); \quad X \geq 0 $$ 

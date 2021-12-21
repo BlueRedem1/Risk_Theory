@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  21 DEC 2021 02:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  21 DEC 2021 02:47
 entering extended mode
 **./Tarea_2.tex
 (Tarea_2.tex
@@ -552,7 +552,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 202--204
  []
 
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-12.
+15.
 (D:\Miktwx LaTex\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
@@ -561,62 +561,50 @@ File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 File: Tarea_2_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pdf)
 <use Tarea_2_files/figure-latex/unnamed-chunk-2-1.pdf>
 Package pdftex.def Info: Tarea_2_files/figure-latex/unnamed-chunk-2-1.pdf  used
- on input line 246.
+ on input line 249.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 246--248
+Underfull \hbox (badness 10000) in paragraph at lines 249--251
 [][]
  []
 
 [3 <./Gráfica 1.jpeg>] [4 <./Tarea_2_files/figure-latex/unnamed-chunk-2-1.pdf>
 ] [5]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 3
-98.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 4
+01.
 (D:\Miktwx LaTex\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [6] [7]
 
-LaTeX Warning: Command \' invalid in math mode on input line 516.
+LaTeX Warning: Command \' invalid in math mode on input line 519.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 516.
+LaTeX Warning: Command \' invalid in math mode on input line 519.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 521.
+LaTeX Warning: Command \' invalid in math mode on input line 524.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 521.
+LaTeX Warning: Command \' invalid in math mode on input line 524.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 521.
+LaTeX Warning: Command \' invalid in math mode on input line 524.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 521.
+LaTeX Warning: Command \' invalid in math mode on input line 524.
 
 [8]
 
-LaTeX Warning: Command \' invalid in math mode on input line 528.
+LaTeX Warning: Command \' invalid in math mode on input line 531.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 528.
+LaTeX Warning: Command \' invalid in math mode on input line 531.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 528.
+LaTeX Warning: Command \' invalid in math mode on input line 531.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 528.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 534.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 534.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 534.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 534.
+LaTeX Warning: Command \' invalid in math mode on input line 531.
 
 
 LaTeX Warning: Command \' invalid in math mode on input line 537.
@@ -625,91 +613,103 @@ LaTeX Warning: Command \' invalid in math mode on input line 537.
 LaTeX Warning: Command \' invalid in math mode on input line 537.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 542.
+LaTeX Warning: Command \' invalid in math mode on input line 537.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 542.
+LaTeX Warning: Command \' invalid in math mode on input line 537.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 549.
+LaTeX Warning: Command \' invalid in math mode on input line 540.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 549.
+LaTeX Warning: Command \' invalid in math mode on input line 540.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 549.
+LaTeX Warning: Command \' invalid in math mode on input line 545.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 549.
+LaTeX Warning: Command \' invalid in math mode on input line 545.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 577.
+LaTeX Warning: Command \' invalid in math mode on input line 552.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 577.
+LaTeX Warning: Command \' invalid in math mode on input line 552.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 552.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 552.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 580.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 580.
 
 [9]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 588.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 591.
 [10] [11] [12]
 
-LaTeX Warning: Command \' invalid in math mode on input line 864.
+LaTeX Warning: Command \' invalid in math mode on input line 867.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 864.
+LaTeX Warning: Command \' invalid in math mode on input line 867.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 864.
+LaTeX Warning: Command \' invalid in math mode on input line 867.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 864.
+LaTeX Warning: Command \' invalid in math mode on input line 867.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 864.
+LaTeX Warning: Command \' invalid in math mode on input line 867.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 864.
+LaTeX Warning: Command \' invalid in math mode on input line 867.
 
 [13] [14]
-Overfull \hbox (8.98929pt too wide) in paragraph at lines 945--947
+Overfull \hbox (8.98929pt too wide) in paragraph at lines 948--950
 []\T1/lmr/m/n/10 (-20) El costo an-ual para reparar su mo-to-ci-cleta, es mod-e
 -lado por una vari-able aleato-ria $\OML/lmm/m/it/10 X \OMS/lmsy/m/n/10  \OML/
 lmm/m/it/10 Pareto []$ 
  []
 
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-999.
+1002.
 (D:\Miktwx LaTex\tex/latex/lm\ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [15]
-<Tarea_2_files/figure-latex/unnamed-chunk-16-1.pdf, id=181, 469.755pt x 325.215
+<Tarea_2_files/figure-latex/unnamed-chunk-16-1.pdf, id=183, 469.755pt x 325.215
 pt>
 File: Tarea_2_files/figure-latex/unnamed-chunk-16-1.pdf Graphic file (type pdf)
 
 <use Tarea_2_files/figure-latex/unnamed-chunk-16-1.pdf>
 Package pdftex.def Info: Tarea_2_files/figure-latex/unnamed-chunk-16-1.pdf  use
-d on input line 1046.
+d on input line 1049.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1046--1048
+Underfull \hbox (badness 10000) in paragraph at lines 1049--1051
 [][]
  []
 
 [16 <./Tarea_2_files/figure-latex/unnamed-chunk-16-1.pdf>] [17]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1164.
+(caption)                particular \caption on input line 1167.
 See the caption package documentation for explanation.
 
 [18]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 1222.
+(Font)              <14.4> on input line 1225.
 [19] (Tarea_2.aux) ) 
 Here is how much of TeX's memory you used:
- 15099 strings out of 478927
- 228380 string characters out of 2866168
- 582774 words of memory out of 3000000
- 32438 multiletter control sequences out of 15000+600000
+ 15103 strings out of 478927
+ 228411 string characters out of 2866168
+ 581815 words of memory out of 3000000
+ 32440 multiletter control sequences out of 15000+600000
  467797 words of font info for 141 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  74i,16n,80p,973b,476s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -731,11 +731,11 @@ ktwx LaTex/fonts/type1/public/lm/lmtti10.pfb><D:/Miktwx LaTex/fonts/type1/publi
 c/amsfonts/symbols/msam10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symb
 ols/msam7.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols/msbm10.pfb><
 D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on Tarea_2.pdf (19 pages, 490178 bytes).
+Output written on Tarea_2.pdf (19 pages, 490701 bytes).
 PDF statistics:
- 468 PDF objects out of 1000 (max. 8388607)
- 114 named destinations out of 1000 (max. 500000)
- 37205 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 474 PDF objects out of 1000 (max. 8388607)
+ 116 named destinations out of 1000 (max. 500000)
+ 37213 words of extra memory for PDF output out of 42996 (max. 10000000)
 
 
 ! pdflatex: major issue: So far, you have not checked for MiKTeX updates.
