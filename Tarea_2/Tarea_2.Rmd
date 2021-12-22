@@ -807,6 +807,7 @@ esp_mues_ej7-esp_teo_ej7
 ```
 
 $\blacksquare$
+
 # Ejercicio 8
 
 Sean $X_1,\dots,X_{100}$ los montos de siniestros independientes con distribución exponencial de media $1000$. Una aseguradora cubrirá todos los riesgos cuyas póliza están sujetas cada una a un deducible $d=100$.
@@ -818,7 +819,115 @@ Sean $X_1,\dots,X_{100}$ los montos de siniestros independientes con distribuci�
 \item[d)] Simular valores para el número de siniestros en los que la aseguradora no debe realizar un pago. Realizar una prueba Ji-cuadrada partiendo la muestra en 3 conjuntos (muestra$\leq5$, $5<$muestra$\leq10$ y $10<$muestra) para corroborar la distribución encontradas en el inciso b).
 \end{itemize}
 
+# Solución 
+## Inciso a)
+Sabemos que $X_{K}\sim(\frac{1}{1000}) \quad \forall k \in \{1, \dots, 100\}$ y notemos que la probabilidad de que la aseguradora pague un monto positivo sobre el asegurado $K$ es si, $X_{K} > d$, es decir, $\mathbb{P}(X_{K} > d) = e^{-\frac{100}{1000}} = e^{-\frac{1}{10}} \approx 0.90483 \quad \forall k \in \{1, \dots, 100\}$. Observamos que podemos identificas si $X_{K} > d$ por medio de una Bernoulli $(\mathbb{P}(X_{K} > d))$ de la siguiente manera:
 
+\begin{align*}
+B_{K} &= \begin{cases} 1 & si \quad X_{K} > d\\
+0 & si \quad X_{K} \leq d \end{cases} \quad \forall k \in \{1, \dots, 100\}\\
+\implies \mathbb{P}(B_{K} = 1) &= \mathbb{P}(X_{K} > d) = 0.90483\\
+\mathbb{P}(B_{K} = 0) &= \mathbb{P}(X_{K} \leq d) = 1 - 0.90483 = 0.09516\\
+&\therefore B_{K} \sim Ber(0.90483) \quad \forall k \in \{1, \dots, 100\} 
+\end{align*}
+
+Podemos contabilizar el número de siniestros en los que la aseguradora pagará un monto positivo, es decir $X_{K} > d$ como:
+
+$$ B = \sum_{K = 1}^{100} B_{K} \sim Binom(100, 0.9048374)_\blacksquare$$ 
+
+# Solución 
+## Inciso b)
+
+\begin{align*}
+\hat{B_{K}} &= \begin{cases} 1 & si \quad X_{K} \leq d\\
+0 & si \quad X_{K} > d \end{cases} \quad \forall k \in \{1, \dots, 100\}\\
+\implies \hat{B_{K}} &\sim Ber(\mathbb{P}(X_{K} \leq d)) = Ber(0.095162582) \quad \forall k \in \{1,\dots,100\}
+\end{align*}
+
+De esta manera, podemos calcular el número de siniestros por los cuales la aseguradora no paga como:
+
+$$ \hat{B} = \sum_{K = 1}^{100} \hat{B_{K}} \sim Binom(100, 0.095162582)_\blacksquare$$ 
+
+# Solución 
+## Inciso c)
+
+```{r}
+set.seed(2000)
+P <- c() # Vector de la cantidad de individuos a los que se les paga
+NP <- c() # Vector de la cantidad de individuos a los que NO se les paga
+n = 10000  # Tamaño de muestra
+
+for(j in 1:n){
+  X <- rexp(100,1/1000) # Simulamos una exp(1/1000)
+  B<- c() # Vector que guarda las muestras Bernoulli del inciso a)
+  B_<- c() # Vector que guarda las muestras Bernoulli del inciso b)
+  for(i in 1:100){
+    if(X[i]>100){
+      B[i] = 1 # Sí se paga
+      B_[i] = 0
+    }else{
+      B[i] = 0
+      B_[i] = 1
+    }
+  }
+ P[j] = sum(B) # Contar a cuantos se les pagó en ese intento
+ NP[j] = sum(B_) # Contar a cuantos NO se les pagón en ese intento
+}
+
+# Notemos que en efecto, P + NP = c(100, 100, ..., 100)
+
+#INCISO C
+
+# Los que paga la aseguradora
+
+# Separar en las categorías que se pide
+o1 = sum(P<=90)
+o3 = sum(P>95)
+o2 = n - o1 -o3
+Oi = c(o1,o2,o3)
+Pi=c()
+# Probabilidades Teóricas
+Pi[1] = pbinom(90, 100, 0.9048374)
+Pi[2] = pbinom(95, 100, 0.9048374)-pbinom(90, 100, 0.9048374)
+Pi[3] =1-pbinom(95, 100, 0.9048374)
+# Prueba Chi2 para Binom(100, 0.9048374)
+chisq.test(x = Oi, p=Pi)
+
+#Mostrar el valor del p-value (0.5381) y en general el output para la prueba Chi2, 
+#de esta forma fallamos en rechazarla hipótesis nula, es decir, podemos afirmar 
+#que la muestra sigue una distribución Binom(100, 0.9048374)
+
+```
+$\blacksquare$
+
+# Solución
+## Inciso d)
+
+```{r}
+#INCISO D
+
+# Los que NO paga la aseguradora
+
+# Separar en las categorías que se pide
+o1_ = sum(NP<=5)
+o3_ = sum(NP>10)
+o2_ = n - o1_ -o3_
+Oi_ = c(o1_,o2_,o3_)
+Pi_=c()
+# Probabilidades Teóricas
+Pi_[1] = pbinom(5, 100, 1-0.9048374)
+Pi_[2] = pbinom(10, 100, 1-0.9048374)-pbinom(5, 100, 1-0.9048374)
+Pi_[3] =1-pbinom(10, 100, 1-0.9048374)
+# Prueba Chi2 para Binom(100, 1-0.9048374)
+chisq.test(x = Oi_, p=Pi_)
+
+#Mostrar el valor del p-value (0.4199) y en general el output para la prueba Chi2, 
+#de esta forma fallamos en rechazarla hipótesis nula, es decir, podemos afirmar 
+#que la muestra sigue una distribución Binom(100, 1- 0.9048374)
+
+
+```
+$\blacksquare$ 
 
 # Ejercicio 9
 
@@ -880,6 +989,88 @@ Nota: Deben dar el valor exacto del deducible (salvo quizás un error numérico)
 Hint: Existen muchas maneras de solucionar esto. Puedes asumir que las fórmulas de Darth Vader son válidas para variables aleatorias discretas. Para asuntos numéricos, un par de buenas funciones son: \texttt{pracma::integral} y \texttt{pracma::newtonRaphson}, o bien, \texttt{uniroot}. Aunque insisto, cada quién lo hará como pueda.
 
 \qquad (b) Realiza simulaciones de la $Y$ que propones y obtén su media.
+
+
+# Solución 
+## Inciso a)
+
+Sea $B_{K} \sim Bernoulli(0.15) \quad \forall k \in \{1, \dots, 500\}$
+
+$$ \implies \text{Denotamos} X_{K}:= 100,000 B_{K} = \begin{cases} 100,000 & si \quad B_{K} = 1\\ 0 & si \quad B_{K} = 0 \end{cases} \forall k \in \{1, \dots, 500\}$$
+Donde $X_{K}$ representa el monto a pagar por cada asegurado.
+
+$$ \implies \text{Notemos que}\quad B = \sum_{K = 1}^{500}B_{K} \sim Binom(500, 0.15)$$
+Se tiene que:
+
+$$ Y=\left(\sum_{K = 1}^{500}X_{K} - d\right)_{+} = (100,000 B-d)_{+}$$
+Donde $Y$ representa el monto a pagar de la aseguradora para todo el portafolio de asegurados.
+
+$$ \mathbb{E}(Y) = \sum_{i = 0}^{500}(100,000 i-d)_{+}
+\genfrac{(}{)}{0pt}{}{500}{i}_{0.15^{i}\quad0.85^{500-i}} = 500,000 \dots \textcolor{green}{(1)}
+ $$
+Por otro lado:
+
+\begin{align*}
+\mathbb{E}(Y) &= \mathbb{E}[(100,000B-d)_{+}] = \mathbb{E}(100,000B) - \mathbb{E}(100,000B \wedge d)\\
+&= 100,000(500)0.15-\sum_{i = 0}^{500}mín\{100,000i,d\}
+\genfrac{(}{)}{0pt}{}{500}{i}0.15^{i}\quad 0.85^{500-i}\\
+&= 7,500,000 - \sum_{i = 0}^{500}mín\{100,000i,d\}
+\genfrac{(}{)}{0pt}{}{500}{i}0.15^{i}\quad 0.85^{500-i}\\
+&= 500,000\\
+&\implies 7,000,000 = \sum_{i = 0}^{500}mín\{100,000i,d\}
+\genfrac{(}{)}{0pt}{}{500}{i}0.15^{i}\quad 0.85^{500-i} = 500,000 \dots \textcolor{green}{(2)}
+\end{align*}
+
+De $\textcolor{green}{(1)}$ y $\textcolor{green}{(2)}$ utilizaremos "uniroot" de R para obtener la $d$ que cumpla ambas ecuaciones, así llegaremos a que $d = 7,183,099.$
+
+```{r}
+# Función asociada para la primera ecuación, buscamos la d t.q. se haga 0
+f <- function(d){
+  x = 0
+  for(i in 0:500){
+    k <-min(100000*i, d)
+    p <- 0.15^i
+    q <- 0.85^(500-i)
+    c <- choose(500,i)
+    x = x + (k*c*p*q)
+  }
+  return(x-7000000)
+}
+# Función asociada para la segunda ecuación, buscamos la d t.q. se haga 0
+g<- function(d){
+  x = 0
+  for(i in 0:500){
+    m <- max(100000*i-d,0)
+    p <- 0.15^i
+    q <- 0.85^(500-i)
+    c <- choose(500,i)
+    x = x+ (m*c*p*q)
+  }
+  return(x-500000)
+}
+
+# Buscar las raices de ambas funciones
+r1<- uniroot(f,lower = 0, upper = 100000*500 ,tol = 1e-8)$root
+r2<- uniroot(g,lower = 0, upper = 100000*500 ,tol = 1e-8)$root
+
+print("d que satisface la ecuaci?n 1:")
+print(r1)
+print("Valor de f en r1:")
+print(f(r1))
+print("d que satisface la ecuaci?n 2:")
+print(r2)
+print("Valor de g en r2:")
+print(g(r2))
+
+"
+En efecto, ambas raices coinciden y al aplicarlas en f y g, respectivamente,
+ambas se acercan a 0.
+"
+```
+$\blacksquare$
+
+# Solución 
+## Inciso b)
 
 
 # Ejercicio $\alpha$ (Extra+2)
