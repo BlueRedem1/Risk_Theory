@@ -93,11 +93,22 @@ library(tidyverse)
 
 
 ```{r}
+aux<-function(x){
+    if(x<27){
+    return(dexp(x,rate=1/100))
+  }
+  else if (x>=27){
+    return(1-pexp(27,rate=1/100))
+  }
+}
+aux<-Vectorize(aux)
 #fijamos semilla
 set.seed(27)
 #simulamos
 data_ej1<-pmin(rexp(n=100000,rate=1/100),rep(27,100000))
-hist(data_ej1,probability = TRUE)
+hist(data_ej1,probability = TRUE,breaks = 0:27)
+plot(aux,add=T,xlim = c(0,27),lwd=2,col="3")
+
 ```
 $\blacksquare$
 
@@ -583,7 +594,7 @@ Entonces, notemos que si $0 \leq x_{1} \leq x_{2}$, entonces:
 De esta manera $g(x):= \mathbb{I}_{\{X > d\}}(x)$ es una función no decreciente y positiva al igual que: $f(x) := x (\text{Para} \quad x \in [0,\infty)) \implies h(x) := f(x)*g(x)$ es una función no decreciente y positiva, es decir, $h(x) = x \mathbb{I}_{\{X > d\}}(x)$ es no decreciente y positiva $\implies$ por el teorema de equivarianza de cuantiles: 
 
 $$q_{Y}(\alpha)  = q_{x}(\alpha) \mathbb{I}_{\{X > d\}}(q_{x}(\alpha))$$
-EN nuestro caso $(\alpha= 0.5, d=50, X \sim exp(\frac{1}{100}))$
+En nuestro caso $(\alpha= 0.5, d=50, X \sim exp(\frac{1}{100}))$
 
 \begin{align*}
 \implies q_{Y}(0.5) &= ln(2)(100) \mathbb{I}_{\{X > d\}}(ln(2)(100))\\
@@ -693,6 +704,57 @@ Sea $X\sim Pareto(a,b)$ con soporte en $(0,\infty)$ la v.a. de los montos de un 
 
 # Solución
 ## Inciso a)
+
+En clase vimos que, de manera general:
+la función de densidad de $Y$ es:\\
+\begin{center}
+\begin{equation*}
+    f_{\textcolor{blue}{Y}}(t) = \left \{ \begin{matrix} F_{\textcolor{red}{X}}\left(\frac{\textcolor{yellow}{d}}{1+\textcolor{green}{r}}\right) & \mbox{si }& t=0\quad\textcolor{red}{(discreta)}
+\\ \frac{f_{\textcolor{red}{X}}\left(\frac{t+\textcolor{yellow}{d}\textcolor{magenta}{\alpha}}{\textcolor{magenta}{\alpha}(1+\textcolor{green}{r})}\right)}{\textcolor{magenta}{\alpha}(1+\textcolor{green}{r})} & \mbox{si }& t\in (0,\textcolor{magenta}{\alpha}(\textcolor{orange}{u}-\textcolor{yellow}{d}))\quad \textcolor{blue}{(continua)}
+\\ S_{\textcolor{red}{X}}\left(\frac{\textcolor{orange}{u}}{(1+\textcolor{green}{r})}\right)&\mbox{si}&t=\textcolor{magenta}{\alpha}(\textcolor{orange}{u}-\textcolor{yellow}{d})\quad\textcolor{red}{(discreta)}
+\\ 0 &\mbox{en otro caso.}
+\end{matrix}\right. 
+\end{equation*}
+\end{center}
+
+Tomando $r = 0, \alpha = 1; u = \infty; \quad \text{y como} \quad S_{x}(\infty) = 0;$
+
+
+$$ \implies f_{Y}(t) = \begin{cases}F_{X}(d) & si \quad t = 0\\
+f_{X}(t + d) & si \quad t \in (0, \infty)\\
+0 & \text{En otro caso}
+\end{cases}$$
+
+Tenemos que:
+$\textcolor{green}{Pareto}$
+
+\textcolor{blue}{Pareto}
+\begin{eqnarray*}
+    X &\sim&{Pareto (a,b)}\ con\ a>0\ y \ b>0.\\
+    f(x)&=& \frac{ab^{a}}{(b+x)^{a+1}}\ para\ x>0.\\
+    F(x)&=& 1-\left[\frac{b}{(b+x)}\right]^{a}\ para\ x>0.\\
+\end{eqnarray*}
+
+\begin{align*}
+& \implies F_{X}(d) = 1 - \left[\frac{b}{b + d}\right]^{a}\\
+& \implies f_{Y}(t) = \begin{cases}  1 - \left[\frac{b}{b + d}\right]^{a} & si \quad t = 0\\
+\frac{ab^{a}}{(b + (t + d))^{a + 1}} & si \quad t \in (0,\infty)
+\end{cases}
+\end{align*}
+
+Además:
+
+
+$$f_{\textcolor{green}{Y_p}}(t)=\frac{f_{\textcolor{blue}{Y_L}}(t)}{1-f_{\textcolor{blue}{Y_L}}(0)} \forall t \in (0, \textcolor{yellow}{\alpha}(\textcolor{purple}{u} - \textcolor{green}{d})) $$
+\begin{align*}
+\implies f_{y_{p}}(t) &= \frac{\frac{ab^{a}}{(b + (t + d))}{a + 1}}{1 - \left[1 - \left[\frac{b}{b + d}\right]^{a}\right]}\\
+&= \frac{\frac{ab^{a}}{(b + (t + d))^{a + 1}}}{\left[\frac{b}{b + d}\right]^{a}}\\
+&= \frac{\frac{ab^{a}}{(b + d + t))^{a + 1}}}{\frac{b^{a}}{(b + d)^{a}}}\\
+&= \frac{a\textcolor{red}{b^{a}}(b + d)^{a}}{\textcolor{red}{b^{a}}(b + d + t))^{a + 1}}\\
+&= \frac{a(b + d)^{a}}{[b^{a}(b + d) + t]^{a + 1}}
+\end{align*}
+
+\¡Se distribuye $Pareto(a,b+d)$\! $_\blacksquare$
 
 # Solución
 ## Inciso b)
