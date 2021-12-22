@@ -180,8 +180,7 @@ chisq.test(x=observados,p=esperados) #Ji-cuadrada
 ```
 No rechazamos la hipótesis nula, el p-value es altísimo, por lo que no hay evidencia
 estadísticamente significativa como para decir que no sigue la disttribución
-propuesta. **i.e, sí se distribuye de la manera propuesta teóricamente**
-
+propuesta. **i.e, sí se distribuye de la manera propuesta teóricamente** $_\blacksquare$
 
 # Ejercicio 2
 
@@ -281,7 +280,7 @@ Zsamp <- Z(X,0,27,110,200) # Notemos que tanto a como b no se especificaron al i
 kde = kdensity(Zsamp)
 plot(kde)
 ```
-
+$\blacksquare$
 
 \qquad c)  Obtén la **esperanza** muestral y teórica de $Z$ (puede ser utilizando comandos de R) ¿son parecidas?
 
@@ -508,7 +507,7 @@ De esta manera $Sop(Y) = \{0\}\cup(d,b)$
 
 Para comprobar que lo que hiciste está bien realiza lo siguiente:
 
-\qquad b)  Considera una variable aleatoria $X\sim Exp\left(\lambda=\frac{1}{100}\right)$ ($E[X]=100$) a partir de ésta variable aleatoria, considera $d=50$, fija la semilla en 6 y genera una muestra aleatoria de tamaño $n=100,000$ de tu variable $Y$, realiza un histograma y compáralo con la función de densidad que construiste anteriormente.
+\qquad b)  Considera una variable aleatoria $X\sim Exp\left(\lambda=\frac{1}{100}\right)$ ($E[X]=100$) a partir de ésta variable aleatoria, considera $d=50$, fija la semilla en 6 y genera una muestra aleatoria de tamaño $n=100,000$ de tu variable $Y$, realiza un histograma y compáralo con la función de densidad que construiste anteriormente. $_\blacksquare$
 
 # Solución b
 
@@ -536,7 +535,7 @@ kde = kdensity(Ysamp)
 plot(kde)
 
 ```
-
+$\blacksquare$
 
 \qquad c)  Obtén la **esperanza** muestral y teórica de $Y$ (puede ser utilizando comandos de R) ¿son parecidas?
 

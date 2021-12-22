@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  22 DEC 2021 03:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  22 DEC 2021 03:37
 entering extended mode
 **./Tarea_2.tex
 (Tarea_2.tex
@@ -589,79 +589,84 @@ File: Tarea_2_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pdf)
 Package pdftex.def Info: Tarea_2_files/figure-latex/unnamed-chunk-7-1.pdf  used
  on input line 526.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 526--528
+[][]
+ []
+
 [8] [9 <./Tarea_2_files/figure-latex/unnamed-chunk-7-1.pdf>] [10]
 
-LaTeX Warning: Command \' invalid in math mode on input line 595.
+LaTeX Warning: Command \' invalid in math mode on input line 596.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 595.
+LaTeX Warning: Command \' invalid in math mode on input line 596.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 600.
+LaTeX Warning: Command \' invalid in math mode on input line 601.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 600.
+LaTeX Warning: Command \' invalid in math mode on input line 601.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 600.
+LaTeX Warning: Command \' invalid in math mode on input line 601.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 600.
+LaTeX Warning: Command \' invalid in math mode on input line 601.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 607.
+LaTeX Warning: Command \' invalid in math mode on input line 608.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 607.
+LaTeX Warning: Command \' invalid in math mode on input line 608.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 607.
+LaTeX Warning: Command \' invalid in math mode on input line 608.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 607.
+LaTeX Warning: Command \' invalid in math mode on input line 608.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 613.
+LaTeX Warning: Command \' invalid in math mode on input line 614.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 613.
+LaTeX Warning: Command \' invalid in math mode on input line 614.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 613.
+LaTeX Warning: Command \' invalid in math mode on input line 614.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 613.
+LaTeX Warning: Command \' invalid in math mode on input line 614.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 616.
+LaTeX Warning: Command \' invalid in math mode on input line 617.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 616.
+LaTeX Warning: Command \' invalid in math mode on input line 617.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 621.
+LaTeX Warning: Command \' invalid in math mode on input line 622.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 621.
+LaTeX Warning: Command \' invalid in math mode on input line 622.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 628.
+LaTeX Warning: Command \' invalid in math mode on input line 629.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 628.
+LaTeX Warning: Command \' invalid in math mode on input line 629.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 628.
+LaTeX Warning: Command \' invalid in math mode on input line 629.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 628.
+LaTeX Warning: Command \' invalid in math mode on input line 629.
 
 [11]
 
-LaTeX Warning: Command \' invalid in math mode on input line 678.
+LaTeX Warning: Command \' invalid in math mode on input line 679.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 678.
+LaTeX Warning: Command \' invalid in math mode on input line 679.
 
 [12] [13] [14]
 <Tarea_2_files/figure-latex/unnamed-chunk-18-1.pdf, id=166, 469.755pt x 325.215
@@ -670,36 +675,41 @@ File: Tarea_2_files/figure-latex/unnamed-chunk-18-1.pdf Graphic file (type pdf)
 
 <use Tarea_2_files/figure-latex/unnamed-chunk-18-1.pdf>
 Package pdftex.def Info: Tarea_2_files/figure-latex/unnamed-chunk-18-1.pdf  use
-d on input line 970.
+d on input line 971.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 971--973
+[][]
+ []
+
 [15]
 
-LaTeX Warning: Command \' invalid in math mode on input line 992.
+LaTeX Warning: Command \' invalid in math mode on input line 994.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 992.
+LaTeX Warning: Command \' invalid in math mode on input line 994.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 992.
+LaTeX Warning: Command \' invalid in math mode on input line 994.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 992.
+LaTeX Warning: Command \' invalid in math mode on input line 994.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 992.
+LaTeX Warning: Command \' invalid in math mode on input line 994.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 992.
+LaTeX Warning: Command \' invalid in math mode on input line 994.
 
 [16 <./Tarea_2_files/figure-latex/unnamed-chunk-18-1.pdf>] [17]
 
-LaTeX Warning: Command \' invalid in math mode on input line 1120.
+LaTeX Warning: Command \' invalid in math mode on input line 1122.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1120.
+LaTeX Warning: Command \' invalid in math mode on input line 1122.
 
 [18]
-Overfull \hbox (8.98929pt too wide) in paragraph at lines 1162--1164
+Overfull \hbox (8.98929pt too wide) in paragraph at lines 1164--1166
 []\T1/lmr/m/n/10 (-20) El costo an-ual para reparar su mo-to-ci-cleta, es mod-e
 -lado por una vari-able aleato-ria $\OML/lmm/m/it/10 X \OMS/lmsy/m/n/10  \OML/
 lmm/m/it/10 Pareto []$ 
@@ -707,10 +717,10 @@ lmm/m/it/10 Pareto []$
 
 [19]
 
-LaTeX Warning: Command \' invalid in math mode on input line 1217.
+LaTeX Warning: Command \' invalid in math mode on input line 1219.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1217.
+LaTeX Warning: Command \' invalid in math mode on input line 1219.
 
 [20] [21] [22]
 <Tarea_2_files/figure-latex/unnamed-chunk-22-1.pdf, id=234, 469.755pt x 325.215
@@ -719,46 +729,46 @@ File: Tarea_2_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (type pdf)
 
 <use Tarea_2_files/figure-latex/unnamed-chunk-22-1.pdf>
 Package pdftex.def Info: Tarea_2_files/figure-latex/unnamed-chunk-22-1.pdf  use
-d on input line 1363.
+d on input line 1365.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1363--1365
+Underfull \hbox (badness 10000) in paragraph at lines 1365--1367
 [][]
  []
 
 [23 <./Tarea_2_files/figure-latex/unnamed-chunk-22-1.pdf>] [24] [25] [26]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1642.
+(caption)                particular \caption on input line 1644.
 See the caption package documentation for explanation.
 
 [27] [28]
 
-LaTeX Warning: Command \' invalid in math mode on input line 1729.
+LaTeX Warning: Command \' invalid in math mode on input line 1731.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1729.
+LaTeX Warning: Command \' invalid in math mode on input line 1731.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1729.
+LaTeX Warning: Command \' invalid in math mode on input line 1731.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1729.
+LaTeX Warning: Command \' invalid in math mode on input line 1731.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1729.
+LaTeX Warning: Command \' invalid in math mode on input line 1731.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1729.
+LaTeX Warning: Command \' invalid in math mode on input line 1731.
 
 [29]
-Overfull \hbox (118.24327pt too wide) in paragraph at lines 1855--1855
+Overfull \hbox (118.24327pt too wide) in paragraph at lines 1857--1857
 []\T1/lmtt/m/n/10 ## [1] "\nEn efecto, ambas raices coinciden y al aplicarlas e
 n f y g, respectivamente,\nambas se acercan a 0.\n"[] 
  []
 
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 1898.
+(Font)              <14.4> on input line 1900.
 [30] [31] (Tarea_2.aux) ) 
 Here is how much of TeX's memory you used:
  15204 strings out of 478927
@@ -786,7 +796,7 @@ D:/Miktwx LaTex/fonts/type1/public/lm/lmtti10.pfb><D:/Miktwx LaTex/fonts/type1/
 public/amsfonts/symbols/msam10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts
 /symbols/msam7.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols/msbm10.
 pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on Tarea_2.pdf (31 pages, 562316 bytes).
+Output written on Tarea_2.pdf (31 pages, 562424 bytes).
 PDF statistics:
  631 PDF objects out of 1000 (max. 8388607)
  162 named destinations out of 1000 (max. 500000)
