@@ -692,6 +692,41 @@ Con la información proporcionada
 
 $\mathbf{Hint:}$ Usa el ejericio anterior
 
+# Solución a
+
+### Observaciones 
+- Notemos que la aseguradora paga el 80\% de las reparaciones entre 1,000 y 6,000.
+- Observemos que el asegurado desembolsa 10,000 una vez que paga 1,000 de deducible, 20\% de los gastos entre 1,000 y 6,000, es decir, 0.2(6,000 - 1,000) = 1,000 y 100\% de los gastos acumulados hasta gastar 10,000, es decir, 8,000 = 1(14,000 - 6,000). De esta forma, la aseguradora paga el 90% de los gastos  mayores a 14,000, así, el costo esperado anual por reparación esta dado por:
+
+$$ 0.8(\mathbb{E}(X \wedge 6,000) - \mathbb{E}(X \wedge 1,000)) + 0.9(\mathbb{E}(X) - \mathbb{E}(X \wedge 14,000))$$
+Sin embargo, observemos que, $\forall \beta > 0; \theta = 5,000$
+
+\begin{align*}
+(\mathbb{E}(X \wedge B) &= \int_{0}^{\infty}mín\{X,\beta\} \frac{2\theta^{2}}{(X + \theta)^{3}}dx = \int_{0}^{\beta}\frac{2\theta^{2}}{(X + \theta)^{3}}dx + \beta\int_{\beta}^{\infty}\frac{2\theta^{2}}{(X + \theta)^{3}}dx\\
+&= 2\theta^{2} \left[\int_{\theta}^{\beta + \theta} \frac{u - \theta}{xu^{3}} du \right] + \beta 2\theta^{2}\int_{\beta}^{\infty} \frac{1}{(X + \theta)^{3}} dx\\
+&= 2\theta^{2} \left[\left(-\frac{1}{u} + \frac{\theta}{2u^{2}}\right)|_{\theta}^{\beta + \theta}\right] + \beta 2\theta^{2}\left(- \frac{1}{2(X + \theta)^{2}}|_{\beta}^{\infty}\right)\\
+&= 2\theta^{2} \left[\frac{\theta - 2u}{2u^{2}}|_{\theta}^{\beta + \theta}\right] + \beta 2\theta^{2}\left( \frac{1}{2(\beta + \theta)^{2}}\right)\\
+&= \theta^{2} \left(\frac{\theta - 2(\beta + \theta)}{(\beta + \theta)^{2}} - \left(\frac{\theta - 2\theta}{\theta^{2}}\right)\right) + \beta \left(\frac{\theta}{\beta + \theta}\right)^{2}\\
+&= \theta^{2} \left(\frac{(- 2\beta - \theta)}{(\beta + \theta)^{2}} + \frac{1}{\theta}\right) + \beta \left(\frac{\theta}{\beta + \theta}\right)^{2}\\
+&= \theta + \frac{\theta^{2}}{(\beta + \theta)^{2}}\left[\beta - 2\beta - \theta \right] = \theta - \frac{(\beta + \theta)\theta^{2}}{(\beta + \theta)} = \theta \left(1 - \frac{\theta}{\beta + \theta}\right)\\
+&= \frac{\theta \beta}{\beta + \theta}\\
+& \therefore \mathbb{E}(X \wedge \beta) = \frac{\theta \beta}{\beta + \theta} = \frac{(5,000)\beta}{\beta + 5,000}
+\end{align*}
+
+\begin{align*}
+\implies &- \mathbb{E}(X \wedge 6,000) = \frac{5,000(6,000)}{11,000} = 2,727.272727\\
+&- \mathbb{E}(X \wedge 1,000) = \frac{5,000(1,000)}{6,000} = 833.33333\\
+&- \mathbb{E}(X \wedge 14,000) = \frac{5,000(14,000)}{19,000} = 3,684.210526\\
+&- \mathbb{E}(X) = \int_{0}^{\infty}\frac{2(5,000)^{2}x}{(x + 5,000)^{3}}dx = \int_{5,000}^{\infty}\frac{2(5,000)^{2}(u - 5,000)}{u^{3}}du\\
+&= 2(5,000)^{2}\left[\frac{5,000 - 2u}{2u^{2}}|_{5,000}^{\infty}\right] = \textcolor{red}{(5,000)^{2}}\left(\frac{2(5,000) - 5,000}{\textcolor{red}{(5,000)^{2}}}\right)\\
+&= 5,000\\
+\implies & 0.8(\mathbb{E}(X \wedge 6,000) - \mathbb{E}(X \wedge 1,000)) + 0.9 (\mathbb{E}(X) - \mathbb{E}(X \wedge 14,000))\\
+&= 0.8[2,727.272727 - 833.33333] + 0.9(5,000 - 3,684.210526)\\
+&= 1515.151515 + 1184.21\\
+&= 2,699.362042
+\end{align*}
+
+$\therefore$ El costo esperado anual de reparación es de 2,699.362042. $_\blacksquare$
 
 # Ejercicio 7
 
@@ -1021,7 +1056,7 @@ Por otro lado:
 \genfrac{(}{)}{0pt}{}{500}{i}0.15^{i}\quad 0.85^{500-i} = 500,000 \dots \textcolor{green}{(2)}
 \end{align*}
 
-De $\textcolor{green}{(1)}$ y $\textcolor{green}{(2)}$ utilizaremos "uniroot" de R para obtener la $d$ que cumpla ambas ecuaciones, así llegaremos a que $d = 7,183,099.$
+De $\textcolor{green}{(1)}$ y $\textcolor{green}{(2)}$ utilizaremos "uniroot" de R para obtener la $d$ que cumpla ambas ecuaciones, así llegaremos a que $d = 7,183,099.39109927$
 
 ```{r}
 # Función asociada para la primera ecuación, buscamos la d t.q. se haga 0
@@ -1072,6 +1107,22 @@ $\blacksquare$
 # Solución 
 ## Inciso b)
 
+```{r}
+set.seed(314159)
+
+n = 100000
+B <- rbinom(n, size = 500, prob = 0.15)
+Y = 100000*B - r2
+
+for(i in 1:n){
+  Y[i] = max(Y[i],0)
+}
+print("Media Muestral de Y bajo d = 7,183,099.39109927")
+print(mean(Y))
+
+```
+
+$\blacksquare$
 
 # Ejercicio $\alpha$ (Extra+2)
 
