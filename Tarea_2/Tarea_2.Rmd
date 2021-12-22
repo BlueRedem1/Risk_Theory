@@ -239,6 +239,38 @@ Para comprobar que lo que hiciste está bien realiza lo siguiente:
 # Solución 
 ## Inciso b)
 
+# Densidad 
+
+```{r}
+
+library(kdensity)
+set.seed(27)
+
+Z <- function(X,a,d,u,b){
+  n = length(X)
+  l <- c()
+  for(i in 1:n){
+    if(a<= X[i] & X[i]<d){
+      l[i] = X[i]
+    }else{
+      if(X[i]<=u){
+        l[i] = d
+      }else{
+        l[i] = X[i] + d-u
+      }
+    }
+  }
+  return(l)
+}
+
+X <- rexp(100000, 1/100)
+
+Zsamp <- Z(X,0,27,110,200) # Notemos que tanto a como b no se especificaron al inicio del problema
+
+kde = kdensity(Zsamp)
+plot(kde)
+```
+
 
 \qquad c)  Obtén la **esperanza** muestral y teórica de $Z$ (puede ser utilizando comandos de R) ¿son parecidas?
 
@@ -270,6 +302,12 @@ Para nuestro ejercicio
 &= 100 + 100\left(e^{-\frac{110}{100}} - e^{-\frac{-27}{(100)}}\right) = 100 \left[ 1 + e^{-\frac{110}{100}} - e^{-\frac{-27}{100}}\right]\\
 &= 100[.5694916] \approx 56.94916 _\blacksquare
 \end{align*}
+
+```{r}
+Zsamp <- Z(X,0,27,110,200) # Notemos que tanto a como b no se especificaron al inicio del problema
+print("Media Muestral de Z:")
+print(mean(Zsamp))
+```
 
 
 \qquad d)  Obtenga la **mediana** muestral y teórica de $Z$ (puede ser utilizando comandos de R) ¿son parecidas?
@@ -309,6 +347,12 @@ En nuestro caso $(u = 110, d = 27, q_{x}(.5) = ln(2)(100)) = 69.314$
 &= 0 + 27 = 27\\
 &\therefore q_{Z}(.5) = 27 \quad _\blacksquare
 \end{align*}
+
+```{r}
+Zsamp <- Z(X,0,27,110,200) # Notemos que tanto a como b no se especificaron al inicio del problema
+print("Mediana Muestral de Z:")
+print(quantile(Zsamp, 0.5))
+```
 
 # Ejercicio 3
 
@@ -457,6 +501,32 @@ Para comprobar que lo que hiciste está bien realiza lo siguiente:
 
 # Solución b
 
+```{r}
+
+library(kdensity)
+set.seed(6)
+
+Y <- function(X,d){
+  n = length(X)
+  l <- c()
+  for(i in 1:n){
+    if(X[i]>d){
+      l[i] = X[i]
+    }else{l[i] = 0}
+  }
+  return(l)
+}
+
+X <- rexp(100000, 1/100)
+Ysamp <- Y(X,50)
+
+# Densidad 
+kde = kdensity(Ysamp)
+plot(kde)
+
+```
+
+
 \qquad c)  Obtén la **esperanza** muestral y teórica de $Y$ (puede ser utilizando comandos de R) ¿son parecidas?
 
 # Solución c
@@ -489,6 +559,13 @@ dv = \frac{1}{100} e^{-\frac{y}{100}}dy \implies v = -e^{-\frac{y}{100}}\end{cas
 &= 90.9796 \quad _\blacksquare
 \end{align*}
 
+```{r}
+Ysamp <- Y(X,50)
+
+print("Media Muestral de Y:")
+print(mean(Ysamp))
+```
+
 
 \qquad d)  Obtenga la **mediana** muestral y teórica de $Y$ (puede ser utilizando comandos de R) ¿son parecidas?
 
@@ -515,7 +592,13 @@ EN nuestro caso $(\alpha= 0.5, d=50, X \sim exp(\frac{1}{100}))$
 & \textcolor{red}{q_{Y}(0.5) \approx 69.314718} \quad \blacksquare
 \end{align*}
  
+```{r}
+Ysamp <- Y(X,50)
 
+print("Mediana Muestral de Y:")
+print(quantile(Ysamp, 0.5))
+```
+ 
 # Ejercicio 5
 
 Un deducible franquicia modifica el deducible ordinario agregando el deducible cuando hay un monto positivo pagado.
@@ -530,10 +613,51 @@ $$Y^{P}=X|X>d$$
 
 \qquad a) Demuestra para una poliza con deducible franquicia 
 $$\mathbb{E}\left ( Y^{L} \right )=\mathbb{E}\left ( X \right )-\mathbb{E}\left ( X\wedge d \right )+d\left [ 1-F\left ( d \right ) \right ]$$
+# Solución a
+
+### Observación 
+
+\begin{align*}
+\mathbb{E}[mín(X,d)] &= \mathbb{E}[X | X < d]\mathbb{P}[X < d] + \mathbb{E}[d | X \geq d]\mathbb{P}[X \geq d]\\
+&= \left[\int_{0}^{d}x \frac{fx(x)dx}{\textcolor{red}{F_{X}(d)}}\right] \textcolor{red}{F_{X}(d)} + d[1 - F_{X}(d)]\\
+&= \int_{0}^{d} x F_{X}(x)dx + d[1 - F_{X}(d)]\\
+&= \int_{0}^{d} S(x)d_{X} + d[1 - F_{X}(d)]\\
+& \therefore \int_{0}^{d} S(x)d_{X} + d[1 - F_{X}(d)]
+\end{align*}
+
+Resolvemos el inciso a
+
+$\mathbb{E}[Y^{2}] = \mathbb{E}[Y^{2}| X \leq d] \mathbb{P}[X \leq d] + \mathbb{E}[Y^{2} | X > d] \mathbb{P}[X > d]$
+Pero, $\mathbb{E}[Y^{2}| X \leq d] = 0$ ya que $Y^{2}|Z \leq d = 0. \quad \text{(La v.a constante 0)}$
+$$ \mathbb{E}[Y^{2}|X > d]\mathbb{P}[X > d]$$
+\begin{align*}
+\mathbb{P}[X > d] &= 1 F_{X}(d)\\
+\mathbb{E}[Y^{2}| X > d] &= \mathbb{E}[X | X > d]\\
+&= \int_{d}^{\infty}x \frac{fx(z)dz}{1 - F_{X}(d)}\\
+&= \int_{d}^{\infty}x \frac{fx(z)dz}{1 - F_{X}(d)} + \int_{0}^{d}x \frac{fx(z)dz}{1 - F_{X}(d)} - \int_{0}^{d}x \frac{fx(z)dz}{1 - F_{X}(d)}\\
+&= \int_{0}^{\infty}x \frac{fx(z)dz}{1 - F_{X}(d)} - \int_{0}^{d}x \frac{fx(z)dz}{1 - F_{X}(d)}\\
+&= \frac{1}{1- F_{X}(d)} \left[\int_{0}^{\infty} zf_{x}(z)dz - \int_{0}^{d} xf_{X}(z)dz\right]\\
+&\text{Haciendo uso de Darth-Vader}\\
+&= \frac{1}{1 - F_{X}(d)} \left(\mathbb{E}[X] - \int_{0}^{d} S(x)dx \right)\\
+&= \frac{1}{1 - F_{X}(d)}\left(\mathbb{E}[X] - \int{0}^{d}S(x)dx\right)[1 - F_{X}(d)]\\
+&= \mathbb{E}[X] - \int_{0}^{d}S(x)dx\\
+&= \mathbb{E}[X] - \int_{0}^{d}S(x)dx - d[1 - F_{X}(d)] + d[1 - F_{X}(d)]\\
+&= \mathbb{E}[X] - \mathbb{E}[X \wedge d] + d[1 - F_{X}(d)] \quad _\blacksquare
+\end{align*}
 
 \qquad b) Obten la funcion de decidad $f_{Y^{P}}(y)$
 
-
+\begin{align*}
+\mathbb{P}[X \leq x | X > d] &= \frac{\mathbb{P}[X \leq x \mathbb{I}_{\{X > d\}}]}{\mathbb{P}[X > d]}\\
+&= \frac{\int_{0}^{x}f_{x}(x)dx \mathbb{I}_{\{x > d\}}}{S_{x}(d)}\\
+&= \frac{\int_{0}^{x}f_{x}(x)dx}{S_{x}(d)}\\
+& \implies F_{X}(x) = \frac{\int_{0}^{x}f_{x}(z)dz}{S_{x}(d)}\\
+& \text{Derivando} \implies f_{x}(x) = \frac{f_{x}(x)}{S_{x}(d)}\\
+& \therefore f_{x}(x) = \begin{cases} 
+\frac{f_{x}(x)}{S_{x}(d)} & si \quad x > d\\
+0 & \text{En otro caso}
+\end{cases} \quad _\blacksquare
+\end{align*}
 
 # Ejercicio 6
 
