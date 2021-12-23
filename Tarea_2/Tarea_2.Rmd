@@ -253,8 +253,6 @@ Para comprobar que lo que hiciste está bien realiza lo siguiente:
 
 ```{r}
 
-library(kdensity)
-set.seed(27)
 
 Z <- function(X,a,d,u,b){
   n = length(X)
@@ -272,14 +270,36 @@ Z <- function(X,a,d,u,b){
   }
   return(l)
 }
-
+aux<-function(x,a=0,d=27,u=110,b=Inf){
+  if(a<=x & x<d){
+    return(dexp(x,rate=1/100))
+  }
+  else if(x==d){
+    return(pexp(u,rate=1/100)-pexp(d,rate=1/100))
+  }
+  else{
+    return(dexp(x+u-d,rate=1/100))
+  }
+}
+aux<-Vectorize(aux)
+set.seed(27)
 X <- rexp(100000, 1/100)
-
-Zsamp <- Z(X,0,27,110,200) # Notemos que tanto a como b no se especificaron al inicio del problema
-
-kde = kdensity(Zsamp)
-plot(kde)
+Zsamp <- Z(X,0,27,110) # Notemos que tanto a como b no se especificaron al inicio del problema
+library(MASS)
+MASS::truehist(Zsamp,xlim=c(0,quantile(Zsamp,0.95)))
+plot(aux,xlim=c(0,ceiling(max(Zsamp))),add=T,lwd=3)
 ```
+Sin embargo notemos que nuestra función no grafica bien la parte de d, ya que 
+ahí se dispara **en un solo valor, que es x=d=27** y después vuelve a tomar
+valores pequeños. Pero hagamos un zoom hasta esa parte para verificar:
+```{r}
+MASS::truehist(Zsamp,xlim=c(0,150))
+plot(aux,xlim=c(0,150),add=T,lwd=3)
+```
+
+Solo es un problema al momento de graficar todo junto. **Aquí lo confirmamos, se ve mejor**
+
+
 $\blacksquare$
 
 \qquad c)  Obtén la **esperanza** muestral y teórica de $Z$ (puede ser utilizando comandos de R) ¿son parecidas?
@@ -515,8 +535,6 @@ Para comprobar que lo que hiciste está bien realiza lo siguiente:
 # Solución b
 
 ```{r}
-
-library(kdensity)
 set.seed(6)
 
 Y <- function(X,d){
@@ -529,15 +547,31 @@ Y <- function(X,d){
   }
   return(l)
 }
-
+aux<-function(x,d=50){
+  if(x==0){
+    return(pexp(d,rate=1/100))
+  }
+  else if(x>d){
+    return(dexp(x,rate=1/100))
+  }
+  else if(x>0 & x<=d){
+    return(0)
+  }
+}
+aux=Vectorize(aux)
 X <- rexp(100000, 1/100)
 Ysamp <- Y(X,50)
-
-# Densidad 
-kde = kdensity(Ysamp)
-plot(kde)
+MASS::truehist(Ysamp,xlim=c(0,quantile(Zsamp,0.95)))
+plot(aux,xlim=c(0,ceiling(max(Ysamp))),add=T,lwd=3)
 
 ```
+Aquí también el desfase es debido a los límites del eje x, hagamos un poco de zoom
+```{r}
+MASS::truehist(Ysamp,xlim=c(0,150))
+plot(aux,xlim=c(0,150),add=T,lwd=3)
+```
+**Aquí se ve mejor, en esta escala**. El problema en el anterior era del graficador
+únicamente.
 $\blacksquare$
 
 \qquad c)  Obtén la **esperanza** muestral y teórica de $Y$ (puede ser utilizando comandos de R) ¿son parecidas?
