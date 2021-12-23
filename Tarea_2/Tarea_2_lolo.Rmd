@@ -1,0 +1,486 @@
+---
+title: "Tarea 2"
+author: |
+        | Teoría del Riesgo 2021-2
+output: pdf_document
+header-includes:
+- \usepackage{enumitem}  
+- \usepackage{caption}
+- \usepackage{amsmath}
+- \captionsetup{labelformat=empty}
+---
+
+```{r setup,echo=F}
+knitr::opts_chunk$set(echo=T, message=FALSE, warning=FALSE, 
+                      out.width='100%', fig.align='center', eval=T)
+```
+
+Realiza los siguientes ejercicios cuidando el formato y las reglas establecidas en la presentación del curso. Sube las soluciones a *Classroom* dentro del apartado correspondiente a esta tarea en archivos **NO COMRPIMIDOS**. 
+
+**La calificación de esta tarea está acotada por 10.**
+
+
+# Ejercicio 1
+
+En clase se vio la modelación de la variable aleatoria de pérdida de una compañía de seguros ($Y$) para cuando se tiene un contrato de **deducible**, sea $X$ la variable aleatoria que mide el monto de pérdida asociado a un siniestro, tomando $d>0$ el deducible que cobra **la aseguradora**, se tiene que:
+
+$$Y=\text{máx}\{X-d,0\}$$
+
+Muestra la construcción de una variable aleatoria $Z$ para este tipo de contrato que mida la pérdida que asume **el asegurado** (todo lo que la compañía no cubre).
+
+\qquad a) **Exhibe de manera general cómo se construye su función de densidad en términos de la densidad de** $\mathbf{X}$, especificando el soporte de la variable aleatoria que estás construyendo. 
+
+**Busca su relación con otra variable de cobertura que conozcas, recuerda siempre la "Ley de conservación del Riesgo".**
+
+Para comprobar que lo que hiciste está bien realiza lo siguiente:
+
+\qquad b)  Considera una variable aleatoria $X\sim Exp\left(\lambda=\frac{1}{100}\right)$ ($E[X]=100$) a partir de ésta variable aleatoria, considera $d=27$, fija la semilla en 27 y genera una muestra aleatoria de tamaño $n=100,000$ de tu variable $Z$, realiza un histograma y compáralo con la función de densidad que construiste anteriormente.
+
+```{r}
+library(MASS)
+library(tidyverse)
+```
+
+
+```{r}
+#fijamos semilla
+set.seed(27)
+#simulamos
+data_ej1<-pmin(rexp(n=100000,rate=1/100),rep(27,100000))
+hist(data_ej1,probability = TRUE)
+```
+```{r}
+
+```
+
+\qquad c)  Obtén la esperanza muestral y teórica de $Z$ (puede ser utilizando comandos de R) ¿son parecidas?
+
+```{r}
+esperanza_empirica<-mean(data_ej1)
+esperanza_empirica
+```
+
+De lo obtenido:
+
+```{r}
+Esp_1<-(100-127*exp(-27/100))/(1-exp(-27/100))
+Prob_1=(1-exp(-27/100))
+Prob_2=1-Prob_1
+Esp_2=27
+Esp_Teorica<-Esp_1*Prob_1+Esp_2*Prob_2
+Esp_Teorica
+```
+Lo cual coincide bastante con la probabilidad empírica obtenida, siendo la diferencia
+de:
+```{r}
+Esp_Teorica-esperanza_empirica
+```
+
+\qquad d)  Realiza una prueba de bondad de ajuste Ji cuadrada que contraste los datos simulados de $Z$ con la función de densidad que construiste, en particular para cuando el asegurado asume una pérdida igual a $d$ y para cuando no, es decir, cuando $Z=d$ y cuando $Z<d$, explica y concluye tus resultados.
+
+```{r}
+cortes<-cut(data_ej1, breaks = c(0,27,Inf),right=FALSE)
+observados<-table(cortes)
+observados
+esperados<-c(Prob_1,Prob_2)
+chisq.test(x=observados,p=esperados) #Ji-cuadrada
+```
+No rechazamos la hipótesis nula, el p-value es altísimo, por lo que no hay evidencia
+estadísticamente significativa como para decir que no sigue la disttribución
+propuesta. **i.e, sí se distribuye de la manera propuesta teóricamente**
+# Ejercicio 2
+
+En clase se vio la modelación de la variable aleatoria de pérdida de una compañía de seguros ($Y$) para cuando se tiene un contrato de **deducible** y **monto máximo de beneficio**, sea $X$ la variable aleatoria que mide el monto de pérdida asociado a un siniestro definido en el intervalo $(a,b)$ con $0<a$, tomando $a<d<u<b$ el deducible y monto máximo de beneficio respectivamente que cobra **la aseguradora**, se tiene que:
+
+$$Y=\text{máx}\{\text{mín}\{X,u\}-d,0\}$$
+
+Muestra la construcción de una variable aleatoria $Z$ para este tipo de contrato que mida la pérdida que asume **el asegurado** (todo lo que la compañía no cubre), 
+
+\qquad a) **Exhibe de manera general cómo se construye su función de densidad en términos de la densidad de** $\mathbf{X}$, especificando el soporte de la variable aleatoria que estás construyendo. 
+
+Para comprobar que lo que hiciste está bien realiza lo siguiente:
+
+\qquad b)  Considera una variable aleatoria $X\sim Exp\left(\lambda=\frac{1}{100}\right)$ ($E[X]=100$) a partir de ésta variable aleatoria, considera $d=27$ y $u=110$, fija la semilla en 27 y genera una muestra aleatoria de tamaño $n=100,000$ de tu variable $Z$, realiza un histograma y compáralo con la función de densidad que construiste anteriormente.
+
+\qquad c)  Obtén la **esperanza** muestral y teórica de $Z$ (puede ser utilizando comandos de R) ¿son parecidas?
+
+\qquad d)  Obtenga la **mediana** muestral y teórica de $Z$ (puede ser utilizando comandos de R) ¿son parecidas?
+
+
+# Ejercicio 3
+
+Sea $X$ la variable aleatoria que representa los montos de siniestro para un contrato. La función de masa de probabilidad está dada por:
+$$\mathbb{P}[X=x]=\frac{1}{10}\hspace{1cm}para\hspace{0.5cm}x=100,200,300,...,900,1000$$
+Dicho contrato está sujeto a un deducible $d=200$, un monto máximo de beneficio $u=800$ y un coaseguro $\alpha=0.95$.
+\begin{enumerate}
+\item[a)] Calcula el monto promedio del costo por pérdida de la aseguradora ($\mathbb{E}[Y_L]$)
+
+```{r}
+alpha=0.95
+d=200
+u=800
+posibles_pagos<-c()
+for (i in seq(100,1000,by=100)){
+  posibles_pagos[i/100]<-min(max(alpha*(i-d),0),alpha*(u-d))
+}
+valores_ej3<-data.frame("Perdida"=seq(100,1000,by=100),"Pago"=posibles_pagos,
+                        "Probabilidad"=rep(1/10,10))
+valores_ej3
+valores_ej3_agrupados <- valores_ej3 %>%
+  group_by(Pago) %>%
+  summarise(Probabilidad=sum(Probabilidad))
+valores_ej3_agrupados
+```
+Entonces, la probabilidad teórica está dada por:
+```{r}
+esperanza_teorica_L3<-sum(valores_ej3$Pago*valores_ej3$Probabilidad)
+esperanza_teorica_L3
+```
+
+\item[b)] Fija una semilla en 100 y realiza $n=1,000,000$ simulaciones para calcular de forma muestral la esperanza del inciso anterior.
+```{r}
+set.seed(100)
+datos_ej3b<-sample(pmin(pmax(alpha*(seq(100,1000,by=100)-d),0),alpha*(u-d)),1000000,replace=T)
+esperanza_empirica_L3<-mean(datos_ej3b)
+esperanza_empirica_L3
+```
+Vemos que es muy similar, de hecho solo difiere por:
+```{r}
+esperanza_teorica_L3-esperanza_empirica_L3
+```
+\item[c)] Calcula el monto promedio del costo por pago de la aseguradora ($\mathbb{E}[Y_P]$)
+
+```{r}
+posibles_perdidas=posibles_pagos[posibles_pagos>0]
+pago<-data.frame("Pago_positivo"=posibles_perdidas,
+                 "Probabilidad"=rep((1/10)/(8/10),length(posibles_perdidas)))
+pago
+pago_agrupado<-pago %>%
+  group_by(Pago_positivo) %>%
+  summarise(Probabilidad=sum(Probabilidad))
+pago_agrupado
+```
+Entonces la esperanza teórica está dada por:
+
+```{r}
+esperanza_teorica_P3<-sum(pago$Pago_positivo*pago$Probabilidad)
+esperanza_teorica_P3
+```
+\item[d)] Fija una semilla en 100 y realiza $n=1,000,000$ simulaciones para calcular de forma muestral la esperanza del inciso anterior.
+```{r}
+set.seed(100)
+datos_ej3d<-sample(pmin(pmax(alpha*(seq(100,1000,by=100)-d),0),alpha*(u-d))[pmin(pmax(alpha*(seq(100,1000,by=100)-d),0),alpha*(u-d))>0],1000000,replace=T)
+esperanza_empirica_P3<-mean(datos_ej3d)
+esperanza_empirica_P3
+```
+Vemos que son bastante similares, de hecho solo difieren por:
+```{r}
+esperanza_teorica_P3-esperanza_empirica_P3
+```
+
+\end{enumerate}
+
+# Ejercicio 4
+
+En clase se vio la modelación de la variable aleatoria de pérdida de una compañía de seguros ($Y$) para cuando se tiene un contrato de **deducible**, sea $X$ la variable aleatoria que mide el monto de pérdida asociado a un siniestro definido en el intervalo $(a,b)$ con $0<a$, tomando $a<d<b$ el deducible que cobra **la aseguradora**, se define como **deducible franquicia** tal que el pago de la compañía aseguradora está dado por:
+
+$$
+Y=
+\begin{cases}
+0 & si \quad X \leq d\\
+X & si \quad X > d
+\end{cases}
+$$
+
+Muestra la construcción de una variable aleatoria $Y$ para este tipo de contrato que mida la pérdida que asume **la aseguradora** (todo lo que la compañía cubre), 
+
+\qquad a) **Exhibe de manera general cómo se construye su función de densidad en términos de la densidad de** $\mathbf{X}$, especificando el soporte de la variable aleatoria que estás construyendo. 
+
+Para comprobar que lo que hiciste está bien realiza lo siguiente:
+
+\qquad b)  Considera una variable aleatoria $X\sim Exp\left(\lambda=\frac{1}{100}\right)$ ($E[X]=100$) a partir de ésta variable aleatoria, considera $d=50$, fija la semilla en 6 y genera una muestra aleatoria de tamaño $n=100,000$ de tu variable $Y$, realiza un histograma y compáralo con la función de densidad que construiste anteriormente.
+
+\qquad c)  Obtén la **esperanza** muestral y teórica de $Y$ (puede ser utilizando comandos de R) ¿son parecidas?
+
+\qquad d)  Obtenga la **mediana** muestral y teórica de $Y$ (puede ser utilizando comandos de R) ¿son parecidas?
+
+# Ejercicio 5
+
+Un deducible franquicia modifica el deducible ordinario agregando el deducible cuando hay un monto positivo pagado.
+
+Una vez que la pérdida $X$ supera el umbral $d$, la aseguradora paga la pérdida total $X$.
+
+La variable aleatoria por perdida para una póliza con deducible franquicia es.
+
+$$Y^{L}=\left\{\begin{matrix} 0 & para & X\leq d\\ X & para & X> d \end{matrix}\right.$$
+La variable aleatoria por pago para una póliza con deducible franquicia está dada por
+$$Y^{P}=X|X>d$$
+
+\qquad a) Demuestra para una poliza con deducible franquicia 
+$$\mathbb{E}\left ( Y^{L} \right )=\mathbb{E}\left ( X \right )-\mathbb{E}\left ( X\wedge d \right )+d\left [ 1-F\left ( d \right ) \right ]
+$$
+
+
+\qquad b) Obten la funcion de decidad $f_{Y^{P}}(y)$
+
+# Ejercicio 6
+Mike es un especialista en acrobacias con motocicleta que se presenta en eventos de deportes extremos.
+
+El costo anual para reparar su motocicleta, es modelado por una variable aleatoria $X\sim Pareto\left ( \alpha =2,\theta =5,000 \right )$
+
+Los costos anuales de reparación de la motocicleta están sujetos a lo siguiente:
+
+\qquad i) Mike paga un deducible $d$=1,000
+
+\qquad ii) Mike paga 20% para reparaciones que están entre 1,000 y 6,000
+
+\qquad iii) Mike paga el 100% para reparaciones que superan 6,000 y hasta desembolsar máximo 10,000 
+
+\qquad iv) Mike paga el 10% de las reparaciones restantes
+
+Con la información proporcionada
+
+\qquad a) Calcula el costo esperado anual de reparación.
+
+$\mathbf{Hint:}$ Usa el ejericio anterior
+
+# Ejercicio 7
+
+Sea $X\sim Pareto(a,b)$ con soporte en $(0,\infty)$ la v.a. de los montos de un siniestro.
+
+\begin{itemize}
+\item[a)] Calcular la distribución de la variable de costo por pago cuando la póliza está sujeta a un deducible $d$.
+\item[b)] Para valores de $a,b$ y $d$ de su elección, comprueba que lo encontrado en el inciso anterior se cumple muestralmente comparando un histograma y la densidad teórica. Realiza una prueba de bondad de ajuste y concluye.
+
+```{r}
+library(actuar)
+```
+
+```{r}
+a=3
+b=2000
+d=500
+proba_0<-ppareto(d,shape=a,scale=b)
+proba_0
+set.seed(27)
+n=100000
+data_ej7<-c()
+j=1
+while(j<=n){
+  aux=max(rpareto(1,shape=a,scale=b)-d,0)
+  if(aux>0){
+    data_ej7[j]=aux
+    j=j+1
+    }
+}
+aux = function(x){dpareto(x,shape=a,scale=b+d)}
+MASS::truehist(data_ej7,xlim = c(0,quantile(data_ej7,0.95)))
+plot(aux,xlim = c(0,quantile(data_ej7,0.95)),add=T,lwd=3)
+```
+Gráficamente, vemos que se pega demasiado la línea al histograma.
+
+```{r}
+library(goftest)
+goftest::ad.test(data_ej7,"ppareto",shape=a,scale=b+d) #Anderson-Darling
+ks.test(unique(data_ej7),"ppareto",shape=a,scale=b+d)
+```
+Pasa ambos test sin ningún problema: Los p-values obtenidos en ambas pruebas son altísimos. Por lo que aceptamos la hipótesis nula de que 
+se distrubuye pareto(3,2500).
+De hecho, la esperanza muestral y teórica coinciden:
+
+```{r}
+esp_mues_ej7<-mean(data_ej7)
+esp_mues_ej7
+esp_teo_ej7<-(b+d)/(a-1)
+esp_teo_ej7
+```
+Difieren por:
+```{r}
+esp_mues_ej7-esp_teo_ej7
+```
+
+
+\end{itemize}
+
+
+# Ejercicio 8
+
+Sean $X_1,\dots,X_{100}$ los montos de siniestros independientes con distribución exponencial de media $1000$. Una aseguradora cubrirá todos los riesgos cuyas póliza están sujetas cada una a un deducible $d=100$.
+
+\begin{itemize}
+\item[a)] Calcular la distribución del número de siniestros en los que la aseguradora tendrá que pagar algun monto positivo.
+\item[b)] Calcular la distribución del numero de siniestros en los que la aseguradora no tendrá que pagar (incluyendo pagos de 0).
+\item[c)] Simular valores para el número de siniestros en los que la aseguradora debe realizar un pago positivo. Realizar una prueba Ji-cuadrada partiendo la muestra en 3 conjuntos (muestra$\leq90$, $90<$muestra$\leq95$ y $95<$muestra) para corroborar la distribución encontradas en el inciso a).
+\item[d)] Simular valores para el número de siniestros en los que la aseguradora no debe realizar un pago. Realizar una prueba Ji-cuadrada partiendo la muestra en 3 conjuntos (muestra$\leq5$, $5<$muestra$\leq10$ y $10<$muestra) para corroborar la distribución encontradas en el inciso b).
+\end{itemize}
+
+# Ejercicio 9
+
+Recordemos la formula de De Pril [ii]: Sean $X_1,X_2,\dots,X_n$ *v.a.i.i.d.* con valores en el conjunto $\mathbb{N}\cup\{0\}$. Para cada entero $j\geq 0$, defina la probabilidad $f_j=\mathbb{P}[X=j]$, y suponga $f_0\neq0$. Sea $\displaystyle S=\sum_{k=1}^n X_k$. Entonces las probabilidades $g_x = \mathbb{P}[S=x]$ se pueden calcular recursivamente mediante la fórmula
+
+$$
+g_x = 
+  \begin{cases}
+  (f_0)^n & \quad \text{si} \quad x=0,\\
+  \displaystyle \frac{1}{f_0}  \sum_{k=1}^x \left[\frac{j(n+1)}{x}-1\right] f_j g_{x-j} &  \quad \text{si} \quad x\in\mathbb{N}-\{0\}.\\
+  \end{cases}
+$$
+
+\begin{enumerate}
+
+  \item Considere ahora $X_1,X_2,\dots,X_n$ \textit{v.a.i.i.d.} con valores en el conjunto $\mathbb{N}-\{0,1,\dots,m-1\}=\{m,m+1,\dots\}$. Para cada entero $j\geq m$, defina la probabilidad $f_j=\mathbb{P}[X=j]$, y suponga $f_m\neq0$. Encuentre y demuestre una manera de encontrar probabilidades exactas para $\displaystyle S=\sum_{k=1}^n X_k$.
+  
+  \textit{Hint:} Use De Pril [ii].
+
+  \item Programe, muestre y explique con comentarios la metodología encontrada.
+```{r}
+# x es donde queremos calcular la proba
+# n el número de pólizas
+# f := vector de probabilidades de X (ordenadas desde m) hasta z>=m
+# m es el monto mínimo de reclamación
+# todo es el argumento que nos dice si queremos imprimir todas las probas puntuales
+# hasta x, así como lo siguiente: 
+# La probabilidad acumulada hasta dicho punto
+# Lla probabilidad de que S>x
+# La probabilidad de que S>=x
+
+PrilII_General <- function(x,n,m,f,todo=F){
+  ############Preparativos#################
+  #Verificamos que el monto x sea al menos el monto mínimo de S
+  if(x<(m*n)){
+    return(paste("El monto mínimo de S es",n*m,";Por ello la proba de S=",x,",es 0"))
+  }
+  #Creamos un vector auxiliar para las probas de la suma
+  g<-(m*n):x
+  #Le ponemos nombres al vector de las probas de la suma
+  names(g)<-(m*n):x
+  #Le ponemos nombres al vector de probas de f.
+  #Como empieza en m, desplazamos dichas unidades, por eso se su,a
+  names(f)<-m:(m+(length(f)-1))
+  #Fórmula De Pril II
+  #Aquí k juega el rol del monto de los reclamos
+  for(k in (n*m):x){
+    #Si k es n*m, es la proba de que TODOS reclamen
+    if(k==n*m){
+      g[as.character(n*m)]=f[as.character(m)]^n
+    }
+    #Si no, entramos a la recursión
+    else{
+      #Creamos un auxiliar para la suma, irá guardando los valores de la suma
+      aux = 0
+      #Como encontramos en el inciso anterior que la suma corre de m+1 hasta
+      #k+m-n*m, es por ello que la suma corre en ese rango de valores
+      #Sin ambargo, le ponemos que corra hasta el mínimo entre k+m-n*m
+      #y el monto "m" + la longitud del vector de probabilidades-1, ya que 
+      #Ese es el último valor en el vector f; se considera que el resto que 
+      #hay entre dicho número y k tendrían proba 0, por lo que ya no se consideran
+      # en el cálculo.
+      
+      for(j in (m+1):min(k+m-n*m,m+length(f)-1)){
+        #Calculamos la suma como encontramos en la demostración
+        aux = aux + ((j*(n+1))/(k-(n*m)) - (m+k)/(k-(n*m)))*f[as.character(j)]*g[as.character(m+k-j)]
+      }
+      #dividimos la suma entre la proba de que un individuo reclame el monto "m"
+      #tal como encontramos en la demostración, y le asignamos al valor k su proba
+      g[as.character(k)]=aux/f[as.character(m)]
+    }
+  }
+  #Si todo es verdadero, regresamos todo el vector de probabilidades de la suma
+    if(todo){
+      #Si todo es verdadero, devolvemos probas puntuales, acumulada, supervivencia
+      # y supervivencia inclusiva
+        return(list("Puntuales"=g,"Acumulada"=sum(g),"Supervivencia"=1-sum(g),
+                    "Supervivencia_inclusiva"=1-sum(g)+g[as.character(x)]))
+    }else{
+      # de lo contrario, solo la proba del monto k
+      return(g[as.character(x)])
+    }
+}
+# Comprobamos con el ejemplo visto el 16 de diciembre de 2021
+f_ej<-5:15-5:15
+names(f_ej)<-5:15
+f_ej[(as.character(c(5,10,15)))]<-c(3/16,3/16,5/8)
+m_ej=5
+n_ej=100
+PrilII_General(x=1235,n_ej,m_ej,f_ej,todo=F)
+#Obtenemos lo mismo que el profesor
+```
+
+  \item Suponga que tiene $n=100$ pólizas/asegurados ($X_i$) independientes e idénticamente distribuidos tales que tienen una función de masa de probabilidad dada por
+  
+  \vspace{-0.25cm}
+  \begin{center}
+  \captionof{table}{}
+  \begin{tabular}{|c|c|c|c|c|}
+  \hline
+  $k$ & 10 & 15 & 20 & 25   \\  \hline 
+  \rule[-1.5ex]{0pt}{4ex}$\mathbb{P}\left[X=k\right]$  & $\frac{2}{5}$ & $\frac{1}{5}$ &         $\frac{1}{4}$ & $\frac{3}{20}$ \\  \hline
+  \end{tabular}
+  \end{center}
+  
+```{r}
+#Ponemos un vector con dichos datos proporcionados
+f<-10:25-10:25
+names(f)<-10:25
+f[(as.character(seq(10,25,by=5)))]<-c(2/5,1/5,1/4,3/20)
+m=10
+n=100
+```
+  
+  
+  Calcule de manera "exacta" (numéricamente):
+  
+  \begin{enumerate}
+    \item $\mathbb{P}[S=1570]$
+```{r}
+PrilII_General(x=1570,n=n,m=m,f=f,todo=F)
+```
+    
+    \item $\mathbb{P}[S=900]$
+```{r}
+PrilII_General(x=900,n=n,m=m,f=f,todo=F)
+```
+Esta probabilidad es 0, ya que el monto mínimo de reclamación es $10$, y hay 
+$100$ pólizas, entonces el valor mínimo de S es $10*100=1000$
+    
+    \item $\mathbb{P}[S\leq1,650]$
+```{r}
+ej_9c<-PrilII_General(x=1650,n=n,m=m,f=f,todo=T)
+ej_9c$Acumulada
+```
+    
+    
+    \item $\mathbb{P}[S\geq1,560]$
+```{r}
+ej_9d<-PrilII_General(x=1560,n=n,m=m,f=f,todo=T)
+ej_9d$Supervivencia_inclusiva
+```
+    
+  \end{enumerate}
+
+  \textit{Hint:} Use los incisos anteriores.
+
+\end{enumerate}
+
+
+# Ejercicio 10
+
+Una empresa tiene 500 trabajadores y desea asegurarlos por una asuma asegurada de \$100,000. Cada uno tiene una probabilidad de 0.15 de reclamar y de 0.85 de no durante cierto periodo de tiempo. Si $Y$ es la variable aleatoria que mide el monto a pagar de la aseguradora en un contrato por deducible asumiendo el riesgo de todo el portafolio anterior:
+
+\qquad (a) ¿Cuánto debe valer el deducible para que el valor esperado de $Y$ sea \$500,000?
+
+Nota: Deben dar el valor exacto del deducible (salvo quizás un error numérico). Puedes utilizar R para realizar tus cálculos y/o aproximaciones numéricas **¡cada dígito cuenta!**. Un buen punto de partida para buscar a $d$ es saber que:
+
+- Si $X\in[a,b]$, en general, $d\in[0,b]$ (no tiene mucho sentido $d>b$).
+
+- $\mathbb{E}[X\wedge d]=\mathbb{E}[X]-\mathbb{E}[(X-d)_{+}]\leq d$.
+
+Hint: Existen muchas maneras de solucionar esto. Puedes asumir que las fórmulas de Darth Vader son válidas para variables aleatorias discretas. Para asuntos numéricos, un par de buenas funciones son: \texttt{pracma::integral} y \texttt{pracma::newtonRaphson}, o bien, \texttt{uniroot}. Aunque insisto, cada quién lo hará como pueda.
+
+\qquad (b) Realiza simulaciones de la $Y$ que propones y obtén su media.
+
+# Ejercicio $\alpha$ (Extra+2)
+
+Las canciones anexadas \texttt{Mágia1.mp3} y \texttt{Mágia2.mp3}  son de un videojuego. Quien protagoniza este videojuego es una bruja que utiliza hechizos para defenderse de quien la quiere matar. Hay 3 categorías de hechizo: pared, techo y piso. A la fecha de publicación de esta tarea, existen 4 videojuegos de esta saga, en particular: ¿Cómo se llama la protagonista del videojuego al que pertenecen las canciones en cuestión y cuál es la trama del mismo?
+
+Este punto extra solamente es válido para los 4 primeros equipos que entreguen el examen y correctamente la respuesta. 
