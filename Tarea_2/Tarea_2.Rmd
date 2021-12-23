@@ -253,8 +253,6 @@ Para comprobar que lo que hiciste está bien realiza lo siguiente:
 
 ```{r}
 
-library(kdensity)
-set.seed(27)
 
 Z <- function(X,a,d,u,b){
   n = length(X)
@@ -272,14 +270,36 @@ Z <- function(X,a,d,u,b){
   }
   return(l)
 }
-
+aux<-function(x,a=0,d=27,u=110,b=Inf){
+  if(a<=x & x<d){
+    return(dexp(x,rate=1/100))
+  }
+  else if(x==d){
+    return(pexp(u,rate=1/100)-pexp(d,rate=1/100))
+  }
+  else{
+    return(dexp(x+u-d,rate=1/100))
+  }
+}
+aux<-Vectorize(aux)
+set.seed(27)
 X <- rexp(100000, 1/100)
-
-Zsamp <- Z(X,0,27,110,200) # Notemos que tanto a como b no se especificaron al inicio del problema
-
-kde = kdensity(Zsamp)
-plot(kde)
+Zsamp <- Z(X,0,27,110) # Notemos que tanto a como b no se especificaron al inicio del problema
+library(MASS)
+MASS::truehist(Zsamp,xlim=c(0,quantile(Zsamp,0.95)))
+plot(aux,xlim=c(0,ceiling(max(Zsamp))),add=T,lwd=3)
 ```
+Sin embargo notemos que nuestra función no grafica bien la parte de d, ya que 
+ahí se dispara **en un solo valor, que es x=d=27** y después vuelve a tomar
+valores pequeños. Pero hagamos un zoom hasta esa parte para verificar:
+```{r}
+MASS::truehist(Zsamp,xlim=c(0,150))
+plot(aux,xlim=c(0,150),add=T,lwd=3)
+```
+
+Solo es un problema al momento de graficar todo junto. **Aquí lo confirmamos, se ve mejor**
+
+
 $\blacksquare$
 
 \qquad c)  Obtén la **esperanza** muestral y teórica de $Z$ (puede ser utilizando comandos de R) ¿son parecidas?
