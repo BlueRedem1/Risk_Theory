@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  22 DEC 2021 20:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  22 DEC 2021 23:59
 entering extended mode
 **./Tarea_2.tex
 (Tarea_2.tex
@@ -746,8 +746,8 @@ LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line
 1351.
 (D:\Miktwx LaTex\tex/latex/lm\ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-<Tarea_2_files/figure-latex/unnamed-chunk-24-1.pdf, id=245, 469.755pt x 325.215
+) [24]
+<Tarea_2_files/figure-latex/unnamed-chunk-24-1.pdf, id=254, 469.755pt x 325.215
 pt>
 File: Tarea_2_files/figure-latex/unnamed-chunk-24-1.pdf Graphic file (type pdf)
 
@@ -760,74 +760,74 @@ Underfull \hbox (badness 10000) in paragraph at lines 1398--1400
 [][]
  []
 
-[24] [25 <./Tarea_2_files/figure-latex/unnamed-chunk-24-1.pdf>] [26] [27] [28]
+[25 <./Tarea_2_files/figure-latex/unnamed-chunk-24-1.pdf>] [26] [27] [28]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1677.
+(caption)                particular \caption on input line 1678.
 See the caption package documentation for explanation.
-
-
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 1724.
-
-
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 1724.
-
-
-Overfull \hbox (27.42148pt too wide) detected at line 1724
-[]
- []
 
 [29]
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 1731.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 1725.
 
 
-Overfull \hbox (26.55319pt too wide) in paragraph at lines 1730--1732
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 1725.
+
+
+Overfull \hbox (27.42148pt too wide) detected at line 1725
+[]
+ []
+
+
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 1732.
+
+
+Overfull \hbox (26.55319pt too wide) in paragraph at lines 1731--1733
 $[]$ 
  []
 
 [30] [31] [32]
 
 LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 1881.
+(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 1882.
 
 
 [33]
-Underfull \vbox (badness 1092) detected at line 1940
+Underfull \vbox (badness 1092) detected at line 1941
  []
 
 [34] [35] [36]
 
-LaTeX Warning: Command \' invalid in math mode on input line 2120.
+LaTeX Warning: Command \' invalid in math mode on input line 2121.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 2120.
+LaTeX Warning: Command \' invalid in math mode on input line 2121.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 2120.
+LaTeX Warning: Command \' invalid in math mode on input line 2121.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 2120.
+LaTeX Warning: Command \' invalid in math mode on input line 2121.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 2120.
+LaTeX Warning: Command \' invalid in math mode on input line 2121.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 2120.
+LaTeX Warning: Command \' invalid in math mode on input line 2121.
 
 [37]
-Overfull \hbox (118.24327pt too wide) in paragraph at lines 2246--2246
+Overfull \hbox (118.24327pt too wide) in paragraph at lines 2247--2247
 []\T1/lmtt/m/n/10 ## [1] "\nEn efecto, ambas raices coinciden y al aplicarlas e
 n f y g, respectivamente,\nambas se acercan a 0.\n"[] 
  []
 
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 2289.
+(Font)              <14.4> on input line 2290.
 [38] [39] (Tarea_2.aux) ) 
 Here is how much of TeX's memory you used:
  15276 strings out of 478927
  231389 string characters out of 2866168
- 587684 words of memory out of 3000000
+ 588684 words of memory out of 3000000
  32518 multiletter control sequences out of 15000+600000
  468792 words of font info for 150 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -851,7 +851,7 @@ public/lm/lmtti10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols/msam
 10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols/msam7.pfb><D:/Miktw
 x LaTex/fonts/type1/public/amsfonts/symbols/msbm10.pfb><D:/Miktwx LaTex/fonts/t
 ype1/public/amsfonts/symbols/msbm7.pfb>
-Output written on Tarea_2.pdf (39 pages, 629319 bytes).
+Output written on Tarea_2.pdf (39 pages, 629677 bytes).
 PDF statistics:
  731 PDF objects out of 1000 (max. 8388607)
  190 named destinations out of 1000 (max. 500000)

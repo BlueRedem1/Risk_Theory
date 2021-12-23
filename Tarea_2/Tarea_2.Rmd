@@ -44,7 +44,7 @@ Para comprobar que lo que hiciste está bien realiza lo siguiente:
 # Solución 
 ## Inciso a) 
 Sea $Z$ la variable aleatoria que mide la pérdida del asegurado bajo un contrato con deducible $d > 0$.\
-Sea $X$ la variable aleatoria que mide el monto del siniestro, supongamos que el monto está en el intervalo $\left[a, b\right]$ con $b \geq a \geq 0$.
+Sea $X$ la variable aleatoria que mide el monto del siniestro, supongamos que el monto está en el intervalo $\left[a, b\right]$, es decir, soporte de $X \geq [a,b]$ con $b \geq a \geq 0$.
 
 ### Observación 
 
@@ -64,7 +64,7 @@ Y, como el siniestro tiene un monto mínimo de $a$, entonces:
 \begin{align*}
 \mathbb{P}[Z \leq z] = \mathbb{P}[a \leq X \leq z] &= \mathbb{P}[x < z] - \mathbb{P}[X \leq a]\\
 &= \mathbb[x < z]\\
-F_{z}(z) &= F_{x}(z) \implies f_{z}(z) = f_{x}(z) \quad si \quad x \in [a, d)
+F_{z}(z) &= F_{x}(z) \implies f_{z}(z) = f_{x}(z) \quad si \quad x \in [a, d]
 \end{align*}
 
 Caso 2: $X \in [d,b] \Leftrightarrow Z = d$ 
@@ -78,9 +78,9 @@ Caso 2: $X \in [d,b] \Leftrightarrow Z = d$
 ```{r pressure3, echo=FALSE, out.width = '100%'}
 knitr::include_graphics("Gráfica 1.JPEG")
 ```
-Se parece al monto de pago máximo, pero  iniciando desde $a$ en lugar desde 0.
+Se parece al monto de pago máximo, pero  iniciando desde $a$ en lugar de iniciar desde 0.
 
-Sería la cobertura de monto de pago máximo = $d$; pero como dijimos, iniciando los "pagos" desde 0.
+Sería la cobertura de monto de pago máximo = $d$; pero como dijimos, iniciando los "pagos" desde $a >0$.
 
 Porque también, el payoff de un put corto desplazado a unidades. $_\blacksquare$
 
@@ -135,15 +135,15 @@ $$\textcolor{red}{dv = e^{-\frac{x}{100}} \implies v = -100e^{-\frac{x}{100}}}$$
 \textcolor{red}{
 \begin{align*}
 &\lambda \int_{0}^{27} x e^{-\frac{x}{100}} dx \quad \text{ integrando ambas partes:}\\
-&= \lambda \left[-x \frac{e^{-\frac{27}{100}}}{\lambda}|_{0}^{27} + \frac{1}{\lambda}\int_{0}^{27} e^{-\frac{x}{100}}dx\right]\\
+&= \lambda \left[-x \frac{e^{-\frac{x}{100}}}{\lambda}|_{0}^{27} + \frac{1}{\lambda}\int_{0}^{27} e^{-\frac{x}{100}}dx\right]\\
 &= \frac{x}{\lambda} \left[- x e^{-\frac{x}{100}}|_{0}^{27} - 100 e^{\frac{x}{100}}|_{0}^{27}\right]\\
-&= \left(-27 e^{-\frac{-27}{100}}\right) - 100 \left[e^{-\frac{-27}{100}}-1\right]\\
-&= 100 - 100e^{-\frac{-27}{100}} - 27 e^{-\frac{-27}{100}}\\
+&= \left(-27 e^{-\frac{27}{100}}\right) - 100 \left[e^{-\frac{27}{100}}-1\right]\\
+&= 100 - 100e^{-\frac{-27}{100}} - 27 e^{-\frac{27}{100}}\\
 &= 100 - 127 e^{-\frac{27}{100}}
 \end{align*}}
 
 Por otro lado, 
-$$ \mathbb{P}[Z < d] = \mathbb{P}[x < d] = 1 - e^{-\frac{27}{100}}$$
+$$ \textcolor{red}{\mathbb{P}[Z < d] = \mathbb{P}[x < d] = 1 - e^{-\frac{27}{100}}}$$
 Así; $$\mathbb{E}[z | Z = d] = d = 27; \textcolor{red}{\mathbb{P} [Z = d] = S_{x}(d) = e^{-\frac{27}{100}}} _\blacksquare$$ 
 
 ```{r}
@@ -214,7 +214,7 @@ $$ Z \in (a, b+d -u), $$
 La cual tiene sentido pues el nivel mínimo a cubrir es $a$ y el máximo es $b$, pero antes debimos de haber pagado el deducible y recibido el monto máximo por parte de la aseguradora
 
 $$ \implies (a, b + d - u) = \underbrace{(a,d)}_{Caso \quad 1} \cup \underbrace{\{d\}}_{Caso \quad 2} \underbrace{(d, b + d - u)}_{Caso \quad 3}$$
-\textcolor{red}{Nota:} Bajo cualquier concepto $Z$ y $Y$ satisfacen nuestra llamada "Ley de conservación del reisgo", es decir;
+\textcolor{red}{Nota:} Bajo cualquier concepto $Z$ y $Y$ satisfacen nuestra llamada "Ley de conservación del riesgo", es decir;
 
 $$X = Y + Z$$
 
@@ -322,7 +322,7 @@ t = z-d\\
 &= \mathbb{E}(X) - \int_{0}^{u-d} tf_{X}(t + d)dt - d(F_{X}(u) - F_{X}(d)) + dS_{X}(d) - uS_{x}(u)\\
 &= \mathbb{E}(X) - \int_{0}^{u-d} tf_{X}(t + d)dt + d -uS_{x}(u) - dF_{x}(u)\\
 &= \mathbb{E}(X) -   + d(1 - F_{x}(u)) - uS_{x}(u)\\
-&= \mathbb{E}(X) - \int_{0}^{u-d} tf_{X}(t + d)dt + t(d - u)S_{X}(u)\\
+&= \mathbb{E}(X) - \int_{0}^{u-d} tf_{X}(t + d)dt + (d - u)S_{X}(u)\\
 &= \mathbb{E}(X) - \underbrace{\left[\int_{0}^{u-d} tf_{x}(t+d)dt + (u-d)S_{X}(u)\right]}_{\mathbb{E}(Y)}\\
 &= \mathbb{E}(X) - \int_{d}^{u}S_{X}(t)dt\\
 &\therefore \textcolor{red}{\mathbb{E}(Z) = \mathbb{E}(X) - \underbrace{\int_{d}^{u}S_{X}(t)dt}_{\mathbb{E}(Y)}}
@@ -332,7 +332,7 @@ Para nuestro ejercicio
 
 \begin{align*}
 \mathbb{E}(Z) &= 100 - \int_{27}^{110} e^{-\frac{t}{100}}dt = 100 - \left(-100 e^{-\frac{t}{100}}|_{27}^{110}\right)\\
-&= 100 + 100\left(e^{-\frac{110}{100}} - e^{-\frac{-27}{(100)}}\right) = 100 \left[ 1 + e^{-\frac{110}{100}} - e^{-\frac{-27}{100}}\right]\\
+&= 100 + 100\left(e^{-\frac{110}{100}} - e^{-\frac{27}{(100)}}\right) = 100 \left[ 1 + e^{-\frac{110}{100}} - e^{-\frac{27}{100}}\right]\\
 &= 100[.5694916] \approx 56.94916 _\blacksquare
 \end{align*}
 
@@ -518,7 +518,7 @@ y si $y \in (d,b)$
 \begin{align*}
 \mathbb{P}(d < Y \leq y) &= \mathbb{P}(d < x < y) = F_{x}(y) - F_{x}(d)\\
 &\implies F_{Y}(y) - F_{Y}(d) = F_{X}(y) - F_{X}(d)\\
-&\implies f_{y}(y) = f_{x}(y) \text{si} x \in (d,b)\\
+&\implies f_{y}(y) = f_{x}(y) \quad \text{si} \quad x \in (d,b)\\
 & \textcolor{red}{\therefore f_{Y}(y) = \begin{cases}
 F_{X}(d) & si \quad y \leq 0\\
 f_{X}(y) & si \quad y > d
@@ -664,7 +664,7 @@ $$\mathbb{E}\left ( Y^{L} \right )=\mathbb{E}\left ( X \right )-\mathbb{E}\left 
 \begin{align*}
 \mathbb{E}[mín(X,d)] &= \mathbb{E}[X | X < d]\mathbb{P}[X < d] + \mathbb{E}[d | X \geq d]\mathbb{P}[X \geq d]\\
 &= \left[\int_{0}^{d}x \frac{fx(x)dx}{\textcolor{red}{F_{X}(d)}}\right] \textcolor{red}{F_{X}(d)} + d[1 - F_{X}(d)]\\
-&= \int_{0}^{d} x F_{X}(x)dx + d[1 - F_{X}(d)]\\
+&= \int_{0}^{d} x f_{X}(x)dx + d[1 - F_{X}(d)]\\
 &= \int_{0}^{d} S(x)d_{X} + d[1 - F_{X}(d)]\\
 & \therefore \int_{0}^{d} S(x)d_{X} + d[1 - F_{X}(d)]
 \end{align*}
@@ -672,10 +672,10 @@ $$\mathbb{E}\left ( Y^{L} \right )=\mathbb{E}\left ( X \right )-\mathbb{E}\left 
 Resolvemos el inciso a
 
 $\mathbb{E}[Y^{2}] = \mathbb{E}[Y^{2}| X \leq d] \mathbb{P}[X \leq d] + \mathbb{E}[Y^{2} | X > d] \mathbb{P}[X > d]$
-Pero, $\mathbb{E}[Y^{2}| X \leq d] = 0$ ya que $Y^{2}|Z \leq d = 0. \quad \text{(La v.a constante 0)}$
+Pero, $\mathbb{E}[Y^{2}| X \leq d] = 0$ ya que $Y^{2}|X \leq d = 0. \quad \text{(La v.a constante 0)}$
 $$ \mathbb{E}[Y^{2}|X > d]\mathbb{P}[X > d]$$
 \begin{align*}
-\mathbb{P}[X > d] &= 1 F_{X}(d)\\
+\mathbb{P}[X > d] &= 1 - F_{X}(d)\\
 \mathbb{E}[Y^{2}| X > d] &= \mathbb{E}[X | X > d]\\
 &= \int_{d}^{\infty}x \frac{fx(z)dz}{1 - F_{X}(d)}\\
 &= \int_{d}^{\infty}x \frac{fx(z)dz}{1 - F_{X}(d)} + \int_{0}^{d}x \frac{fx(z)dz}{1 - F_{X}(d)} - \int_{0}^{d}x \frac{fx(z)dz}{1 - F_{X}(d)}\\
@@ -686,7 +686,7 @@ $$ \mathbb{E}[Y^{2}|X > d]\mathbb{P}[X > d]$$
 \begin{align*}
 &\text{Haciendo uso de Darth-Vader}\\
 &= \frac{1}{1 - F_{X}(d)} \left(\mathbb{E}[X] - \int_{0}^{d} S(x)dx \right)\\
-&= \frac{1}{1 - F_{X}(d)}\left(\mathbb{E}[X] - \int{0}^{d}S(x)dx\right)[1 - F_{X}(d)]\\
+&= \frac{1}{\textcolor{red}{1 - F_{X}(d)}}\left(\mathbb{E}[X] - \int_{0}^{d}S(x)dx\right)[\textcolor{red}{1 - F_{X}(d)}]\\
 &= \mathbb{E}[X] - \int_{0}^{d}S(x)dx\\
 &= \mathbb{E}[X] - \int_{0}^{d}S(x)dx - d[1 - F_{X}(d)] + d[1 - F_{X}(d)]\\
 &= \mathbb{E}[X] - \mathbb{E}[X \wedge d] + d[1 - F_{X}(d)] \quad _\blacksquare
@@ -696,8 +696,8 @@ $$ \mathbb{E}[Y^{2}|X > d]\mathbb{P}[X > d]$$
 \begin{align*}
 \mathbb{P}[X \leq x | X > d] &= \frac{\mathbb{P}[X \leq x \mathbb{I}_{\{X > d\}}]}{\mathbb{P}[X > d]}\\
 &= \frac{\int_{0}^{x}f_{x}(x)dx \mathbb{I}_{\{x > d\}}}{S_{x}(d)}\\
-&= \frac{\int_{0}^{x}f_{x}(x)dx}{S_{x}(d)}\\
-& \implies F_{X}(x) = \frac{\int_{0}^{x}f_{x}(z)dz}{S_{x}(d)}\\
+&= \frac{\int_{d}^{x}f_{x}(x)dx}{S_{x}(d)}\\
+& \implies F_{X}(x) = \frac{\int_{d}^{x}f_{x}(z)dz}{S_{x}(d)}\\
 & \text{Derivando} \implies f_{x}(x) = \frac{f_{x}(x)}{S_{x}(d)}\\
 & \therefore f_{x}(x) = \begin{cases} 
 \frac{f_{x}(x)}{S_{x}(d)} & si \quad x > d\\
@@ -740,7 +740,7 @@ Sin embargo, observemos que, $\forall \beta > 0; \theta = 5,000$
 (\mathbb{E}(X \wedge B) &= \int_{0}^{\infty}mín\{X,\beta\} \frac{2\theta^{2}}{(X + \theta)^{3}}dx = \int_{0}^{\beta}\frac{2\theta^{2}}{(X + \theta)^{3}}dx + \beta\int_{\beta}^{\infty}\frac{2\theta^{2}}{(X + \theta)^{3}}dx\\
 &= 2\theta^{2} \left[\int_{\theta}^{\beta + \theta} \frac{u - \theta}{xu^{3}} du \right] + \beta 2\theta^{2}\int_{\beta}^{\infty} \frac{1}{(X + \theta)^{3}} dx\\
 &= 2\theta^{2} \left[\left(-\frac{1}{u} + \frac{\theta}{2u^{2}}\right)|_{\theta}^{\beta + \theta}\right] + \beta 2\theta^{2}\left(- \frac{1}{2(X + \theta)^{2}}|_{\beta}^{\infty}\right)\\
-&= 2\theta^{2} \left[\frac{\theta - 2u}{2u^{2}}|_{\theta}^{\beta + \theta}\right] + \beta 2\theta^{2}\left( \frac{1}{2(\beta + \theta)^{2}}\right)\\
+&= \textcolor{red}{2}\theta^{2} \left[\frac{\theta - 2u}{\textcolor{red}{2}u^{2}}|_{\theta}^{\beta + \theta}\right] + \beta \textcolor{red}{2}\theta^{2}\left( \frac{1}{\textcolor{red}{2}(\beta + \theta)^{2}}\right)\\
 &= \theta^{2} \left(\frac{\theta - 2(\beta + \theta)}{(\beta + \theta)^{2}} - \left(\frac{\theta - 2\theta}{\theta^{2}}\right)\right) + \beta \left(\frac{\theta}{\beta + \theta}\right)^{2}\\
 &= \theta^{2} \left(\frac{(- 2\beta - \theta)}{(\beta + \theta)^{2}} + \frac{1}{\theta}\right) + \beta \left(\frac{\theta}{\beta + \theta}\right)^{2}\\
 &= \theta + \frac{\theta^{2}}{(\beta + \theta)^{2}}\left[\beta - 2\beta - \theta \right] = \theta - \frac{(\beta + \theta)\theta^{2}}{(\beta + \theta)} = \theta \left(1 - \frac{\theta}{\beta + \theta}\right)\\
@@ -814,11 +814,11 @@ Además:
 
 $$f_{\textcolor{green}{Y_p}}(t)=\frac{f_{\textcolor{blue}{Y_L}}(t)}{1-f_{\textcolor{blue}{Y_L}}(0)} \forall t \in (0, \textcolor{yellow}{\alpha}(\textcolor{purple}{u} - \textcolor{green}{d})) $$
 \begin{align*}
-\implies f_{y_{p}}(t) &= \frac{\frac{ab^{a}}{(b + (t + d))}{a + 1}}{1 - \left[1 - \left[\frac{b}{b + d}\right]^{a}\right]}\\
+\implies f_{y_{p}}(t) &= \frac{\frac{ab^{a}}{(b + (t + d))^{a + 1}}}{1 - \left[1 - \left[\frac{b}{b + d}\right]^{a}\right]}\\
 &= \frac{\frac{ab^{a}}{(b + (t + d))^{a + 1}}}{\left[\frac{b}{b + d}\right]^{a}}\\
 &= \frac{\frac{ab^{a}}{(b + d + t))^{a + 1}}}{\frac{b^{a}}{(b + d)^{a}}}\\
-&= \frac{a\textcolor{red}{b^{a}}(b + d)^{a}}{\textcolor{red}{b^{a}}(b + d + t))^{a + 1}}\\
-&= \frac{a(b + d)^{a}}{[b^{a}(b + d) + t]^{a + 1}}
+&= \frac{a\textcolor{red}{b^{a}}(b + d)^{a}}{\textcolor{red}{b^{a}}(b + d + t)^{a + 1}}\\
+&= \frac{a(b + d)^{a}}{[(b + d) + t]^{a + 1}}
 \end{align*}
 
 \¡Se distribuye $Pareto(a,b+d)$\! $_\blacksquare$
@@ -888,7 +888,7 @@ Sean $X_1,\dots,X_{100}$ los montos de siniestros independientes con distribuci�
 
 # Solución 
 ## Inciso a)
-Sabemos que $X_{K}\sim(\frac{1}{1000}) \quad \forall k \in \{1, \dots, 100\}$ y notemos que la probabilidad de que la aseguradora pague un monto positivo sobre el asegurado $K$ es si, $X_{K} > d$, es decir, $\mathbb{P}(X_{K} > d) = e^{-\frac{100}{1000}} = e^{-\frac{1}{10}} \approx 0.90483 \quad \forall k \in \{1, \dots, 100\}$. Observamos que podemos identificas si $X_{K} > d$ por medio de una Bernoulli $(\mathbb{P}(X_{K} > d))$ de la siguiente manera:
+Sabemos que $X_{K}\sim(\frac{1}{1000}) \quad \forall k \in \{1, \dots, 100\}$ y notemos que la probabilidad de que la aseguradora pague un monto positivo sobre el asegurado $K$ es si, $X_{K} > d$, es decir, $\mathbb{P}(X_{K} > d) = e^{-\frac{100}{1000}} = e^{-\frac{1}{10}} \approx 0.90483 \quad \forall k \in \{1, \dots, 100\}$. Observamos que podemos identificar si $X_{K} > d$ por medio de una Bernoulli $(\mathbb{P}(X_{K} > d))$ de la siguiente manera:
 
 \begin{align*}
 B_{K} &= \begin{cases} 1 & si \quad X_{K} > d\\
@@ -905,6 +905,7 @@ $$ B = \sum_{K = 1}^{100} B_{K} \sim Binom(100, 0.9048374)_\blacksquare$$
 # Solución 
 ## Inciso b)
 
+De manera análoga, podemos identificar a un monto por el cual la aseguradora no paga como:
 \begin{align*}
 \hat{B_{K}} &= \begin{cases} 1 & si \quad X_{K} \leq d\\
 0 & si \quad X_{K} > d \end{cases} \quad \forall k \in \{1, \dots, 100\}\\
@@ -1065,15 +1066,15 @@ P_{S}(t) = \mathbb{E}(t^{S}) &= \sum_{K = 0}^{\infty} t^{K}g_{K}
 \end{align*}
 $\text{\textcolor{red}{Pero, al inicio observamos que Soporte de X  $\in \mathbb{N}\textbackslash\{0, \dots, (n*m)-1\}$ $\implies g_{K} = 0 \quad \forall K \in \{0,1, \dots, (n*m)-1\}$}}$
 \begin{align*}
-&= \sum_{K = n * m}^{\infty}t^{K}g_{K} + \sum_{k = 0}^{(n * m)-1}t_{K}g_{K}\\
-&= \sum_{K = n * m}^{\infty}t^{K}g_{K} + \sum_{k = 0}^{(n * m)-1}t_{K}*0\\
+&= \sum_{K = n * m}^{\infty}t^{K}g_{K} + \sum_{k = 0}^{(n * m)-1}t^{K}g_{K}\\
+&= \sum_{K = n * m}^{\infty}t^{K}g_{K} + \sum_{k = 0}^{(n * m)-1}t^{K}*0\\
 &= \sum_{K = n * m}^{\infty}t^{K}g_{K}\\
 &\text{\textcolor{red}{$\implies P'_{S}(t) = \sum_{K = n * m}^{\infty}K t^{K} g_{K}$}}
 \end{align*}
 
 Pero, dado que las $X_{i}$ son v.a.i.i.d, tenemos que:
 $$ P_{S}(t) =[P_{X}(t)]^{n}$$
-Derivando respecto de t, tenempos que:
+Derivando respecto de t, tenemos que:
 $$P'_{S}(t) = n[P_{X}(t)]^{n - 1}\quad P'_{X}(t)$$
 Multiplicando por ambos lados por $tP_{X}(t)$:
 
@@ -1122,13 +1123,13 @@ Se vuelve a repetir el patrón visto en clase. El coeficiente para el término $
 
 $\textcolor{red}{\text{Es decir, el término $f_{j}Kg_{K}$ para todos aquellos valores de $j\geq m$ y $K \geq nm$ tales que $j + k = x$}}$ 
 
-$\sum_{j = 0}^{X-1}f_{j}(X-j)g_{X-j}$
+$\textcolor{red}{\sum_{j = 0}^{X-1}f_{j}(X-j)g_{X-j}}$
 
 Pero como $K = X -j$; lo podemos reescribir como: $\sum_{j = nm}^{X-m}\left[f_{X-j}*j*g_{j}\right]$
 
 $\text{\textcolor{blue}{Ahora, hagamos un procedimiento análogo para ver el patrón del lado derecho:}}$
 
-$$\left[mt^{m}f_{m} + t_{(m+1)}^{m + 1}f_{m+1} + t_{m+2}^{m + 2}f_{m + 2}(m+2)\right] \left[t^{nm}g_{nm} + t^{nm+1}g_{nm+1} + t^{nm+2}g_{nm+2}\right]$$
+$$\left[mt^{m}f_{m} + t_{(m+1)}^{m + 1}f_{m+1} + t^{m + 2}f_{m + 2}(m+2)\right] \left[t^{nm}g_{nm} + t^{nm+1}g_{nm+1} + t^{nm+2}g_{nm+2}\right]$$
 
 
 $$t^{nm}g_{nm}\left[mt^{m}f_{m} + t_{(m+1)}^{m + 1}f_{m+1} + t^{m + 2}f_{m + 2}(m+2)\right]$$
@@ -1161,7 +1162,7 @@ Lo cual podemos reescribir como:
 $$n\sum_{j = nm}^{x-m}\left[f_{x-j}*(x-j)*g_{j}\right]; \quad \text{\textcolor{blue}{igualando terminos}}$$
 $$\sum_{j = nm}^{x-m}\left[f_{x-j}*j*g_{j}\right] = n\sum_{j = nm}^{x-m}\left[f_{x-j}*(x-j)*g_{j}\right]$$
 
-rametrizando, obtenemos: $\forall x \geq nm + m$ 
+Parametrizando, obtenemos: $\forall x \geq nm + m$ 
 
 $$\sum_{j = m}^{x-nm} (x-j)f_{j}g_{x-j}  = n\sum_{j = m}^{x-nm} j f_{j}g_{x-j} $$
 
@@ -1171,7 +1172,7 @@ $$(x-m)f_{m}g_{x-m} + \sum_{j = m+1}^{x-nm}(x-j)f_{j}g_{x-j} = n\sum_{j = m+1}^{
 
 \begin{align*}
 \implies (x-m-nm)f_{m}g_{x-m} &= n\sum_{j=m+1}^{x-nm}jf_{j}g_{x-j} - \sum_{j=m+1}^{x-nm}(x-j)f_{j}g_{x-j}\\
-\implies [f_{m}(x-m-nm)]g_{x-m} &= (n+1)\sum_{j=m+1}^{x-nm}jf_{j}g{x-j} - \sum_{j=m+1}^{x-nm}(x)f_{j}g_{x-j}\\
+\implies [f_{m}(x-m-nm)]g_{x-m} &= (n+1)\sum_{j=m+1}^{x-nm}jf_{j}g_{x-j} - \sum_{j=m+1}^{x-nm}(x)f_{j}g_{x-j}\\
 &= \sum_{j=m+1}^{x-nm}(n+1)jf_{j}g_{x-j} - xf_{j}g_{x-j}\\
 &= \sum_{j=m+1}^{x-nm}[j(n+1)-x]f_{j}g_{x-j}\\
 \implies g_{x-m} &= \sum_{j=m+1}^{x-nm}\frac{[j(n+1)-x]f_{j}g_{x-j}}{f_{m}(x-m-nm)}\\
@@ -1356,7 +1357,7 @@ Por otro lado:
 \genfrac{(}{)}{0pt}{}{500}{i}0.15^{i}\quad 0.85^{500-i}\\
 &= 500,000\\
 &\implies 7,000,000 = \sum_{i = 0}^{500}mín\{100,000i,d\}
-\genfrac{(}{)}{0pt}{}{500}{i}0.15^{i}\quad 0.85^{500-i} = 500,000 \dots \textcolor{green}{(2)}
+\genfrac{(}{)}{0pt}{}{500}{i}0.15^{i}\quad 0.85^{500-i} \dots \textcolor{green}{(2)}
 \end{align*}
 
 De $\textcolor{green}{(1)}$ y $\textcolor{green}{(2)}$ utilizaremos "uniroot" de R para obtener la $d$ que cumpla ambas ecuaciones, así llegaremos a que $d = 7,183,099.39109927$
