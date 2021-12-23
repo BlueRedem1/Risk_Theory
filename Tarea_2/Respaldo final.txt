@@ -1,0 +1,1442 @@
+---
+output: pdf_document
+header-includes:
+- \usepackage{enumitem}  
+- \usepackage{caption}
+- \usepackage{amsmath}
+- \captionsetup{labelformat=empty}
+- \usepackage[utf8]{inputenc}
+- \usepackage{geometry}
+- \usepackage{amsmath}
+- \usepackage{amssymb}
+- \usepackage{tabularx}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r pressure2, echo=FALSE, out.width = '220%'}
+knitr::include_graphics("CARATULA.PNG")
+```
+\newpage
+
+# Ejercicio 1
+
+En clase se vio la modelación de la variable aleatoria de pérdida de una compañía de seguros ($Y$) para cuando se tiene un contrato de **deducible**, sea $X$ la variable aleatoria que mide el monto de pérdida asociado a un siniestro, tomando $d>0$ el deducible que cobra **la aseguradora**, se tiene que:
+
+$$Y=\text{máx}\{X-d,0\}$$
+
+Muestra la construcción de una variable aleatoria $Z$ para este tipo de contrato que mida la pérdida que asume **el asegurado** (todo lo que la compañía no cubre).
+
+\qquad a) **Exhibe de manera general cómo se construye su función de densidad en términos de la densidad de** $\mathbf{X}$, especificando el soporte de la variable aleatoria que estás construyendo. 
+
+**Busca su relación con otra variable de cobertura que conozcas, recuerda siempre la "Ley de conservación del Riesgo".**
+
+Para comprobar que lo que hiciste está bien realiza lo siguiente:
+
+\qquad b)  Considera una variable aleatoria $X\sim Exp\left(\lambda=\frac{1}{100}\right)$ ($E[X]=100$) a partir de ésta variable aleatoria, considera $d=27$, fija la semilla en 27 y genera una muestra aleatoria de tamaño $n=100,000$ de tu variable $Z$, realiza un histograma y compáralo con la función de densidad que construiste anteriormente.
+
+\qquad c)  Obtén la esperanza muestral y teórica de $Z$ (puede ser utilizando comandos de R) ¿son parecidas?
+
+\qquad d)  Realiza una prueba de bondad de ajuste Ji cuadrada que contraste los datos simulados de $Z$ con la función de densidad que construiste, en particular para cuando el asegurado asume una pérdida igual a $d$ y para cuando no, es decir, cuando $Z=d$ y cuando $Z<d$, explica y concluye tus resultados.
+
+# Solución 
+## Inciso a) 
+Sea $Z$ la variable aleatoria que mide la pérdida del asegurado bajo un contrato con deducible $d > 0$.\
+Sea $X$ la variable aleatoria que mide el monto del siniestro, supongamos que el monto está en el intervalo $\left[a, b\right]$, es decir, soporte de $X \geq [a,b]$ con $b \geq a \geq 0$.
+
+### Observación 
+
+$\qquad Z = min(X,d) \quad \implies$
+$\qquad Z = \left\lbrace\begin{array}{c} X \quad si \quad q \leq X < d \\ d \quad si \quad b \geq X \geq d \end{array}\right.$
+
+Ya que, 
+\begin{align*}
+Si \quad X < d; \quad \text{el asegurado asume toda la pérdida,}\\
+Si \quad X \geq d; \quad \text{el asegurado paga únicamente el deducible.}
+\end{align*}
+
+Caso 1: $X \in [a,d] \Leftrightarrow Z \in [a,d];$ Sea $z \in [a,d]$.
+
+Y, como el siniestro tiene un monto mínimo de $a$, entonces:
+
+\begin{align*}
+\mathbb{P}[Z \leq z] = \mathbb{P}[a \leq X \leq z] &= \mathbb{P}[x < z] - \mathbb{P}[X \leq a]\\
+&= \mathbb[x < z]\\
+F_{z}(z) &= F_{x}(z) \implies f_{z}(z) = f_{x}(z) \quad si \quad x \in [a, d]
+\end{align*}
+
+Caso 2: $X \in [d,b] \Leftrightarrow Z = d$ 
+
+\begin{align*}
+\mathbb{P}[Z \geq d] &= \mathbb{P}[X > d] = 1-\mathbb{P}[x \leq d] = S_{x}(d)\\
+&\implies f_{z}(d) = S_{x}(d)\\
+\therefore f_{z}(z) &= \left\lbrace\begin{array}{c} f_{x}(z) \quad si \quad q \leq X < d \quad \text{(Parte continuo)} \\ S_{x}(z) \quad si \quad b \geq X \geq d \quad \text{(Parte discreta)} \end{array}\right.
+\end{align*}
+
+```{r pressure3, echo=FALSE, out.width = '100%'}
+knitr::include_graphics("Gráfica 1.JPEG")
+```
+Se parece al monto de pago máximo, pero  iniciando desde $a$ en lugar de iniciar desde 0.
+
+Sería la cobertura de monto de pago máximo = $d$; pero como dijimos, iniciando los "pagos" desde $a >0$.
+
+Porque también, el payoff de un put corto desplazado a unidades. $_\blacksquare$
+
+## Inciso b) 
+
+```{r}
+library(MASS)
+library(tidyverse)
+```
+
+
+```{r}
+aux<-function(x){
+    if(x<27){
+    return(dexp(x,rate=1/100))
+  }
+  else if (x>=27){
+    return(1-pexp(27,rate=1/100))
+  }
+}
+aux<-Vectorize(aux)
+#fijamos semilla
+set.seed(27)
+#simulamos
+data_ej1<-pmin(rexp(n=100000,rate=1/100),rep(27,100000))
+hist(data_ej1,probability = TRUE,breaks = 0:27)
+plot(aux,add=T,xlim = c(0,27),lwd=2,col="3")
+
+```
+$\blacksquare$
+
+## Inciso c) 
+Primero notemos que:
+
+\begin{align*}
+\mathbb{P}[X | X < d] &= \frac{\mathbb{P}(X \cap X < d)}{\mathbb{P}(x < d)}\\
+&= \frac{\mathbb{P}(x < d)}{\mathbb{P}(x < d)}
+\end{align*}
+
+Esperanza técnica por esperanza total: 
+
+\begin{align*}
+\mathbb{E}[Z] &= \mathbb{E}[Z | Z < d] \mathbb{P}[Z < d] + \mathbb{E}[Z | Z = d] \mathbb{P}[Z = d]\\
+\mathbb{E}[Z | Z < d] &= \mathbb{E}[X | X < d] = \frac{\mathbb{E}[x \mathbb{I}_{x < d}]}{\mathbb{P}[x < d]}\\
+&= \textcolor{red}{\frac{\int_{0}^{27} x \lambda e^{-\lambda x} dx}{\int_{0}^{27}\lambda e^{-\lambda x} dx}} = \frac{100 - 127 e^{-\frac{27}{100}}}{1 - e^{-\frac{27}{100}}}
+\end{align*}
+
+De la parte de color rojo, hacemos cambio de variable:
+
+$$\textcolor{red}{u = x \implies du = 1}$$
+$$\textcolor{red}{dv = e^{-\frac{x}{100}} \implies v = -100e^{-\frac{x}{100}}}$$
+\textcolor{red}{
+\begin{align*}
+&\lambda \int_{0}^{27} x e^{-\frac{x}{100}} dx \quad \text{ integrando ambas partes:}\\
+&= \lambda \left[-x \frac{e^{-\frac{x}{100}}}{\lambda}|_{0}^{27} + \frac{1}{\lambda}\int_{0}^{27} e^{-\frac{x}{100}}dx\right]\\
+&= \frac{x}{\lambda} \left[- x e^{-\frac{x}{100}}|_{0}^{27} - 100 e^{\frac{x}{100}}|_{0}^{27}\right]\\
+&= \left(-27 e^{-\frac{27}{100}}\right) - 100 \left[e^{-\frac{27}{100}}-1\right]\\
+&= 100 - 100e^{-\frac{-27}{100}} - 27 e^{-\frac{27}{100}}\\
+&= 100 - 127 e^{-\frac{27}{100}}
+\end{align*}}
+
+Por otro lado, 
+$$ \textcolor{red}{\mathbb{P}[Z < d] = \mathbb{P}[x < d] = 1 - e^{-\frac{27}{100}}}$$
+Así; $$\mathbb{E}[z | Z = d] = d = 27; \textcolor{red}{\mathbb{P} [Z = d] = S_{x}(d) = e^{-\frac{27}{100}}} _\blacksquare$$ 
+
+```{r}
+esperanza_empirica<-mean(data_ej1)
+esperanza_empirica
+```
+
+De lo obtenido:
+
+```{r}
+Esp_1<-(100-127*exp(-27/100))/(1-exp(-27/100))
+Prob_1=(1-exp(-27/100))
+Prob_2=1-Prob_1
+Esp_2=27
+Esp_Teorica<-Esp_1*Prob_1+Esp_2*Prob_2
+Esp_Teorica
+```
+Lo cual coincide bastante con la probabilidad empírica obtenida, siendo la diferencia
+de:
+```{r}
+Esp_Teorica-esperanza_empirica
+```
+
+$\blacksquare$
+
+## inciso d)
+
+```{r}
+cortes<-cut(data_ej1, breaks = c(0,27,Inf),right=FALSE)
+observados<-table(cortes)
+observados
+esperados<-c(Prob_1,Prob_2)
+chisq.test(x=observados,p=esperados) #Ji-cuadrada
+```
+No rechazamos la hipótesis nula, el p-value es altísimo, por lo que no hay evidencia
+estadísticamente significativa como para decir que no sigue la disttribución
+propuesta. **i.e, sí se distribuye de la manera propuesta teóricamente** $_\blacksquare$
+
+# Ejercicio 2
+
+En clase se vio la modelación de la variable aleatoria de pérdida de una compañía de seguros ($Y$) para cuando se tiene un contrato de **deducible** y **monto máximo de beneficio**, sea $X$ la variable aleatoria que mide el monto de pérdida asociado a un siniestro definido en el intervalo $(a,b)$ con $0<a$, tomando $a<d<u<b$ el deducible y monto máximo de beneficio respectivamente que cobra **la aseguradora**, se tiene que:
+
+$$Y=\text{máx}\{\text{mín}\{X,u\}-d,0\}$$
+
+Muestra la construcción de una variable aleatoria $Z$ para este tipo de contrato que mida la pérdida que asume **el asegurado** (todo lo que la compañía no cubre), 
+
+\qquad a) **Exhibe de manera general cómo se construye su función de densidad en términos de la densidad de** $\mathbf{X}$, especificando el soporte de la variable aleatoria que estás construyendo.
+
+# Solución 
+## Inciso a)
+
+### Observación(es): 
+- Notemos que $Z = X$, si $X \in (a,d)$, pues el contrato tiene efecto unicamente si $x \geq d$.
+
+- $Z = d$ si $X \in [d,u]$, pues el asegurado deberá pagar $d$ (deducible) y esto está topado por un munto $u$ (monto máximo).
+
+- $Z = x + d - u$ si $x \in (u,b)$, pues el asegurado asume el costo del deducible $(d)$, recibe el monto máximo $(u)$ por parte de la aseguradora y paga el resto.
+
+En resumen:
+
+$$ Z = \begin{cases} X, & si \quad x \in(a,d) \Leftrightarrow z\in(a,d) \\ d, & si\quad x \in[d,u] \Leftrightarrow z = d\\
+X + d - u, & si \quad x \in (u,b) \Leftrightarrow  z \in (d, b+d - u)\end{cases}$$
+
+Notemos que bajo esta observación, 
+
+$$ Z \in (a, b+d -u), $$
+
+La cual tiene sentido pues el nivel mínimo a cubrir es $a$ y el máximo es $b$, pero antes debimos de haber pagado el deducible y recibido el monto máximo por parte de la aseguradora
+
+$$ \implies (a, b + d - u) = \underbrace{(a,d)}_{Caso \quad 1} \cup \underbrace{\{d\}}_{Caso \quad 2} \underbrace{(d, b + d - u)}_{Caso \quad 3}$$
+\textcolor{red}{Nota:} Bajo cualquier concepto $Z$ y $Y$ satisfacen nuestra llamada "Ley de conservación del riesgo", es decir;
+
+$$X = Y + Z$$
+
+#### Caso 1: 
+Si $x \in (a,d) \Leftrightarrow Z \in (a,d)$
+\begin{align*}
+&\implies F_{Z}(z) = \mathbb{P}(Z \leq z) = \mathbb{P}(X \leq z) = F_{X}(z)\\
+&\implies f_{Z}(z) = f_{x}(z)
+\end{align*}
+
+#### Caso 2: 
+Si $x \in [d,u] \Leftrightarrow Z = d$
+$$ f_{Z}(d) = \mathbb{P}(Z = d) = \mathbb{P}(d \leq X \leq u) = F_{X}(u) - F_{X}(d) $$
+
+#### Caso 3: 
+Si $x \in (u,b) \Leftrightarrow Z \in(d, b + d - u)$
+\begin{align*}
+&\implies F_{Z}(z) = \mathbb{P}(Z \leq z) = \mathbb{P}(X + d - u \leq z) = \mathbb{P}(X \leq z + u - d)\\
+&= F_{X}(z + u - d) \implies f_{Z}(z) = f_{X}(z + u - d)
+\end{align*}
+
+\textcolor{red}{De esta manera:}
+
+$$ f_{Z}(z) = \begin{cases} f_{X}(z), & si \quad z \in(a,d)  \\ F_{X}(u) - F_{X}(d), & si \quad z = d\\
+f_{X}(Z + u - d), & si \quad z \in (d, b + d - u) \end{cases}\quad _\blacksquare$$
+
+Para comprobar que lo que hiciste está bien realiza lo siguiente:
+
+
+\qquad b)  Considera una variable aleatoria $X\sim Exp\left(\lambda=\frac{1}{100}\right)$ ($E[X]=100$) a partir de ésta variable aleatoria, considera $d=27$ y $u=110$, fija la semilla en 27 y genera una muestra aleatoria de tamaño $n=100,000$ de tu variable $Z$, realiza un histograma y compáralo con la función de densidad que construiste anteriormente.
+
+# Solución 
+## Inciso b)
+
+# Densidad 
+
+```{r}
+
+
+Z <- function(X,a,d,u,b){
+  n = length(X)
+  l <- c()
+  for(i in 1:n){
+    if(a<= X[i] & X[i]<d){
+      l[i] = X[i]
+    }else{
+      if(X[i]<=u){
+        l[i] = d
+      }else{
+        l[i] = X[i] + d-u
+      }
+    }
+  }
+  return(l)
+}
+aux<-function(x,a=0,d=27,u=110,b=Inf){
+  if(a<=x & x<d){
+    return(dexp(x,rate=1/100))
+  }
+  else if(x==d){
+    return(pexp(u,rate=1/100)-pexp(d,rate=1/100))
+  }
+  else{
+    return(dexp(x+u-d,rate=1/100))
+  }
+}
+aux<-Vectorize(aux)
+set.seed(27)
+X <- rexp(100000, 1/100)
+Zsamp <- Z(X,0,27,110) # Notemos que tanto a como b no se especificaron al inicio del problema
+library(MASS)
+MASS::truehist(Zsamp,xlim=c(0,quantile(Zsamp,0.95)))
+plot(aux,xlim=c(0,ceiling(max(Zsamp))),add=T,lwd=3)
+```
+Sin embargo notemos que nuestra función no grafica bien la parte de d, ya que 
+ahí se dispara **en un solo valor, que es x=d=27** y después vuelve a tomar
+valores pequeños. Pero hagamos un zoom hasta esa parte para verificar:
+```{r}
+MASS::truehist(Zsamp,xlim=c(0,150))
+plot(aux,xlim=c(0,150),add=T,lwd=3)
+```
+
+Solo es un problema al momento de graficar todo junto. **Aquí lo confirmamos, se ve mejor**
+
+
+$\blacksquare$
+
+\qquad c)  Obtén la **esperanza** muestral y teórica de $Z$ (puede ser utilizando comandos de R) ¿son parecidas?
+
+# Solución 
+## Inciso c)
+
+Veamos que: 
+
+\begin{align*}
+\mathbb{E}(Z) &= \int_{a}^{d}zf_{x}(z)dz + d(F_{X}(w)-F_{X}(d)) + \int_{d}^{b+d-u}Zf_{x}(z+u-d)dz\\
+&= \int_{a}^{d}Zf_{X}(z)dz + d(F_{X}(u) - F_{X}(d)) + \int_{u}^{b}(\alpha + d - u)f_{X}(\alpha)d\alpha\\
+&= \int_{a}^{d}Zf_{X}(z)dz + d(F_{x}(u) - F_{x}(d)) + \int_{u}^{d}\alpha f_{x}(\alpha)d_{\alpha} + (d-u)(F_{x}(b) - F_{X}(u))\\
+&= \mathbb{E}(X) - \int_{d}^{u}Zf_{x}(z)dz + (d-u)F_{x}(b)-d F_{x}(d) + uF_{x}(u)\\
+&= \mathbb{E}(X) - \int_{0}^{u-d}(t+d)f_{x}(t+d)dt + d(1-F_{x}(d)) - u(1 - F_{x}(u))\\
+t = z-d\\
+\end{align*}
+
+\begin{align*}
+&= \mathbb{E}(X) - \int_{0}^{u-d} tf_{X}(t + d)dt - d(F_{X}(u) - F_{X}(d)) + dS_{X}(d) - uS_{x}(u)\\
+&= \mathbb{E}(X) - \int_{0}^{u-d} tf_{X}(t + d)dt + d -uS_{x}(u) - dF_{x}(u)\\
+&= \mathbb{E}(X) -   + d(1 - F_{x}(u)) - uS_{x}(u)\\
+&= \mathbb{E}(X) - \int_{0}^{u-d} tf_{X}(t + d)dt + (d - u)S_{X}(u)\\
+&= \mathbb{E}(X) - \underbrace{\left[\int_{0}^{u-d} tf_{x}(t+d)dt + (u-d)S_{X}(u)\right]}_{\mathbb{E}(Y)}\\
+&= \mathbb{E}(X) - \int_{d}^{u}S_{X}(t)dt\\
+&\therefore \textcolor{red}{\mathbb{E}(Z) = \mathbb{E}(X) - \underbrace{\int_{d}^{u}S_{X}(t)dt}_{\mathbb{E}(Y)}}
+\end{align*}
+
+Para nuestro ejercicio 
+
+\begin{align*}
+\mathbb{E}(Z) &= 100 - \int_{27}^{110} e^{-\frac{t}{100}}dt = 100 - \left(-100 e^{-\frac{t}{100}}|_{27}^{110}\right)\\
+&= 100 + 100\left(e^{-\frac{110}{100}} - e^{-\frac{27}{(100)}}\right) = 100 \left[ 1 + e^{-\frac{110}{100}} - e^{-\frac{27}{100}}\right]\\
+&= 100[.5694916] \approx 56.94916 _\blacksquare
+\end{align*}
+
+```{r}
+Zsamp <- Z(X,0,27,110,200) # Notemos que tanto a como b no se especificaron al inicio del problema
+print("Media Muestral de Z:")
+print(mean(Zsamp))
+```
+
+
+\qquad d)  Obtenga la **mediana** muestral y teórica de $Z$ (puede ser utilizando comandos de R) ¿son parecidas?
+
+# Solución 
+## Inciso d)
+Notemos que:
+
+$$ Z = máx\{X-u,0\} + mín \{X,d\}$$
+Pues, si $x \in (a,d) \Leftrightarrow a < x < d \Leftrightarrow a - u < x - u < d - u < 0$
+\begin{align*}
+&\implies máx\{x-u,0\} = 0 \wedge mín\{X,d\} = X\\
+&\implies Z = x
+\end{align*}
+
+Si $x\in[d,u] \Leftrightarrow d \leq x \leq u \Leftrightarrow d - u \leq  x - u \leq 0$
+\begin{align*}
+&\implies máx\{x-u,0\} = 0 \wedge mín\{X,d\} = d\\
+&\implies Z = d
+\end{align*}
+
+Si $x\in[u,b] \Leftrightarrow u < x < b \Leftrightarrow 0 < x - u < b$
+\begin{align*}
+&\implies máx\{x-u,0\} = x - u \wedge mín\{X,d\} = d\\
+&\implies Z = X - u + d
+\end{align*}
+
+De manera análoga a como pensamos para $Y$, la función $f(x) := máx\{x - u,0\} + mín\{x,d\}$ es no decreciente, pues a mayor monto de siniestro, mayor será el pago del asegurado.
+
+Y por el teorema de equivarianza de cuantiles se tiene que:
+
+$$ q_{Z}(.5) = máx\{q_{x}(.5) - u,0\} + mín \{q_{x}(.5),d\}$$ 
+
+En nuestro caso $(u = 110, d = 27, q_{x}(.5) = ln(2)(100)) = 69.314$
+\begin{align*} 
+\implies q_{Z}(.5) &= máx\{69.314 - 110,0\} + mín\{69.314,27\}\\
+&= 0 + 27 = 27\\
+&\therefore q_{Z}(.5) = 27 \quad _\blacksquare
+\end{align*}
+
+```{r}
+Zsamp <- Z(X,0,27,110,200) # Notemos que tanto a como b no se especificaron al inicio del problema
+print("Mediana Muestral de Z:")
+print(quantile(Zsamp, 0.5))
+```
+
+# Ejercicio 3
+
+Sea $X$ la variable aleatoria que representa los montos de siniestro para un contrato. La función de masa de probabilidad está dada por:
+$$\mathbb{P}[X=x]=\frac{1}{10}\hspace{1cm}para\hspace{0.5cm}x=100,200,300,...,900,1000$$
+Dicho contrato está sujeto a un deducible $d=200$, un monto máximo de beneficio $u=800$ y un coaseguro $\alpha=0.95$.
+\begin{enumerate}
+\item[a)] Calcula el monto promedio del costo por pérdida de la aseguradora ($\mathbb{E}[Y_L]$)
+\item[b)] Fija una semilla en 100 y realiza $n=1,000,000$ simulaciones para calcular de forma muestral la esperanza del inciso anterior.
+\item[c)] Calcula el monto promedio del costo por pago de la aseguradora ($\mathbb{E}[Y_P]$)
+\item[d)] Fija una semilla en 100 y realiza $n=1,000,000$ simulaciones para calcular de forma muestral la esperanza del inciso anterior.
+\end{enumerate}
+
+# Solución 
+## Inciso a)
+
+Usaremos la fórmula vista en clase, con la tasa de inflación $r = 0\%, d = 200; u = 800 \implies u-d = 800 - 200 = 600, \alpha = 0.95 \implies \alpha(u-d)=570 \implies \alpha d = 190$.
+
+Los posibles valores de $Z = mín (máx ( \alpha(X - d),0), \alpha(u-d))$; dado que: 
+
+$$ x \in \{100,200,\underbrace{\dots}_{\text{De 100 en 100}}, 900,1000\}$$ son:
+```{r}
+alpha=0.95
+d=200
+u=800
+posibles_pagos<-c()
+for (i in seq(100,1000,by=100)){
+  posibles_pagos[i/100]<-min(max(alpha*(i-d),0),alpha*(u-d))
+}
+valores_ej3<-data.frame("Perdida"=seq(100,1000,by=100),"Pago"=posibles_pagos,
+                        "Probabilidad"=rep(1/10,10))
+valores_ej3
+valores_ej3_agrupados <- valores_ej3 %>%
+  group_by(Pago) %>%
+  summarise(Probabilidad=sum(Probabilidad))
+valores_ej3_agrupados
+```
+Entonces, la probabilidad teórica está dada por:
+```{r}
+esperanza_teorica_L3<-sum(valores_ej3$Pago*valores_ej3$Probabilidad)
+esperanza_teorica_L3
+```
+
+$\blacksquare$
+
+# Solución 
+## Inciso b)
+
+```{r}
+set.seed(100)
+datos_ej3b<-sample(pmin(pmax(alpha*(seq(100,1000,by=100)-d),0),alpha*(u-d)),1000000,replace=T)
+esperanza_empirica_L3<-mean(datos_ej3b)
+esperanza_empirica_L3
+```
+Vemos que es muy similar, de hecho solo difiere por:
+```{r}
+esperanza_teorica_L3-esperanza_empirica_L3
+```
+$\blacksquare$
+
+# Solución 
+## Inciso c)
+
+Como $Y^{P} = Z|Z > 0$
+
+$$ \mathbb{P} [Z = z | z > 0] = \left\lbrace\begin{array}{c} \frac{\mathbb{P}[Z = z]}{\mathbb{P}[Z > 0]}, \quad si \quad Z > 0 \\ \quad 0, \quad \text{En otro caso} \end{array}\right.$$
+Como $\mathbb{P}[Z > 0] = \frac{8}{10}$; entonces tenemos que:
+
+```{r}
+posibles_perdidas=posibles_pagos[posibles_pagos>0]
+pago<-data.frame("Pago_positivo"=posibles_perdidas,
+                 "Probabilidad"=rep((1/10)/(8/10),length(posibles_perdidas)))
+pago
+pago_agrupado<-pago %>%
+  group_by(Pago_positivo) %>%
+  summarise(Probabilidad=sum(Probabilidad))
+pago_agrupado
+```
+Entonces la esperanza teórica está dada por:
+
+```{r}
+esperanza_teorica_P3<-sum(pago$Pago_positivo*pago$Probabilidad)
+esperanza_teorica_P3
+```
+
+$\blacksquare$
+
+# Solución 
+## Inciso d)
+
+```{r}
+set.seed(100)
+datos_ej3d<-sample(pmin(pmax(alpha*(seq(100,1000,by=100)-d),0),alpha*(u-d))[pmin(pmax(alpha*(seq(100,1000,by=100)-d),0),alpha*(u-d))>0],1000000,replace=T)
+esperanza_empirica_P3<-mean(datos_ej3d)
+esperanza_empirica_P3
+```
+Vemos que son bastante similares, de hecho solo difieren por:
+```{r}
+esperanza_teorica_P3-esperanza_empirica_P3
+```
+
+$\blacksquare$
+
+# Ejercicio 4
+
+En clase se vio la modelación de la variable aleatoria de pérdida de una compañía de seguros ($Y$) para cuando se tiene un contrato de **deducible**, sea $X$ la variable aleatoria que mide el monto de pérdida asociado a un siniestro definido en el intervalo $(a,b)$ con $0<a$, tomando $a<d<b$ el deducible que cobra **la aseguradora**, se define como **deducible franquicia** tal que el pago de la compañía aseguradora está dado por:
+
+$$
+Y=
+\begin{cases}
+0 & si \quad X \leq d\\
+X & si \quad X > d
+\end{cases}
+$$
+
+Muestra la construcción de una variable aleatoria $Y$ para este tipo de contrato que mida la pérdida que asume **la aseguradora** (todo lo que la compañía cubre), 
+
+\qquad a) **Exhibe de manera general cómo se construye su función de densidad en términos de la densidad de** $\mathbf{X}$, especificando el soporte de la variable aleatoria que estás construyendo.
+
+# Solución a
+
+Notemos que: $$Y = X \mathbb{I}_{\{X > d\}}$$
+
+De igual manera, notemos que:
+
+$$ f_{Y}(0) = \mathbb{P}(Y = 0) = \mathbb{P}(X\leq d) = F_{X}(d)$$
+
+y si $y \in (d,b)$
+
+\begin{align*}
+\mathbb{P}(d < Y \leq y) &= \mathbb{P}(d < x < y) = F_{x}(y) - F_{x}(d)\\
+&\implies F_{Y}(y) - F_{Y}(d) = F_{X}(y) - F_{X}(d)\\
+&\implies f_{y}(y) = f_{x}(y) \quad \text{si} \quad x \in (d,b)\\
+& \textcolor{red}{\therefore f_{Y}(y) = \begin{cases}
+F_{X}(d) & si \quad y \leq 0\\
+f_{X}(y) & si \quad y > d
+\end{cases}}
+\end{align*}
+
+De esta manera $Sop(Y) = \{0\}\cup(d,b)$
+
+
+Para comprobar que lo que hiciste está bien realiza lo siguiente:
+
+\qquad b)  Considera una variable aleatoria $X\sim Exp\left(\lambda=\frac{1}{100}\right)$ ($E[X]=100$) a partir de ésta variable aleatoria, considera $d=50$, fija la semilla en 6 y genera una muestra aleatoria de tamaño $n=100,000$ de tu variable $Y$, realiza un histograma y compáralo con la función de densidad que construiste anteriormente. $_\blacksquare$
+
+# Solución b
+
+```{r}
+set.seed(6)
+
+Y <- function(X,d){
+  n = length(X)
+  l <- c()
+  for(i in 1:n){
+    if(X[i]>d){
+      l[i] = X[i]
+    }else{l[i] = 0}
+  }
+  return(l)
+}
+aux<-function(x,d=50){
+  if(x==0){
+    return(pexp(d,rate=1/100))
+  }
+  else if(x>d){
+    return(dexp(x,rate=1/100))
+  }
+  else if(x>0 & x<=d){
+    return(0)
+  }
+}
+aux=Vectorize(aux)
+X <- rexp(100000, 1/100)
+Ysamp <- Y(X,50)
+MASS::truehist(Ysamp,xlim=c(0,quantile(Zsamp,0.95)))
+plot(aux,xlim=c(0,ceiling(max(Ysamp))),add=T,lwd=3)
+
+```
+Aquí también el desfase es debido a los límites del eje x, hagamos un poco de zoom
+```{r}
+MASS::truehist(Ysamp,xlim=c(0,150))
+plot(aux,xlim=c(0,150),add=T,lwd=3)
+```
+**Aquí se ve mejor, en esta escala**. El problema en el anterior era del graficador
+únicamente.
+$\blacksquare$
+
+\qquad c)  Obtén la **esperanza** muestral y teórica de $Y$ (puede ser utilizando comandos de R) ¿son parecidas?
+
+# Solución c
+
+Notemos que:
+$$\mathbb{E}(Y) = 0 F_{X}(d) + \int_{d}^{\infty}yf_{x}(y)dy = \int_{d}^{\infty}yf_{x}(y)dy \dots \textcolor{blue}{(1)}$$
+
+Notemos además que, si $x > d$ 
+\begin{align*}
+&\implies X = máx\{X-d,0\} + d\\
+&\implies \mathbb{E}(Y) = \int_{d}^{\infty} \left[(y-d)_{+} + d\right] f_{x}(y)dy = \int_{d}^{\infty}(y - d)_{+}f_{x}(y)dy\\
+&+ d \int_{d}^{\infty}f_{x}(y)dy = \int_{d}^{\infty}(y - d)f_{x}(y)dy + d(1 - F_{X}(d))\\
+&= \mathbb{E}(X) - d \int_{d}^{\infty}f_{x}(y)dy -\int_{a}^{d}yf_{x}(y)dy  + dS_{x}(d)\\
+&= \mathbb{E}(X) - \int_{a}^{\infty}mín\{d,y\}f_{x}(y)dy + dS_{x}(d)\\
+&= \mathbb{E}(X) - \mathbb{E}(mín\{X,d\}) + dS_{x}(d)\\
+&= \mathbb{E}(X) - \mathbb{E}(X \wedge d) + dS_{x}(d)
+\end{align*}
+
+Veamos $\textcolor{blue}{(1)}$ para nuestro caso particular, es decir, $(d = 50, X \sim exp(\frac{1}{100}))$ 
+\begin{align*}
+&\implies \mathbb{E}(Y) = \int_{50}^{\infty}y \frac{1}{100} e^{-\frac{y}{100}}dy \begin{cases}
+u = y \implies du = dy\\
+dv = \frac{1}{100} e^{-\frac{y}{100}}dy \implies v = -e^{-\frac{y}{100}}\end{cases}\\
+&= -ye^{-\frac{y}{100}}|_{50}^{\infty} + \int_{50}^{\infty}e^{-\frac{y}{100}}dy = 50e^{-\frac{1}{2}} + \left(-100 e^{-\frac{y}{100}}|_{50}^{\infty}\right)\\
+&= 50e^{-\frac{1}{2}} + 100e^{-\frac{1}{2}}\\
+&= 150e^{-\frac{1}{2}}\\
+&= 90.9796 \quad _\blacksquare
+\end{align*}
+
+```{r}
+Ysamp <- Y(X,50)
+
+print("Media Muestral de Y:")
+print(mean(Ysamp))
+```
+
+
+\qquad d)  Obtenga la **mediana** muestral y teórica de $Y$ (puede ser utilizando comandos de R) ¿son parecidas?
+
+# Solución d
+
+Recordemos que:
+$$Y = X\mathbb{I}_{\{X > d\}}(x); \quad X \geq 0 $$ 
+Entonces, notemos que si $0 \leq x_{1} \leq x_{2}$, entonces:
+
+
+- Si $x_{1} > d \implies x_{2} > d \implies \mathbb{I}_{\{x_{1} > d\}} = \mathbb{I}_{\{x_{2} > d\}} = 1$
+- Si $x_{1} \leq d < x_{2} \implies \mathbb{I}_{\{x_{1} > d\}} = 0 < \mathbb{I}_{\{x_{2} > d\}} = 1$
+- Si $x_{2} \leq d \implies \mathbb{I}_{\{x_{1} > d\}} =  \mathbb{I}_{\{x_{2} > d\}} = 0$
+
+De esta manera $g(x):= \mathbb{I}_{\{X > d\}}(x)$ es una función no decreciente y positiva al igual que: $f(x) := x (\text{Para} \quad x \in [0,\infty)) \implies h(x) := f(x)*g(x)$ es una función no decreciente y positiva, es decir, $h(x) = x \mathbb{I}_{\{X > d\}}(x)$ es no decreciente y positiva $\implies$ por el teorema de equivarianza de cuantiles: 
+
+$$q_{Y}(\alpha)  = q_{x}(\alpha) \mathbb{I}_{\{X > d\}}(q_{x}(\alpha))$$
+En nuestro caso $(\alpha= 0.5, d=50, X \sim exp(\frac{1}{100}))$
+\begin{align*}
+\implies q_{Y}(0.5) &= ln(2)(100) \mathbb{I}_{\{X > d\}}(ln(2)(100))\\
+&= 69.314718 \textcolor{orange}{\mathbb{I}_{\{X > d\}}(69.314718)} \quad \text{(lo naranja se hace uno)}\\
+&= 69.314718\\
+& \textcolor{red}{q_{Y}(0.5) \approx 69.314718} \quad \blacksquare
+\end{align*}
+ 
+```{r}
+Ysamp <- Y(X,50)
+
+print("Mediana Muestral de Y:")
+print(quantile(Ysamp, 0.5))
+```
+ 
+# Ejercicio 5
+
+Un deducible franquicia modifica el deducible ordinario agregando el deducible cuando hay un monto positivo pagado.
+
+Una vez que la pérdida $X$ supera el umbral $d$, la aseguradora paga la pérdida total $X$.
+
+La variable aleatoria por perdida para una póliza con deducible franquicia es.
+
+$$Y^{L}=\left\{\begin{matrix} 0 & para & X\leq d\\ X & para & X> d \end{matrix}\right.$$
+La variable aleatoria por pago para una póliza con deducible franquicia está dada por
+$$Y^{P}=X|X>d$$
+
+\qquad a) Demuestra para una poliza con deducible franquicia 
+$$\mathbb{E}\left ( Y^{L} \right )=\mathbb{E}\left ( X \right )-\mathbb{E}\left ( X\wedge d \right )+d\left [ 1-F\left ( d \right ) \right ]$$
+
+# Solución a)
+
+### Observación 
+
+\begin{align*}
+\mathbb{E}[mín(X,d)] &= \mathbb{E}[X | X < d]\mathbb{P}[X < d] + \mathbb{E}[d | X \geq d]\mathbb{P}[X \geq d]\\
+&= \left[\int_{0}^{d}x \frac{fx(x)dx}{\textcolor{red}{F_{X}(d)}}\right] \textcolor{red}{F_{X}(d)} + d[1 - F_{X}(d)]\\
+&= \int_{0}^{d} x f_{X}(x)dx + d[1 - F_{X}(d)]\\
+&= \int_{0}^{d} S(x)d_{X} + d[1 - F_{X}(d)]\\
+& \therefore \int_{0}^{d} S(x)d_{X} + d[1 - F_{X}(d)]
+\end{align*}
+
+Resolvemos el inciso a
+
+$\mathbb{E}[Y^{2}] = \mathbb{E}[Y^{2}| X \leq d] \mathbb{P}[X \leq d] + \mathbb{E}[Y^{2} | X > d] \mathbb{P}[X > d]$
+Pero, $\mathbb{E}[Y^{2}| X \leq d] = 0$ ya que $Y^{2}|X \leq d = 0. \quad \text{(La v.a constante 0)}$
+$$ \mathbb{E}[Y^{2}|X > d]\mathbb{P}[X > d]$$
+\begin{align*}
+\mathbb{P}[X > d] &= 1 - F_{X}(d)\\
+\mathbb{E}[Y^{2}| X > d] &= \mathbb{E}[X | X > d]\\
+&= \int_{d}^{\infty}x \frac{fx(z)dz}{1 - F_{X}(d)}\\
+&= \int_{d}^{\infty}x \frac{fx(z)dz}{1 - F_{X}(d)} + \int_{0}^{d}x \frac{fx(z)dz}{1 - F_{X}(d)} - \int_{0}^{d}x \frac{fx(z)dz}{1 - F_{X}(d)}\\
+&= \int_{0}^{\infty}x \frac{fx(z)dz}{1 - F_{X}(d)} - \int_{0}^{d}x \frac{fx(z)dz}{1 - F_{X}(d)}\\
+&= \frac{1}{1- F_{X}(d)} \left[\int_{0}^{\infty} zf_{x}(z)dz - \int_{0}^{d} xf_{X}(z)dz\right]\\
+\end{align*}
+
+\begin{align*}
+&\text{Haciendo uso de Darth-Vader}\\
+&= \frac{1}{1 - F_{X}(d)} \left(\mathbb{E}[X] - \int_{0}^{d} S(x)dx \right)\\
+&= \frac{1}{\textcolor{red}{1 - F_{X}(d)}}\left(\mathbb{E}[X] - \int_{0}^{d}S(x)dx\right)[\textcolor{red}{1 - F_{X}(d)}]\\
+&= \mathbb{E}[X] - \int_{0}^{d}S(x)dx\\
+&= \mathbb{E}[X] - \int_{0}^{d}S(x)dx - d[1 - F_{X}(d)] + d[1 - F_{X}(d)]\\
+&= \mathbb{E}[X] - \mathbb{E}[X \wedge d] + d[1 - F_{X}(d)] \quad _\blacksquare
+\end{align*}
+
+\qquad b) Obten la funcion de decidad $f_{Y^{P}}(y)$
+\begin{align*}
+\mathbb{P}[X \leq x | X > d] &= \frac{\mathbb{P}[X \leq x \mathbb{I}_{\{X > d\}}]}{\mathbb{P}[X > d]}\\
+&= \frac{\int_{0}^{x}f_{x}(x)dx \mathbb{I}_{\{x > d\}}}{S_{x}(d)}\\
+&= \frac{\int_{d}^{x}f_{x}(x)dx}{S_{x}(d)}\\
+& \implies F_{X}(x) = \frac{\int_{d}^{x}f_{x}(z)dz}{S_{x}(d)}\\
+& \text{Derivando} \implies f_{x}(x) = \frac{f_{x}(x)}{S_{x}(d)}\\
+& \therefore f_{x}(x) = \begin{cases} 
+\frac{f_{x}(x)}{S_{x}(d)} & si \quad x > d\\
+0 & \text{En otro caso}
+\end{cases} \quad _\blacksquare
+\end{align*}
+
+# Ejercicio 6
+
+Mike es un especialista en acrobacias con motocicleta que se presenta en eventos de deportes extremos.
+
+El costo anual para reparar su motocicleta, es modelado por una variable aleatoria $X\sim Pareto\left ( \alpha =2,\theta =5,000 \right )$
+
+Los costos anuales de reparación de la motocicleta están sujetos a lo siguiente:
+
+\qquad i) Mike paga un deducible $d$=1,000
+
+\qquad ii) Mike paga 20% para reparaciones que están entre 1,000 y 6,000
+
+\qquad iii) Mike paga el 100% para reparaciones que superan 6,000 y hasta desembolsar máximo 10,000 
+
+\qquad iv) Mike paga el 10% de las reparaciones restantes
+
+Con la información proporcionada
+
+\qquad a) Calcula el costo esperado anual de reparación.
+
+$\mathbf{Hint:}$ Usa el ejericio anterior
+
+# Solución a
+
+### Observaciones 
+- Notemos que la aseguradora paga el 80\% de las reparaciones entre 1,000 y 6,000.
+- Observemos que el asegurado desembolsa 10,000 una vez que paga 1,000 de deducible, 20\% de los gastos entre 1,000 y 6,000, es decir, 0.2(6,000 - 1,000) = 1,000 y 100\% de los gastos acumulados hasta gastar 10,000, es decir, 8,000 = 1(14,000 - 6,000). De esta forma, la aseguradora paga el 90% de los gastos  mayores a 14,000, así, el costo esperado anual por reparación esta dado por:
+
+$$ 0.8(\mathbb{E}(X \wedge 6,000) - \mathbb{E}(X \wedge 1,000)) + 0.9(\mathbb{E}(X) - \mathbb{E}(X \wedge 14,000))$$
+Sin embargo, observemos que, $\forall \beta > 0; \theta = 5,000$
+
+\begin{align*}
+(\mathbb{E}(X \wedge B) &= \int_{0}^{\infty}mín\{X,\beta\} \frac{2\theta^{2}}{(X + \theta)^{3}}dx = \int_{0}^{\beta}\frac{2\theta^{2}}{(X + \theta)^{3}}dx + \beta\int_{\beta}^{\infty}\frac{2\theta^{2}}{(X + \theta)^{3}}dx\\
+&= 2\theta^{2} \left[\int_{\theta}^{\beta + \theta} \frac{u - \theta}{xu^{3}} du \right] + \beta 2\theta^{2}\int_{\beta}^{\infty} \frac{1}{(X + \theta)^{3}} dx\\
+&= 2\theta^{2} \left[\left(-\frac{1}{u} + \frac{\theta}{2u^{2}}\right)|_{\theta}^{\beta + \theta}\right] + \beta 2\theta^{2}\left(- \frac{1}{2(X + \theta)^{2}}|_{\beta}^{\infty}\right)\\
+&= \textcolor{red}{2}\theta^{2} \left[\frac{\theta - 2u}{\textcolor{red}{2}u^{2}}|_{\theta}^{\beta + \theta}\right] + \beta \textcolor{red}{2}\theta^{2}\left( \frac{1}{\textcolor{red}{2}(\beta + \theta)^{2}}\right)\\
+&= \theta^{2} \left(\frac{\theta - 2(\beta + \theta)}{(\beta + \theta)^{2}} - \left(\frac{\theta - 2\theta}{\theta^{2}}\right)\right) + \beta \left(\frac{\theta}{\beta + \theta}\right)^{2}\\
+&= \theta^{2} \left(\frac{(- 2\beta - \theta)}{(\beta + \theta)^{2}} + \frac{1}{\theta}\right) + \beta \left(\frac{\theta}{\beta + \theta}\right)^{2}\\
+&= \theta + \frac{\theta^{2}}{(\beta + \theta)^{2}}\left[\beta - 2\beta - \theta \right] = \theta - \frac{(\beta + \theta)\theta^{2}}{(\beta + \theta)} = \theta \left(1 - \frac{\theta}{\beta + \theta}\right)\\
+&= \frac{\theta \beta}{\beta + \theta}\\
+& \therefore \mathbb{E}(X \wedge \beta) = \frac{\theta \beta}{\beta + \theta} = \frac{(5,000)\beta}{\beta + 5,000}\\
+\implies &- \mathbb{E}(X \wedge 6,000) = \frac{5,000(6,000)}{11,000} = 2,727.272727\\
+&- \mathbb{E}(X \wedge 1,000) = \frac{5,000(1,000)}{6,000} = 833.33333\\
+&- \mathbb{E}(X \wedge 14,000) = \frac{5,000(14,000)}{19,000} = 3,684.210526\\
+&- \mathbb{E}(X) = \int_{0}^{\infty}\frac{2(5,000)^{2}x}{(x + 5,000)^{3}}dx = \int_{5,000}^{\infty}\frac{2(5,000)^{2}(u - 5,000)}{u^{3}}du\\
+&= 2(5,000)^{2}\left[\frac{5,000 - 2u}{2u^{2}}|_{5,000}^{\infty}\right] = \textcolor{red}{(5,000)^{2}}\left(\frac{2(5,000) - 5,000}{\textcolor{red}{(5,000)^{2}}}\right)\\
+&= 5,000\\
+\implies & 0.8(\mathbb{E}(X \wedge 6,000) - \mathbb{E}(X \wedge 1,000)) + 0.9 (\mathbb{E}(X) - \mathbb{E}(X \wedge 14,000))\\
+&= 0.8[2,727.272727 - 833.33333] + 0.9(5,000 - 3,684.210526)\\
+&= 1515.151515 + 1184.21\\
+&= 2,699.362042
+\end{align*}
+
+$\therefore$ El costo esperado anual de reparación es de 2,699.362042. $_\blacksquare$
+
+# Ejercicio 7
+
+Sea $X\sim Pareto(a,b)$ con soporte en $(0,\infty)$ la v.a. de los montos de un siniestro.
+
+\begin{itemize}
+\item[a)] Calcular la distribución de la variable de costo por pago cuando la póliza está sujeta a un deducible $d$.
+\item[b)] Para valores de $a,b$ y $d$ de su elección, comprueba que lo encontrado en el inciso anterior se cumple muestralmente comparando un histograma y la densidad teórica. Realiza una prueba de bondad de ajuste y concluye.
+\end{itemize}
+
+# Solución
+## Inciso a)
+
+En clase vimos que, de manera general:
+la función de densidad de $Y$ es:\\
+\begin{center}
+\begin{equation*}
+    f_{\textcolor{blue}{Y}}(t) = \left \{ \begin{matrix} F_{\textcolor{red}{X}}\left(\frac{\textcolor{yellow}{d}}{1+\textcolor{green}{r}}\right) & \mbox{si }& t=0\quad\textcolor{red}{(discreta)}
+\\ \frac{f_{\textcolor{red}{X}}\left(\frac{t+\textcolor{yellow}{d}\textcolor{magenta}{\alpha}}{\textcolor{magenta}{\alpha}(1+\textcolor{green}{r})}\right)}{\textcolor{magenta}{\alpha}(1+\textcolor{green}{r})} & \mbox{si }& t\in (0,\textcolor{magenta}{\alpha}(\textcolor{orange}{u}-\textcolor{yellow}{d}))\quad \textcolor{blue}{(continua)}
+\\ S_{\textcolor{red}{X}}\left(\frac{\textcolor{orange}{u}}{(1+\textcolor{green}{r})}\right)&\mbox{si}&t=\textcolor{magenta}{\alpha}(\textcolor{orange}{u}-\textcolor{yellow}{d})\quad\textcolor{red}{(discreta)}
+\\ 0 &\mbox{en otro caso.}
+\end{matrix}\right. 
+\end{equation*}
+\end{center}
+
+Tomando $r = 0, \alpha = 1; u = \infty; \quad \text{y como} \quad S_{x}(\infty) = 0;$
+
+
+$$ \implies f_{Y}(t) = \begin{cases}F_{X}(d) & si \quad t = 0\\
+f_{X}(t + d) & si \quad t \in (0, \infty)\\
+0 & \text{En otro caso}
+\end{cases}$$
+
+Tenemos que:
+$\textcolor{green}{Pareto}$
+
+\textcolor{blue}{Pareto}
+\begin{eqnarray*}
+    X &\sim&{Pareto (a,b)}\ con\ a>0\ y \ b>0.\\
+    f(x)&=& \frac{ab^{a}}{(b+x)^{a+1}}\ para\ x>0.\\
+    F(x)&=& 1-\left[\frac{b}{(b+x)}\right]^{a}\ para\ x>0.\\
+\end{eqnarray*}
+
+\begin{align*}
+& \implies F_{X}(d) = 1 - \left[\frac{b}{b + d}\right]^{a}\\
+& \implies f_{Y}(t) = \begin{cases}  1 - \left[\frac{b}{b + d}\right]^{a} & si \quad t = 0\\
+\frac{ab^{a}}{(b + (t + d))^{a + 1}} & si \quad t \in (0,\infty)
+\end{cases}
+\end{align*}
+
+Además:
+
+
+$$f_{\textcolor{green}{Y_p}}(t)=\frac{f_{\textcolor{blue}{Y_L}}(t)}{1-f_{\textcolor{blue}{Y_L}}(0)} \forall t \in (0, \textcolor{yellow}{\alpha}(\textcolor{purple}{u} - \textcolor{green}{d})) $$
+\begin{align*}
+\implies f_{y_{p}}(t) &= \frac{\frac{ab^{a}}{(b + (t + d))^{a + 1}}}{1 - \left[1 - \left[\frac{b}{b + d}\right]^{a}\right]}\\
+&= \frac{\frac{ab^{a}}{(b + (t + d))^{a + 1}}}{\left[\frac{b}{b + d}\right]^{a}}\\
+&= \frac{\frac{ab^{a}}{(b + d + t))^{a + 1}}}{\frac{b^{a}}{(b + d)^{a}}}\\
+&= \frac{a\textcolor{red}{b^{a}}(b + d)^{a}}{\textcolor{red}{b^{a}}(b + d + t)^{a + 1}}\\
+&= \frac{a(b + d)^{a}}{[(b + d) + t]^{a + 1}}
+\end{align*}
+
+\¡Se distribuye $Pareto(a,b+d)$\! $_\blacksquare$
+
+# Solución
+## Inciso b)
+
+```{r}
+library(actuar)
+```
+
+```{r}
+a=3
+b=2000
+d=500
+proba_0<-ppareto(d,shape=a,scale=b)
+proba_0
+set.seed(27)
+n=100000
+data_ej7<-c()
+j=1
+while(j<=n){
+  aux=max(rpareto(1,shape=a,scale=b)-d,0)
+  if(aux>0){
+    data_ej7[j]=aux
+    j=j+1
+    }
+}
+aux = function(x){dpareto(x,shape=a,scale=b+d)}
+MASS::truehist(data_ej7,xlim = c(0,quantile(data_ej7,0.95)))
+plot(aux,xlim = c(0,quantile(data_ej7,0.95)),add=T,lwd=3)
+```
+Gráficamente, vemos que se pega demasiado la línea al histograma.
+
+```{r}
+library(goftest)
+goftest::ad.test(data_ej7,"ppareto",shape=a,scale=b+d) #Anderson-Darling
+ks.test(unique(data_ej7),"ppareto",shape=a,scale=b+d)
+```
+Pasa ambos test sin ningún problema: Los p-values obtenidos en ambas pruebas son altísimos. Por lo que aceptamos la hipótesis nula de que 
+se distrubuye pareto(3,2500).
+De hecho, la esperanza muestral y teórica coinciden:
+
+```{r}
+esp_mues_ej7<-mean(data_ej7)
+esp_mues_ej7
+esp_teo_ej7<-(b+d)/(a-1)
+esp_teo_ej7
+```
+Difieren por:
+```{r}
+esp_mues_ej7-esp_teo_ej7
+```
+
+$\blacksquare$
+
+# Ejercicio 8
+
+Sean $X_1,\dots,X_{100}$ los montos de siniestros independientes con distribución exponencial de media $1000$. Una aseguradora cubrirá todos los riesgos cuyas póliza están sujetas cada una a un deducible $d=100$.
+
+\begin{itemize}
+\item[a)] Calcular la distribución del número de siniestros en los que la aseguradora tendrá que pagar algun monto positivo.
+\item[b)] Calcular la distribución del numero de siniestros en los que la aseguradora no tendrá que pagar (incluyendo pagos de 0).
+\item[c)] Simular valores para el número de siniestros en los que la aseguradora debe realizar un pago positivo. Realizar una prueba Ji-cuadrada partiendo la muestra en 3 conjuntos (muestra$\leq90$, $90<$muestra$\leq95$ y $95<$muestra) para corroborar la distribución encontradas en el inciso a).
+\item[d)] Simular valores para el número de siniestros en los que la aseguradora no debe realizar un pago. Realizar una prueba Ji-cuadrada partiendo la muestra en 3 conjuntos (muestra$\leq5$, $5<$muestra$\leq10$ y $10<$muestra) para corroborar la distribución encontradas en el inciso b).
+\end{itemize}
+
+# Solución 
+## Inciso a)
+Sabemos que $X_{K}\sim(\frac{1}{1000}) \quad \forall k \in \{1, \dots, 100\}$ y notemos que la probabilidad de que la aseguradora pague un monto positivo sobre el asegurado $K$ es si, $X_{K} > d$, es decir, $\mathbb{P}(X_{K} > d) = e^{-\frac{100}{1000}} = e^{-\frac{1}{10}} \approx 0.90483 \quad \forall k \in \{1, \dots, 100\}$. Observamos que podemos identificar si $X_{K} > d$ por medio de una Bernoulli $(\mathbb{P}(X_{K} > d))$ de la siguiente manera:
+
+\begin{align*}
+B_{K} &= \begin{cases} 1 & si \quad X_{K} > d\\
+0 & si \quad X_{K} \leq d \end{cases} \quad \forall k \in \{1, \dots, 100\}\\
+\implies \mathbb{P}(B_{K} = 1) &= \mathbb{P}(X_{K} > d) = 0.90483\\
+\mathbb{P}(B_{K} = 0) &= \mathbb{P}(X_{K} \leq d) = 1 - 0.90483 = 0.09516\\
+&\therefore B_{K} \sim Ber(0.90483) \quad \forall k \in \{1, \dots, 100\} 
+\end{align*}
+
+Podemos contabilizar el número de siniestros en los que la aseguradora pagará un monto positivo, es decir $X_{K} > d$ como:
+
+$$ B = \sum_{K = 1}^{100} B_{K} \sim Binom(100, 0.9048374)_\blacksquare$$ 
+
+# Solución 
+## Inciso b)
+
+De manera análoga, podemos identificar a un monto por el cual la aseguradora no paga como:
+\begin{align*}
+\hat{B_{K}} &= \begin{cases} 1 & si \quad X_{K} \leq d\\
+0 & si \quad X_{K} > d \end{cases} \quad \forall k \in \{1, \dots, 100\}\\
+\implies \hat{B_{K}} &\sim Ber(\mathbb{P}(X_{K} \leq d)) = Ber(0.095162582) \quad \forall k \in \{1,\dots,100\}
+\end{align*}
+
+De esta manera, podemos calcular el número de siniestros por los cuales la aseguradora no paga como:
+
+$$ \hat{B} = \sum_{K = 1}^{100} \hat{B_{K}} \sim Binom(100, 0.095162582)_\blacksquare$$ 
+
+# Solución 
+## Inciso c)
+
+```{r}
+set.seed(2000)
+P <- c() # Vector de la cantidad de individuos a los que se les paga
+NP <- c() # Vector de la cantidad de individuos a los que NO se les paga
+n = 10000  # Tamaño de muestra
+
+for(j in 1:n){
+  X <- rexp(100,1/1000) # Simulamos una exp(1/1000)
+  B<- c() # Vector que guarda las muestras Bernoulli del inciso a)
+  B_<- c() # Vector que guarda las muestras Bernoulli del inciso b)
+  for(i in 1:100){
+    if(X[i]>100){
+      B[i] = 1 # Sí se paga
+      B_[i] = 0
+    }else{
+      B[i] = 0
+      B_[i] = 1
+    }
+  }
+ P[j] = sum(B) # Contar a cuantos se les pagó en ese intento
+ NP[j] = sum(B_) # Contar a cuantos NO se les pagón en ese intento
+}
+
+# Notemos que en efecto, P + NP = c(100, 100, ..., 100)
+
+#INCISO C
+
+# Los que paga la aseguradora
+
+# Separar en las categorías que se pide
+o1 = sum(P<=90)
+o3 = sum(P>95)
+o2 = n - o1 -o3
+Oi = c(o1,o2,o3)
+Pi=c()
+# Probabilidades Teóricas
+Pi[1] = pbinom(90, 100, 0.9048374)
+Pi[2] = pbinom(95, 100, 0.9048374)-pbinom(90, 100, 0.9048374)
+Pi[3] =1-pbinom(95, 100, 0.9048374)
+# Prueba Chi2 para Binom(100, 0.9048374)
+chisq.test(x = Oi, p=Pi)
+
+#Mostrar el valor del p-value (0.5381) y en general el output para la prueba Chi2, 
+#de esta forma fallamos en rechazarla hipótesis nula, es decir, podemos afirmar 
+#que la muestra sigue una distribución Binom(100, 0.9048374)
+
+```
+$\blacksquare$
+
+# Solución
+## Inciso d)
+
+```{r}
+#INCISO D
+
+# Los que NO paga la aseguradora
+
+# Separar en las categorías que se pide
+o1_ = sum(NP<=5)
+o3_ = sum(NP>10)
+o2_ = n - o1_ -o3_
+Oi_ = c(o1_,o2_,o3_)
+Pi_=c()
+# Probabilidades Teóricas
+Pi_[1] = pbinom(5, 100, 1-0.9048374)
+Pi_[2] = pbinom(10, 100, 1-0.9048374)-pbinom(5, 100, 1-0.9048374)
+Pi_[3] =1-pbinom(10, 100, 1-0.9048374)
+# Prueba Chi2 para Binom(100, 1-0.9048374)
+chisq.test(x = Oi_, p=Pi_)
+
+#Mostrar el valor del p-value (0.4199) y en general el output para la prueba Chi2, 
+#de esta forma fallamos en rechazarla hipótesis nula, es decir, podemos afirmar 
+#que la muestra sigue una distribución Binom(100, 1- 0.9048374)
+
+
+```
+$\blacksquare$ 
+
+# Ejercicio 9
+
+Recordemos la formula de De Pril [ii]: Sean $X_1,X_2,\dots,X_n$ *v.a.i.i.d.* con valores en el conjunto $\mathbb{N}\cup\{0\}$. Para cada entero $j\geq 0$, defina la probabilidad $f_j=\mathbb{P}[X=j]$, y suponga $f_0\neq0$. Sea $\displaystyle S=\sum_{k=1}^n X_k$. Entonces las probabilidades $g_x = \mathbb{P}[S=x]$ se pueden calcular recursivamente mediante la fórmula
+
+
+$$g_x = 
+  \begin{cases}
+  (f_0)^n & \quad \text{si} \quad x=0,\\
+  \displaystyle \frac{1}{f_0}  \sum_{k=1}^x \left[\frac{j(n+1)}{x}-1\right] f_j g_{x-j} &  \quad \text{si} \quad x\in\mathbb{N}-\{0\}.\\
+  \end{cases}$$
+
+\begin{enumerate}
+
+  \item Considere ahora $X_1,X_2,\dots,X_n$ \textit{v.a.i.i.d.} con valores en el conjunto $\mathbb{N}-\{0,1,\dots,m-1\}=\{m,m+1,\dots\}$. Para cada entero $j\geq m$, defina la probabilidad $f_j=\mathbb{P}[X=j]$, y suponga $f_m\neq0$. Encuentre y demuestre una manera de encontrar probabilidades exactas para $\displaystyle S=\sum_{k=1}^n X_k$.
+  
+  \textit{Hint:} Use De Pril [ii].
+
+  \item Programe, muestre y explique con comentarios la metodología encontrada.
+
+  \item Suponga que tiene $n=100$ pólizas/asegurados ($X_i$) independientes e idénticamente distribuidos tales que tienen una función de masa de probabilidad dada por
+  
+  \vspace{-0.25cm}
+  \begin{center}
+  \captionof{table}{}
+  \begin{tabular}{|c|c|c|c|c|}
+  \hline
+  $k$ & 10 & 15 & 20 & 25   \\  \hline 
+  \rule[-1.5ex]{0pt}{4ex}$\mathbb{P}\left[X=k\right]$  & $\frac{2}{5}$ & $\frac{1}{5}$ &         $\frac{1}{4}$ & $\frac{3}{20}$ \\  \hline
+  \end{tabular}
+  \end{center}
+  
+  Calcule de manera "exacta" (numéricamente):
+  
+  \begin{enumerate}
+    \item $\mathbb{P}[S=1570]$
+    \item $\mathbb{P}[S=900]$
+    \item $\mathbb{P}[S\leq1,650]$
+    \item $\mathbb{P}[S\geq1,560]$
+  \end{enumerate}
+
+  \textit{Hint:} Use los incisos anteriores.
+
+\end{enumerate}
+
+# Solución 
+## Inciso a)
+
+Veamos que, el monto mínimo de reclamación $\textcolor{red}{individual}$ es $\textcolor{red}{m}$. A su vez, hay n pólizas. Por lo que, conjuntamente, $\textcolor{red}{\text{el valor mínimo de la variable aleatoria S es n*m}}$.
+
+Y notemos que el evento $\textcolor{red}{\{S = nm\}}$ ocurre sí y solo sí todos reclaman el monto mínimo, de modo que, por independencia, $\textcolor{red}{g_{n*m}=(f_{m})^{n}}$.
+
+Ahora veamos que, la manera de obtener la formula recursiva:
+
+Sean $P_{X}(t)$ y $P_{S}(t)$ las funciones generadoras de probabilidad de las variables discretas $X$ y $S$, respectivamente, es decir:
+
+\begin{align*}
+P_{X}(t) = \mathbb{E}(t^{X}) &= \sum_{K = 0}^{\infty}t^{K}f_{K}; \quad \text{\textcolor{red}{Pero dado Soporte de X  $\in \mathbb{N}\textbackslash\{0, \dots, m-1\}$ $\implies f_{K} = 0 \quad \forall K \in \{0,1, \dots, m-1\}$}}\\
+&= \sum_{K = m}^{\infty}t^{K}f_{K} + \sum_{k = 0}^{m-1}t_{K}f_{K}\\
+&= \sum_{K = m}^{\infty}t^{K}f_{K} + \sum_{k = 0}^{m-1}t_{K}*0\\
+&= \sum_{K = m}^{\infty}t^{K}f_{K}  \quad \text{{\textcolor{red}{$\implies P'_{X}(t) = \sum_{K = m}^{\infty}Kt^{K}f_{K}$}}}
+\end{align*}
+
+Por otro lado; 
+
+\begin{align*}
+P_{S}(t) = \mathbb{E}(t^{S}) &= \sum_{K = 0}^{\infty} t^{K}g_{K}
+\end{align*}
+$\text{\textcolor{red}{Pero, al inicio observamos que Soporte de X  $\in \mathbb{N}\textbackslash\{0, \dots, (n*m)-1\}$ $\implies g_{K} = 0 \quad \forall K \in \{0,1, \dots, (n*m)-1\}$}}$
+\begin{align*}
+&= \sum_{K = n * m}^{\infty}t^{K}g_{K} + \sum_{k = 0}^{(n * m)-1}t^{K}g_{K}\\
+&= \sum_{K = n * m}^{\infty}t^{K}g_{K} + \sum_{k = 0}^{(n * m)-1}t^{K}*0\\
+&= \sum_{K = n * m}^{\infty}t^{K}g_{K}\\
+&\text{\textcolor{red}{$\implies P'_{S}(t) = \sum_{K = n * m}^{\infty}K t^{K} g_{K}$}}
+\end{align*}
+
+Pero, dado que las $X_{i}$ son v.a.i.i.d, tenemos que:
+$$ P_{S}(t) =[P_{X}(t)]^{n}$$
+Derivando respecto de t, tenemos que:
+$$P'_{S}(t) = n[P_{X}(t)]^{n - 1}\quad P'_{X}(t)$$
+Multiplicando por ambos lados por $tP_{X}(t)$:
+
+\begin{align*}
+&\implies P_{X}(t) tP'_{S}(t) = n[P_{X}(t)]^{n-1} P'_{X}(t)\quad tP_{X}(t)\\
+&\implies P_{X}(t) tP'_{S}(t) = n[P_{X}(t)]^{n}tP'_{X}(t)
+\end{align*}
+
+En términos de sumas:
+$$ \left[\sum_{j = m}^{\infty}t^{j}f_{j}\right] \left[\sum_{K =n * m}^{\infty}Kt^{K}g_{K}\right] =n \left[\sum_{K =mn}^{\infty}t^{K}g_{K}\right] \left[\sum_{j = m}^{\infty}jt^{j}f_{j}\right]$$
+Hay que identificar el coeficiente del término $t^{x}$ en cada lado de la ecuación. Desarrollemos los primeros 3 términos del lado izquierdo:
+
+$$\left[t^{m}f_{m} + t^{m + 1}f_{m+1} + t^{m + 2}f_{m + 2}\right] \left[n*mt^{nm}g_{nm} + (nm+1)t^{nm+1}g_{nm+1} + t^{nm+2}g_{nm+2}\right]$$
+
+$$\left[t^{m}f_{m} + t^{m + 1}f_{m+1} + t^{m + 2}f_{m + 2}\right] \left[n*mt^{nm}g_{nm} + (nm+1)t^{nm+1}g_{nm+1} + t^{nm+2}g_{nm+2}(nm+2)\right]$$
+
+$$t^{m}f_{m}\left[n*mt^{nm}g_{nm} + (nm+1) t^{nm+1}g_{nm+1} + t^{nm+2}g_{nm+2}\right]$$
+
+$$\underbrace{n*mt^{nm + m} g_{nm}f_{m}}_{1} + \underbrace{(nm+1)t^{nm + m+1} g_{nm+1}f_{m}}_{ \textcolor{red}{1}} +  \underbrace{(nm+2)t^{nm + m+2} g_{nm+2}f_{m}}_{ \textcolor{green}{1}}$$
+
+$$t^{m+1}f_{m+1}\left[n*mt^{nm}g_{nm} + (nm+1) t^{nm+1}g_{nm+1} + t^{nm+2}g_{nm+2}\right]$$
+
+$$\underbrace{nmt^{nm + m+1} g_{nm}f_{m+1}}_{\textcolor{red}{2}} + \underbrace{(nm+1)t^{nm + m+2} g_{nm+1}f_{m+1}}_{ \textcolor{green}{2}} +  \underbrace{(nm+2)t^{nm + m+3} g_{nm+2}f_{m+2}}_{ \textcolor{orange}{2}}$$
+
+$$t^{m+2}f_{m+2}\left[n*mt^{nm}g_{nm} + (nm+1) t^{nm+1}g_{nm+1} + t^{nm+2}g_{nm+2}(nm+2)\right]$$
+
+$$\underbrace{nmt^{nm + m+2} g_{nm}f_{m+2}}_{\textcolor{green}{3}} + \underbrace{(nm+1)t^{nm + m + 3} g_{nm+1}f_{m+2}}_{ \textcolor{orange}{3}} + (nm+2)t^{nm + m+4} g_{nm+2}f_{m+2}$$
+
+Juntando:
+
+$$\textcolor{red}{n*m}t^{nm+m}g_{\textcolor{red}{nm}}f_{\textcolor{red}{m}}$$
+
+Para $t^{nm+m}$ el coeficiente es: $nm \quad g_{nm} f_{m}$
+$$(nm +1)t^{nm + m+1} g_{nm+1}f_{m} + nm^{nm + m + 1} g_{nm}f_{m+1} = t^{nm + m + 1} \left[(nm+1)g_{nm+1}f_{m} + nm g_{nm}f_{m+1}\right]$$
+
+$$(nm +2)t^{nm + m+2} g_{nm+2}f_{m} + (nm+1)t^{nm + m + 2} g_{nm+1}f_{m+1} + nm t^{nm+m+2} g_{nm}f_{m+2}$$
+
+$$=t^{nm + m + 2} \left[(nm +2) g_{nm+2}f_{m} + (nm+1)g_{nm+1}f_{m+1} + nm  g_{nm}f_{m+2}\right]$$
+
+Se vuelve a repetir el patrón visto en clase. El coeficiente para el término $t^{X}$ con $x \geq nm+m$ es:
+
+\begin{align*}
+& \sum_{K = nm}^{x - m} \sum_{j = m}^{j = x - k} Kg_{K}f_{j}\\
+&= \sum_{K = nm}^{x - m} Kg_{K} \sum_{j = m}^{j = x - k}f_{j}
+\end{align*}
+
+$\textcolor{red}{\text{Es decir, el término $f_{j}Kg_{K}$ para todos aquellos valores de $j\geq m$ y $K \geq nm$ tales que $j + k = x$}}$ 
+
+$\textcolor{red}{\sum_{j = 0}^{X-1}f_{j}(X-j)g_{X-j}}$
+
+Pero como $K = X -j$; lo podemos reescribir como: $\sum_{j = nm}^{X-m}\left[f_{X-j}*j*g_{j}\right]$
+
+$\text{\textcolor{blue}{Ahora, hagamos un procedimiento análogo para ver el patrón del lado derecho:}}$
+
+$$\left[mt^{m}f_{m} + t_{(m+1)}^{m + 1}f_{m+1} + t^{m + 2}f_{m + 2}(m+2)\right] \left[t^{nm}g_{nm} + t^{nm+1}g_{nm+1} + t^{nm+2}g_{nm+2}\right]$$
+
+
+$$t^{nm}g_{nm}\left[mt^{m}f_{m} + t_{(m+1)}^{m + 1}f_{m+1} + t^{m + 2}f_{m + 2}(m+2)\right]$$
+
+$$t^{nm+m}f_{m}g_{nm} + t^{m+1+nm}f_{m+1}g_{nm}(m+1) + t^{m+2+nm}f_{m+2}(m+2)g_{nm}$$
+
+$$t^{nm+1}g_{nm+1}\left[mt^{m}f_{m} + t_{(m+1)}^{m+1}f_{m+1} + t^{m+2}f_{m+2}(m+2)\right]$$
+
+$$t_{m}^{m+nm+1}f_{m}g_{nm+1} + t^{m+2+nm}f_{m+1}(m+1)g_{nm+1} + t_{(m+2)}^{m+3+nm}f_{m+2}g_{nm+1}$$
+
+$$t^{nm+2}g_{nm+2}\left[mt^{m}f_{m} + t_{(m+1)}^{m+1}f_{m+1} + t^{m+2}f_{m+2}(m+2)\right]$$
+
+$$mt^{m+2+nm}f_{m}g_{nm+2} + t^{m+3+nm}f_{m+1} + t^{m+4+nm}f_{m+2}(m+2)g_{nm+2}$$
+
+\begin{align*}
+\text{\textcolor{red}{Para $t^{mn + m}$}} &\implies t^{nm+m}f_{m}g_{nm}\\
+\text{\textcolor{red}{Para $t^{mn + m + 1}$}} &\implies t^{m+1+nm}f_{m+1}g_{nm}(m+1) + t_{m}^{m+nm+1}f_{m}g_{nm+1}\\
+\text{\textcolor{red}{Para $t^{mn + m + 2}$}} &\implies t^{m+2+nm}f_{m+2}(m+2)g_{nm} + t^{m+2+nm}f_{m+1}(m+1)g_{nm+1} + mt^{m+2+nm}f_{m}g_{nm+2}\\
+\end{align*}
+
+Para el lado derecho notemos que es similiar, solo que ahora será $n*jf_{j}g_{K}$ tal que $j+K \geq X$ para $j \geq m$ y $K \geq nm$
+
+\begin{align*}
+& n\sum_{K = nm}^{x-m} \sum_{j = m}^{j = X - K}j g_{K}f_{j}\\
+n &= \sum_{K = nm}^{x-m} g_{K}\quad \sum_{j = m}^{j = X - K}jf_{j}
+\end{align*}
+
+Lo cual podemos reescribir como: 
+
+$$n\sum_{j = nm}^{x-m}\left[f_{x-j}*(x-j)*g_{j}\right]; \quad \text{\textcolor{blue}{igualando terminos}}$$
+$$\sum_{j = nm}^{x-m}\left[f_{x-j}*j*g_{j}\right] = n\sum_{j = nm}^{x-m}\left[f_{x-j}*(x-j)*g_{j}\right]$$
+
+Parametrizando, obtenemos: $\forall x \geq nm + m$ 
+
+$$\sum_{j = m}^{x-nm} (x-j)f_{j}g_{x-j}  = n\sum_{j = m}^{x-nm} j f_{j}g_{x-j} $$
+
+Sacando el primer término:
+
+$$(x-m)f_{m}g_{x-m} + \sum_{j = m+1}^{x-nm}(x-j)f_{j}g_{x-j} = n\sum_{j = m+1}^{x-nm}jf_{j}g_{x-j} + nmf_{m}g_{x-m}$$
+
+\begin{align*}
+\implies (x-m-nm)f_{m}g_{x-m} &= n\sum_{j=m+1}^{x-nm}jf_{j}g_{x-j} - \sum_{j=m+1}^{x-nm}(x-j)f_{j}g_{x-j}\\
+\implies [f_{m}(x-m-nm)]g_{x-m} &= (n+1)\sum_{j=m+1}^{x-nm}jf_{j}g_{x-j} - \sum_{j=m+1}^{x-nm}(x)f_{j}g_{x-j}\\
+&= \sum_{j=m+1}^{x-nm}(n+1)jf_{j}g_{x-j} - xf_{j}g_{x-j}\\
+&= \sum_{j=m+1}^{x-nm}[j(n+1)-x]f_{j}g_{x-j}\\
+\implies g_{x-m} &= \sum_{j=m+1}^{x-nm}\frac{[j(n+1)-x]f_{j}g_{x-j}}{f_{m}(x-m-nm)}\\
+\implies g_{x-m} &= \frac{1}{f_{m}} \sum_{j=m+1}^{x-nm}\left[\frac{j(n+1)}{x-m-nm} - \frac{x}{x-m-nm}\right]f_{j}g_{x-j} \quad \forall x \geq nm + m
+\end{align*}
+
+Sea $k = x-m \implies x = m+k \quad \implies x-mn = m+k-mn$
+
+$$\implies g_{K} = \frac{1}{f_{m}} \sum_{j=m+1}^{m+k-mn}\left[\frac{j(n+1)}{K-nm} - \frac{m+K}{K-nm}\right] f_{j}g_{m+k-j}$$
+
+Notemos que esto funciona pues, si $x = nm + m + k$
+
+$$ x - m = nm + \text{\textcolor{red}{m}} + k - \text{\textcolor{red}{m}}$$
+
+Entonces tenemos las probas necesarias, notemos que:
+
+$$ m + k-j \geq nm \iff j \leq -nm + k + m$$
+$\therefore g_{K} = \frac{1}{f_{m}} \sum_{j=m+1}^{m+k-mn}\left[\frac{j(n+1)}{K-nm} - \frac{m+K}{K-nm}\right] f_{j}g_{m+k-j}\quad _\blacksquare$
+
+
+# Solución 
+## Inciso b)
+
+```{r}
+# x es donde queremos calcular la proba
+# n el número de pólizas
+# f := vector de probabilidades de X (ordenadas desde m) hasta z>=m
+# m es el monto mínimo de reclamación
+# todo es el argumento que nos dice si queremos imprimir todas las probas puntuales
+# hasta x, así como lo siguiente: 
+# La probabilidad acumulada hasta dicho punto
+# Lla probabilidad de que S>x
+# La probabilidad de que S>=x
+
+PrilII_General <- function(x,n,m,f,todo=F){
+  ############Preparativos#################
+  #Verificamos que el monto x sea al menos el monto mínimo de S
+  if(x<(m*n)){
+    return(paste("El monto mínimo de S es",n*m,";Por ello la proba de S=",x,",es 0"))
+  }
+  #Creamos un vector auxiliar para las probas de la suma
+  g<-(m*n):x
+  #Le ponemos nombres al vector de las probas de la suma
+  names(g)<-(m*n):x
+  #Le ponemos nombres al vector de probas de f.
+  #Como empieza en m, desplazamos dichas unidades, por eso se su,a
+  names(f)<-m:(m+(length(f)-1))
+  #Fórmula De Pril II
+  #Aquí k juega el rol del monto de los reclamos
+  for(k in (n*m):x){
+    #Si k es n*m, es la proba de que TODOS reclamen
+    if(k==n*m){
+      g[as.character(n*m)]=f[as.character(m)]^n
+    }
+    #Si no, entramos a la recursión
+    else{
+      #Creamos un auxiliar para la suma, irá guardando los valores de la suma
+      aux = 0
+      #Como encontramos en el inciso anterior que la suma corre de m+1 hasta
+      #k+m-n*m, es por ello que la suma corre en ese rango de valores
+      #Sin ambargo, le ponemos que corra hasta el mínimo entre k+m-n*m
+      #y el monto "m" + la longitud del vector de probabilidades-1, ya que 
+      #Ese es el último valor en el vector f; se considera que el resto que 
+      #hay entre dicho número y k tendrían proba 0, por lo que ya no se consideran
+      # en el cálculo.
+      
+      for(j in (m+1):min(k+m-n*m,m+length(f)-1)){
+        #Calculamos la suma como encontramos en la demostración
+        aux = aux + ((j*(n+1))/(k-(n*m)) - (m+k)/(k-(n*m)))*f[as.character(j)]*g[as.character(m+k-j)]
+      }
+      #dividimos la suma entre la proba de que un individuo reclame el monto "m"
+      #tal como encontramos en la demostración, y le asignamos al valor k su proba
+      g[as.character(k)]=aux/f[as.character(m)]
+    }
+  }
+  #Si todo es verdadero, regresamos todo el vector de probabilidades de la suma
+    if(todo){
+      #Si todo es verdadero, devolvemos probas puntuales, acumulada, supervivencia
+      # y supervivencia inclusiva
+        return(list("Puntuales"=g,"Acumulada"=sum(g),"Supervivencia"=1-sum(g),
+                    "Supervivencia_inclusiva"=1-sum(g)+g[as.character(x)]))
+    }else{
+      # de lo contrario, solo la proba del monto k
+      return(g[as.character(x)])
+    }
+}
+# Comprobamos con el ejemplo visto el 16 de diciembre de 2021
+f_ej<-5:15-5:15
+names(f_ej)<-5:15
+f_ej[(as.character(c(5,10,15)))]<-c(3/16,3/16,5/8)
+m_ej=5
+n_ej=100
+PrilII_General(x=1235,n_ej,m_ej,f_ej,todo=F)
+#Obtenemos lo mismo que el profesor
+```
+
+$_\blacksquare$
+
+# Solución 
+## Inciso c)
+
+```{r}
+#Ponemos un vector con dichos datos proporcionados
+f<-10:25-10:25
+names(f)<-10:25
+f[(as.character(seq(10,25,by=5)))]<-c(2/5,1/5,1/4,3/20)
+m=10
+n=100
+```
+  
+  
+  Calcule de manera "exacta" (numéricamente):
+  
+  
+  a) $\mathbb{P}[S=1570]$
+```{r}
+PrilII_General(x=1570,n=n,m=m,f=f,todo=F)
+```
+    
+  b) $\mathbb{P}[S=900]$
+```{r}
+PrilII_General(x=900,n=n,m=m,f=f,todo=F)
+```
+Esta probabilidad es 0, ya que el monto mínimo de reclamación es $10$, y hay 
+$100$ pólizas, entonces el valor mínimo de S es $10*100=1000$
+    
+  c) $\mathbb{P}[S\leq1,650]$
+```{r}
+ej_9c<-PrilII_General(x=1650,n=n,m=m,f=f,todo=T)
+ej_9c$Acumulada
+```
+    
+  d) $\mathbb{P}[S\geq1,560]$
+```{r}
+ej_9d<-PrilII_General(x=1560,n=n,m=m,f=f,todo=T)
+ej_9d$Supervivencia_inclusiva
+```
+
+$\blacksquare$
+
+# Ejercicio 10
+
+Una empresa tiene 500 trabajadores y desea asegurarlos por una asuma asegurada de \$100,000. Cada uno tiene una probabilidad de 0.15 de reclamar y de 0.85 de no durante cierto periodo de tiempo. Si $Y$ es la variable aleatoria que mide el monto a pagar de la aseguradora en un contrato por deducible asumiendo el riesgo de todo el portafolio anterior:
+
+\qquad (a) ¿Cuánto debe valer el deducible para que el valor esperado de $Y$ sea \$500,000?
+
+Nota: Deben dar el valor exacto del deducible (salvo quizás un error numérico). Puedes utilizar R para realizar tus cálculos y/o aproximaciones numéricas **¡cada dígito cuenta!**. Un buen punto de partida para buscar a $d$ es saber que:
+
+- Si $X\in[a,b]$, en general, $d\in[0,b]$ (no tiene mucho sentido $d>b$).
+
+- $\mathbb{E}[X\wedge d]=\mathbb{E}[X]-\mathbb{E}[(X-d)_{+}]\leq d$.
+
+Hint: Existen muchas maneras de solucionar esto. Puedes asumir que las fórmulas de Darth Vader son válidas para variables aleatorias discretas. Para asuntos numéricos, un par de buenas funciones son: \texttt{pracma::integral} y \texttt{pracma::newtonRaphson}, o bien, \texttt{uniroot}. Aunque insisto, cada quién lo hará como pueda.
+
+\qquad (b) Realiza simulaciones de la $Y$ que propones y obtén su media.
+
+
+# Solución 
+## Inciso a)
+
+Sea $B_{K} \sim Bernoulli(0.15) \quad \forall k \in \{1, \dots, 500\}$
+
+$$ \implies \text{Denotamos} X_{K}:= 100,000 B_{K} = \begin{cases} 100,000 & si \quad B_{K} = 1\\ 0 & si \quad B_{K} = 0 \end{cases} \forall k \in \{1, \dots, 500\}$$
+Donde $X_{K}$ representa el monto a pagar por cada asegurado.
+
+$$ \implies \text{Notemos que}\quad B = \sum_{K = 1}^{500}B_{K} \sim Binom(500, 0.15)$$
+Se tiene que:
+
+$$ Y=\left(\sum_{K = 1}^{500}X_{K} - d\right)_{+} = (100,000 B-d)_{+}$$
+Donde $Y$ representa el monto a pagar de la aseguradora para todo el portafolio de asegurados.
+
+$$ \mathbb{E}(Y) = \sum_{i = 0}^{500}(100,000 i-d)_{+}
+\genfrac{(}{)}{0pt}{}{500}{i}_{0.15^{i}\quad0.85^{500-i}} = 500,000 \dots \textcolor{green}{(1)}
+ $$
+Por otro lado:
+
+\begin{align*}
+\mathbb{E}(Y) &= \mathbb{E}[(100,000B-d)_{+}] = \mathbb{E}(100,000B) - \mathbb{E}(100,000B \wedge d)\\
+&= 100,000(500)0.15-\sum_{i = 0}^{500}mín\{100,000i,d\}
+\genfrac{(}{)}{0pt}{}{500}{i}0.15^{i}\quad 0.85^{500-i}\\
+&= 7,500,000 - \sum_{i = 0}^{500}mín\{100,000i,d\}
+\genfrac{(}{)}{0pt}{}{500}{i}0.15^{i}\quad 0.85^{500-i}\\
+&= 500,000\\
+&\implies 7,000,000 = \sum_{i = 0}^{500}mín\{100,000i,d\}
+\genfrac{(}{)}{0pt}{}{500}{i}0.15^{i}\quad 0.85^{500-i} \dots \textcolor{green}{(2)}
+\end{align*}
+
+De $\textcolor{green}{(1)}$ y $\textcolor{green}{(2)}$ utilizaremos "uniroot" de R para obtener la $d$ que cumpla ambas ecuaciones, así llegaremos a que $d = 7,183,099.39109927$
+
+```{r}
+# Función asociada para la primera ecuación, buscamos la d t.q. se haga 0
+f <- function(d){
+  x = 0
+  for(i in 0:500){
+    k <-min(100000*i, d)
+    p <- 0.15^i
+    q <- 0.85^(500-i)
+    c <- choose(500,i)
+    x = x + (k*c*p*q)
+  }
+  return(x-7000000)
+}
+# Función asociada para la segunda ecuación, buscamos la d t.q. se haga 0
+g<- function(d){
+  x = 0
+  for(i in 0:500){
+    m <- max(100000*i-d,0)
+    p <- 0.15^i
+    q <- 0.85^(500-i)
+    c <- choose(500,i)
+    x = x+ (m*c*p*q)
+  }
+  return(x-500000)
+}
+
+# Buscar las raices de ambas funciones
+r1<- uniroot(f,lower = 0, upper = 100000*500 ,tol = 1e-8)$root
+r2<- uniroot(g,lower = 0, upper = 100000*500 ,tol = 1e-8)$root
+
+print("d que satisface la ecuaci?n 1:")
+print(r1)
+print("Valor de f en r1:")
+print(f(r1))
+print("d que satisface la ecuaci?n 2:")
+print(r2)
+print("Valor de g en r2:")
+print(g(r2))
+
+"
+En efecto, ambas raices coinciden y al aplicarlas en f y g, respectivamente,
+ambas se acercan a 0.
+"
+```
+$\blacksquare$
+
+# Solución 
+## Inciso b)
+
+```{r}
+set.seed(314159)
+
+n = 100000
+B <- rbinom(n, size = 500, prob = 0.15)
+Y = 100000*B - r2
+
+for(i in 1:n){
+  Y[i] = max(Y[i],0)
+}
+print("Media Muestral de Y bajo d = 7,183,099.39109927")
+print(mean(Y))
+
+```
+
+$\blacksquare$
+
+# Ejercicio $\alpha$ (Extra+2)
+
+Las canciones anexadas \texttt{Mágia1.mp3} y \texttt{Mágia2.mp3}  son de un videojuego. Quien protagoniza este videojuego es una bruja que utiliza hechizos para defenderse de quien la quiere matar. Hay 3 categorías de hechizo: pared, techo y piso. A la fecha de publicación de esta tarea, existen 4 videojuegos de esta saga, en particular: ¿Cómo se llama la protagonista del videojuego al que pertenecen las canciones en cuestión y cuál es la trama del mismo?
+
+Este punto extra solamente es válido para los 4 primeros equipos que entreguen el examen y correctamente la respuesta. 
+
+# Solución 
+
+La protagonista del juego es Millennia, una niña que es utilizada como títere y guardia para una raza conocida como Timenoids que son como humanos excepto inmortales, y cuyo poder es deseado por los humanos cuyas vidas gobiernan.
+En general, trata de una mujer atrapada en una guerra entre la raza Timenoid y un grupo de avaros seres humanos que la tienen cautiva para aprovechar sus poderes. Los humanos desean el secreto de la inmortalidad en manos de los Timenoids, y estos a su vez, sueñan con ser la única raza inteligente del planeta. $\blacksquare$
+
+
