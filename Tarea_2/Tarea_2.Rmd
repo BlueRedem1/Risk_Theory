@@ -671,12 +671,12 @@ $$\mathbb{E}\left ( Y^{L} \right )=\mathbb{E}\left ( X \right )-\mathbb{E}\left 
 
 Resolvemos el inciso a
 
-$\mathbb{E}[Y^{2}] = \mathbb{E}[Y^{2}| X \leq d] \mathbb{P}[X \leq d] + \mathbb{E}[Y^{2} | X > d] \mathbb{P}[X > d]$
-Pero, $\mathbb{E}[Y^{2}| X \leq d] = 0$ ya que $Y^{2}|X \leq d = 0. \quad \text{(La v.a constante 0)}$
-$$ \mathbb{E}[Y^{2}|X > d]\mathbb{P}[X > d]$$
+$\mathbb{E}[Y^{L}] = \mathbb{E}[Y^{L}| X \leq d] \mathbb{P}[X \leq d] + \mathbb{E}[Y^{L} | X > d] \mathbb{P}[X > d]$
+Pero, $\mathbb{E}[Y^{L}| X \leq d] = 0$ ya que $Y^{L}|X \leq d = 0. \quad \text{(La v.a constante 0)}$
+$$ \mathbb{E}[Y^{L}|X > d]\mathbb{P}[X > d]$$
 \begin{align*}
 \mathbb{P}[X > d] &= 1 - F_{X}(d)\\
-\mathbb{E}[Y^{2}| X > d] &= \mathbb{E}[X | X > d]\\
+\mathbb{E}[Y^{L}| X > d] &= \mathbb{E}[X | X > d]\\
 &= \int_{d}^{\infty}x \frac{fx(z)dz}{1 - F_{X}(d)}\\
 &= \int_{d}^{\infty}x \frac{fx(z)dz}{1 - F_{X}(d)} + \int_{0}^{d}x \frac{fx(z)dz}{1 - F_{X}(d)} - \int_{0}^{d}x \frac{fx(z)dz}{1 - F_{X}(d)}\\
 &= \int_{0}^{\infty}x \frac{fx(z)dz}{1 - F_{X}(d)} - \int_{0}^{d}x \frac{fx(z)dz}{1 - F_{X}(d)}\\
