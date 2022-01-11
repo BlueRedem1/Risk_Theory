@@ -73,6 +73,86 @@ $$S=\sum_{j=1}^{3} S_j$$
 \item  Un valor $z$ tal que $F_S(500)\approx \Phi(z)$.
 \end{enumerate}
 
+```{r}
+library(actuar)
+n <- 1000000
+set.seed(6)
+
+#Parámetro de la Poisson
+lambda1 <- 1^2
+lambda2 <- 2^2
+lambda3 <- 3^2
+lambda <- lambda1 + lambda2 + lambda3
+
+#Binomial negativa
+r=3
+p=0.9
+S1 <- rcompound(n = n, #Genera n
+                model.freq = rpois(lambda = lambda1), #N~Poi(lambda1)
+                model.sev = rnbinom(size = r,p=p)) #Y~NegBinom(r=3,p=0.9) 
+
+#Exponencial
+rate_1 <- 1/2
+S2 <- rcompound(n = n, #Genera n
+               model.freq = rpois(lambda = lambda2), #N~Poi(lambda2)
+               model.sev = rexp(rate = rate_1)) #Y~Exp(rate) 
+
+#Exponencial topada
+rate_2<- 1/100
+u=50
+aux<-function(n,rate,u){ #Exponencial topada a 50
+  return(pmin(rexp(n=n,rate=rate),u))
+}
+S3 <- rcompound(n = n, #Genera n
+                model.freq = rpois(lambda = lambda3), #N~Poi(lambda3)
+                model.sev = aux(rate=rate_2,u)) #Y:=min(Exp(1/100),50)
+S <- S1 + S2 + S3
+
+#Teórica
+mu_nbinom=r*(1/p-1)
+mu_exp=1/rate_1
+mu_exp_topada=1/rate_2-exp(-rate_2*u)/rate_2;mu_exp_topada
+mean(aux(5000,rate=rate_2,u))
+
+mu<-lambda*(lambda1*mu_nbinom +  #Esperanza de la binomial negativa
+        lambda2*mu_exp + #Esperanza de la exponencial
+        lambda3*mu_exp_topada #Esperanza de la exponencial topada
+        )/lambda ; mu
+#Muestral
+mean(S)
+
+#Coinciden!
+
+#Teorica 
+
+#2do momento de la binomial negativa
+mu_2_nbinom=(r*(1-p)/p^2+(r*(1-p)/p)^2)
+#2do momento de la Exponencial
+mu_2_exp=(2/rate_1^2)
+#2do momento de la Exponencial topada
+mu_2_exp_topada=((exp(-rate_2*u)*(-rate_2*u*(rate_2*u+2)-2)+2)/rate_2^2+(50^2)*exp(-rate_2*50))
+var<-lambda*(
+        lambda1*mu_2_nbinom + 
+        lambda2*mu_2_exp +
+        lambda3*mu_2_exp_topada
+        )/lambda;var
+var(S)
+```
+El coeficiente de variación es:
+```{r}
+Coeficiente_variacion<-sd(S)/abs(mean(S))
+Coeficiente_variacion
+```
+
+Un valor de z tal que $F_s(500)\approx \Phi (z)$:
+
+```{r}
+z<-(500-mu)/sqrt(var)
+z
+pnorm(z)
+quantile(S,pnorm(z))
+```
+
 # Ejercicio 4
 
 El monto agregado de $S$ de un riesgo tiene distribución binomial compuesta $N\sim Bin(n=10,p=0.4)$ donde los montos de reclamación tienen una función de masa de probabilidad:
