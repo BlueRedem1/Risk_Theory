@@ -37,6 +37,43 @@ Sea S un modelo colectivo (compuesto) con frecuencia $N\sim Bin(n,p)$ y severida
 \item Di qué distribución tiene $S$ especificando sus parámetros.
 \end{enumerate}
 
+### Solución 
+## Inciso a)
+
+Como  \begin{align*}
+\mathbb{E}[S] &= \mathbb{E}[N] \mathbb{E}[Y]\\
+              &= np(\theta)\\
+              &= np\theta\\
+\therefore \mathbb{E}[S] &= np\theta_\blacksquare
+\end{align*}
+
+## Inciso b) 
+
+Como  \begin{align*}
+Var(S) &= Var(N) \mathbb{E}^{2}(Y) + Var(Y) \mathbb{E}(N)\\
+       &= [np(1-p)]\theta^{2} + [\theta(1 - \theta)] np\\
+\therefore Var(S) &= [np(1-p)]\theta^{2} + [\theta(1 - \theta)] np_\blacksquare
+\end{align*}
+
+## Inciso c)
+
+Como  \begin{align*}
+M_{S}(t) &= M_{N} (ln(M_{Y}(t)))\\
+\text{Y como} \quad M_{N}(t) &= (1-p + pe^{t})^{n}\\
+              M_{Y}(t) &= (1 - \theta + \theta e^{t})\\
+              &\implies ln(M_{Y}(t)) = ln(1 - \theta + \theta e^{t})\\
+              &\implies M_{S}(t) = (1 - p + p e^{ln(1 - \theta + \theta e^{t})})^{n}\\
+              &= (1 - p + p (1 - \theta + \theta e^{t}))^{n}\\
+              &= (1 \textcolor{red}{- p + p} - \theta p + \theta p e^{t})^{n}\\
+              &= (1 - \theta p + \theta p e^{t})^{n}\\
+\therefore M_{S}(t) &= (1 - \theta p + \theta p e^{t})^{n}_\blacksquare
+\end{align*}
+
+## Inciso d)
+Notemos que $S \sim \text{Binomial compuesta} (n,p,b = Bernoulli(\theta))$
+
+Además, de manera más especifica; $S \sim \text{Binomial}(n, \theta p) \quad \text{por su fmg.}_\blacksquare$
+
 # Ejercicio 2
 
 Sea S un modelo colectivo (compuesto) con frecuencia $N\sim BinNeg(r,p)$ y severidad $Y\sim Ber(\theta)$. Calcula:
@@ -47,6 +84,39 @@ Sea S un modelo colectivo (compuesto) con frecuencia $N\sim BinNeg(r,p)$ y sever
 \item  $M_S(t)$
 \item Di qué distribución tiene $S$ especificando sus parámetros.
 \end{enumerate}
+
+### Solución
+## Inciso a)
+
+Como  \begin{align*}
+\mathbb{E}[S] &= \mathbb{E}[N] \mathbb{E}[Y]\\
+              &= \frac{r (1 - p)}{p}(\theta)\\
+              &= r\theta \left(\frac{1}{p} - 1\right)\\
+\therefore \mathbb{E}[S] &= r\theta \left(\frac{1}{p} - 1\right)_\blacksquare
+\end{align*}
+
+## Inciso b)
+
+Como  \begin{align*}
+Var(S) &= Var(N) \mathbb{E}^{2}(Y) + Var(Y) \mathbb{E}(N)\\
+       &= \frac{r(1 - p)}{p^{2}}\theta^{2} + [\theta(1 - \theta)] \frac{r (1 - p)}{p}\\
+\therefore Var(S) &= \frac{r(1 - p)}{p^{2}}\theta^{2} + [\theta(1 - \theta)] \frac{r (1 - p)}{p}_\blacksquare
+\end{align*}
+
+## Inciso c)
+
+Como  \begin{align*}
+M_{S}(t) &= M_{N} (ln(M_{Y}(t)))\\
+\text{Y como} \quad M_{N}(t) &= \left[\frac{p}{1 - (1 - p)e^{t}}\right]^{r}\\
+              M_{Y}(t) &= (1 - \theta + \theta e^{t})\\
+              &\implies ln(M_{Y}(t)) = ln(1 - \theta + \theta e^{t})\\
+              &\implies M_{S}(t) = \left[\frac{p}{1 - (1 - p) e^{ln(1 - \theta + \theta e^{t})}}\right]^{r}\\
+\textcolor{blue}{(1)} &= \left[\frac{p}{1 - (1 - p) \left[1 - \theta + \theta e^{t}\right]}\right]^{r}\\
+\therefore M_{S}(t) &= \left[\frac{p}{1 - (1 - p) \left[1 - \theta + \theta e^{t}\right]}\right]^{r}_\blacksquare
+\end{align*}
+
+## Inciso d)
+Notemos que $S \sim \text{Binomial negativa compuesta} (k,p,b = Bernoulli(\theta))_\blacksquare$
 
 # Ejercicio 3
 
