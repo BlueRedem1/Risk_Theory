@@ -111,7 +111,7 @@ M_{S}(t) &= M_{N} (ln(M_{Y}(t)))\\
               M_{Y}(t) &= (1 - \theta + \theta e^{t})\\
               &\implies ln(M_{Y}(t)) = ln(1 - \theta + \theta e^{t})\\
               &\implies M_{S}(t) = \left[\frac{p}{1 - (1 - p) e^{ln(1 - \theta + \theta e^{t})}}\right]^{r}\\
-\textcolor{blue}{(1)} &= \left[\frac{p}{1 - (1 - p) \left[1 - \theta + \theta e^{t}\right]}\right]^{r}\\
+              &= \left[\frac{p}{1 - (1 - p) \left[1 - \theta + \theta e^{t}\right]}\right]^{r}\\
 \therefore M_{S}(t) &= \left[\frac{p}{1 - (1 - p) \left[1 - \theta + \theta e^{t}\right]}\right]^{r}_\blacksquare
 \end{align*}
 
@@ -142,6 +142,34 @@ $$S=\sum_{j=1}^{3} S_j$$
 \item  El coeficiente de variación de $S$.
 \item  Un valor $z$ tal que $F_S(500)\approx \Phi(z)$.
 \end{enumerate}
+
+### Solución 
+\textcolor{red}{Observaciones:}
+
+\begin{align*}
+a &= 0.1 \epsilon (0,1)\\
+b &= 2(0.1) \geq 0\\
+p_{0} &= (0.9)^{3}\\
+&\therefore \text{Es Binomial Negativa con p = 0.9 y r = 3}
+\end{align*}
+
+Por otro lado, \begin{align*}
+F_{Y}(Y) &= 1 - e^{-0.5_{Y}} \mathbb{I}_{\{Y > 0\}}^{(y)}\\
+&\therefore \text{Es Exponencial} \quad \lambda = 0.5 = \frac{1}{2}
+\end{align*}
+
+Finalmente veamos que; $Y_{3} = mín(exp(\frac{1}{100})50)$
+
+Por otro lado, haciendo uso de Dart Vader;
+
+\begin{align*}
+& \int_{0}^{50} S(x)dx\\
+&= \int_{0}^{50} e^{-\lambda x} + 50e^{-\lambda(50)} = -\frac{e^{-\lambda x}}{\lambda}|_{0}^{50}\\
+&= - \left(\frac{e^{-\lambda(50)}}{\lambda} - \frac{1}{\lambda}\right) + 50 * e^{-\lambda(50)}\\
+&= \frac{1}{\lambda} + e^{-\lambda(50)}(50 - \frac{1}{\lambda})
+\end{align*}
+
+\textcolor{red}{Así, a continuación el código, que da respuesta a los incisos a y b}
 
 ```{r}
 library(actuar)
@@ -213,6 +241,7 @@ El coeficiente de variación es:
 Coeficiente_variacion<-sd(S)/abs(mean(S))
 Coeficiente_variacion
 ```
+$\blacksquare$
 
 Un valor de z tal que $F_s(500)\approx \Phi (z)$:
 
@@ -222,6 +251,7 @@ z
 pnorm(z)
 quantile(S,pnorm(z))
 ```
+$\blacksquare$
 
 # Ejercicio 4
 
@@ -245,6 +275,65 @@ $$
 
 Sea $S$ un modelo colectivo compuesto con $N\sim Poi(1)$ y $Y_i\sim Exp(1) \hspace{0.25cm} \forall i\in \{1,2,\dots\}$. Escriba la fórmula para la aproximación de $F_S(x)$ según el método de gamma trasladada.
 
+### Solución
+
+Veamos lo siguiente:
+
+$$ N \sim Poi(1); \quad Y_{i} \sim Exp(1); \quad \mathbb{E}\frac{[(S - \mathbb{E}[S])^{3}]}{\sqrt{Var^{3}(S)}} $$
+
+
+\begin{align*}
+\binom{n}{k} &= \frac{n!}{(n - k)k!}\\
+\binom{3}{0} &= 1\\
+\binom{3}{1} &= \frac{3!}{2!1!} = 3\\
+\binom{3}{2} &= \frac{3!}{1!2!} = 3\\
+\binom{3}{3} &= 1
+\end{align*}
+\begin{align*}
+& \mathbb{E}[S^{3} - 3S^{2}\mathbb{E}[S] + 3S\mathbb{E}^{2}[S] - \mathbb{E}^{3}[S]]\\
+&= \mathbb{E}[S^{3}] - 3 \mathbb{E}[S]\mathbb{E}[S^{2}] + 3 \mathbb{E}[S]\mathbb{E}^{2}[S] - \mathbb{E}^{3}[S]\\
+&= \mathbb{E}[S^{3}] - 3 \mathbb{E}[S]\mathbb{E}[S^{2}] + 2 \mathbb{E}^{3}[S]
+\end{align*}
+Ahora;
+\begin{align*}
+M_{S}(t) &= e^{\lambda(M_{Y}(t) - 1)}; N \sim Poi(1) \implies M_{S}(t) = e^{(M_{Y}(t) - 1)}\\
+\text{Pero} Y_{i} \sim Exp(1) &\implies M_{Y}(t) = \frac{\lambda}{\lambda - t} = \frac{1}{1 - t}\\
+\implies M_{S}(t) =& e^{\left[\frac{1}{1 - t} - 1\right]} = e^{\frac{1}{1 - t} - \frac{1 - t}{1 - t}} = e^{\frac{\textcolor{red}{1-1} + t}{1 - t}} = e^{\frac{t}{1 - t}}\\
+\implies M_{S}(t) &= \frac{t}{1 - t}\\
+\implies M'_{S}(t) &= e^{\frac{t}{1 - t}}\left[\frac{(1 \textcolor{red}{- t) + t}}{(1 - t)^{2}}\right]\\
+&= e^{\frac{t}{1 - t}}\left[\frac{1}{(1 - t)^{2}}\right]\\
+M'_{S}(t) &= e^{\frac{t}{1 - t}}(1 - t)^{-2}\\
+\implies M'_{S}(0) &= 1 = \mathbb{E}[S]\\
+\implies M''_{S}(t) &= e^{\frac{t}{1 - t}}(1 - t)^{-4} + e^{\frac{t}{1 - t}}[-2(-1)(1 - t)^{-3}]\\
+&= e^{\frac{t}{1 - t}}(1 - t)^{-4} + 2e^{\frac{t}{1 - t}}(1 - t)^{3}\\
+\implies M''_{S}(0) &= 1 + 2(1) = 3 = \mathbb{E}[S^{2}]\\
+\implies M'''_{S}(t) &= e^{\frac{t}{1 - t}} (1 - t)^{-t} + e^{\frac{t}{1 - t}}[-6(-1)(1 - t)^{-5}] + 2 \left[e^{\frac{t}{1 - t}}(1 - t)^{-5} + e^{\frac{t}{1 - t}}[-3(-1)(1 - t)^{-4}]\right]\\
+&= e^{\frac{t}{1 - t}} \left[(1 - t)^{-6} + 6(1 - t)^{-5} + 2(1 - t)^{-5} + 6(1 - t)^{-4}\right]\\
+&= e^{\frac{t}{1 - t}} \left[(1 - t)^{-6} + 8(1 - t)^{-5} + 6(1 - t)^{-4}\right]\\
+\implies M'''_{S}(t) &= 1[1 + 8 + 6]\\
+&= 15 = \mathbb{E}[S^{3}]\\
+\therefore \mathbb{E}[S]= 1 &; \mathbb{E}[S^{2}] = 3; \mathbb{E}[S^{3}] = 15\\
+\implies Var(S) = 3 - 1^{2} &= 3 - 1 = 2 \implies \sqrt{Var^{3}} = \sqrt{2^{3}} = \sqrt{8}\\
+\implies \mathbb{E}[S - \mathbb{E}[S]]^{3} &= 15 - 3(1)(3) + 2(1)^{3}\\
+&= 15 - 9 +2\\
+&= 8\\
+\end{align*}
+\begin{align*}
+\implies \mathbb{E}[S] &=  M = 1\\
+\implies Var(S) &= \sigma^{2} = 2\\
+\implies \frac{\mathbb{E}[(S - \mathbb{E}[S])^{3}]}{\sqrt{Var^{3}(S)}} &= \frac{8}{\sqrt{8}} = \underbrace{\sqrt{8}}_{\text{Coeficiente de asimetría}} = \alpha
+\end{align*}
+\begin{align*}
+\text{Luego;} \quad C &= M - \frac{2\sigma}{\alpha} = 1 - \frac{2\sqrt{2}}{\sqrt{8}} = 1 - \frac{2\sqrt{2}}{2\sqrt{2}} = 1 - 1 = 0\\
+\beta &= \frac{4}{\alpha^{2}} = \frac{4}{8} = \frac{1}{2}\\
+\lambda &= \frac{2}{\sigma \alpha} = \frac{2}{\sqrt{2}\sqrt{8}} = \frac{2}{\sqrt{2}\sqrt{2^{3}}} =  \frac{2}{\sqrt{2^{4}}} = \frac{2}{4} = \frac{1}{2}\\
+\implies F_{S}(t) &\sim \mathbb{P}[Z \leq t - m + \frac{2\sigma}{\alpha}]\\
+&= F_{Z}(t - \underbrace{m + \frac{2\sigma}{\alpha}}_{-C \quad \text{Ya que} \quad C = M - \frac{2\sigma}{\alpha}})\\
+&= F_{Z}(t - C)
+\end{align*}
+
+Donde, $Z \sim Gamma(\beta = \frac{1}{2}, \lambda = \frac{1}{2})$ y como $C = 0 \implies F_{Z}(t - C) = F_{Z}(t) = \mathbb{P} [Z \leq t]$
+
 ```{r}
 pgamma(3,1/2,1/2) # con gamma trasladada
 aux<-rcompound(n = n, #Genera n
@@ -253,6 +342,7 @@ aux<-rcompound(n = n, #Genera n
 sum(aux<=3)/n #con simulación
 ```
 
+$\blacksquare$
 
 # Ejercicio 6
 

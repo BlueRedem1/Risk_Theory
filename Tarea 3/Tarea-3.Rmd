@@ -1,0 +1,364 @@
+---
+output: pdf_document
+header-includes:
+- \usepackage{enumitem}  
+- \usepackage{caption}
+- \usepackage{amsmath}
+- \captionsetup{labelformat=empty}
+- \usepackage[utf8]{inputenc}
+- \usepackage{geometry}
+- \usepackage{amsmath}
+- \usepackage{amssymb}
+- \usepackage{tabularx}
+---
+
+```{r setup,echo=F}
+knitr::opts_chunk$set(echo=T, message=FALSE, warning=FALSE, 
+                      out.width='100%', fig.align='center', eval=T)
+```
+
+```{r pressure2, echo=FALSE, out.width = '240%'}
+knitr::include_graphics("CARATULA.PNG")
+```
+\newpage
+
+Realiza los siguientes ejercicios cuidando el formato y las reglas establecidas en la presentación del curso. Sube las soluciones a *Classroom* dentro del apartado correspondiente a esta tarea en archivos **NO COMRPIMIDOS**. 
+
+Realiza los siguientes ejercicios entregando el desarrollo algebraico por escrito (a mano) y las conclusiones del mismo en un archivo de **R Markdown con su respectivo compilado PDF** impreso y por correo electrónico (todos los ejercicios valen lo mismo). 
+
+# Ejercicio 1
+
+Sea S un modelo colectivo (compuesto) con frecuencia $N\sim Bin(n,p)$ y severidad $Y\sim Ber(\theta)$. Calcula:
+
+\begin{enumerate}[label=(\alph*)]
+\item  $\mathbb{E}[S]$
+\item  $Var(S)$
+\item  $M_S(t)$
+\item Di qué distribución tiene $S$ especificando sus parámetros.
+\end{enumerate}
+
+### Solución 
+## Inciso a)
+
+Como  \begin{align*}
+\mathbb{E}[S] &= \mathbb{E}[N] \mathbb{E}[Y]\\
+              &= np(\theta)\\
+              &= np\theta\\
+\therefore \mathbb{E}[S] &= np\theta_\blacksquare
+\end{align*}
+
+## Inciso b) 
+
+Como  \begin{align*}
+Var(S) &= Var(N) \mathbb{E}^{2}(Y) + Var(Y) \mathbb{E}(N)\\
+       &= [np(1-p)]\theta^{2} + [\theta(1 - \theta)] np\\
+\therefore Var(S) &= [np(1-p)]\theta^{2} + [\theta(1 - \theta)] np_\blacksquare
+\end{align*}
+
+## Inciso c)
+
+Como  \begin{align*}
+M_{S}(t) &= M_{N} (ln(M_{Y}(t)))\\
+\text{Y como} \quad M_{N}(t) &= (1-p + pe^{t})^{n}\\
+              M_{Y}(t) &= (1 - \theta + \theta e^{t})\\
+              &\implies ln(M_{Y}(t)) = ln(1 - \theta + \theta e^{t})\\
+              &\implies M_{S}(t) = (1 - p + p e^{ln(1 - \theta + \theta e^{t})})^{n}\\
+              &= (1 - p + p (1 - \theta + \theta e^{t}))^{n}\\
+              &= (1 \textcolor{red}{- p + p} - \theta p + \theta p e^{t})^{n}\\
+              &= (1 - \theta p + \theta p e^{t})^{n}\\
+\therefore M_{S}(t) &= (1 - \theta p + \theta p e^{t})^{n}_\blacksquare
+\end{align*}
+
+## Inciso d)
+Notemos que $S \sim \text{Binomial compuesta} (n,p,b = Bernoulli(\theta))$
+
+Además, de manera más especifica; $S \sim \text{Binomial}(n, \theta p) \quad \text{por su fmg.}_\blacksquare$
+
+# Ejercicio 2
+
+Sea S un modelo colectivo (compuesto) con frecuencia $N\sim BinNeg(r,p)$ y severidad $Y\sim Ber(\theta)$. Calcula:
+
+\begin{enumerate}[label=(\alph*)]
+\item  $\mathbb{E}[S]$
+\item  $Var(S)$
+\item  $M_S(t)$
+\item Di qué distribución tiene $S$ especificando sus parámetros.
+\end{enumerate}
+
+### Solución
+## Inciso a)
+
+Como  \begin{align*}
+\mathbb{E}[S] &= \mathbb{E}[N] \mathbb{E}[Y]\\
+              &= \frac{r (1 - p)}{p}(\theta)\\
+              &= r\theta \left(\frac{1}{p} - 1\right)\\
+\therefore \mathbb{E}[S] &= r\theta \left(\frac{1}{p} - 1\right)_\blacksquare
+\end{align*}
+
+## Inciso b)
+
+Como  \begin{align*}
+Var(S) &= Var(N) \mathbb{E}^{2}(Y) + Var(Y) \mathbb{E}(N)\\
+       &= \frac{r(1 - p)}{p^{2}}\theta^{2} + [\theta(1 - \theta)] \frac{r (1 - p)}{p}\\
+\therefore Var(S) &= \frac{r(1 - p)}{p^{2}}\theta^{2} + [\theta(1 - \theta)] \frac{r (1 - p)}{p}_\blacksquare
+\end{align*}
+
+## Inciso c)
+
+Como  \begin{align*}
+M_{S}(t) &= M_{N} (ln(M_{Y}(t)))\\
+\text{Y como} \quad M_{N}(t) &= \left[\frac{p}{1 - (1 - p)e^{t}}\right]^{r}\\
+              M_{Y}(t) &= (1 - \theta + \theta e^{t})\\
+              &\implies ln(M_{Y}(t)) = ln(1 - \theta + \theta e^{t})\\
+              &\implies M_{S}(t) = \left[\frac{p}{1 - (1 - p) e^{ln(1 - \theta + \theta e^{t})}}\right]^{r}\\
+\textcolor{blue}{(1)} &= \left[\frac{p}{1 - (1 - p) \left[1 - \theta + \theta e^{t}\right]}\right]^{r}\\
+\therefore M_{S}(t) &= \left[\frac{p}{1 - (1 - p) \left[1 - \theta + \theta e^{t}\right]}\right]^{r}_\blacksquare
+\end{align*}
+
+## Inciso d)
+Notemos que $S \sim \text{Binomial negativa compuesta} (k,p,b = Bernoulli(\theta))_\blacksquare$
+
+# Ejercicio 3
+
+Considera los siguientes 3 riesgos de una compañía:
+
+$$S_j\sim\text{PoiComp}\left(\lambda_j=j^2,F_{Y_j}\right)$$
+
+Donde las severidades están dadas por:
+
+
+- $F_{Y_1}(y)=1-e^{-0.5y} \mathbb{I}^{(y)}_{\{y>0\}}$
+- $Y_2$ pertenece a la clase (a,b,0) con: $a=0.1$ , $b=2(0.1)$ y $p_0=(0.9)^{3}$
+- $Y_3$ es la v.a. del monto de pérdida de una compañía de seguros con un **contrato de monto máximo de beneficio** $u=50$ donde el monto de pérdida del siniestro es $X\sim Exp\left(\lambda=\frac{1}{100}\right)$ ($E[X]=100$).
+
+
+Define el riesgo $S$ de la compañía como:
+
+$$S=\sum_{j=1}^{3} S_j$$
+
+**Fija la semilla en 6**, simula $n=1,000,000$ observaciones de $S$ y calcula de manera muestral:
+
+\begin{enumerate}[label=(\alph*)]
+\item  El coeficiente de variación de $S$.
+\item  Un valor $z$ tal que $F_S(500)\approx \Phi(z)$.
+\end{enumerate}
+
+```{r}
+library(actuar)
+n <- 1000000
+set.seed(6)
+
+#Parámetro de la Poisson
+lambda1 <- 1^2
+lambda2 <- 2^2
+lambda3 <- 3^2
+lambda <- lambda1 + lambda2 + lambda3
+
+#Binomial negativa
+r=3
+p=0.9
+S1 <- rcompound(n = n, #Genera n
+                model.freq = rpois(lambda = lambda1), #N~Poi(lambda1)
+                model.sev = rnbinom(size = r,p=p)) #Y~NegBinom(r=3,p=0.9) 
+
+#Exponencial
+rate_1 <- 1/2
+S2 <- rcompound(n = n, #Genera n
+               model.freq = rpois(lambda = lambda2), #N~Poi(lambda2)
+               model.sev = rexp(rate = rate_1)) #Y~Exp(rate) 
+
+#Exponencial topada
+rate_2<- 1/100
+u=50
+aux<-function(n,rate,u){ #Exponencial topada a 50
+  return(pmin(rexp(n=n,rate=rate),u))
+}
+S3 <- rcompound(n = n, #Genera n
+                model.freq = rpois(lambda = lambda3), #N~Poi(lambda3)
+                model.sev = aux(rate=rate_2,u)) #Y:=min(Exp(1/100),50)
+S <- S1 + S2 + S3
+
+#Teórica
+mu_nbinom=r*(1/p-1)
+mu_exp=1/rate_1
+mu_exp_topada=1/rate_2-exp(-rate_2*u)/rate_2;mu_exp_topada
+mean(aux(5000,rate=rate_2,u))
+
+mu<-lambda*(lambda1*mu_nbinom +  #Esperanza de la binomial negativa
+        lambda2*mu_exp + #Esperanza de la exponencial
+        lambda3*mu_exp_topada #Esperanza de la exponencial topada
+        )/lambda ; mu
+#Muestral
+mu_muestral<-mean(S)
+
+#Coinciden!
+
+#Teorica 
+
+#2do momento de la binomial negativa
+mu_2_nbinom=(r*(1-p)/p^2+(r*(1-p)/p)^2)
+#2do momento de la Exponencial
+mu_2_exp=(2/rate_1^2)
+#2do momento de la Exponencial topada
+mu_2_exp_topada=((exp(-rate_2*u)*(-rate_2*u*(rate_2*u+2)-2)+2)/rate_2^2+(50^2)*exp(-rate_2*50))
+var<-lambda*(
+        lambda1*mu_2_nbinom + 
+        lambda2*mu_2_exp +
+        lambda3*mu_2_exp_topada
+        )/lambda;var
+var_muestral<-var(S)
+```
+El coeficiente de variación es:
+```{r}
+Coeficiente_variacion<-sd(S)/abs(mean(S))
+Coeficiente_variacion
+```
+
+Un valor de z tal que $F_s(500)\approx \Phi (z)$:
+
+```{r}
+z<-(500-mean(S))/sd(S)
+z
+pnorm(z)
+quantile(S,pnorm(z))
+```
+
+# Ejercicio 4
+
+El monto agregado de $S$ de un riesgo tiene distribución binomial compuesta $N\sim Bin(n=10,p=0.4)$ donde los montos de reclamación tienen una función de masa de probabilidad:
+
+$$ 
+f_X(x)=\mathbb{P}[X=x]
+\begin{cases}
+0.40 \quad, \hspace{0.8cm} \text{si} \hspace{0.4cm} x = 1\\
+0.35  \quad, \hspace{0.8cm} \text{si} \hspace{0.4cm} x=2\\
+0.25  \quad, \hspace{0.8cm} \text{si} \hspace{0.4cm} x=3
+\end{cases}
+$$
+
+\begin{enumerate}[label=(\alph*)]
+\item Calcula $\mathbb{P}[S\leq 5]$
+\item Calcula $\mathbb{P}[S = 6]$
+\end{enumerate}
+
+# Ejercicio 5
+
+Sea $S$ un modelo colectivo compuesto con $N\sim Poi(1)$ y $Y_i\sim Exp(1) \hspace{0.25cm} \forall i\in \{1,2,\dots\}$. Escriba la fórmula para la aproximación de $F_S(x)$ según el método de gamma trasladada.
+
+Veamos lo siguiente:
+$N \sim Poi(1); \quad Y_{i} \sim Exp(1); \quad \mathbb{E}\frac{[(S - \mathbb{E}[S])^{3}]}{\sqrt{Var^{3}(S)}}$
+
+\begin{equation*}
+\genfrac{\({\)}{0pt}{}{n}{k} \frac{n!}{(n - k)k!}; 
+\genfrac{\(}{\)}{0pt}{}{ij}{1}
++g^{k2}\genfrac{[}{]}{0pt}{}{ij}{2}
+\end{equation*}
+
+
+```{r}
+pgamma(3,1/2,1/2) # con gamma trasladada
+aux<-rcompound(n = n, #Genera n
+                model.freq = rpois(lambda = 1), #N~Poi(lambda1)
+                model.sev = rexp(1)) #Y~NegBinom(r=3,p=0.9)
+sum(aux<=3)/n #con simulación
+```
+
+
+# Ejercicio 6
+
+Considera el siguiente riesgo de una compañía:
+
+$$S=\sum_{i=1}^{N^*} Y_i$$
+
+Se sabe que la severidad $Y$ está sujeta a un deducible $d=2$ y un monto máximo de beneficio $u=4$, los cuales buscan cubrir un monto de siniestro $X$ tiene una función de masa de probabilidad:
+
+\vspace{-0.5cm}
+
+\begin{center}
+\captionof{table}{}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$k$ & 1 & 2 & 3 & 4 & 5   \\  \hline 
+\rule[-1.5ex]{0pt}{4ex}$\mathbb{P}\left[X=k\right]$  & $\frac{7}{18}$ & $\frac{5}{18}$ & $\frac{3}{18}$ & $\frac{2}{18}$ & $\frac{1}{18}$ \\  \hline
+\end{tabular}
+\end{center}
+
+Además, se sabe que hay 4 pólizas (clientes) en el portafolio y que para siniestros de este estilo reclaman 20 de cada 100 **clientes normales**. Sin embargo, **los 4 clientes de este portafolio son especiales**, pues hay una probabilidad del 70\% de que **ninguno sufra un siniestro**. Se ha acordado respetar la distribución de la frecuencia para clientes normales únicamente **modificando** la probabilidad de que ninguno sufra un siniestro para este portafolio.
+
+**Fija la semilla en 93**, genera $n=1,000,000$ simulaciones de la variable aleatoria $S$, y de esta muestra obtén:
+
+\begin{enumerate}[label=(\alph*)]
+\item Media,
+\item Segundo momento,
+\item Varianza,
+\item Coeficiente de variación.
+\end{enumerate}
+
+De manera muestral (aproximada).
+
+Hints:
+
+- ¿Qué distribución tiene la frecuencia de los clientes normales si hay un portafolio con 4 pólizas? ($N$)
+
+- Con base en $N$, ¿cómo es la distribución de los clientes especiales en el portafolio? ($N^*$)
+
+- *Coeficiente de variación* $:= \frac{\sigma}{\mu} = \frac{\sqrt{Var(S)}}{\mathbb{E}[S]}$
+
+# Ejercicio 7
+
+Del mismo riesgo ($S$) del ejercicio 6 obtén:
+
+\begin{enumerate}[label=(\alph*)]
+\item Media,
+\item Segundo momento,
+\item Varianza,
+\item Coeficiente de variación.
+\end{enumerate}
+
+De manera teórica (exacta) utilizando las propiedades del modelo colectivo.
+
+*Sugerencia: compara con el ejercicio 6.*
+
+# Ejercicio 8
+
+Del ejercicio 6, obtén el soporte de la variable aleatoria del riesgo de la compañía ($S$), justifica porqué ese es el soporte dando **solo un ejemplo** del porqué es un valor factible para $S$ con un vector del estilo:
+
+$$(N^*=n,Y_1=y_1,Y_2=y_2,\dots,Y_n=y_n) \Rightarrow S = x$$
+
+por cada valor $x$ en el soporte de $S$ (esto sirve para exhibir que existe probabilidad positiva de que el riesgo de la compañía valga dicho valor puntual $x$). Crea la función de Panjer para calcular la función de densidad (masa de probabilidad) de $S$. **Muestra el código de la función que acabas de crear** especificando qué es cada parámetro de la función (si los recibe).
+
+# Ejercicio 9
+
+Una vez identificado el soporte y teniendo implementada la función de Panjer en el ejercicio 8, calcula:
+
+\vspace{-0.3cm}
+
+$$
+\mathbb{P}[S=x] \hspace{0.2cm} \forall x\in sop\{S\}
+$$
+
+\vspace{-0.3cm}
+
+y con esos valores:
+
+\begin{enumerate}[label=(\alph*)]
+\item Verifica que suman uno las probabilidades.
+\item Obtén la media.
+\item Obtén el $VaR_{0.90}^{(S)}$.
+\item Obtén la moda.
+\end{enumerate}
+
+*Sugerencia: para que tú mismo compruebes que lo que estás haciendo está bien, con esta función de densidad que acabas de crear estaría bien que calcularas todo lo del ejercicio 8. Será rápido si ya tienes que suman uno las probabilidades.*
+
+# Ejercicio 10
+
+Utiliza los datos simulados y las probabilidades puntuales teóricas de los ejercicios 6 y 9 para realizar una prueba estadística que pruebe las siguientes hipótesis nulas:
+
+\begin{enumerate}[label=(\alph*)]
+\item $H_0:$  La proporción de observaciones de las categorías "igual a la moda" y "diferente de la moda" concuerda con las probabilidades teóricas.
+\item $H_0:$  La proporción de observaciones de las categorías "menor o igual al $VaR_{0.90}^{(S)}$" y "mayor estricto al $VaR_{0.90}^{(S)}$" concuerda las probabilidades teóricas.
+\end{enumerate}
+
+**Para cada prueba muestra los observados, los esperados, interpreta claramente el p-value y concluye.**
+
+
