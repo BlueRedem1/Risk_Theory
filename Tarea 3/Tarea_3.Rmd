@@ -116,7 +116,33 @@ M_{S}(t) &= M_{N} (ln(M_{Y}(t)))\\
 \end{align*}
 
 ## Inciso d)
-Notemos que $S \sim \text{Binomial negativa compuesta} (k,p,b = Bernoulli(\theta))_\blacksquare$
+Sea $N \sim \text{Binomial Negativa} (r,p) \quad \text{y}\quad  Y \sim Bernoulli(\theta)$, es decir;
+
+\begin{align*}
+S &= \sum_{i = 1}^{N}Y_{i}; S|N = n \sim Bin(n,\theta)\\
+\implies \mathbb{P}(S = k) &= \sum_{n = k}^{\infty} \mathbb{P}(S = K | N = n)\mathbb{P}(N = n)\\
+&= \sum_{n=k}^{\infty} \binom{n}{k} \theta^{k} (1 -  \theta)^{n-k} \binom{n + r - 1}{n}(1 - P)^{r}P^{n}\\
+&= (1 - P)^{r} \sum_{n = k}^{\infty} \left(\frac{\textcolor{red}{n!}}{k! (n - k)!}\right)\left(\frac{(n + r - 1)!}{\textcolor{red}{n!}(r-1)!}\right) P^{n}\textcolor{red}{\theta^{k}} \frac{(1 - \theta)^{n}}{(1 - \theta)^{k}}\\
+&= \frac{(1 - P)^{r}}{k! (r - 1)!} \left(\frac{\theta}{1 - \theta}\right)^{k} \sum_{n = k}^{\infty} \frac{(n + r - 1)!}{(n - k)!}(P(1 - \theta))^{n}\\
+\text{Haciendo cambio de variable,} u = n-k\\
+&= \frac{(1 - P)^{r}}{(k!)(r - 1)!}\left(\frac{\theta}{1 - \theta}\right)^{k} \sum_{u = 0}^{\infty} \frac{(u + k + r - 1)!}{u!}(P(1 - \theta))^{u+k}\\
+&= \frac{(1 - p)^{r}}{k!(r - 1)!}(P \theta)^{k} \sum_{u = 0}^{\infty} \underbrace{\frac{(u + k + r - 1)!}{u!}(P(1 - \theta))^{u}}_{1}\\
+x = P(1 - \theta); x \in (0,1)\\
+&\implies \sum_{u = 0}^{\infty} x^{u} = \frac{1}{1 - x}  \quad \underrightarrow{dx} \quad \sum_{u = 0}^{\infty} ux^{u - 1}  = \frac{1}{(1 - x)^{2}}\\
+&= \sum_{u = 0}^{\infty} u x^{u - 1} = \frac{1}{(1 - x)^{2}} \quad \underrightarrow{dx} \quad \sum_{u = 1}^{\infty} u(u - 1) x^{u - 2} = \sum_{u = 2}^{\infty} u(u - 1) x^{u - 2}
+\end{align*}
+\begin{align*}
+&= \frac{2}{(1 - x)^{3}}, \quad \text{Continuando inductivamente se llega a que:}\\
+&\implies \sum_{u = K + r - 1}^{\infty} \left[\frac{u!}{(u - (k + r - 1))!}\right] X^{u + 1 - k - r} = \frac{(k + r - 1)!}{(1 - x)^{k + r}}\\
+i = u - (k + r - 1)\\
+&\implies \underbrace{\sum_{i = 0}^{\infty} \frac{(i + k + r -1)!}{i!} x^{i}}_{1} = \frac{(k + r - 1)!}{(1 - X)^{k + r}}\\
+&\implies \sum_{u = 0}^{\infty} \frac{(u + k + r - 1)!}{u!} (P(1 - \theta))^{u} = \frac{(k + r - 1)!}{(1 - P(1 - \theta))^{k+ r}}\\
+\implies \mathbb{P}(S = k) &= \frac{(1 - P)^{r}}{K! (r - 1)!}(P\theta)^{k} \frac{(K + r -1)!}{(1 - P (1 - \theta))^{k + r}}\\
+&= \binom{k + r - 1}{k} \left(\frac{P\theta}{1 - P(1 - \theta)}\right) \left(\frac{1 - P}{1 - P(1 - \theta)}\right)^{r}\\
+\left(\alpha = \frac{P\theta}{1 - P(1 - \theta)}\right) &= \binom{k + r -1}{k} \alpha^{k}(1 - \alpha)^{r} \quad \forall k \in \mathbb{N}\cup\{0\}\\
+&\therefore S \sim \text{Binomial Negativa}(r, \alpha)_\blacksquare
+\end{align*}
+
 
 # Ejercicio 3
 

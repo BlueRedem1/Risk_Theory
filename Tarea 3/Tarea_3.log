@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  12 JAN 2022 00:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  13 JAN 2022 23:00
 entering extended mode
 **./Tarea_3.tex
 (Tarea_3.tex
@@ -541,63 +541,68 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (D:\Miktwx LaTex\tex/latex/microtype\mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 ) [2] [3]
+Overfull \hbox (3.03996pt too wide) detected at line 257
+[]
+ []
+
+[4]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
-56.
+81.
 (D:\Miktwx LaTex\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [4]
+) [5]
 
-LaTeX Warning: Command \' invalid in math mode on input line 296.
+LaTeX Warning: Command \' invalid in math mode on input line 321.
 
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
-10.
+35.
 (D:\Miktwx LaTex\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 337.
-[5] [6]
-Overfull \hbox (4.53902pt too wide) detected at line 531
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 362.
+[6] [7] [8]
+Overfull \hbox (4.53902pt too wide) detected at line 556
 []
  []
 
-[7] [8]
+[9]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 586.
+(caption)                particular \caption on input line 611.
 See the caption package documentation for explanation.
 
-[9] [10] [11] (Tarea_3.aux) ) 
+[10] [11] [12] (Tarea_3.aux) ) 
 Here is how much of TeX's memory you used:
- 14865 strings out of 478927
- 224702 string characters out of 2866168
- 589016 words of memory out of 3000000
+ 14866 strings out of 478927
+ 224709 string characters out of 2866168
+ 591017 words of memory out of 3000000
  32318 multiletter control sequences out of 15000+600000
  448941 words of font info for 98 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,15n,80p,791b,433s stack positions out of 5000i,500n,10000p,200000b,80000s
-{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-ec.enc}{D:/
-Miktwx LaTex/fonts/enc/dvips/lm/lm-mathsy.enc}{D:/Miktwx LaTex/fonts/enc/dvips/
-lm/lm-rm.enc}{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-ts1.enc}{D:/Miktwx LaTex/fo
-nts/enc/dvips/lm/lm-mathex.enc}{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-mathit.en
-c}<D:/Miktwx LaTex/fonts/type1/public/lm/lmbx10.pfb><D:/Miktwx LaTex/fonts/type
-1/public/lm/lmbx12.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmex10.pfb><D:/Mi
-ktwx LaTex/fonts/type1/public/lm/lmmi10.pfb><D:/Miktwx LaTex/fonts/type1/public
-/lm/lmmi5.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmmi7.pfb><D:/Miktwx LaTex
-/fonts/type1/public/lm/lmr10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmr5.pf
-b><D:/Miktwx LaTex/fonts/type1/public/lm/lmr7.pfb><D:/Miktwx LaTex/fonts/type1/
-public/lm/lmri10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmsy10.pfb><D:/Mikt
-wx LaTex/fonts/type1/public/lm/lmsy5.pfb><D:/Miktwx LaTex/fonts/type1/public/lm
-/lmsy7.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmtk10.pfb><D:/Miktwx LaTex/f
-onts/type1/public/lm/lmtt10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmtti10.
-pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols/msam10.pfb><D:/Miktwx 
-LaTex/fonts/type1/public/amsfonts/symbols/msam7.pfb><D:/Miktwx LaTex/fonts/type
-1/public/amsfonts/symbols/msbm10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfon
-ts/symbols/msbm7.pfb>
-Output written on Tarea_3.pdf (11 pages, 424512 bytes).
+ 74i,20n,80p,791b,433s stack positions out of 5000i,500n,10000p,200000b,80000s
+{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-ec.enc}{D:
+/Miktwx LaTex/fonts/enc/dvips/lm/lm-mathsy.enc}{D:/Miktwx LaTex/fonts/enc/dvips
+/lm/lm-rm.enc}{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-ts1.enc}{D:/Miktwx LaTex/f
+onts/enc/dvips/lm/lm-mathex.enc}{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-mathit.e
+nc}<D:/Miktwx LaTex/fonts/type1/public/lm/lmbx10.pfb><D:/Miktwx LaTex/fonts/typ
+e1/public/lm/lmbx12.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmex10.pfb><D:/M
+iktwx LaTex/fonts/type1/public/lm/lmmi10.pfb><D:/Miktwx LaTex/fonts/type1/publi
+c/lm/lmmi5.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmmi7.pfb><D:/Miktwx LaTe
+x/fonts/type1/public/lm/lmr10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmr5.p
+fb><D:/Miktwx LaTex/fonts/type1/public/lm/lmr7.pfb><D:/Miktwx LaTex/fonts/type1
+/public/lm/lmri10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmsy10.pfb><D:/Mik
+twx LaTex/fonts/type1/public/lm/lmsy5.pfb><D:/Miktwx LaTex/fonts/type1/public/l
+m/lmsy7.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmtk10.pfb><D:/Miktwx LaTex/
+fonts/type1/public/lm/lmtt10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmtti10
+.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols/msam10.pfb><D:/Miktwx
+ LaTex/fonts/type1/public/amsfonts/symbols/msam7.pfb><D:/Miktwx LaTex/fonts/typ
+e1/public/amsfonts/symbols/msbm10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfo
+nts/symbols/msbm7.pfb>
+Output written on Tarea_3.pdf (12 pages, 430896 bytes).
 PDF statistics:
- 326 PDF objects out of 1000 (max. 8388607)
- 83 named destinations out of 1000 (max. 500000)
+ 330 PDF objects out of 1000 (max. 8388607)
+ 84 named destinations out of 1000 (max. 500000)
  26806 words of extra memory for PDF output out of 29859 (max. 10000000)
 
 
