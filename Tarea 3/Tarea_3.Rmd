@@ -1,6 +1,6 @@
 ---
 output: pdf_document
-header-includes:
+header-includes: 
 - \usepackage{enumitem}  
 - \usepackage{caption}
 - \usepackage{amsmath}
