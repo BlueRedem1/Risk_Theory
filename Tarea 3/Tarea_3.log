@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  13 JAN 2022 23:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  17 JAN 2022 19:21
 entering extended mode
 **./Tarea_3.tex
 (Tarea_3.tex
@@ -572,15 +572,49 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 611.
 See the caption package documentation for explanation.
 
-[10] [11] [12] (Tarea_3.aux) ) 
+[10] [11]
+
+LaTeX Warning: Command \' invalid in math mode on input line 733.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 733.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 733.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 739.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 739.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 739.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 739.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 739.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 739.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 739.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 739.
+
+[12] [13] [14] (Tarea_3.aux) ) 
 Here is how much of TeX's memory you used:
- 14866 strings out of 478927
- 224709 string characters out of 2866168
- 591017 words of memory out of 3000000
- 32318 multiletter control sequences out of 15000+600000
- 448941 words of font info for 98 fonts, out of 8000000 for 9000
+ 14892 strings out of 478927
+ 224964 string characters out of 2866168
+ 591187 words of memory out of 3000000
+ 32328 multiletter control sequences out of 15000+600000
+ 449107 words of font info for 100 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,20n,80p,791b,433s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 74i,20n,80p,791b,371s stack positions out of 5000i,500n,10000p,200000b,80000s
 {D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-ec.enc}{D:
 /Miktwx LaTex/fonts/enc/dvips/lm/lm-mathsy.enc}{D:/Miktwx LaTex/fonts/enc/dvips
 /lm/lm-rm.enc}{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-ts1.enc}{D:/Miktwx LaTex/f
@@ -599,11 +633,11 @@ fonts/type1/public/lm/lmtt10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmtti10
  LaTex/fonts/type1/public/amsfonts/symbols/msam7.pfb><D:/Miktwx LaTex/fonts/typ
 e1/public/amsfonts/symbols/msbm10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfo
 nts/symbols/msbm7.pfb>
-Output written on Tarea_3.pdf (12 pages, 430896 bytes).
+Output written on Tarea_3.pdf (14 pages, 445284 bytes).
 PDF statistics:
- 330 PDF objects out of 1000 (max. 8388607)
- 84 named destinations out of 1000 (max. 500000)
- 26806 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 366 PDF objects out of 1000 (max. 8388607)
+ 96 named destinations out of 1000 (max. 500000)
+ 26846 words of extra memory for PDF output out of 29859 (max. 10000000)
 
 
 ! pdflatex: major issue: So far, you have not checked for MiKTeX updates.

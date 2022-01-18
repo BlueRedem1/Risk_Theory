@@ -425,6 +425,118 @@ De manera teórica (exacta) utilizando las propiedades del modelo colectivo.
 
 *Sugerencia: compara con el ejercicio 6.*
 
+### Solución 
+
+Primero, identifiquemos N^{*}:
+Por lo mencionado en (6), se tiene que:
+$$\mathbb{P}(N^{*} = 0) = 0.7$$
+Y considerando $N :=$ Frecuencia de clientes normales, y por la información proporcionada $\rightarrow N \sim Bin(4, \frac{20}{100}= \frac{1}{5})$
+
+Por practicidad denotemos:
+$$P_{K} := \mathbb{P}(N = k) \forall k \in \{0,1, \dots, 4\} \land P_{K}^{*}:= \mathbb{P}(N^{*} = k) \quad \forall K \in Sop(N^{*})$$
+
+Dada la manera en que se describe a $N^{*}$, se tiene que $N^{*}$ pertenece a la clase $(a,b,1)$ y tiene por soporte $\{0,1,\dots,4\}$, pues "conserva", en cierto sentido, la distribución de $N$, es decir;
+$$\frac{P_{K}^{*}}{P_{K-1}^{*}} = a + \frac{b}{k} \underbrace{\forall K \in \{2,3,4\}}_{\text{Pues es }(a,b,1)} \text{p.a}\quad a,b \in \mathbb{R}$$
+
+Dado que la probabilidad en 0 está dada por $P_{0}^{*} = 0.7$ y se nos pide modificar únicamente en 0 conservando la distribución de $N$ en lo demás, entonces nos encontramos en el caso en que $N^{*}$ sigue una distribución $Cero-modificado$
+utilizando la distribución de N, es decir:
+$$P_{K}^{*} = \frac{1 - P_{0}^{*}}{1 - P_{0}} P_{K} \quad \forall K\in \{1,2,3,4\}$$
+Notemos que:
+
+\begin{align*}
+\sum_{K = 0}^{4}P_{K}^{*} &= P_{0}^{*} + \sum_{K = 1}^{4}P_{K}^{*} = P_{0}^{*} + \frac{1 - P_{0}^{*}}{1 - P_{0}} \sum_{K = 0}^{4} P_{K} = P_{0}^{*} + \frac{1 - P_{0}^{*}}{1 - P_{0}}(1 - P_{0})\\
+&= P_{0}^{*} + 1 - P_{0}^{*}\\
+&= 1
+\end{align*}
+
+$\implies$ Para $N^{*}$ tenemos que:
+
+\begin{align*}
+P_{0}^{*} = \mathbb{P}(N^{*} = 0) = 0.7; P_{K}^{*} &= \mathbb{P}(N^{*} = K) = \frac{0.3}{1 - \left(\frac{4}{5}\right)^{4}} \binom{4}{k} \left(\frac{1}{5}\right)^{K} \left(\frac{4}{5}\right)^{4 = K}\\
+&= \frac{125}{246} \binom{4}{k} \left(\frac{1}{5}\right)^{K} \left(\frac{4}{5}\right)^{4 - K}
+\end{align*}
+
+Observamos que la media de $N^{*}$ está dada por:
+
+\begin{align*}
+\mathbb{E}(N^{*}) &= \sum_{K = 0}^{4}K P_{K}^{*} = \sum_{K = 1}^{4}K P_{K}^{*} = \sum_{K = 1}^{4}\frac{K(1 - P_{0}^{*})}{1 - P_{0}} P_{K} = \frac{1 - P_{0}^{*}}{1 - P_{0}} \sum_{K = 1}^{4}K P_{K}\\
+&= \frac{1 - P_{0}^{*}}{1 - P_{0}}\mathbb{E}(N) = \frac{125}{246}(4)\left(\frac{1}{5}\right) = \frac{50}{123}\\
+&\therefore \mathbb{E}(N^{*}) = \frac{50}{123}
+\end{align*}
+
+Su segundo momento:
+
+\begin{align*}
+\mathbb{E}(N^{*}) &= \sum_{K = 0}^{4}K^{2} P_{K}^{*} = \sum_{K = 1}^{4}\frac{K^{2}(1 - P_{0}^{*})}{1 - P_{0}} P_{K} = \frac{125}{246}\sum_{K = 1}^{4}K^{2} P_{K}^{*}\\
+&= \frac{125}{246}\mathbb{E}(N^{*}) = \frac{125}{246}\left[4\left(\frac{1}{5}\right)\left(\frac{4}{5}\right) + 4^{2}\left(\frac{1}{5}\right)^{2}\right]\\
+&= \frac{125}{123}\left(\frac{4}{5}\right)^{2} = \frac{80}{123}
+\end{align*}
+
+\begin{align*}
+\implies Var(N^{*}) &= \mathbb{E}(N^{*^{2}}) - \mathbb{E}^{2}(N^{*}) = \frac{80}{123} - \left(\frac{50}{123}\right)^{2} = \frac{123(80) - 50^{2}}{123^{2}}\\
+&= \frac{7,340}{15,129}\\
+&\approx 0.485160949
+\end{align*}
+
+\underline{\text{Conociendo las Vi's:}}
+
+Notemos que: 
+$$Y_{i} = máx \{mín\{X,u\}-d,0\} = (mín \{X,4\} - 2_{+}) \quad \forall i \in \{1,2,3,4\}$$
+
+Observemos que:
+\begin{align*}
+Sop(Y_{i}) &= \{\overbrace{(mín\{1,4\} - 2)_{+}}^{0}, \overbrace{(mín\{2,4\} - 2)_{+}}^{0}, \overbrace{(mín\{3,4\}-2)_{+}}^{1},\\
+&\underbrace{(\{4,4\}-2)_{+}}_{2}, \underbrace{(mín\{5,4\}-2)_{+}}_{2}\}\\
+\implies Sop(Y_{i}) &= \{0,1,2\} \forall i \in \{1,2,3,4\}\\
+\end{align*}
+\begin{align*}
+\implies \mathbb{E}(Y_{i}) &= 0\left[\mathbb{P}(X = 1) + \mathbb{P}(X = 2)\right] + 1[\mathbb{P}(X = 3)] + 2[\mathbb{P}(X = 4)] + \mathbb{P}(X = 5)]\\
+&= \frac{3}{18} + 2\left[\frac{2}{18 + \frac{1}{18}}\right] = \frac{3 + 2(3)}{18} = \frac{1}{2}\\
+&\therefore \mathbb{E}(Y_{i}) = \frac{1}{2} \forall i \in \{1,2,3,4\}
+\end{align*}
+
+Además:
+\begin{align*}
+\mathbb{E}(Y_{i}^{2}) &= 0^{2}[\mathbb{P}(X = 1) + \mathbb{P}(X = 2)] + \mathbb{P}(X = 3) + 4[\mathbb{P}(X = 4) + \mathbb{P}(X = 5)]\\
+&= \frac{3}{18} + \frac{4(3)}{18} = \frac{15}{18} = \frac{5}{6}\\
+&\therefore \mathbb{E}(Y_{i}^{2}) = \frac{5}{6} \forall i \in \{1,2,3,4\}\\
+\implies Var(Y_{i}) &= \frac{5}{6} - \frac{1}{4} = \frac{7}{12} \forall i \in \{1,2,3,4\}
+\end{align*}
+
+Considerando que:
+$$S:= \sum_{i = 1}^{N^{*}}Y_{i}(S = 0 \quad si \quad N^{*} = 0)$$
+
+Entonces: 
+
+## Inciso a) 
+
+$$\mathbb{E}(S) = \mathbb{E}(N^{*})\mathbb{E}(Y_{i}) = \frac{50}{123}(\frac{1}{2}) = \frac{25}{123}_\blacksquare$$
+
+## Inciso b) 
+
+\begin{align*}
+\mathbb{E}(S^{*}) &= \mathbb{E}(N^{*})\mathbb{E}(Y^{2}) 
+\mathbb{E}(N^{*}(N^{*} - 1))\mathbb{E}^{2}(Y)\\
+&= \frac{50}{123}\left(\frac{5}{6}\right) + \left[\mathbb{E}(N^{*^{2}}) - \mathbb{E}(N^{*})\right] \frac{1}{4}\\
+&= \frac{125}{369} + \frac{1}{4} \left[\frac{80}{123} - \frac{50}{123}\right] = \frac{125}{369} + \frac{1}{4} \left[\frac{30}{123}\right]\\
+&= \frac{295}{738}_\blacksquare
+\end{align*}
+
+## Inciso c)
+
+\begin{align*}
+Var(S) &= Var[N^{*}]\mathbb{E}^{2}(V) + Var(V)\mathbb{E}(N^{*})\\
+&= \frac{7,340}{15,129}\left(\frac{1}{4}\right) + \frac{7}{12} \left(\frac{50}{123}\right)  = \frac{1,835}{15,129} + \frac{175}{738}\\
+&\approx 0.358419609_\blacksquare
+\end{align*}
+ 
+## Inciso d) 
+
+Coeficiente de Variación:
+
+$$\frac{\sqrt{Var(S)}}{\mathbb{E}(S)} = \frac{\sqrt{0.358419609}}{\left(\frac{25}{123}\right)} \approx 2.94550505_\blacksquare$$
+
+
 # Ejercicio 8
 
 Del ejercicio 6, obtén el soporte de la variable aleatoria del riesgo de la compañía ($S$), justifica porqué ese es el soporte dando **solo un ejemplo** del porqué es un valor factible para $S$ con un vector del estilo:
