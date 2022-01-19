@@ -410,6 +410,8 @@ Hints:
 
 - *Coeficiente de variación* $:= \frac{\sigma}{\mu} = \frac{\sqrt{Var(S)}}{\mathbb{E}[S]}$
 
+### Solución
+
 # Ejercicio 7
 
 Del mismo riesgo ($S$) del ejercicio 6 obtén:
@@ -545,6 +547,8 @@ $$(N^*=n,Y_1=y_1,Y_2=y_2,\dots,Y_n=y_n) \Rightarrow S = x$$
 
 por cada valor $x$ en el soporte de $S$ (esto sirve para exhibir que existe probabilidad positiva de que el riesgo de la compañía valga dicho valor puntual $x$). Crea la función de Panjer para calcular la función de densidad (masa de probabilidad) de $S$. **Muestra el código de la función que acabas de crear** especificando qué es cada parámetro de la función (si los recibe).
 
+### Solución 
+
 # Ejercicio 9
 
 Una vez identificado el soporte y teniendo implementada la función de Panjer en el ejercicio 8, calcula:
@@ -568,6 +572,8 @@ y con esos valores:
 
 *Sugerencia: para que tú mismo compruebes que lo que estás haciendo está bien, con esta función de densidad que acabas de crear estaría bien que calcularas todo lo del ejercicio 8. Será rápido si ya tienes que suman uno las probabilidades.*
 
+### Solución 
+
 # Ejercicio 10
 
 Utiliza los datos simulados y las probabilidades puntuales teóricas de los ejercicios 6 y 9 para realizar una prueba estadística que pruebe las siguientes hipótesis nulas:
@@ -579,4 +585,4 @@ Utiliza los datos simulados y las probabilidades puntuales teóricas de los ejer
 
 **Para cada prueba muestra los observados, los esperados, interpreta claramente el p-value y concluye.**
 
-
+### Solución 
