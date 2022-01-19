@@ -2,20 +2,20 @@
 Tarea 3 - Ejercicio 6
 " 
 
-# Funci髇 de severidad dado un siniestro X, con un monto m醲imo de beneficio u 
+# Funci贸n de severidad dado un siniestro X, con un monto m谩ximo de beneficio u 
 # y deducible d.
 Y<-function(X,u=4,d=2){
   y=max(min(X,u)-d,0)
   return(y)
 }
 
-# Funci髇 para encontrar la moda en una lista.
+# Funci贸n para encontrar la moda en una lista.
 Mode <- function(x) {
   ux <- unique(x)
   ux[which.max(tabulate(match(x, ux)))]
 }
 
-# Funci髇 para simular la v.a. S
+# Funci贸n para simular la v.a. S
 regresa.una.S<-function(m,f,size=4,p = 1/5){
   
   #Genera una N
@@ -33,7 +33,7 @@ regresa.una.S<-function(m,f,size=4,p = 1/5){
   if(N>0){
     Xj <- sample(x = 1:m,size = N,
                  replace = T,prob = f) #Generar los siniestros
-    Yj<-lapply(Xj,Y) # Aplicarles monto m醲imo u y deducible d
+    Yj<-lapply(Xj,Y) # Aplicarles monto m谩ximo u y deducible d
     Yj<- unlist(Yj)
   }else{
     Yj <- 0 #Si no hubo, el total es cero.
@@ -55,7 +55,7 @@ for(i in 1:n){
   samp[i] <- regresa.una.S(m,f)
 }
 
-# Calculo de algunas m閠ricas
+# Calculo de algunas m茅tricas
 media_muestral <- mean(samp)
 var_muestral <- var(samp)
 semo_muestal <- var_muestral + media_muestral^2
@@ -83,15 +83,15 @@ sprintf("Segundo Momento muestral: %f", semo_muestal)
 sprintf("Varianza muestral: %f", var_muestral)
 # 0.353375
 
-# (d) Coeficiente de variaci髇:
-sprintf("Coeficiente de variaci髇 muestral: %f", coef_var_muestral)
+# (d) Coeficiente de variaci贸n:
+sprintf("Coeficiente de variaci贸n muestral: %f", coef_var_muestral)
 # 2.945858
 
 #########################################################################
 
 "
-A continuaci髇 mostraremos algunos resultado m醩 con base en la muestra de 
-1,000,000 de S generadas, los cuales no ser醤 de utilidad para ejercicios 
+A continuaci贸n mostraremos algunos resultado m谩s con base en la muestra de 
+1,000,000 de S generadas, los cuales no ser谩n de utilidad para ejercicios 
 posteriores:
 "
 

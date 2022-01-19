@@ -2,7 +2,7 @@
 Tarea 3 - Ejercicios 8 y 9
 "
 
-# Funci髇 Panjer Cero Modificado
+# Funci贸n Panjer Cero Modificado
 PanjerConCeroModificado <- function(r,a,b,f,p0,p1,p0m,g0,todo=F){
   
   "
@@ -16,7 +16,7 @@ PanjerConCeroModificado <- function(r,a,b,f,p0,p1,p0m,g0,todo=F){
   variable de la familia (a,b,0)
   * p0m := Probabilidad en 0 de la variable N*
   * todo := Booleano que indica si mostramos todas las
-  probabilidades calculadas o s髄o la deseada (r)
+  probabilidades calculadas o s?lo la deseada (r)
   "
   
   #Creamos un vector auxiliar para las probas de S.
@@ -49,7 +49,7 @@ PanjerConCeroModificado <- function(r,a,b,f,p0,p1,p0m,g0,todo=F){
   }
 }
 
-# Generadora de momentos de una binomial n,p en t
+# Generadora de probabilidades de una binomial n,p en t
 Gn<- function(t,n,p){
   x<- (1-p+p*t)^n
   return(x)
@@ -59,7 +59,7 @@ Gn<- function(t,n,p){
 #Ejercicio: 
 
 f<- c(12/18, 3/18, 3/18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
-# Colocamos muchos 0, pues si la r que le damos a la funci髇 pasa la cantidad de
+# Colocamos muchos 0, pues si la r que le damos a la funci?n pasa la cantidad de
 # elementos en el vector entonces obtenemos NAN, y como la densidad de Y es 0 
 # fuera del soporte, entonces dicho vector conserva las propiedades de la 
 # densidad de Y.
@@ -74,7 +74,7 @@ p0m<- 0.7
 g0<- 1 - (1-p0m)/(1-p0)*(1-Gn(t = f[1], n=n, p=p))
 
 fS<-PanjerConCeroModificado(r=8,a=a,b=b,f=f,p0=p0,p1=p1,p0m=p0m,g0=g0,todo=T)
-print("Las probabilidades est醤 dadas por:")
+print("Las probabilidades est谩n dadas por:")
 print(fS)
 
 # Suma 1
@@ -89,7 +89,7 @@ for(i in 0:8){
 }
 
 sprintf("Mostremos la media: %f", media)
-sprintf("Valor te髍ico: %f", 25/123)
+sprintf("Valor te贸rico: %f", 25/123)
 
 # Segundo momento:
 semo = 0
@@ -98,7 +98,7 @@ for(i in 0:8){
 }
 
 sprintf("Mostremos el segundo momento: %f", semo)
-sprintf("Valor te髍ico: %f", 295/738)
+sprintf("Valor te贸rico: %f", 295/738)
 
 # Varianza
 
@@ -108,7 +108,7 @@ for(i in 0:8){
 }
 
 sprintf("Mostremos la varianza: %f", varianza)
-sprintf("Varianza te髍ica: %f", 1835/15129 + 175/738)
+sprintf("Varianza te贸rica: %f", 1835/15129 + 175/738)
 
 # Histograma
 barplot(fS, ylab=expression(P(S==x)), 

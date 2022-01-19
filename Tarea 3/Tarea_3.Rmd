@@ -143,6 +143,8 @@ i = u - (k + r - 1)\\
 &\therefore S \sim \text{Binomial Negativa}(r, \alpha)_\blacksquare
 \end{align*}
 
+\textbf{\textcolor{red}{NOTA:}}
+Es necesario que todas las series convergan uniformemente para meter la diferencial dentro de la serie, lo cual es cierto por el teorema 5.28 del Clapp que nos asegura toda serie de potencias diferencial converge uniformemente y en consecuencia es diferencia.
 
 # Ejercicio 3
 
@@ -412,6 +414,143 @@ Hints:
 
 ### Solución
 
+Por lo mencionado en (6), se tiene que: 
+$$\mathbb{P}(N^{*} = 0) = 0.7$$
+y consideramos $N:= \text{frecuencia de clientes normales},$ y por la información proporcionada $\rightarrow N \sim Bin(4, \frac{20}{100}=\frac{1}{5})$ y utilizando lo visto en clase, realizamos el siguiente código:
+
+```{r}
+# Función de severidad dado un siniestro X, con un monto máximo de beneficio u 
+# y deducible d.
+Y<-function(X,u=4,d=2){
+  y=max(min(X,u)-d,0)
+  return(y)
+}
+
+# Función para encontrar la moda en una lista.
+Mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+
+# Función para simular la v.a. S
+regresa.una.S<-function(m,f,size=4,p = 1/5){
+  
+  #Genera una N
+  N=0
+  bandera<-sample(x = 0:1,size = 1,replace = T,prob = c(0.7, 0.3)) # Considerando
+  # que la probabilidad de ser 0 para la frecuencia N* es 0.7
+  
+  if(bandera!=0){
+    while(N==0){
+      N<-rbinom(n=1,size=size, prob = p) # Recordemos que N sigue una dist Binom
+    }
+  }
+  
+  #Calcula los datos
+  if(N>0){
+    Xj <- sample(x = 1:m,size = N,
+                 replace = T,prob = f) #Generar los siniestros
+    Yj<-lapply(Xj,Y) # Aplicarles monto máximo u y deducible d
+    Yj<- unlist(Yj)
+  }else{
+    Yj <- 0 #Si no hubo, el total es cero.
+  }
+  
+  #Regresa una S
+  return(sum(Yj))
+  
+}
+
+m <- 5 # Pues el soporte de X es {1,2,3,4,5}
+f <- c(7/18,5/18,3/18,2/18,1/18) # Probabilidades correspondientes
+
+set.seed(93) # fijamos una semilla, 93
+n = 1000000 # realizamos la S 1,000,000 de veces
+
+samp <- c()
+for(i in 1:n){
+  samp[i] <- regresa.una.S(m,f)
+}
+
+# Calculo de algunas métricas
+media_muestral <- mean(samp)
+var_muestral <- var(samp)
+semo_muestal <- var_muestral + media_muestral^2
+sd_muestral <-  sd(samp)
+var_90 <- quantile(samp,0.9)
+coef_var_muestral <- sd_muestral / media_muestral
+moda_muestral <- Mode(samp)
+
+"
+Resultados:
+"
+# Histograma:
+plot.new()
+barplot((table(samp)/length(samp)),col="skyblue",axisnames = F)
+
+# (a) Media:
+sprintf("Media muestral: %f",media_muestral)
+# 0.201793
+
+# (b) Segundo Momento:
+sprintf("Segundo Momento muestral: %f", semo_muestal)
+# 0.394095
+
+# (c) Varianza:
+sprintf("Varianza muestral: %f", var_muestral)
+# 0.353375
+
+# (d) Coeficiente de variación:
+sprintf("Coeficiente de variación muestral: %f", coef_var_muestral)
+# 2.945858
+
+#########################################################################
+
+```
+
+Así....
+
+## Inciso a)
+
+\textcolor{red}{Media:} 0.201793$_\blacksquare$
+
+## Inciso b)
+
+\textcolor{red}{Segundo Momento:} 0.394095$_\blacksquare$
+
+## Inciso c)
+
+\textcolor{red}{Varianza:} 0.353375$_\blacksquare$
+
+## Inciso d)
+
+\textcolor{red}{Coeficiente de variación:} 2.945858$_\blacksquare$
+
+
+
+Además calculamos otras métricas:
+
+\textcolor{red}{VaR_{90\%}:} 1 $_\blacksquare$
+\textcolor{red}{Moda:} 0 $_\blacksquare$
+
+```{r}
+"
+A continuación mostraremos algunos resultado más con base en la muestra de 
+1,000,000 de S generadas, los cuales no serán de utilidad para ejercicios 
+posteriores:
+"
+
+# Var al 90%:
+sprintf("VaR a un nivel de significancia del 90: %s", var_90)
+# 1
+
+# Moda:
+sprintf("Moda de la muestra: %s", moda_muestral)
+# 0
+
+```
+
+
 # Ejercicio 7
 
 Del mismo riesgo ($S$) del ejercicio 6 obtén:
@@ -549,6 +688,85 @@ por cada valor $x$ en el soporte de $S$ (esto sirve para exhibir que existe prob
 
 ### Solución 
 
+Como vimos en 7 se tiene que:
+\begin{align*}
+Sop(Y_{i}) &= \{0,1,2\} \quad \forall i \in \{1,2,3,4\}\\
+Sop(N^{*}) &= \{0,1,2,3,4\}\\
+\end{align*}
+\begin{center}
+\begin{tabular}{cccccc}
+  $S = x$ & $N^* = n$ & $Y_1 = y_1$ & $Y_2 = y_2$ & $Y_3 = y_3$ & $Y_4 = y_4$ \\ \hline
+0 & 0 & x & x & x & x \\
+1 & 1 & 1 & x & x & x \\
+2 & 2 & 1 & 1 & x & x \\
+3 & 2 & 1 & 2 & x & x \\
+4 & 2 & 2 & 2 & x & x \\
+5 & 3 & 1 & 2 & 2 & x \\
+6 & 3 & 2 & 2 & 2 & x \\
+7 & 4 & 2 & 2 & 2 & 1 \\
+8 & 4 & 2 & 2 & 2 & 2 \\
+\end{tabular}
+\end{center}
+
+Notemos que de esta manera el soporte de S es: $Sop(S) = \{0,1, \dots, 8\}$ y realizamos el siguiente código:
+
+```{r}
+# Función Panjer Cero Modificado
+PanjerConCeroModificado <- function(r,a,b,f,p0,p1,p0m,g0,todo=F){
+  
+  "
+  PARAMETROS:
+  ---------------------------------------------------------
+  * r:= Valor de la probabilidad deseada a calcular
+  * g0 := P[S=0]
+  * (a,b) := Parametros de la familia (a,b,0)
+  * f := vector de probabilidades de Y (ordenadas desde 0)
+  * p0, p1 := Probilidad en 0 y 1, respectivamente de la
+  variable de la familia (a,b,0)
+  * p0m := Probabilidad en 0 de la variable N*
+  * todo := Booleano que indica si mostramos todas las
+  probabilidades calculadas o s?lo la deseada (r)
+  "
+  
+  #Creamos un vector auxiliar para las probas de S.
+  g<-0:r
+  names(g)<-0:r
+  
+  #Le ponemos nombres al vector de probas de f.
+  names(f)<-0:(length(f)-1)
+  
+  # Panjer cero modificado
+  
+  for(s in 0:r){
+    if(s==0){
+      g["0"]=g0
+    }else{aux = 0
+    p1m <- ((1-p0m)/(1-p0))*p1 # P[N* = 1]
+    for(j in 1:(min(s,length(f)-1))){
+      aux = aux + ((a+b*j/s)*f[as.character(j)]*g[as.character(s-j)])/(1-a*f["0"])
+    }
+    aux2 = (p1m - (a+b)*p0m)*f[as.character(s)] / (1-a*f["0"])
+    g[as.character(s)]=aux + aux2
+    }
+  }
+  names(g)<-paste("P[S=",names(g),"]",sep = "")
+  
+  if(todo){
+    return(g)
+  }else{
+    return(g[r+1])
+  }
+}
+
+# Generadora de probabilidades de una binomial n,p en t
+Gn<- function(t,n,p){
+  x<- (1-p+p*t)^n
+  return(x)
+}
+
+```
+$_\blacksquare$
+
 # Ejercicio 9
 
 Una vez identificado el soporte y teniendo implementada la función de Panjer en el ejercicio 8, calcula:
@@ -573,6 +791,98 @@ y con esos valores:
 *Sugerencia: para que tú mismo compruebes que lo que estás haciendo está bien, con esta función de densidad que acabas de crear estaría bien que calcularas todo lo del ejercicio 8. Será rápido si ya tienes que suman uno las probabilidades.*
 
 ### Solución 
+
+```{r}
+f<- c(12/18, 3/18, 3/18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+# Colocamos muchos 0, pues si la r que le damos a la funci?n pasa la cantidad de
+# elementos en el vector entonces obtenemos NAN, y como la densidad de Y es 0 
+# fuera del soporte, entonces dicho vector conserva las propiedades de la 
+# densidad de Y.
+
+n<- 4
+p<- 1/5
+a<- -p/(1-p)
+b<- ((n+1)*p)/(1-p)
+p0<- dbinom(x=0, size=n, prob=p) # Sabiendo que N~Binom(4, 1/5)
+p1<- dbinom(x=1, size=n, prob=p)
+p0m<- 0.7
+g0<- 1 - (1-p0m)/(1-p0)*(1-Gn(t = f[1], n=n, p=p))
+
+fS<-PanjerConCeroModificado(r=8,a=a,b=b,f=f,p0=p0,p1=p1,p0m=p0m,g0=g0,todo=T)
+print("Las probabilidades están dadas por:")
+print(fS)
+
+```
+
+## Inciso a)
+
+```{r}
+# Suma 1
+sprintf("Veamos que en efecto, suman 1: %f", sum(fS))
+
+prob<- unname(fS)
+```
+$_\blacksquare$
+
+## Inciso b)
+```{r}
+# Media
+
+media = 0
+for(i in 0:8){
+  media = media + i*prob[i+1]
+}
+
+sprintf("Mostremos la media: %f", media)
+sprintf("Valor teórico: %f", 25/123)
+```
+$_\blacksquare$
+
+## Inciso c)
+Notemos que: 
+\begin{align*}
+\mathbb{P}(S = 0) &= 0.877456\\
+\mathbb{P}(S = 1) &= 0.055083\\
+&\implies \mathbb{P}(S = 0) + \mathbb{P}(S = 1) = 0.932539\\
+&\implies VaR_{0.9}(S) = 1
+\end{align*}
+
+$_\blacksquare$
+
+## Inciso d)
+Obtén la moda: Recordemos que la moda es el elementos en ele soporte tal que, maximiza la probabilidad, en nuestro caso, 0 es el que maximiza la probabilidad. $_\blacksquare$
+
+```{r}
+# Segundo momento:
+semo = 0
+for(i in 0:8){
+  semo = semo + (i^2)*prob[i+1]
+}
+
+sprintf("Mostremos el segundo momento: %f", semo)
+sprintf("Valor teórico: %f", 295/738)
+
+# Varianza
+
+varianza = 0
+for(i in 0:8){
+  varianza = varianza + ((i-media)^2)*prob[i+1]
+}
+
+sprintf("Mostremos la varianza: %f", varianza)
+sprintf("Varianza teórica: %f", 1835/15129 + 175/738)
+
+```
+ 
+Finalmente veamos el histograma, y \textcolor{red}{comparemos con el histograma del 6}
+
+```{r}
+# Histograma
+barplot(fS, ylab=expression(P(S==x)), 
+        main="Panjer: Cero Modificado y cero en Sop(X)",col="gold")
+
+```
+
 
 # Ejercicio 10
 
