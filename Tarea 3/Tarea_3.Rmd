@@ -299,6 +299,119 @@ $$
 \item Calcula $\mathbb{P}[S = 6]$
 \end{enumerate}
 
+### Solución 
+## Inciso a)
+Notemos que: $-\frac{0.4}{0.6} = -\frac{2}{3} = a$ y que $\frac{11(0.4)}{0.6} = \frac{22}{3} = b$
+\begin{align*}
+\mathbb{P}(S = 0) &= \mathbb{P}(N = 0) = 0.6^{10}\\
+\mathbb{P}(S = 1) &= \left(a + \frac{b(1)}{1}\right)0.4[0.6]^{10} = \left(\frac{22}{3} - \frac{2}{3}\right)0.4[0.6]^{10}\\
+&\approx 0.016124314\\
+\mathbb{P}(S = 2) &= \left(a + \frac{b(1)}{2}\right)\mathbb{P}(X = 1)\mathbb{P}(S = 2 - 1)\\
+&+  \left(a + \frac{b(2)}{2}\right)\mathbb{P}(X = 2)\mathbb{P}(S = 2 - 2)\\
+&=(a + \frac{b}{2})0.4[0.016124314]\\
+&+ (a + b)0.35[0.6]^{10}\\
+&= (\frac{11}{3} - \frac{2}{3})0.4[0.016124314]\\
+&+ (\frac{20}{3})0.35[0.6]^{10}\\
+\end{align*}
+\begin{align*}
+&= 0.033457951\\
+\mathbb{P}(S = 3) &= \left(a + \frac{b(1)}{3}\right)\mathbb{P}(X = 1)\mathbb{P}(S = 3 - 1)\\
+&+  \left(a + \frac{b(2)}{3}\right)\mathbb{P}(X = 2)\mathbb{P}(S = 3 - 2)\\
+&+ \left(a + \frac{b(3)}{3}\right)\mathbb{P}(X = 3)\mathbb{P}(S = 3 - 3)\\
+&= \left(-\frac{2}{3} + \frac{22}{9}\right)0.4[0.033457951]\\
+&+ \left(-\frac{2}{3} + \frac{44}{9}\right)0.35[0.016124314]\\
+&+ \left(-\frac{2}{3} + \frac{22}{3}\right)0.25[0.6^{10}]\\
+&= 0.05769817\\
+\mathbb{P}(S = 4) &= \left(a + \frac{b(1)}{4}\right)\mathbb{P}(X = 1)\mathbb{P}(S = 4 - 1)\\
+&+  \left(a + \frac{b(2)}{4}\right)\mathbb{P}(X = 2)\mathbb{P}(S = 4 - 2)\\
+&+ \left(a + \frac{b(3)}{4}\right)\mathbb{P}(X = 3)\mathbb{P}(S = 4 - 3)\\
+&= \left(-\frac{2}{3} + \frac{22}{12}\right)0.4[0.05769817]\\
+&+ \left(-\frac{2}{3} + \frac{11}{3}\right)0.35[0.033457951]\\
+&+ \left(-\frac{2}{3} + \frac{11}{2}\right)0.25[0.016124314]\\
+&= 0.081540207\\
+\mathbb{P}(S = 5) &= \left(a + \frac{b(1)}{5}\right)0.4\mathbb{P}(S = 5 - 1)\\
+&+  \left(a + \frac{b(2)}{5}\right)0.35\mathbb{P}(S = 5 - 2)\\
+&+ \left(a + \frac{b(3)}{5}\right)0.25\mathbb{P}(S = 5 - 3)\\
+&= \left(-\frac{2}{3} + \frac{22}{15}\right)0.4[0.081540207]\\
+&+ \left(-\frac{2}{3} + \frac{44}{15}\right)0.35[0.05769817]\\
+&+ \left(-\frac{2}{3} + \frac{22}{5}\right)0.25[0.033457951]\\
+&= 0.103094169\\
+\mathbb{P}(S = 6) &= \left(a + \frac{b(1)}{6}\right)0.4\mathbb{P}(S = 6 - 1)\\
+&+ \left(a + \frac{b(2)}{6}\right)0.35\mathbb{P}(S = 6 - 2)\\
+&+ \left(a + \frac{b(3)}{6}\right)0.25\mathbb{P}(S = 6 - 3)\\
+\end{align*}
+\begin{align*}
+&= \left(-\frac{2}{3} + \frac{11}{9}\right)0.4[0.103094169]\\
+&+ \left(-\frac{2}{3} + \frac{22}{9}\right)0.35[0.081540207]\\
+&+ \left(-\frac{2}{3} + \frac{11}{3}\right)0.25[0.05769817]\\
+&= 0.116919572
+\end{align*}
+
+De esta manera se obtiene que:
+\begin{align*}
+&\textcolor{red}{\mathbb{P}(S = 6) = 0.116919572}\\
+&\textcolor{red}{y}\\
+&\textcolor{red}{\mathbb{P}(S \leq 5)} = \mathbb{P}(S = 0) + \mathbb{P}(S = 1) + \dots + \mathbb{P}(S = 5)\\
+&= 0.6^{10} + 0.016124314 + 0.033457951\\
+&+ 0.05769817 0.081540207 + 0.103094169\\
+&= 0.297961428\\
+&\textcolor{red}{\therefore \mathbb{P}(S \leq 5) = .297961428}_\blacksquare
+\end{align*}
+
+Además podemos confirmar nuestros resultados con el siguiente código:
+
+```{r}
+##Probabilidades reales
+Panjer <- function(x,p0,a,b,f){
+  
+  # x := Valor al que se le desea calcular la probabilidad de P[S=x]
+  #p0 := Probabilidad en 0 de N
+  # (a,b) := Parametros de la familia (a,b,0)
+  #f := vector de probabilidades de X
+  
+  #Creamos un vector auxiliar para las probas de S.
+  g<-0:x
+  names(g)<-0:x
+  
+  #Le ponemos nombres al vector de probas de f.
+  names(f)<-1:length(f)
+  
+  #Panjer (de clase (a,b,0) con soporte de Xj sin 0)
+  for(s in 0:x){
+    if(s==0){
+      g["0"]=p0
+    }else{aux = 0
+    for(j in 1:(min(s,length(f)-1))){
+      aux = aux + (a + ((b*j)/s))*f[as.character(j)]*g[as.character(s-j)]
+    }
+    g[as.character(s)]=aux
+    }
+  }
+  names(g)<-paste("P[S=",names(g),"]",sep = "")
+  
+  return(g)
+}
+
+n<- 10
+p<- 0.4
+a<- -p/(1-p)
+b<- ((n+1)*p)/(1-p)
+p0<- dbinom(x=0, size=n, prob = p)
+f<- c(0.4, 0.35, 0.25,0,0,0,0,0,0,0,0,0,0,0,0)
+
+fS<- Panjer(x=6,p0=p0,a=a,b=b,f=f)
+
+print("Mostramos las probabilidades calculadas:")
+print(fS)
+
+# (a)
+sprintf("P[S<=5] = %f", sum(Panjer(x=5,p0=p0,a=a,b=b,f=f)))
+
+# (b)
+sprintf("P[S=6] = %f", fS[7])
+```
+$_\blacksquare$
+
 # Ejercicio 5
 
 Sea $S$ un modelo colectivo compuesto con $N\sim Poi(1)$ y $Y_i\sim Exp(1) \hspace{0.25cm} \forall i\in \{1,2,\dots\}$. Escriba la fórmula para la aproximación de $F_S(x)$ según el método de gamma trasladada.
@@ -345,18 +458,16 @@ M'_{S}(t) &= e^{\frac{t}{1 - t}}(1 - t)^{-2}\\
 \implies \mathbb{E}[S - \mathbb{E}[S]]^{3} &= 15 - 3(1)(3) + 2(1)^{3}\\
 &= 15 - 9 +2\\
 &= 8\\
-\end{align*}
-\begin{align*}
 \implies \mathbb{E}[S] &=  M = 1\\
 \implies Var(S) &= \sigma^{2} = 2\\
-\implies \frac{\mathbb{E}[(S - \mathbb{E}[S])^{3}]}{\sqrt{Var^{3}(S)}} &= \frac{8}{\sqrt{8}} = \underbrace{\sqrt{8}}_{\text{Coeficiente de asimetría}} = \alpha
-\end{align*}
-\begin{align*}
+\implies \frac{\mathbb{E}[(S - \mathbb{E}[S])^{3}]}{\sqrt{Var^{3}(S)}} &= \frac{8}{\sqrt{8}} = \underbrace{\sqrt{8}}_{\text{Coeficiente de asimetría}} = \alpha\\
 \text{Luego;} \quad C &= M - \frac{2\sigma}{\alpha} = 1 - \frac{2\sqrt{2}}{\sqrt{8}} = 1 - \frac{2\sqrt{2}}{2\sqrt{2}} = 1 - 1 = 0\\
 \beta &= \frac{4}{\alpha^{2}} = \frac{4}{8} = \frac{1}{2}\\
 \lambda &= \frac{2}{\sigma \alpha} = \frac{2}{\sqrt{2}\sqrt{8}} = \frac{2}{\sqrt{2}\sqrt{2^{3}}} =  \frac{2}{\sqrt{2^{4}}} = \frac{2}{4} = \frac{1}{2}\\
 \implies F_{S}(t) &\sim \mathbb{P}[Z \leq t - m + \frac{2\sigma}{\alpha}]\\
-&= F_{Z}(t - \underbrace{m + \frac{2\sigma}{\alpha}}_{-C \quad \text{Ya que} \quad C = M - \frac{2\sigma}{\alpha}})\\
+\end{align*}
+\begin{align*}
+&= F_{Z}\left(t - \underbrace{m + \frac{2\sigma}{\alpha}}_{-C \quad \text{Ya que} \quad C = M - \frac{2\sigma}{\alpha}}\right)\\
 &= F_{Z}(t - C)
 \end{align*}
 
