@@ -110,41 +110,53 @@ M_{S}(t) &= M_{N} (ln(M_{Y}(t)))\\
 \text{Y como} \quad M_{N}(t) &= \left[\frac{p}{1 - (1 - p)e^{t}}\right]^{r}\\
               M_{Y}(t) &= (1 - \theta + \theta e^{t})\\
               &\implies ln(M_{Y}(t)) = ln(1 - \theta + \theta e^{t})\\
-              &\implies M_{S}(t) = \left[\frac{p}{1 - (1 - p) e^{ln(1 - \theta + \theta e^{t})}}\right]^{r}\\
+              &\implies M_{S}(t) = \left[\frac{p}{1 - (1 - p) e^{ln(1 - \theta + \theta e^{t})}}\right]^{r}
+\end{align*}
+\begin{align*}
               &= \left[\frac{p}{1 - (1 - p) \left[1 - \theta + \theta e^{t}\right]}\right]^{r}\\
-\therefore M_{S}(t) &= \left[\frac{p}{1 - (1 - p) \left[1 - \theta + \theta e^{t}\right]}\right]^{r}_\blacksquare
+\therefore M_{S}(t) &= \left[\frac{p}{1 - (1 - p) \left[1 - \theta + \theta e^{t}\right]}\right]^{r}_\blacksquare\\
+\text{Notemos los siguiente:}\\
+M_{S}(t) &= \left[\frac{p}{1 - (1 - p) \left[1 - \theta + \theta e^{t}\right]}\right]^{r}\\
+&= \left[\frac{p}{1 - (1 - p)(1 - \theta) - (1 - p)\theta e^{t}}\right]^{r}\\
+&= \left[\frac{\frac{p}{1 - (1 - p)(1 - \theta)}}{\frac{1 - (1 - p)(1 - \theta) - (1 - p)\theta e^{t}}{1 - (1 - p)(1 - \theta)}}\right]^{r}\\
+&= \left[\frac{\frac{p}{1 - (1 - p)(1 - \theta)}}{1 - \frac{(1 - p)\theta e^{t}}{1 - (1 - p)(1 - \theta)}}\right]^{r}\\
+&= \left[\frac{\frac{p}{1 - (1 - p)(1 - \theta)}}{1 - \left[1 - \frac{p}{1 - (1 - p)(1 - \theta)}\right]e^{t}}\right]^{r}\\
+\left[\alpha = \frac{p}{1 - (1 - p)(1 - \theta)}\right] &= \left(\frac{\alpha}{1 - (1 - \alpha)e^{t}}\right)^{r}\\
+&\therefore S \sim \text{Binomial Negativa}(r, \alpha)_\blacksquare
 \end{align*}
 
 ## Inciso d)
+\textcolor{red}{Como ya vimos en c), encontramos la distribución de $S$, para confirmar veamos que sucede con la densidad de $S$ en términos de $N$ y $Y$.}
+
 Sea $N \sim \text{Binomial Negativa} (r,p) \quad \text{y}\quad  Y \sim Bernoulli(\theta)$, es decir;
 
 \begin{align*}
 S &= \sum_{i = 1}^{N}Y_{i}; S|N = n \sim Bin(n,\theta)\\
 \implies \mathbb{P}(S = k) &= \sum_{n = k}^{\infty} \mathbb{P}(S = K | N = n)\mathbb{P}(N = n)\\
-&= \sum_{n=k}^{\infty} \binom{n}{k} \theta^{k} (1 -  \theta)^{n-k} \binom{n + r - 1}{n}(1 - P)^{r}P^{n}\\
-&= (1 - P)^{r} \sum_{n = k}^{\infty} \left(\frac{\textcolor{red}{n!}}{k! (n - k)!}\right)\left(\frac{(n + r - 1)!}{\textcolor{red}{n!}(r-1)!}\right) P^{n}\textcolor{red}{\theta^{k}} \frac{(1 - \theta)^{n}}{(1 - \theta)^{k}}\\
-&= \frac{(1 - P)^{r}}{k! (r - 1)!} \left(\frac{\theta}{1 - \theta}\right)^{k} \sum_{n = k}^{\infty} \frac{(n + r - 1)!}{(n - k)!}(P(1 - \theta))^{n}\\
+\text{Sea} \quad Q = (1 - P) &= \sum_{n=k}^{\infty} \binom{n}{k} \theta^{k} (1 -  \theta)^{n-k} \binom{n + r - 1}{n}(1 - Q)^{r}Q^{n}\\
+&= (1 - Q)^{r} \sum_{n = k}^{\infty} \left(\frac{\textcolor{red}{n!}}{k! (n - k)!}\right)\left(\frac{(n + r - 1)!}{\textcolor{red}{n!}(r-1)!}\right) Q^{n}\textcolor{red}{\theta^{k}} \frac{(1 - \theta)^{n}}{(1 - \theta)^{k}}\\
+&= \frac{(1 - Q)^{r}}{k! (r - 1)!} \left(\frac{\theta}{1 - \theta}\right)^{k} \sum_{n = k}^{\infty} \frac{(n + r - 1)!}{(n - k)!}(Q(1 - \theta))^{n}\\
 \text{Haciendo cambio de variable,} u = n-k\\
-&= \frac{(1 - P)^{r}}{(k!)(r - 1)!}\left(\frac{\theta}{1 - \theta}\right)^{k} \sum_{u = 0}^{\infty} \frac{(u + k + r - 1)!}{u!}(P(1 - \theta))^{u+k}\\
-&= \frac{(1 - p)^{r}}{k!(r - 1)!}(P \theta)^{k} \sum_{u = 0}^{\infty} \underbrace{\frac{(u + k + r - 1)!}{u!}(P(1 - \theta))^{u}}_{1}\\
-x = P(1 - \theta); x \in (0,1)\\
-&\implies \sum_{u = 0}^{\infty} x^{u} = \frac{1}{1 - x}  \quad \underrightarrow{dx} \quad \sum_{u = 0}^{\infty} ux^{u - 1}  = \frac{1}{(1 - x)^{2}}\\
-&= \sum_{u = 0}^{\infty} u x^{u - 1} = \frac{1}{(1 - x)^{2}} \quad \underrightarrow{dx} \quad \sum_{u = 1}^{\infty} u(u - 1) x^{u - 2} = \sum_{u = 2}^{\infty} u(u - 1) x^{u - 2}
+&= \frac{(1 - Q)^{r}}{(k!)(r - 1)!}\left(\frac{\theta}{1 - \theta}\right)^{k} \sum_{u = 0}^{\infty} \frac{(u + k + r - 1)!}{u!}(Q(1 - \theta))^{u+k}\\
+&= \frac{(1 - Q)^{r}}{k!(r - 1)!}(Q \theta)^{k} \sum_{u = 0}^{\infty} \underbrace{\frac{(u + k + r - 1)!}{u!}(Q(1 - \theta))^{u}}_{1}
 \end{align*}
 \begin{align*}
+x = Q(1 - \theta); x \in (0,1)\\
+&\implies \sum_{u = 0}^{\infty} x^{u} = \frac{1}{1 - x}  \quad \underrightarrow{dx} \quad \sum_{u = 0}^{\infty} ux^{u - 1}  = \frac{1}{(1 - x)^{2}}\\
+= \sum_{u = 0}^{\infty} u x^{u - 1} &= \frac{1}{(1 - x)^{2}} \quad \underrightarrow{dx} \quad \sum_{u = 1}^{\infty} u(u - 1) x^{u - 2} = \sum_{u = 2}^{\infty} u(u - 1) x^{u - 2}\\
 &= \frac{2}{(1 - x)^{3}}, \quad \text{Continuando inductivamente se llega a que:}\\
 &\implies \sum_{u = K + r - 1}^{\infty} \left[\frac{u!}{(u - (k + r - 1))!}\right] X^{u + 1 - k - r} = \frac{(k + r - 1)!}{(1 - x)^{k + r}}\\
 i = u - (k + r - 1)\\
 &\implies \underbrace{\sum_{i = 0}^{\infty} \frac{(i + k + r -1)!}{i!} x^{i}}_{1} = \frac{(k + r - 1)!}{(1 - X)^{k + r}}\\
-&\implies \sum_{u = 0}^{\infty} \frac{(u + k + r - 1)!}{u!} (P(1 - \theta))^{u} = \frac{(k + r - 1)!}{(1 - P(1 - \theta))^{k+ r}}\\
-\implies \mathbb{P}(S = k) &= \frac{(1 - P)^{r}}{K! (r - 1)!}(P\theta)^{k} \frac{(K + r -1)!}{(1 - P (1 - \theta))^{k + r}}\\
-&= \binom{k + r - 1}{k} \left(\frac{P\theta}{1 - P(1 - \theta)}\right) \left(\frac{1 - P}{1 - P(1 - \theta)}\right)^{r}\\
-\left(\alpha = \frac{P\theta}{1 - P(1 - \theta)}\right) &= \binom{k + r -1}{k} \alpha^{k}(1 - \alpha)^{r} \quad \forall k \in \mathbb{N}\cup\{0\}\\
+&\implies \sum_{u = 0}^{\infty} \frac{(u + k + r - 1)!}{u!} (Q(1 - \theta))^{u} = \frac{(k + r - 1)!}{(1 - Q(1 - \theta))^{k+ r}}\\
+\implies \mathbb{P}(S = k) &= \frac{(1 - Q)^{r}}{K! (r - 1)!}(Q\theta)^{k} \frac{(K + r -1)!}{(1 - Q (1 - \theta))^{k + r}}\\
+&= \binom{k + r - 1}{k} \left(\frac{Q\theta}{1 - Q(1 - \theta)}\right)^{k} \left(\frac{1 - Q}{1 - Q(1 - \theta)}\right)^{r}\\
+\left(\alpha = \frac{1 - Q}{1 - Q(1 - \theta)} = \frac{P}{1 - (1 - P)(1 - \theta)}\right) &= \binom{k + r -1}{k} (1 - \alpha)^{k} \alpha^{r} \quad \forall k \in \mathbb{N}\cup\{0\}\\
 &\therefore S \sim \text{Binomial Negativa}(r, \alpha)_\blacksquare
 \end{align*}
 
 \textbf{\textcolor{red}{NOTA:}}
-Es necesario que todas las series convergan uniformemente para meter la diferencial dentro de la serie, lo cual es cierto por el teorema 5.28 del Clapp que nos asegura toda serie de potencias diferencial converge uniformemente y en consecuencia es diferencia.
+Es necesario que todas las series convergan uniformemente para meter la diferencial dentro de la serie, lo cual es cierto por el teorema 5.28 del Clapp que nos asegura toda serie de potencias converge uniformemente y en consecuencia es diferenciable.
 
 # Ejercicio 3
 
@@ -307,13 +319,13 @@ Notemos que: $-\frac{0.4}{0.6} = -\frac{2}{3} = a$ y que $\frac{11(0.4)}{0.6} = 
 \mathbb{P}(S = 1) &= \left(a + \frac{b(1)}{1}\right)0.4[0.6]^{10} = \left(\frac{22}{3} - \frac{2}{3}\right)0.4[0.6]^{10}\\
 &\approx 0.016124314\\
 \mathbb{P}(S = 2) &= \left(a + \frac{b(1)}{2}\right)\mathbb{P}(X = 1)\mathbb{P}(S = 2 - 1)\\
-&+  \left(a + \frac{b(2)}{2}\right)\mathbb{P}(X = 2)\mathbb{P}(S = 2 - 2)\\
+&+  \left(a + \frac{b(2)}{2}\right)\mathbb{P}(X = 2)\mathbb{P}(S = 2 - 2)
+\end{align*}
+\begin{align*}
 &=(a + \frac{b}{2})0.4[0.016124314]\\
 &+ (a + b)0.35[0.6]^{10}\\
 &= (\frac{11}{3} - \frac{2}{3})0.4[0.016124314]\\
 &+ (\frac{20}{3})0.35[0.6]^{10}\\
-\end{align*}
-\begin{align*}
 &= 0.033457951\\
 \mathbb{P}(S = 3) &= \left(a + \frac{b(1)}{3}\right)\mathbb{P}(X = 1)\mathbb{P}(S = 3 - 1)\\
 &+  \left(a + \frac{b(2)}{3}\right)\mathbb{P}(X = 2)\mathbb{P}(S = 3 - 2)\\
@@ -335,12 +347,12 @@ Notemos que: $-\frac{0.4}{0.6} = -\frac{2}{3} = a$ y que $\frac{11(0.4)}{0.6} = 
 &= \left(-\frac{2}{3} + \frac{22}{15}\right)0.4[0.081540207]\\
 &+ \left(-\frac{2}{3} + \frac{44}{15}\right)0.35[0.05769817]\\
 &+ \left(-\frac{2}{3} + \frac{22}{5}\right)0.25[0.033457951]\\
-&= 0.103094169\\
+&= 0.103094169
+\end{align*}
+\begin{align*}
 \mathbb{P}(S = 6) &= \left(a + \frac{b(1)}{6}\right)0.4\mathbb{P}(S = 6 - 1)\\
 &+ \left(a + \frac{b(2)}{6}\right)0.35\mathbb{P}(S = 6 - 2)\\
 &+ \left(a + \frac{b(3)}{6}\right)0.25\mathbb{P}(S = 6 - 3)\\
-\end{align*}
-\begin{align*}
 &= \left(-\frac{2}{3} + \frac{11}{9}\right)0.4[0.103094169]\\
 &+ \left(-\frac{2}{3} + \frac{22}{9}\right)0.35[0.081540207]\\
 &+ \left(-\frac{2}{3} + \frac{11}{3}\right)0.25[0.05769817]\\
@@ -421,11 +433,11 @@ Sea $S$ un modelo colectivo compuesto con $N\sim Poi(1)$ y $Y_i\sim Exp(1) \hspa
 Veamos lo siguiente:
 
 $$ N \sim Poi(1); \quad Y_{i} \sim Exp(1); \quad \mathbb{E}\frac{[(S - \mathbb{E}[S])^{3}]}{\sqrt{Var^{3}(S)}} $$
-
-
 \begin{align*}
 \binom{n}{k} &= \frac{n!}{(n - k)k!}\\
-\binom{3}{0} &= 1\\
+\binom{3}{0} &= 1
+\end{align*}
+\begin{align*}
 \binom{3}{1} &= \frac{3!}{2!1!} = 3\\
 \binom{3}{2} &= \frac{3!}{1!2!} = 3\\
 \binom{3}{3} &= 1
@@ -448,7 +460,8 @@ M'_{S}(t) &= e^{\frac{t}{1 - t}}(1 - t)^{-2}\\
 \implies M''_{S}(t) &= e^{\frac{t}{1 - t}}(1 - t)^{-4} + e^{\frac{t}{1 - t}}[-2(-1)(1 - t)^{-3}]\\
 &= e^{\frac{t}{1 - t}}(1 - t)^{-4} + 2e^{\frac{t}{1 - t}}(1 - t)^{3}\\
 \implies M''_{S}(0) &= 1 + 2(1) = 3 = \mathbb{E}[S^{2}]\\
-\implies M'''_{S}(t) &= e^{\frac{t}{1 - t}} (1 - t)^{-t} + e^{\frac{t}{1 - t}}[-6(-1)(1 - t)^{-5}] + 2 \left[e^{\frac{t}{1 - t}}(1 - t)^{-5} + e^{\frac{t}{1 - t}}[-3(-1)(1 - t)^{-4}]\right]\\
+\implies M'''_{S}(t) &= e^{\frac{t}{1 - t}} (1 - t)^{-t} + e^{\frac{t}{1 - t}}[-6(-1)(1 - t)^{-5}]\\
+&+ 2 \left[e^{\frac{t}{1 - t}}(1 - t)^{-5} + e^{\frac{t}{1 - t}}[-3(-1)(1 - t)^{-4}]\right]\\
 &= e^{\frac{t}{1 - t}} \left[(1 - t)^{-6} + 6(1 - t)^{-5} + 2(1 - t)^{-5} + 6(1 - t)^{-4}\right]\\
 &= e^{\frac{t}{1 - t}} \left[(1 - t)^{-6} + 8(1 - t)^{-5} + 6(1 - t)^{-4}\right]\\
 \implies M'''_{S}(t) &= 1[1 + 8 + 6]\\
@@ -460,13 +473,13 @@ M'_{S}(t) &= e^{\frac{t}{1 - t}}(1 - t)^{-2}\\
 &= 8\\
 \implies \mathbb{E}[S] &=  M = 1\\
 \implies Var(S) &= \sigma^{2} = 2\\
-\implies \frac{\mathbb{E}[(S - \mathbb{E}[S])^{3}]}{\sqrt{Var^{3}(S)}} &= \frac{8}{\sqrt{8}} = \underbrace{\sqrt{8}}_{\text{Coeficiente de asimetría}} = \alpha\\
+\implies \frac{\mathbb{E}[(S - \mathbb{E}[S])^{3}]}{\sqrt{Var^{3}(S)}} &= \frac{8}{\sqrt{8}} = \underbrace{\sqrt{8}}_{\text{Coeficiente de asimetría}} = \alpha
+\end{align*}
+\begin{align*}
 \text{Luego;} \quad C &= M - \frac{2\sigma}{\alpha} = 1 - \frac{2\sqrt{2}}{\sqrt{8}} = 1 - \frac{2\sqrt{2}}{2\sqrt{2}} = 1 - 1 = 0\\
 \beta &= \frac{4}{\alpha^{2}} = \frac{4}{8} = \frac{1}{2}\\
 \lambda &= \frac{2}{\sigma \alpha} = \frac{2}{\sqrt{2}\sqrt{8}} = \frac{2}{\sqrt{2}\sqrt{2^{3}}} =  \frac{2}{\sqrt{2^{4}}} = \frac{2}{4} = \frac{1}{2}\\
-\implies F_{S}(t) &\sim \mathbb{P}[Z \leq t - m + \frac{2\sigma}{\alpha}]\\
-\end{align*}
-\begin{align*}
+\implies F_{S}(t) &\sim \mathbb{P}\left[Z \leq t - m + \frac{2\sigma}{\alpha}\right]\\
 &= F_{Z}\left(t - \underbrace{m + \frac{2\sigma}{\alpha}}_{-C \quad \text{Ya que} \quad C = M - \frac{2\sigma}{\alpha}}\right)\\
 &= F_{Z}(t - C)
 \end{align*}
@@ -641,7 +654,8 @@ Así....
 
 Además calculamos otras métricas:
 
-\textcolor{red}{VaR_{90\%}:} 1 $_\blacksquare$
+\textcolor{red}{$VaR_{90\%}$:} 1 $_\blacksquare$
+
 \textcolor{red}{Moda:} 0 $_\blacksquare$
 
 ```{r}
@@ -799,7 +813,7 @@ por cada valor $x$ en el soporte de $S$ (esto sirve para exhibir que existe prob
 
 ### Solución 
 
-Como vimos en 7 se tiene que:
+Como vimos en (7) se tiene que:
 \begin{align*}
 Sop(Y_{i}) &= \{0,1,2\} \quad \forall i \in \{1,2,3,4\}\\
 Sop(N^{*}) &= \{0,1,2,3,4\}\\

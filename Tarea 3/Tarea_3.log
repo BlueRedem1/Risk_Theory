@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  19 JAN 2022 21:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  20 JAN 2022 00:36
 entering extended mode
 **./Tarea_3.tex
 (Tarea_3.tex
@@ -540,44 +540,34 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 134
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (D:\Miktwx LaTex\tex/latex/microtype\mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-) [2] [3]
-Overfull \hbox (3.03996pt too wide) detected at line 257
-[]
- []
-
-[4]
+) [2] [3] [4]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
-87.
+97.
 (D:\Miktwx LaTex\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [5]
 
-LaTeX Warning: Command \' invalid in math mode on input line 327.
+LaTeX Warning: Command \' invalid in math mode on input line 337.
 
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
-41.
+51.
 (D:\Miktwx LaTex\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 368.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 378.
 [6] [7] [8]
-Overfull \vbox (15.17484pt too high) has occurred while \output is active []
+Overfull \vbox (2.22676pt too high) has occurred while \output is active []
 
 [9]
 
 LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 579.
+(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 589.
 
-[10] [11]
-Overfull \hbox (4.53902pt too wide) detected at line 718
-[]
- []
-
-[12]
+[10] [11] [12]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 765.
+(caption)                particular \caption on input line 776.
 See the caption package documentation for explanation.
 
 [13] [14]
@@ -586,66 +576,70 @@ t>
 File: Tarea_3_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
 <use Tarea_3_files/figure-latex/unnamed-chunk-6-1.pdf>
 Package pdftex.def Info: Tarea_3_files/figure-latex/unnamed-chunk-6-1.pdf  used
- on input line 898.
+ on input line 909.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[15 <./Tarea_3_files/figure-latex/unnamed-chunk-6-1.pdf>]
-Overfull \hbox (464.74226pt too wide) in paragraph at lines 997--997
+[15] [16 <./Tarea_3_files/figure-latex/unnamed-chunk-6-1.pdf>]
+Overfull \hbox (464.74226pt too wide) in paragraph at lines 1009--1009
 []\T1/lmtt/m/n/10 ## [1] "\nA continuación mostraremos algunos resultado más co
 n base en la muestra de \n1,000,000 de S generadas, los cuales no serán de util
 idad para ejercicios \nposteriores:\n"[] 
  []
 
-[16] [17]
+[17] [18]
 
-LaTeX Warning: Command \' invalid in math mode on input line 1109.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 1109.
+LaTeX Warning: Command \' invalid in math mode on input line 1121.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1109.
+LaTeX Warning: Command \' invalid in math mode on input line 1121.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1115.
+LaTeX Warning: Command \' invalid in math mode on input line 1121.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1115.
+LaTeX Warning: Command \' invalid in math mode on input line 1127.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1115.
+LaTeX Warning: Command \' invalid in math mode on input line 1127.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1115.
+LaTeX Warning: Command \' invalid in math mode on input line 1127.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1115.
+LaTeX Warning: Command \' invalid in math mode on input line 1127.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1115.
+LaTeX Warning: Command \' invalid in math mode on input line 1127.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1115.
+LaTeX Warning: Command \' invalid in math mode on input line 1127.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1115.
+LaTeX Warning: Command \' invalid in math mode on input line 1127.
 
-[18] [19] [20] [21] [22]
-<Tarea_3_files/figure-latex/unnamed-chunk-13-1.pdf, id=227, 469.755pt x 325.215
+
+LaTeX Warning: Command \' invalid in math mode on input line 1127.
+
+[19] [20]
+Underfull \vbox (badness 2119) detected at line 1275
+ []
+
+[21] [22] [23]
+<Tarea_3_files/figure-latex/unnamed-chunk-13-1.pdf, id=235, 469.755pt x 325.215
 pt>
 File: Tarea_3_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pdf)
 
 <use Tarea_3_files/figure-latex/unnamed-chunk-13-1.pdf>
 Package pdftex.def Info: Tarea_3_files/figure-latex/unnamed-chunk-13-1.pdf  use
-d on input line 1474.
+d on input line 1486.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[23] [24 <./Tarea_3_files/figure-latex/unnamed-chunk-13-1.pdf>] (Tarea_3.aux) )
+[24 <./Tarea_3_files/figure-latex/unnamed-chunk-13-1.pdf>] [25] (Tarea_3.aux) )
  
 Here is how much of TeX's memory you used:
- 14988 strings out of 478927
- 226721 string characters out of 2866168
- 594663 words of memory out of 3000000
+ 14987 strings out of 478927
+ 226702 string characters out of 2866168
+ 593663 words of memory out of 3000000
  32376 multiletter control sequences out of 15000+600000
- 449687 words of font info for 104 fonts, out of 8000000 for 9000
+ 449593 words of font info for 103 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  74i,20n,80p,823b,476s stack positions out of 5000i,500n,10000p,200000b,80000s
 {D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-ec.enc}{D:/Miktwx LaTex/fonts/enc/dvips/
@@ -666,10 +660,10 @@ pe1/public/lm/lmtti10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols/
 msam10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols/msam7.pfb><D:/M
 iktwx LaTex/fonts/type1/public/amsfonts/symbols/msbm10.pfb><D:/Miktwx LaTex/fon
 ts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on Tarea_3.pdf (24 pages, 526166 bytes).
+Output written on Tarea_3.pdf (25 pages, 529314 bytes).
 PDF statistics:
- 504 PDF objects out of 1000 (max. 8388607)
- 134 named destinations out of 1000 (max. 500000)
+ 509 PDF objects out of 1000 (max. 8388607)
+ 135 named destinations out of 1000 (max. 500000)
  26968 words of extra memory for PDF output out of 29859 (max. 10000000)
 
 
