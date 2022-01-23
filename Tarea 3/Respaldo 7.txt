@@ -694,7 +694,7 @@ De manera teórica (exacta) utilizando las propiedades del modelo colectivo.
 
 ### Solución 
 
-Primero, identifiquemos $N^{*}$:
+Primero, identifiquemos N^{*}:
 Por lo mencionado en (6), se tiene que:
 $$\mathbb{P}(N^{*} = 0) = 0.7$$
 Y considerando $N :=$ Frecuencia de clientes normales, y por la información proporcionada $\rightarrow N \sim Bin(4, \frac{20}{100}= \frac{1}{5})$
@@ -734,8 +734,8 @@ Observamos que la media de $N^{*}$ está dada por:
 Su segundo momento:
 
 \begin{align*}
-\mathbb{E}(N^{*^{2}}) &= \sum_{K = 0}^{4}K^{2} P_{K}^{*} = \sum_{K = 1}^{4}\frac{K^{2}(1 - P_{0}^{*})}{1 - P_{0}} P_{K} = \frac{125}{246}\sum_{K = 1}^{4}K^{2} P_{K}^{}\\
-&= \frac{125}{246}\mathbb{E}(N^{2}) = \frac{125}{246}\left[4\left(\frac{1}{5}\right)\left(\frac{4}{5}\right) + 4^{2}\left(\frac{1}{5}\right)^{2}\right]\\
+\mathbb{E}(N^{*}) &= \sum_{K = 0}^{4}K^{2} P_{K}^{*} = \sum_{K = 1}^{4}\frac{K^{2}(1 - P_{0}^{*})}{1 - P_{0}} P_{K} = \frac{125}{246}\sum_{K = 1}^{4}K^{2} P_{K}^{*}\\
+&= \frac{125}{246}\mathbb{E}(N^{*}) = \frac{125}{246}\left[4\left(\frac{1}{5}\right)\left(\frac{4}{5}\right) + 4^{2}\left(\frac{1}{5}\right)^{2}\right]\\
 &= \frac{125}{123}\left(\frac{4}{5}\right)^{2} = \frac{80}{123}
 \end{align*}
 
@@ -777,12 +777,12 @@ Entonces:
 
 ## Inciso a) 
 
-$$\mathbb{E}(S) = \mathbb{E}(N^{*})\mathbb{E}(Y_{i}) = \frac{50}{123}\left(\frac{1}{2}\right) = \frac{25}{123}_\blacksquare$$
+$$\mathbb{E}(S) = \mathbb{E}(N^{*})\mathbb{E}(Y_{i}) = \frac{50}{123}(\frac{1}{2}) = \frac{25}{123}_\blacksquare$$
 
 ## Inciso b) 
 
 \begin{align*}
-\mathbb{E}(S^{2}) &= \mathbb{E}(N^{*})\mathbb{E}(Y^{2}) +
+\mathbb{E}(S^{*}) &= \mathbb{E}(N^{*})\mathbb{E}(Y^{2}) 
 \mathbb{E}(N^{*}(N^{*} - 1))\mathbb{E}^{2}(Y)\\
 &= \frac{50}{123}\left(\frac{5}{6}\right) + \left[\mathbb{E}(N^{*^{2}}) - \mathbb{E}(N^{*})\right] \frac{1}{4}\\
 &= \frac{125}{369} + \frac{1}{4} \left[\frac{80}{123} - \frac{50}{123}\right] = \frac{125}{369} + \frac{1}{4} \left[\frac{30}{123}\right]\\
