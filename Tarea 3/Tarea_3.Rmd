@@ -1022,3 +1022,7 @@ Utiliza los datos simulados y las probabilidades puntuales teóricas de los ejer
 **Para cada prueba muestra los observados, los esperados, interpreta claramente el p-value y concluye.**
 
 ### Solución 
+
+
+
+
