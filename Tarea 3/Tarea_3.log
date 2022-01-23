@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  23 JAN 2022 00:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  23 JAN 2022 02:06
 entering extended mode
 **./Tarea_3.tex
 (Tarea_3.tex
@@ -632,39 +632,39 @@ File: Tarea_3_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pdf)
 Package pdftex.def Info: Tarea_3_files/figure-latex/unnamed-chunk-13-1.pdf  use
 d on input line 1489.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[24 <./Tarea_3_files/figure-latex/unnamed-chunk-13-1.pdf>] [25] (Tarea_3.aux) )
- 
+[24 <./Tarea_3_files/figure-latex/unnamed-chunk-13-1.pdf>] [25] [26] (Tarea_3.a
+ux) ) 
 Here is how much of TeX's memory you used:
- 14987 strings out of 478927
- 226702 string characters out of 2866168
- 594663 words of memory out of 3000000
- 32376 multiletter control sequences out of 15000+600000
- 449593 words of font info for 103 fonts, out of 8000000 for 9000
+ 15000 strings out of 478927
+ 226829 string characters out of 2866168
+ 594731 words of memory out of 3000000
+ 32380 multiletter control sequences out of 15000+600000
+ 449759 words of font info for 105 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  74i,20n,80p,823b,476s stack positions out of 5000i,500n,10000p,200000b,80000s
-{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-ec.enc}{D:/Miktwx LaTex/fonts/enc/dvips/
-lm/lm-mathsy.enc}{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-rm.enc}{D:/Miktwx LaTex
-/fonts/enc/dvips/lm/lm-ts1.enc}{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-mathex.en
-c}{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-mathit.enc}<D:/Miktwx LaTex/fonts/type
-1/public/lm/lmbx10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmbx12.pfb><D:/Mi
-ktwx LaTex/fonts/type1/public/lm/lmex10.pfb><D:/Miktwx LaTex/fonts/type1/public
-/lm/lmmi10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmmi5.pfb><D:/Miktwx LaTe
-x/fonts/type1/public/lm/lmmi7.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmr10.
-pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmr5.pfb><D:/Miktwx LaTex/fonts/type
-1/public/lm/lmr7.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmri10.pfb><D:/Mikt
-wx LaTex/fonts/type1/public/lm/lmsy10.pfb><D:/Miktwx LaTex/fonts/type1/public/l
-m/lmsy5.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmsy7.pfb><D:/Miktwx LaTex/f
-onts/type1/public/lm/lmtk10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmtko10.
-pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmtt10.pfb><D:/Miktwx LaTex/fonts/ty
-pe1/public/lm/lmtti10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols/
-msam10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols/msam7.pfb><D:/M
-iktwx LaTex/fonts/type1/public/amsfonts/symbols/msbm10.pfb><D:/Miktwx LaTex/fon
-ts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on Tarea_3.pdf (25 pages, 529465 bytes).
+{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-ec.enc}{D:/Miktwx LaTex/fonts/enc/d
+vips/lm/lm-mathsy.enc}{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-rm.enc}{D:/Miktwx 
+LaTex/fonts/enc/dvips/lm/lm-ts1.enc}{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-math
+ex.enc}{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-mathit.enc}<D:/Miktwx LaTex/fonts
+/type1/public/lm/lmbx10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmbx12.pfb><
+D:/Miktwx LaTex/fonts/type1/public/lm/lmex10.pfb><D:/Miktwx LaTex/fonts/type1/p
+ublic/lm/lmmi10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmmi5.pfb><D:/Miktwx
+ LaTex/fonts/type1/public/lm/lmmi7.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/l
+mr10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmr5.pfb><D:/Miktwx LaTex/fonts
+/type1/public/lm/lmr7.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmri10.pfb><D:
+/Miktwx LaTex/fonts/type1/public/lm/lmsy10.pfb><D:/Miktwx LaTex/fonts/type1/pub
+lic/lm/lmsy5.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmsy7.pfb><D:/Miktwx La
+Tex/fonts/type1/public/lm/lmtk10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmt
+ko10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmtt10.pfb><D:/Miktwx LaTex/fon
+ts/type1/public/lm/lmtti10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/sym
+bols/msam10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols/msam7.pfb>
+<D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols/msbm10.pfb><D:/Miktwx LaTe
+x/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on Tarea_3.pdf (26 pages, 532938 bytes).
 PDF statistics:
- 509 PDF objects out of 1000 (max. 8388607)
- 135 named destinations out of 1000 (max. 500000)
- 26968 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 524 PDF objects out of 1000 (max. 8388607)
+ 140 named destinations out of 1000 (max. 500000)
+ 26984 words of extra memory for PDF output out of 29859 (max. 10000000)
 
 
 ! pdflatex: major issue: So far, you have not checked for MiKTeX updates.

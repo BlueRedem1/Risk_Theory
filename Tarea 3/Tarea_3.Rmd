@@ -1016,42 +1016,62 @@ Utiliza los datos simulados y las probabilidades puntuales teóricas de los ejer
 
 \begin{enumerate}[label=(\alph*)]
 \item $H_0:$  La proporción de observaciones de las categorías "igual a la moda" y "diferente de la moda" concuerda con las probabilidades teóricas.
-```{r}
-moda_prueba<-length(samp[samp==0])
-resto_prueba_1<-length(samp[samp!=0])
-poblacional_1<-c(moda_prueba,resto_prueba_1)
-poblacional_1 #Observados
-
-moda_proba<-fS[1]
-resto_proba_1<-sum(fS[-1])
-teorica_1<-c(moda_proba,resto_proba_1)
-teorica_1 #Teóricos
-
-chisq.test(x=poblacional_1,p=teorica_1)
-```
-Pasa la prueba, es decir, a un nivel alpha=0.05 podemos aceptar la hipótesis nula de que siguen la misma distribución (Una bernoulli(p=0.8774566)); es decir, que la moda muestral y teórica tienen la misma probabilidad
-
 \item $H_0:$  La proporción de observaciones de las categorías "menor o igual al $VaR_{0.90}^{(S)}$" y "mayor estricto al $VaR_{0.90}^{(S)}$" concuerda las probabilidades teóricas.
-```{r}
-var_prueba<-length(samp[samp<=1]) #porque el VaR al 90% es 1
-resto_prueba_2<-length(samp[samp>1])
-poblacional_2<-c(var_prueba,resto_prueba_2)
-poblacional_2 #Los observados
-
-var_proba<-sum(fS[1:2])
-resto_proba_2<-sum(fS[-1:-2])
-teorica_2<-c(var_proba,resto_proba_2)
-teorica_2 #Teóricos
-
-chisq.test(x=poblacional_2,p=teorica_2)
-```
-Pasa la prueba, es decir, a un nivel alpha=0.05 podemos aceptar la hipótesis nula de que siguen la misma distribución (Una bernoulli(p=0.9325404)); es decir, que el VaR al 90\% muestral y teórica tienen la misma probabilidad
-
 \end{enumerate}
-
 **Para cada prueba muestra los observados, los esperados, interpreta claramente el p-value y concluye.**
 
-### Solución 
+### Solución
+
+## Inciso a) 
+```{r}
+modaprueba<-length(samp[samp==0])
+restoprueba1<-length(samp[samp!=0])
+poblacional1<-c(modaprueba,restoprueba1)
+poblacional1 
+"
+Observados
+"
+
+modaproba<-fS[1]
+restoproba1<-sum(fS[-1])
+teorica1<-c(modaproba,restoproba1)
+teorica1 
+"
+Teóricos
+"
+
+chisq.test(x=poblacional1,p=teorica1)
+```
+Pasa la prueba, es decir, a un nivel alpha=0.05 podemos aceptar la hipótesis nula de que siguen la misma distribución (Una bernoulli(p=0.8774566)); es decir, que la moda muestral y teórica tienen la misma probabilidad. $_\blacksquare$
+
+## Inciso b)
+
+```{r}
+varprueba<-length(samp[samp<=1]) 
+"
+porque el VaR al 90% es 1
+"
+restoprueba2<-length(samp[samp>1])
+poblacional2<-c(varprueba,restoprueba2)
+poblacional2 
+"
+Los observados
+"
+
+varproba<-sum(fS[1:2])
+restoproba2<-sum(fS[-1:-2])
+teorica2<-c(varproba,restoproba2)
+teorica2 
+"
+Teóricos
+"
+
+chisq.test(x=poblacional2,p=teorica2)
+```
+Pasa la prueba, es decir, a un nivel alpha=0.05 podemos aceptar la hipótesis nula de que siguen la misma distribución (Una bernoulli(p=0.9325404)); es decir, que el VaR al 90\% muestral y teórica tienen la misma probabilidad $_\blacksquare$
+
+
+ 
 
 
 
