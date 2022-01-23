@@ -460,34 +460,35 @@ M'_{S}(t) &= e^{\frac{t}{1 - t}}(1 - t)^{-2}\\
 \implies M''_{S}(t) &= e^{\frac{t}{1 - t}}(1 - t)^{-4} + e^{\frac{t}{1 - t}}[-2(-1)(1 - t)^{-3}]\\
 &= e^{\frac{t}{1 - t}}(1 - t)^{-4} + 2e^{\frac{t}{1 - t}}(1 - t)^{3}\\
 \implies M''_{S}(0) &= 1 + 2(1) = 3 = \mathbb{E}[S^{2}]\\
-\implies M'''_{S}(t) &= e^{\frac{t}{1 - t}} (1 - t)^{-t} + e^{\frac{t}{1 - t}}[-6(-1)(1 - t)^{-5}]\\
+\implies M'''_{S}(t) &= e^{\frac{t}{1 - t}} (1 - t)^{-6} + e^{\frac{t}{1 - t}}[-4(-1)(1 - t)^{-5}]\\
 &+ 2 \left[e^{\frac{t}{1 - t}}(1 - t)^{-5} + e^{\frac{t}{1 - t}}[-3(-1)(1 - t)^{-4}]\right]\\
-&= e^{\frac{t}{1 - t}} \left[(1 - t)^{-6} + 6(1 - t)^{-5} + 2(1 - t)^{-5} + 6(1 - t)^{-4}\right]\\
-&= e^{\frac{t}{1 - t}} \left[(1 - t)^{-6} + 8(1 - t)^{-5} + 6(1 - t)^{-4}\right]\\
-\implies M'''_{S}(t) &= 1[1 + 8 + 6]\\
-&= 15 = \mathbb{E}[S^{3}]\\
-\therefore \mathbb{E}[S]= 1 &; \mathbb{E}[S^{2}] = 3; \mathbb{E}[S^{3}] = 15\\
+&= e^{\frac{t}{1 - t}} \left[(1 - t)^{-6} + 4(1 - t)^{-5} + 2(1 - t)^{-5} + 6(1 - t)^{-4}\right]\\
+&= e^{\frac{t}{1 - t}} \left[(1 - t)^{-6} + 6(1 - t)^{-5} + 6(1 - t)^{-4}\right]\\
+\implies M'''_{S}(t) &= 1[1 + 6 + 6]\\
+&= 13 = \mathbb{E}[S^{3}]\\
+\therefore \mathbb{E}[S]= 1 &; \mathbb{E}[S^{2}] = 3; \mathbb{E}[S^{3}] = 13\\
 \implies Var(S) = 3 - 1^{2} &= 3 - 1 = 2 \implies \sqrt{Var^{3}} = \sqrt{2^{3}} = \sqrt{8}\\
-\implies \mathbb{E}[S - \mathbb{E}[S]]^{3} &= 15 - 3(1)(3) + 2(1)^{3}\\
-&= 15 - 9 +2\\
-&= 8\\
+\implies \mathbb{E}[S - \mathbb{E}[S]]^{3} &= 13 - 3(1)(3) + 2(1)^{3}\\
+&= 13 - 9 +2\\
+&= 6\\
 \implies \mathbb{E}[S] &=  M = 1\\
 \implies Var(S) &= \sigma^{2} = 2\\
-\implies \frac{\mathbb{E}[(S - \mathbb{E}[S])^{3}]}{\sqrt{Var^{3}(S)}} &= \frac{8}{\sqrt{8}} = \underbrace{\sqrt{8}}_{\text{Coeficiente de asimetría}} = \alpha
+\implies \frac{\mathbb{E}[(S - \mathbb{E}[S])^{3}]}{\sqrt{Var^{3}(S)}} &= \frac{6}{\sqrt{8}} = \underbrace{\frac{6}{\sqrt{8}}_{\text{Coef. de asimetría}}} = \alpha
 \end{align*}
 \begin{align*}
-\text{Luego;} \quad C &= M - \frac{2\sigma}{\alpha} = 1 - \frac{2\sqrt{2}}{\sqrt{8}} = 1 - \frac{2\sqrt{2}}{2\sqrt{2}} = 1 - 1 = 0\\
-\beta &= \frac{4}{\alpha^{2}} = \frac{4}{8} = \frac{1}{2}\\
-\lambda &= \frac{2}{\sigma \alpha} = \frac{2}{\sqrt{2}\sqrt{8}} = \frac{2}{\sqrt{2}\sqrt{2^{3}}} =  \frac{2}{\sqrt{2^{4}}} = \frac{2}{4} = \frac{1}{2}\\
+\text{Luego;} \quad C &= M - \frac{2\sigma}{\alpha} = 1 - \frac{2\sqrt{2}}{\frac{6}{\sqrt{8}}} = 1 - \frac{2\sqrt{2}}{\frac{6}{\sqrt{8}}}\\
+&= 1 - \frac{2\sqrt{16}}{6} = 1 - \frac{2(4)}{6} = 1 - \frac{8}{6} \approx -\frac{1}{3}\\
+\beta &= \frac{4}{\alpha^{2}} = \frac{4}{\frac{6^{2}}{18}} = \frac{4(8)}{36} = \frac{32}{36} \approx \frac{8}{9}\\
+\lambda &= \frac{2}{\sigma \alpha} = \frac{2}{\sqrt{2} \frac{\sqrt{6}}{\sqrt{8}}} = \frac{2 \sqrt{8}}{6\sqrt{2}} \approx \frac{2}{3}\\
 \implies F_{S}(t) &\sim \mathbb{P}\left[Z \leq t - m + \frac{2\sigma}{\alpha}\right]\\
 &= F_{Z}\left(t - \underbrace{m + \frac{2\sigma}{\alpha}}_{-C \quad \text{Ya que} \quad C = M - \frac{2\sigma}{\alpha}}\right)\\
 &= F_{Z}(t - C)
 \end{align*}
 
-Donde, $Z \sim Gamma(\beta = \frac{1}{2}, \lambda = \frac{1}{2})$ y como $C = 0 \implies F_{Z}(t - C) = F_{Z}(t) = \mathbb{P} [Z \leq t]$
+Donde, $Z \sim Gamma(\beta = \frac{8}{9}, \lambda = \frac{2\sqrt{8}}{6\sqrt{2}})$ y como $C = -\frac{1}{3} \implies F_{Z}(t - C) = F_{Z}(t + \frac{1}{3})$
 
 ```{r}
-pgamma(3,1/2,1/2) # con gamma trasladada
+pgamma(3,8/9,2/3) # con gamma trasladada
 aux<-rcompound(n = n, #Genera n
                 model.freq = rpois(lambda = 1), #N~Poi(lambda1)
                 model.sev = rexp(1)) #Y~NegBinom(r=3,p=0.9)
