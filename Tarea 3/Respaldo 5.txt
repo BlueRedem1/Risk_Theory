@@ -1,0 +1,1028 @@
+---
+output: pdf_document
+header-includes: 
+- \usepackage{enumitem}  
+- \usepackage{caption}
+- \usepackage{amsmath}
+- \captionsetup{labelformat=empty}
+- \usepackage[utf8]{inputenc}
+- \usepackage{geometry}
+- \usepackage{amsmath}
+- \usepackage{amssymb}
+- \usepackage{tabularx}
+---
+
+```{r setup,echo=F}
+knitr::opts_chunk$set(echo=T, message=FALSE, warning=FALSE, 
+                      out.width='100%', fig.align='center', eval=T)
+```
+
+```{r pressure2, echo=FALSE, out.width = '240%'}
+knitr::include_graphics("CARATULA.PNG")
+```
+\newpage
+
+Realiza los siguientes ejercicios cuidando el formato y las reglas establecidas en la presentación del curso. Sube las soluciones a *Classroom* dentro del apartado correspondiente a esta tarea en archivos **NO COMRPIMIDOS**. 
+
+Realiza los siguientes ejercicios entregando el desarrollo algebraico por escrito (a mano) y las conclusiones del mismo en un archivo de **R Markdown con su respectivo compilado PDF** impreso y por correo electrónico (todos los ejercicios valen lo mismo). 
+
+# Ejercicio 1
+
+Sea S un modelo colectivo (compuesto) con frecuencia $N\sim Bin(n,p)$ y severidad $Y\sim Ber(\theta)$. Calcula:
+
+\begin{enumerate}[label=(\alph*)]
+\item  $\mathbb{E}[S]$
+\item  $Var(S)$
+\item  $M_S(t)$
+\item Di qué distribución tiene $S$ especificando sus parámetros.
+\end{enumerate}
+
+### Solución 
+## Inciso a)
+
+Como  \begin{align*}
+\mathbb{E}[S] &= \mathbb{E}[N] \mathbb{E}[Y]\\
+              &= np(\theta)\\
+              &= np\theta\\
+\therefore \mathbb{E}[S] &= np\theta_\blacksquare
+\end{align*}
+
+## Inciso b) 
+
+Como  \begin{align*}
+Var(S) &= Var(N) \mathbb{E}^{2}(Y) + Var(Y) \mathbb{E}(N)\\
+       &= [np(1-p)]\theta^{2} + [\theta(1 - \theta)] np\\
+\therefore Var(S) &= [np(1-p)]\theta^{2} + [\theta(1 - \theta)] np_\blacksquare
+\end{align*}
+
+## Inciso c)
+
+Como  \begin{align*}
+M_{S}(t) &= M_{N} (ln(M_{Y}(t)))\\
+\text{Y como} \quad M_{N}(t) &= (1-p + pe^{t})^{n}\\
+              M_{Y}(t) &= (1 - \theta + \theta e^{t})\\
+              &\implies ln(M_{Y}(t)) = ln(1 - \theta + \theta e^{t})\\
+              &\implies M_{S}(t) = (1 - p + p e^{ln(1 - \theta + \theta e^{t})})^{n}\\
+              &= (1 - p + p (1 - \theta + \theta e^{t}))^{n}\\
+              &= (1 \textcolor{red}{- p + p} - \theta p + \theta p e^{t})^{n}\\
+              &= (1 - \theta p + \theta p e^{t})^{n}\\
+\therefore M_{S}(t) &= (1 - \theta p + \theta p e^{t})^{n}_\blacksquare
+\end{align*}
+
+## Inciso d)
+Notemos que $S \sim \text{Binomial compuesta} (n,p,b = Bernoulli(\theta))$
+
+Además, de manera más especifica; $S \sim \text{Binomial}(n, \theta p) \quad \text{por su fmg.}_\blacksquare$
+
+# Ejercicio 2
+
+Sea S un modelo colectivo (compuesto) con frecuencia $N\sim BinNeg(r,p)$ y severidad $Y\sim Ber(\theta)$. Calcula:
+
+\begin{enumerate}[label=(\alph*)]
+\item  $\mathbb{E}[S]$
+\item  $Var(S)$
+\item  $M_S(t)$
+\item Di qué distribución tiene $S$ especificando sus parámetros.
+\end{enumerate}
+
+### Solución
+## Inciso a)
+
+Como  \begin{align*}
+\mathbb{E}[S] &= \mathbb{E}[N] \mathbb{E}[Y]\\
+              &= \frac{r (1 - p)}{p}(\theta)\\
+              &= r\theta \left(\frac{1}{p} - 1\right)\\
+\therefore \mathbb{E}[S] &= r\theta \left(\frac{1}{p} - 1\right)_\blacksquare
+\end{align*}
+
+## Inciso b)
+
+Como  \begin{align*}
+Var(S) &= Var(N) \mathbb{E}^{2}(Y) + Var(Y) \mathbb{E}(N)\\
+       &= \frac{r(1 - p)}{p^{2}}\theta^{2} + [\theta(1 - \theta)] \frac{r (1 - p)}{p}\\
+\therefore Var(S) &= \frac{r(1 - p)}{p^{2}}\theta^{2} + [\theta(1 - \theta)] \frac{r (1 - p)}{p}_\blacksquare
+\end{align*}
+
+## Inciso c)
+
+Como  \begin{align*}
+M_{S}(t) &= M_{N} (ln(M_{Y}(t)))\\
+\text{Y como} \quad M_{N}(t) &= \left[\frac{p}{1 - (1 - p)e^{t}}\right]^{r}\\
+              M_{Y}(t) &= (1 - \theta + \theta e^{t})\\
+              &\implies ln(M_{Y}(t)) = ln(1 - \theta + \theta e^{t})\\
+              &\implies M_{S}(t) = \left[\frac{p}{1 - (1 - p) e^{ln(1 - \theta + \theta e^{t})}}\right]^{r}
+\end{align*}
+\begin{align*}
+              &= \left[\frac{p}{1 - (1 - p) \left[1 - \theta + \theta e^{t}\right]}\right]^{r}\\
+\therefore M_{S}(t) &= \left[\frac{p}{1 - (1 - p) \left[1 - \theta + \theta e^{t}\right]}\right]^{r}_\blacksquare\\
+\text{Notemos los siguiente:}\\
+M_{S}(t) &= \left[\frac{p}{1 - (1 - p) \left[1 - \theta + \theta e^{t}\right]}\right]^{r}\\
+&= \left[\frac{p}{1 - (1 - p)(1 - \theta) - (1 - p)\theta e^{t}}\right]^{r}\\
+&= \left[\frac{\frac{p}{1 - (1 - p)(1 - \theta)}}{\frac{1 - (1 - p)(1 - \theta) - (1 - p)\theta e^{t}}{1 - (1 - p)(1 - \theta)}}\right]^{r}\\
+&= \left[\frac{\frac{p}{1 - (1 - p)(1 - \theta)}}{1 - \frac{(1 - p)\theta e^{t}}{1 - (1 - p)(1 - \theta)}}\right]^{r}\\
+&= \left[\frac{\frac{p}{1 - (1 - p)(1 - \theta)}}{1 - \left[1 - \frac{p}{1 - (1 - p)(1 - \theta)}\right]e^{t}}\right]^{r}\\
+\left[\alpha = \frac{p}{1 - (1 - p)(1 - \theta)}\right] &= \left(\frac{\alpha}{1 - (1 - \alpha)e^{t}}\right)^{r}\\
+&\therefore S \sim \text{Binomial Negativa}(r, \alpha)_\blacksquare
+\end{align*}
+
+## Inciso d)
+\textcolor{red}{Como ya vimos en c), encontramos la distribución de $S$, para confirmar veamos que sucede con la densidad de $S$ en términos de $N$ y $Y$.}
+
+Sea $N \sim \text{Binomial Negativa} (r,p) \quad \text{y}\quad  Y \sim Bernoulli(\theta)$, es decir;
+
+\begin{align*}
+S &= \sum_{i = 1}^{N}Y_{i}; S|N = n \sim Bin(n,\theta)\\
+\implies \mathbb{P}(S = k) &= \sum_{n = k}^{\infty} \mathbb{P}(S = K | N = n)\mathbb{P}(N = n)\\
+\text{Sea} \quad Q = (1 - P) &= \sum_{n=k}^{\infty} \binom{n}{k} \theta^{k} (1 -  \theta)^{n-k} \binom{n + r - 1}{n}(1 - Q)^{r}Q^{n}\\
+&= (1 - Q)^{r} \sum_{n = k}^{\infty} \left(\frac{\textcolor{red}{n!}}{k! (n - k)!}\right)\left(\frac{(n + r - 1)!}{\textcolor{red}{n!}(r-1)!}\right) Q^{n}\textcolor{red}{\theta^{k}} \frac{(1 - \theta)^{n}}{(1 - \theta)^{k}}\\
+&= \frac{(1 - Q)^{r}}{k! (r - 1)!} \left(\frac{\theta}{1 - \theta}\right)^{k} \sum_{n = k}^{\infty} \frac{(n + r - 1)!}{(n - k)!}(Q(1 - \theta))^{n}\\
+\text{Haciendo cambio de variable,} u = n-k\\
+&= \frac{(1 - Q)^{r}}{(k!)(r - 1)!}\left(\frac{\theta}{1 - \theta}\right)^{k} \sum_{u = 0}^{\infty} \frac{(u + k + r - 1)!}{u!}(Q(1 - \theta))^{u+k}\\
+&= \frac{(1 - Q)^{r}}{k!(r - 1)!}(Q \theta)^{k} \sum_{u = 0}^{\infty} \underbrace{\frac{(u + k + r - 1)!}{u!}(Q(1 - \theta))^{u}}_{1}
+\end{align*}
+\begin{align*}
+x = Q(1 - \theta); x \in (0,1)\\
+&\implies \sum_{u = 0}^{\infty} x^{u} = \frac{1}{1 - x}  \quad \underrightarrow{dx} \quad \sum_{u = 0}^{\infty} ux^{u - 1}  = \frac{1}{(1 - x)^{2}}\\
+= \sum_{u = 0}^{\infty} u x^{u - 1} &= \frac{1}{(1 - x)^{2}} \quad \underrightarrow{dx} \quad \sum_{u = 1}^{\infty} u(u - 1) x^{u - 2} = \sum_{u = 2}^{\infty} u(u - 1) x^{u - 2}\\
+&= \frac{2}{(1 - x)^{3}}, \quad \text{Continuando inductivamente se llega a que:}\\
+&\implies \sum_{u = K + r - 1}^{\infty} \left[\frac{u!}{(u - (k + r - 1))!}\right] X^{u + 1 - k - r} = \frac{(k + r - 1)!}{(1 - x)^{k + r}}\\
+i = u - (k + r - 1)\\
+&\implies \underbrace{\sum_{i = 0}^{\infty} \frac{(i + k + r -1)!}{i!} x^{i}}_{1} = \frac{(k + r - 1)!}{(1 - X)^{k + r}}\\
+&\implies \sum_{u = 0}^{\infty} \frac{(u + k + r - 1)!}{u!} (Q(1 - \theta))^{u} = \frac{(k + r - 1)!}{(1 - Q(1 - \theta))^{k+ r}}\\
+\implies \mathbb{P}(S = k) &= \frac{(1 - Q)^{r}}{K! (r - 1)!}(Q\theta)^{k} \frac{(K + r -1)!}{(1 - Q (1 - \theta))^{k + r}}\\
+&= \binom{k + r - 1}{k} \left(\frac{Q\theta}{1 - Q(1 - \theta)}\right)^{k} \left(\frac{1 - Q}{1 - Q(1 - \theta)}\right)^{r}\\
+\left(\alpha = \frac{1 - Q}{1 - Q(1 - \theta)} = \frac{P}{1 - (1 - P)(1 - \theta)}\right) &= \binom{k + r -1}{k} (1 - \alpha)^{k} \alpha^{r} \quad \forall k \in \mathbb{N}\cup\{0\}\\
+&\therefore S \sim \text{Binomial Negativa}(r, \alpha)_\blacksquare
+\end{align*}
+
+\textbf{\textcolor{red}{NOTA:}}
+Es necesario que todas las series convergan uniformemente para meter la diferencial dentro de la serie, lo cual es cierto por el teorema 5.28 del Clapp que nos asegura toda serie de potencias converge uniformemente y en consecuencia es diferenciable.
+
+# Ejercicio 3
+
+Considera los siguientes 3 riesgos de una compañía:
+
+$$S_j\sim\text{PoiComp}\left(\lambda_j=j^2,F_{Y_j}\right)$$
+
+Donde las severidades están dadas por:
+
+
+- $F_{Y_1}(y)=1-e^{-0.5y} \mathbb{I}^{(y)}_{\{y>0\}}$
+- $Y_2$ pertenece a la clase (a,b,0) con: $a=0.1$ , $b=2(0.1)$ y $p_0=(0.9)^{3}$
+- $Y_3$ es la v.a. del monto de pérdida de una compañía de seguros con un **contrato de monto máximo de beneficio** $u=50$ donde el monto de pérdida del siniestro es $X\sim Exp\left(\lambda=\frac{1}{100}\right)$ ($E[X]=100$).
+
+
+Define el riesgo $S$ de la compañía como:
+
+$$S=\sum_{j=1}^{3} S_j$$
+
+**Fija la semilla en 6**, simula $n=1,000,000$ observaciones de $S$ y calcula de manera muestral:
+
+\begin{enumerate}[label=(\alph*)]
+\item  El coeficiente de variación de $S$.
+\item  Un valor $z$ tal que $F_S(500)\approx \Phi(z)$.
+\end{enumerate}
+
+### Solución 
+\textcolor{red}{Observaciones:}
+
+\begin{align*}
+a &= 0.1 \epsilon (0,1)\\
+b &= 2(0.1) \geq 0\\
+p_{0} &= (0.9)^{3}\\
+&\therefore \text{Es Binomial Negativa con p = 0.9 y r = 3}
+\end{align*}
+
+Por otro lado, \begin{align*}
+F_{Y}(Y) &= 1 - e^{-0.5_{Y}} \mathbb{I}_{\{Y > 0\}}^{(y)}\\
+&\therefore \text{Es Exponencial} \quad \lambda = 0.5 = \frac{1}{2}
+\end{align*}
+
+Finalmente veamos que; $Y_{3} = mín(exp(\frac{1}{100})50)$
+
+Por otro lado, haciendo uso de Dart Vader;
+
+\begin{align*}
+& \int_{0}^{50} S(x)dx\\
+&= \int_{0}^{50} e^{-\lambda x} + 50e^{-\lambda(50)} = -\frac{e^{-\lambda x}}{\lambda}|_{0}^{50}\\
+&= - \left(\frac{e^{-\lambda(50)}}{\lambda} - \frac{1}{\lambda}\right) + 50 * e^{-\lambda(50)}\\
+&= \frac{1}{\lambda} + e^{-\lambda(50)}(50 - \frac{1}{\lambda})
+\end{align*}
+
+\textcolor{red}{Así, a continuación el código, que da respuesta a los incisos a y b}
+
+```{r}
+library(actuar)
+n <- 1000000
+set.seed(6)
+
+#Parámetro de la Poisson
+lambda1 <- 1^2
+lambda2 <- 2^2
+lambda3 <- 3^2
+lambda <- lambda1 + lambda2 + lambda3
+
+#Exponencial
+rate_1 <- 1/2
+S1 <- rcompound(n = n, #Genera n
+               model.freq = rpois(lambda = lambda1), #N~Poi(lambda2)
+               model.sev = rexp(rate = rate_1)) #Y~Exp(rate) 
+
+#Binomial negativa
+r=3
+p=0.9
+S2 <- rcompound(n = n, #Genera n
+                model.freq = rpois(lambda = lambda2), #N~Poi(lambda1)
+                model.sev = rnbinom(size = r,p=p)) #Y~NegBinom(r=3,p=0.9) 
+
+#Exponencial topada
+rate_2<- 1/100
+u=50
+aux<-function(n,rate,u){ #Exponencial topada a 50
+  return(pmin(rexp(n=n,rate=rate),u))
+}
+S3 <- rcompound(n = n, #Genera n
+                model.freq = rpois(lambda = lambda3), #N~Poi(lambda3)
+                model.sev = aux(rate=rate_2,u)) #Y:=min(Exp(1/100),50)
+S <- S1 + S2 + S3
+
+#Teórica
+mu_nbinom=r*(1/p-1)
+mu_exp=1/rate_1
+mu_exp_topada=1/rate_2-exp(-rate_2*u)/rate_2;mu_exp_topada
+mean(aux(5000,rate=rate_2,u))
+
+mu<-lambda*(lambda1*mu_nbinom +  #Esperanza de la binomial negativa
+        lambda2*mu_exp + #Esperanza de la exponencial
+        lambda3*mu_exp_topada #Esperanza de la exponencial topada
+        )/lambda ; mu
+#Muestral
+mu_muestral<-mean(S)
+
+#Coinciden!
+
+#Teorica 
+
+#2do momento de la binomial negativa
+mu_2_nbinom=(r*(1-p)/p^2+(r*(1-p)/p)^2)
+#2do momento de la Exponencial
+mu_2_exp=(2/rate_1^2)
+#2do momento de la Exponencial topada
+mu_2_exp_topada=((exp(-rate_2*u)*(-rate_2*u*(rate_2*u+2)-2)+2)/rate_2^2+(50^2)*exp(-rate_2*50))
+var<-lambda*(
+        lambda1*mu_2_nbinom + 
+        lambda2*mu_2_exp +
+        lambda3*mu_2_exp_topada
+        )/lambda;var
+var_muestral<-var(S)
+```
+El coeficiente de variación es:
+```{r}
+Coeficiente_variacion<-sd(S)/abs(mean(S))
+Coeficiente_variacion
+```
+$\blacksquare$
+
+Un valor de z tal que $F_s(500)\approx \Phi (z)$:
+
+```{r}
+z<-(500-mean(S))/sd(S)
+z
+pnorm(z)
+quantile(S,pnorm(z))
+```
+$\blacksquare$
+
+# Ejercicio 4
+
+El monto agregado de $S$ de un riesgo tiene distribución binomial compuesta $N\sim Bin(n=10,p=0.4)$ donde los montos de reclamación tienen una función de masa de probabilidad:
+
+$$ 
+f_X(x)=\mathbb{P}[X=x]
+\begin{cases}
+0.40 \quad, \hspace{0.8cm} \text{si} \hspace{0.4cm} x = 1\\
+0.35  \quad, \hspace{0.8cm} \text{si} \hspace{0.4cm} x=2\\
+0.25  \quad, \hspace{0.8cm} \text{si} \hspace{0.4cm} x=3
+\end{cases}
+$$
+
+\begin{enumerate}[label=(\alph*)]
+\item Calcula $\mathbb{P}[S\leq 5]$
+\item Calcula $\mathbb{P}[S = 6]$
+\end{enumerate}
+
+### Solución 
+## Inciso a)
+Notemos que: $-\frac{0.4}{0.6} = -\frac{2}{3} = a$ y que $\frac{11(0.4)}{0.6} = \frac{22}{3} = b$
+\begin{align*}
+\mathbb{P}(S = 0) &= \mathbb{P}(N = 0) = 0.6^{10}\\
+\mathbb{P}(S = 1) &= \left(a + \frac{b(1)}{1}\right)0.4[0.6]^{10} = \left(\frac{22}{3} - \frac{2}{3}\right)0.4[0.6]^{10}\\
+&\approx 0.016124314\\
+\mathbb{P}(S = 2) &= \left(a + \frac{b(1)}{2}\right)\mathbb{P}(X = 1)\mathbb{P}(S = 2 - 1)\\
+&+  \left(a + \frac{b(2)}{2}\right)\mathbb{P}(X = 2)\mathbb{P}(S = 2 - 2)
+\end{align*}
+\begin{align*}
+&=(a + \frac{b}{2})0.4[0.016124314]\\
+&+ (a + b)0.35[0.6]^{10}\\
+&= (\frac{11}{3} - \frac{2}{3})0.4[0.016124314]\\
+&+ (\frac{20}{3})0.35[0.6]^{10}\\
+&= 0.033457951\\
+\mathbb{P}(S = 3) &= \left(a + \frac{b(1)}{3}\right)\mathbb{P}(X = 1)\mathbb{P}(S = 3 - 1)\\
+&+  \left(a + \frac{b(2)}{3}\right)\mathbb{P}(X = 2)\mathbb{P}(S = 3 - 2)\\
+&+ \left(a + \frac{b(3)}{3}\right)\mathbb{P}(X = 3)\mathbb{P}(S = 3 - 3)\\
+&= \left(-\frac{2}{3} + \frac{22}{9}\right)0.4[0.033457951]\\
+&+ \left(-\frac{2}{3} + \frac{44}{9}\right)0.35[0.016124314]\\
+&+ \left(-\frac{2}{3} + \frac{22}{3}\right)0.25[0.6^{10}]\\
+&= 0.05769817\\
+\mathbb{P}(S = 4) &= \left(a + \frac{b(1)}{4}\right)\mathbb{P}(X = 1)\mathbb{P}(S = 4 - 1)\\
+&+  \left(a + \frac{b(2)}{4}\right)\mathbb{P}(X = 2)\mathbb{P}(S = 4 - 2)\\
+&+ \left(a + \frac{b(3)}{4}\right)\mathbb{P}(X = 3)\mathbb{P}(S = 4 - 3)\\
+&= \left(-\frac{2}{3} + \frac{22}{12}\right)0.4[0.05769817]\\
+&+ \left(-\frac{2}{3} + \frac{11}{3}\right)0.35[0.033457951]\\
+&+ \left(-\frac{2}{3} + \frac{11}{2}\right)0.25[0.016124314]\\
+&= 0.081540207\\
+\mathbb{P}(S = 5) &= \left(a + \frac{b(1)}{5}\right)0.4\mathbb{P}(S = 5 - 1)\\
+&+  \left(a + \frac{b(2)}{5}\right)0.35\mathbb{P}(S = 5 - 2)\\
+&+ \left(a + \frac{b(3)}{5}\right)0.25\mathbb{P}(S = 5 - 3)\\
+&= \left(-\frac{2}{3} + \frac{22}{15}\right)0.4[0.081540207]\\
+&+ \left(-\frac{2}{3} + \frac{44}{15}\right)0.35[0.05769817]\\
+&+ \left(-\frac{2}{3} + \frac{22}{5}\right)0.25[0.033457951]\\
+&= 0.103094169
+\end{align*}
+\begin{align*}
+\mathbb{P}(S = 6) &= \left(a + \frac{b(1)}{6}\right)0.4\mathbb{P}(S = 6 - 1)\\
+&+ \left(a + \frac{b(2)}{6}\right)0.35\mathbb{P}(S = 6 - 2)\\
+&+ \left(a + \frac{b(3)}{6}\right)0.25\mathbb{P}(S = 6 - 3)\\
+&= \left(-\frac{2}{3} + \frac{11}{9}\right)0.4[0.103094169]\\
+&+ \left(-\frac{2}{3} + \frac{22}{9}\right)0.35[0.081540207]\\
+&+ \left(-\frac{2}{3} + \frac{11}{3}\right)0.25[0.05769817]\\
+&= 0.116919572
+\end{align*}
+
+De esta manera se obtiene que:
+\begin{align*}
+&\textcolor{red}{\mathbb{P}(S = 6) = 0.116919572}\\
+&\textcolor{red}{y}\\
+&\textcolor{red}{\mathbb{P}(S \leq 5)} = \mathbb{P}(S = 0) + \mathbb{P}(S = 1) + \dots + \mathbb{P}(S = 5)\\
+&= 0.6^{10} + 0.016124314 + 0.033457951\\
+&+ 0.05769817 0.081540207 + 0.103094169\\
+&= 0.297961428\\
+&\textcolor{red}{\therefore \mathbb{P}(S \leq 5) = .297961428}_\blacksquare
+\end{align*}
+
+Además podemos confirmar nuestros resultados con el siguiente código:
+
+```{r}
+##Probabilidades reales
+Panjer <- function(x,p0,a,b,f){
+  
+  # x := Valor al que se le desea calcular la probabilidad de P[S=x]
+  #p0 := Probabilidad en 0 de N
+  # (a,b) := Parametros de la familia (a,b,0)
+  #f := vector de probabilidades de X
+  
+  #Creamos un vector auxiliar para las probas de S.
+  g<-0:x
+  names(g)<-0:x
+  
+  #Le ponemos nombres al vector de probas de f.
+  names(f)<-1:length(f)
+  
+  #Panjer (de clase (a,b,0) con soporte de Xj sin 0)
+  for(s in 0:x){
+    if(s==0){
+      g["0"]=p0
+    }else{aux = 0
+    for(j in 1:(min(s,length(f)-1))){
+      aux = aux + (a + ((b*j)/s))*f[as.character(j)]*g[as.character(s-j)]
+    }
+    g[as.character(s)]=aux
+    }
+  }
+  names(g)<-paste("P[S=",names(g),"]",sep = "")
+  
+  return(g)
+}
+
+n<- 10
+p<- 0.4
+a<- -p/(1-p)
+b<- ((n+1)*p)/(1-p)
+p0<- dbinom(x=0, size=n, prob = p)
+f<- c(0.4, 0.35, 0.25,0,0,0,0,0,0,0,0,0,0,0,0)
+
+fS<- Panjer(x=6,p0=p0,a=a,b=b,f=f)
+
+print("Mostramos las probabilidades calculadas:")
+print(fS)
+
+# (a)
+sprintf("P[S<=5] = %f", sum(Panjer(x=5,p0=p0,a=a,b=b,f=f)))
+
+# (b)
+sprintf("P[S=6] = %f", fS[7])
+```
+$_\blacksquare$
+
+# Ejercicio 5
+
+Sea $S$ un modelo colectivo compuesto con $N\sim Poi(1)$ y $Y_i\sim Exp(1) \hspace{0.25cm} \forall i\in \{1,2,\dots\}$. Escriba la fórmula para la aproximación de $F_S(x)$ según el método de gamma trasladada.
+
+### Solución
+
+Veamos lo siguiente:
+
+$$ N \sim Poi(1); \quad Y_{i} \sim Exp(1); \quad \mathbb{E}\frac{[(S - \mathbb{E}[S])^{3}]}{\sqrt{Var^{3}(S)}} $$
+\begin{align*}
+\binom{n}{k} &= \frac{n!}{(n - k)k!}\\
+\binom{3}{0} &= 1
+\end{align*}
+\begin{align*}
+\binom{3}{1} &= \frac{3!}{2!1!} = 3\\
+\binom{3}{2} &= \frac{3!}{1!2!} = 3\\
+\binom{3}{3} &= 1
+\end{align*}
+\begin{align*}
+& \mathbb{E}[S^{3} - 3S^{2}\mathbb{E}[S] + 3S\mathbb{E}^{2}[S] - \mathbb{E}^{3}[S]]\\
+&= \mathbb{E}[S^{3}] - 3 \mathbb{E}[S]\mathbb{E}[S^{2}] + 3 \mathbb{E}[S]\mathbb{E}^{2}[S] - \mathbb{E}^{3}[S]\\
+&= \mathbb{E}[S^{3}] - 3 \mathbb{E}[S]\mathbb{E}[S^{2}] + 2 \mathbb{E}^{3}[S]
+\end{align*}
+Ahora;
+\begin{align*}
+M_{S}(t) &= e^{\lambda(M_{Y}(t) - 1)}; N \sim Poi(1) \implies M_{S}(t) = e^{(M_{Y}(t) - 1)}\\
+\text{Pero} Y_{i} \sim Exp(1) &\implies M_{Y}(t) = \frac{\lambda}{\lambda - t} = \frac{1}{1 - t}\\
+\implies M_{S}(t) =& e^{\left[\frac{1}{1 - t} - 1\right]} = e^{\frac{1}{1 - t} - \frac{1 - t}{1 - t}} = e^{\frac{\textcolor{red}{1-1} + t}{1 - t}} = e^{\frac{t}{1 - t}}\\
+\implies M_{S}(t) &= \frac{t}{1 - t}\\
+\implies M'_{S}(t) &= e^{\frac{t}{1 - t}}\left[\frac{(1 \textcolor{red}{- t) + t}}{(1 - t)^{2}}\right]\\
+&= e^{\frac{t}{1 - t}}\left[\frac{1}{(1 - t)^{2}}\right]\\
+M'_{S}(t) &= e^{\frac{t}{1 - t}}(1 - t)^{-2}\\
+\implies M'_{S}(0) &= 1 = \mathbb{E}[S]\\
+\implies M''_{S}(t) &= e^{\frac{t}{1 - t}}(1 - t)^{-4} + e^{\frac{t}{1 - t}}[-2(-1)(1 - t)^{-3}]\\
+&= e^{\frac{t}{1 - t}}(1 - t)^{-4} + 2e^{\frac{t}{1 - t}}(1 - t)^{3}\\
+\implies M''_{S}(0) &= 1 + 2(1) = 3 = \mathbb{E}[S^{2}]\\
+\implies M'''_{S}(t) &= e^{\frac{t}{1 - t}} (1 - t)^{-6} + e^{\frac{t}{1 - t}}[-4(-1)(1 - t)^{-5}]\\
+&+ 2 \left[e^{\frac{t}{1 - t}}(1 - t)^{-5} + e^{\frac{t}{1 - t}}[-3(-1)(1 - t)^{-4}]\right]\\
+&= e^{\frac{t}{1 - t}} \left[(1 - t)^{-6} + 4(1 - t)^{-5} + 2(1 - t)^{-5} + 6(1 - t)^{-4}\right]\\
+&= e^{\frac{t}{1 - t}} \left[(1 - t)^{-6} + 6(1 - t)^{-5} + 6(1 - t)^{-4}\right]\\
+\implies M'''_{S}(t) &= 1[1 + 6 + 6]\\
+&= 13 = \mathbb{E}[S^{3}]\\
+\therefore \mathbb{E}[S]= 1 &; \mathbb{E}[S^{2}] = 3; \mathbb{E}[S^{3}] = 13\\
+\implies Var(S) = 3 - 1^{2} &= 3 - 1 = 2 \implies \sqrt{Var^{3}} = \sqrt{2^{3}} = \sqrt{8}\\
+\implies \mathbb{E}[S - \mathbb{E}[S]]^{3} &= 13 - 3(1)(3) + 2(1)^{3}\\
+&= 13 - 9 +2\\
+&= 6\\
+\implies \mathbb{E}[S] &=  M = 1\\
+\implies Var(S) &= \sigma^{2} = 2\\
+\implies \frac{\mathbb{E}[(S - \mathbb{E}[S])^{3}]}{\sqrt{Var^{3}(S)}} &= \frac{6}{\sqrt{8}} = \underbrace{\frac{6}{\sqrt{8}}_{\text{Coef. de asimetría}}} = \alpha
+\end{align*}
+\begin{align*}
+\text{Luego;} \quad C &= M - \frac{2\sigma}{\alpha} = 1 - \frac{2\sqrt{2}}{\frac{6}{\sqrt{8}}} = 1 - \frac{2\sqrt{2}}{\frac{6}{\sqrt{8}}}\\
+&= 1 - \frac{2\sqrt{16}}{6} = 1 - \frac{2(4)}{6} = 1 - \frac{8}{6} \approx -\frac{1}{3}\\
+\beta &= \frac{4}{\alpha^{2}} = \frac{4}{\frac{6^{2}}{18}} = \frac{4(8)}{36} = \frac{32}{36} \approx \frac{8}{9}\\
+\lambda &= \frac{2}{\sigma \alpha} = \frac{2}{\sqrt{2} \frac{\sqrt{6}}{\sqrt{8}}} = \frac{2 \sqrt{8}}{6\sqrt{2}} \approx \frac{2}{3}\\
+\implies F_{S}(t) &\sim \mathbb{P}\left[Z \leq t - m + \frac{2\sigma}{\alpha}\right]\\
+&= F_{Z}\left(t - \underbrace{m + \frac{2\sigma}{\alpha}}_{-C \quad \text{Ya que} \quad C = M - \frac{2\sigma}{\alpha}}\right)\\
+&= F_{Z}(t - C)
+\end{align*}
+
+Donde, $Z \sim Gamma(\beta = \frac{8}{9}, \lambda = \frac{2\sqrt{8}}{6\sqrt{2}})$ y como $C = -\frac{1}{3} \implies F_{Z}(t - C) = F_{Z}(t + \frac{1}{3})$
+
+```{r}
+pgamma(3,8/9,2/3) # con gamma trasladada
+aux<-rcompound(n = n, #Genera n
+                model.freq = rpois(lambda = 1), #N~Poi(lambda1)
+                model.sev = rexp(1)) #Y~NegBinom(r=3,p=0.9)
+sum(aux<=3)/n #con simulación
+```
+
+$\blacksquare$
+
+# Ejercicio 6
+
+Considera el siguiente riesgo de una compañía:
+
+$$S=\sum_{i=1}^{N^*} Y_i$$
+
+Se sabe que la severidad $Y$ está sujeta a un deducible $d=2$ y un monto máximo de beneficio $u=4$, los cuales buscan cubrir un monto de siniestro $X$ tiene una función de masa de probabilidad:
+
+\vspace{-0.5cm}
+
+\begin{center}
+\captionof{table}{}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$k$ & 1 & 2 & 3 & 4 & 5   \\  \hline 
+\rule[-1.5ex]{0pt}{4ex}$\mathbb{P}\left[X=k\right]$  & $\frac{7}{18}$ & $\frac{5}{18}$ & $\frac{3}{18}$ & $\frac{2}{18}$ & $\frac{1}{18}$ \\  \hline
+\end{tabular}
+\end{center}
+
+Además, se sabe que hay 4 pólizas (clientes) en el portafolio y que para siniestros de este estilo reclaman 20 de cada 100 **clientes normales**. Sin embargo, **los 4 clientes de este portafolio son especiales**, pues hay una probabilidad del 70\% de que **ninguno sufra un siniestro**. Se ha acordado respetar la distribución de la frecuencia para clientes normales únicamente **modificando** la probabilidad de que ninguno sufra un siniestro para este portafolio.
+
+**Fija la semilla en 93**, genera $n=1,000,000$ simulaciones de la variable aleatoria $S$, y de esta muestra obtén:
+
+\begin{enumerate}[label=(\alph*)]
+\item Media,
+\item Segundo momento,
+\item Varianza,
+\item Coeficiente de variación.
+\end{enumerate}
+
+De manera muestral (aproximada).
+
+Hints:
+
+- ¿Qué distribución tiene la frecuencia de los clientes normales si hay un portafolio con 4 pólizas? ($N$)
+
+- Con base en $N$, ¿cómo es la distribución de los clientes especiales en el portafolio? ($N^*$)
+
+- *Coeficiente de variación* $:= \frac{\sigma}{\mu} = \frac{\sqrt{Var(S)}}{\mathbb{E}[S]}$
+
+### Solución
+
+Por lo mencionado en (6), se tiene que: 
+$$\mathbb{P}(N^{*} = 0) = 0.7$$
+y consideramos $N:= \text{frecuencia de clientes normales},$ y por la información proporcionada $\rightarrow N \sim Bin(4, \frac{20}{100}=\frac{1}{5})$ y utilizando lo visto en clase, realizamos el siguiente código:
+
+```{r}
+# Función de severidad dado un siniestro X, con un monto máximo de beneficio u 
+# y deducible d.
+Y<-function(X,u=4,d=2){
+  y=max(min(X,u)-d,0)
+  return(y)
+}
+
+# Función para encontrar la moda en una lista.
+Mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+
+# Función para simular la v.a. S
+regresa.una.S<-function(m,f,size=4,p = 1/5){
+  
+  #Genera una N
+  N=0
+  bandera<-sample(x = 0:1,size = 1,replace = T,prob = c(0.7, 0.3)) # Considerando
+  # que la probabilidad de ser 0 para la frecuencia N* es 0.7
+  
+  if(bandera!=0){
+    while(N==0){
+      N<-rbinom(n=1,size=size, prob = p) # Recordemos que N sigue una dist Binom
+    }
+  }
+  
+  #Calcula los datos
+  if(N>0){
+    Xj <- sample(x = 1:m,size = N,
+                 replace = T,prob = f) #Generar los siniestros
+    Yj<-lapply(Xj,Y) # Aplicarles monto máximo u y deducible d
+    Yj<- unlist(Yj)
+  }else{
+    Yj <- 0 #Si no hubo, el total es cero.
+  }
+  
+  #Regresa una S
+  return(sum(Yj))
+  
+}
+
+m <- 5 # Pues el soporte de X es {1,2,3,4,5}
+f <- c(7/18,5/18,3/18,2/18,1/18) # Probabilidades correspondientes
+
+set.seed(93) # fijamos una semilla, 93
+n = 1000000 # realizamos la S 1,000,000 de veces
+
+samp <- c()
+for(i in 1:n){
+  samp[i] <- regresa.una.S(m,f)
+}
+
+# Calculo de algunas métricas
+media_muestral <- mean(samp)
+var_muestral <- var(samp)
+semo_muestal <- var_muestral + media_muestral^2
+sd_muestral <-  sd(samp)
+var_90 <- quantile(samp,0.9)
+coef_var_muestral <- sd_muestral / media_muestral
+moda_muestral <- Mode(samp)
+
+"
+Resultados:
+"
+# Histograma:
+plot.new()
+barplot((table(samp)/length(samp)),col="skyblue",axisnames = F)
+
+# (a) Media:
+sprintf("Media muestral: %f",media_muestral)
+# 0.201793
+
+# (b) Segundo Momento:
+sprintf("Segundo Momento muestral: %f", semo_muestal)
+# 0.394095
+
+# (c) Varianza:
+sprintf("Varianza muestral: %f", var_muestral)
+# 0.353375
+
+# (d) Coeficiente de variación:
+sprintf("Coeficiente de variación muestral: %f", coef_var_muestral)
+# 2.945858
+
+#########################################################################
+
+```
+
+Así....
+
+## Inciso a)
+
+\textcolor{red}{Media:} 0.201793$_\blacksquare$
+
+## Inciso b)
+
+\textcolor{red}{Segundo Momento:} 0.394095$_\blacksquare$
+
+## Inciso c)
+
+\textcolor{red}{Varianza:} 0.353375$_\blacksquare$
+
+## Inciso d)
+
+\textcolor{red}{Coeficiente de variación:} 2.945858$_\blacksquare$
+
+
+
+Además calculamos otras métricas:
+
+\textcolor{red}{$VaR_{90\%}$:} 1 $_\blacksquare$
+
+\textcolor{red}{Moda:} 0 $_\blacksquare$
+
+```{r}
+"
+A continuación mostraremos algunos resultado más con base en la muestra de 
+1,000,000 de S generadas, los cuales no serán de utilidad para ejercicios 
+posteriores:
+"
+
+# Var al 90%:
+sprintf("VaR a un nivel de significancia del 90: %s", var_90)
+# 1
+
+# Moda:
+sprintf("Moda de la muestra: %s", moda_muestral)
+# 0
+
+```
+
+
+# Ejercicio 7
+
+Del mismo riesgo ($S$) del ejercicio 6 obtén:
+
+\begin{enumerate}[label=(\alph*)]
+\item Media,
+\item Segundo momento,
+\item Varianza,
+\item Coeficiente de variación.
+\end{enumerate}
+
+De manera teórica (exacta) utilizando las propiedades del modelo colectivo.
+
+*Sugerencia: compara con el ejercicio 6.*
+
+### Solución 
+
+Primero, identifiquemos N^{*}:
+Por lo mencionado en (6), se tiene que:
+$$\mathbb{P}(N^{*} = 0) = 0.7$$
+Y considerando $N :=$ Frecuencia de clientes normales, y por la información proporcionada $\rightarrow N \sim Bin(4, \frac{20}{100}= \frac{1}{5})$
+
+Por practicidad denotemos:
+$$P_{K} := \mathbb{P}(N = k) \forall k \in \{0,1, \dots, 4\} \land P_{K}^{*}:= \mathbb{P}(N^{*} = k) \quad \forall K \in Sop(N^{*})$$
+
+Dada la manera en que se describe a $N^{*}$, se tiene que $N^{*}$ pertenece a la clase $(a,b,1)$ y tiene por soporte $\{0,1,\dots,4\}$, pues "conserva", en cierto sentido, la distribución de $N$, es decir;
+$$\frac{P_{K}^{*}}{P_{K-1}^{*}} = a + \frac{b}{k} \underbrace{\forall K \in \{2,3,4\}}_{\text{Pues es }(a,b,1)} \text{p.a}\quad a,b \in \mathbb{R}$$
+
+Dado que la probabilidad en 0 está dada por $P_{0}^{*} = 0.7$ y se nos pide modificar únicamente en 0 conservando la distribución de $N$ en lo demás, entonces nos encontramos en el caso en que $N^{*}$ sigue una distribución $Cero-modificado$
+utilizando la distribución de N, es decir:
+$$P_{K}^{*} = \frac{1 - P_{0}^{*}}{1 - P_{0}} P_{K} \quad \forall K\in \{1,2,3,4\}$$
+Notemos que:
+
+\begin{align*}
+\sum_{K = 0}^{4}P_{K}^{*} &= P_{0}^{*} + \sum_{K = 1}^{4}P_{K}^{*} = P_{0}^{*} + \frac{1 - P_{0}^{*}}{1 - P_{0}} \sum_{K = 0}^{4} P_{K} = P_{0}^{*} + \frac{1 - P_{0}^{*}}{1 - P_{0}}(1 - P_{0})\\
+&= P_{0}^{*} + 1 - P_{0}^{*}\\
+&= 1
+\end{align*}
+
+$\implies$ Para $N^{*}$ tenemos que:
+
+\begin{align*}
+P_{0}^{*} = \mathbb{P}(N^{*} = 0) = 0.7; P_{K}^{*} &= \mathbb{P}(N^{*} = K) = \frac{0.3}{1 - \left(\frac{4}{5}\right)^{4}} \binom{4}{k} \left(\frac{1}{5}\right)^{K} \left(\frac{4}{5}\right)^{4 = K}\\
+&= \frac{125}{246} \binom{4}{k} \left(\frac{1}{5}\right)^{K} \left(\frac{4}{5}\right)^{4 - K}
+\end{align*}
+
+Observamos que la media de $N^{*}$ está dada por:
+
+\begin{align*}
+\mathbb{E}(N^{*}) &= \sum_{K = 0}^{4}K P_{K}^{*} = \sum_{K = 1}^{4}K P_{K}^{*} = \sum_{K = 1}^{4}\frac{K(1 - P_{0}^{*})}{1 - P_{0}} P_{K} = \frac{1 - P_{0}^{*}}{1 - P_{0}} \sum_{K = 1}^{4}K P_{K}\\
+&= \frac{1 - P_{0}^{*}}{1 - P_{0}}\mathbb{E}(N) = \frac{125}{246}(4)\left(\frac{1}{5}\right) = \frac{50}{123}\\
+&\therefore \mathbb{E}(N^{*}) = \frac{50}{123}
+\end{align*}
+
+Su segundo momento:
+
+\begin{align*}
+\mathbb{E}(N^{*}) &= \sum_{K = 0}^{4}K^{2} P_{K}^{*} = \sum_{K = 1}^{4}\frac{K^{2}(1 - P_{0}^{*})}{1 - P_{0}} P_{K} = \frac{125}{246}\sum_{K = 1}^{4}K^{2} P_{K}^{*}\\
+&= \frac{125}{246}\mathbb{E}(N^{*}) = \frac{125}{246}\left[4\left(\frac{1}{5}\right)\left(\frac{4}{5}\right) + 4^{2}\left(\frac{1}{5}\right)^{2}\right]\\
+&= \frac{125}{123}\left(\frac{4}{5}\right)^{2} = \frac{80}{123}
+\end{align*}
+
+\begin{align*}
+\implies Var(N^{*}) &= \mathbb{E}(N^{*^{2}}) - \mathbb{E}^{2}(N^{*}) = \frac{80}{123} - \left(\frac{50}{123}\right)^{2} = \frac{123(80) - 50^{2}}{123^{2}}\\
+&= \frac{7,340}{15,129}\\
+&\approx 0.485160949
+\end{align*}
+
+\underline{\text{Conociendo las Vi's:}}
+
+Notemos que: 
+$$Y_{i} = máx \{mín\{X,u\}-d,0\} = (mín \{X,4\} - 2_{+}) \quad \forall i \in \{1,2,3,4\}$$
+
+Observemos que:
+\begin{align*}
+Sop(Y_{i}) &= \{\overbrace{(mín\{1,4\} - 2)_{+}}^{0}, \overbrace{(mín\{2,4\} - 2)_{+}}^{0}, \overbrace{(mín\{3,4\}-2)_{+}}^{1},\\
+&\underbrace{(\{4,4\}-2)_{+}}_{2}, \underbrace{(mín\{5,4\}-2)_{+}}_{2}\}\\
+\implies Sop(Y_{i}) &= \{0,1,2\} \forall i \in \{1,2,3,4\}\\
+\end{align*}
+\begin{align*}
+\implies \mathbb{E}(Y_{i}) &= 0\left[\mathbb{P}(X = 1) + \mathbb{P}(X = 2)\right] + 1[\mathbb{P}(X = 3)] + 2[\mathbb{P}(X = 4)] + \mathbb{P}(X = 5)]\\
+&= \frac{3}{18} + 2\left[\frac{2}{18 + \frac{1}{18}}\right] = \frac{3 + 2(3)}{18} = \frac{1}{2}\\
+&\therefore \mathbb{E}(Y_{i}) = \frac{1}{2} \forall i \in \{1,2,3,4\}
+\end{align*}
+
+Además:
+\begin{align*}
+\mathbb{E}(Y_{i}^{2}) &= 0^{2}[\mathbb{P}(X = 1) + \mathbb{P}(X = 2)] + \mathbb{P}(X = 3) + 4[\mathbb{P}(X = 4) + \mathbb{P}(X = 5)]\\
+&= \frac{3}{18} + \frac{4(3)}{18} = \frac{15}{18} = \frac{5}{6}\\
+&\therefore \mathbb{E}(Y_{i}^{2}) = \frac{5}{6} \forall i \in \{1,2,3,4\}\\
+\implies Var(Y_{i}) &= \frac{5}{6} - \frac{1}{4} = \frac{7}{12} \forall i \in \{1,2,3,4\}
+\end{align*}
+
+Considerando que:
+$$S:= \sum_{i = 1}^{N^{*}}Y_{i}(S = 0 \quad si \quad N^{*} = 0)$$
+
+Entonces: 
+
+## Inciso a) 
+
+$$\mathbb{E}(S) = \mathbb{E}(N^{*})\mathbb{E}(Y_{i}) = \frac{50}{123}(\frac{1}{2}) = \frac{25}{123}_\blacksquare$$
+
+## Inciso b) 
+
+\begin{align*}
+\mathbb{E}(S^{*}) &= \mathbb{E}(N^{*})\mathbb{E}(Y^{2}) 
+\mathbb{E}(N^{*}(N^{*} - 1))\mathbb{E}^{2}(Y)\\
+&= \frac{50}{123}\left(\frac{5}{6}\right) + \left[\mathbb{E}(N^{*^{2}}) - \mathbb{E}(N^{*})\right] \frac{1}{4}\\
+&= \frac{125}{369} + \frac{1}{4} \left[\frac{80}{123} - \frac{50}{123}\right] = \frac{125}{369} + \frac{1}{4} \left[\frac{30}{123}\right]\\
+&= \frac{295}{738}_\blacksquare
+\end{align*}
+
+## Inciso c)
+
+\begin{align*}
+Var(S) &= Var[N^{*}]\mathbb{E}^{2}(V) + Var(V)\mathbb{E}(N^{*})\\
+&= \frac{7,340}{15,129}\left(\frac{1}{4}\right) + \frac{7}{12} \left(\frac{50}{123}\right)  = \frac{1,835}{15,129} + \frac{175}{738}\\
+&\approx 0.358419609_\blacksquare
+\end{align*}
+ 
+## Inciso d) 
+
+Coeficiente de Variación:
+
+$$\frac{\sqrt{Var(S)}}{\mathbb{E}(S)} = \frac{\sqrt{0.358419609}}{\left(\frac{25}{123}\right)} \approx 2.94550505_\blacksquare$$
+
+
+# Ejercicio 8
+
+Del ejercicio 6, obtén el soporte de la variable aleatoria del riesgo de la compañía ($S$), justifica porqué ese es el soporte dando **solo un ejemplo** del porqué es un valor factible para $S$ con un vector del estilo:
+
+$$(N^*=n,Y_1=y_1,Y_2=y_2,\dots,Y_n=y_n) \Rightarrow S = x$$
+
+por cada valor $x$ en el soporte de $S$ (esto sirve para exhibir que existe probabilidad positiva de que el riesgo de la compañía valga dicho valor puntual $x$). Crea la función de Panjer para calcular la función de densidad (masa de probabilidad) de $S$. **Muestra el código de la función que acabas de crear** especificando qué es cada parámetro de la función (si los recibe).
+
+### Solución 
+
+Como vimos en (7) se tiene que:
+\begin{align*}
+Sop(Y_{i}) &= \{0,1,2\} \quad \forall i \in \{1,2,3,4\}\\
+Sop(N^{*}) &= \{0,1,2,3,4\}\\
+\end{align*}
+\begin{center}
+\begin{tabular}{cccccc}
+  $S = x$ & $N^* = n$ & $Y_1 = y_1$ & $Y_2 = y_2$ & $Y_3 = y_3$ & $Y_4 = y_4$ \\ \hline
+0 & 0 & x & x & x & x \\
+1 & 1 & 1 & x & x & x \\
+2 & 2 & 1 & 1 & x & x \\
+3 & 2 & 1 & 2 & x & x \\
+4 & 2 & 2 & 2 & x & x \\
+5 & 3 & 1 & 2 & 2 & x \\
+6 & 3 & 2 & 2 & 2 & x \\
+7 & 4 & 2 & 2 & 2 & 1 \\
+8 & 4 & 2 & 2 & 2 & 2 \\
+\end{tabular}
+\end{center}
+
+Notemos que de esta manera el soporte de S es: $Sop(S) = \{0,1, \dots, 8\}$ y realizamos el siguiente código:
+
+```{r}
+# Función Panjer Cero Modificado
+PanjerConCeroModificado <- function(r,a,b,f,p0,p1,p0m,g0,todo=F){
+  
+  "
+  PARAMETROS:
+  ---------------------------------------------------------
+  * r:= Valor de la probabilidad deseada a calcular
+  * g0 := P[S=0]
+  * (a,b) := Parametros de la familia (a,b,0)
+  * f := vector de probabilidades de Y (ordenadas desde 0)
+  * p0, p1 := Probilidad en 0 y 1, respectivamente de la
+  variable de la familia (a,b,0)
+  * p0m := Probabilidad en 0 de la variable N*
+  * todo := Booleano que indica si mostramos todas las
+  probabilidades calculadas o s?lo la deseada (r)
+  "
+  
+  #Creamos un vector auxiliar para las probas de S.
+  g<-0:r
+  names(g)<-0:r
+  
+  #Le ponemos nombres al vector de probas de f.
+  names(f)<-0:(length(f)-1)
+  
+  # Panjer cero modificado
+  
+  for(s in 0:r){
+    if(s==0){
+      g["0"]=g0
+    }else{aux = 0
+    p1m <- ((1-p0m)/(1-p0))*p1 # P[N* = 1]
+    for(j in 1:(min(s,length(f)-1))){
+      aux = aux + ((a+b*j/s)*f[as.character(j)]*g[as.character(s-j)])/(1-a*f["0"])
+    }
+    aux2 = (p1m - (a+b)*p0m)*f[as.character(s)] / (1-a*f["0"])
+    g[as.character(s)]=aux + aux2
+    }
+  }
+  names(g)<-paste("P[S=",names(g),"]",sep = "")
+  
+  if(todo){
+    return(g)
+  }else{
+    return(g[r+1])
+  }
+}
+
+# Generadora de probabilidades de una binomial n,p en t
+Gn<- function(t,n,p){
+  x<- (1-p+p*t)^n
+  return(x)
+}
+
+```
+$_\blacksquare$
+
+# Ejercicio 9
+
+Una vez identificado el soporte y teniendo implementada la función de Panjer en el ejercicio 8, calcula:
+
+\vspace{-0.3cm}
+
+$$
+\mathbb{P}[S=x] \hspace{0.2cm} \forall x\in sop\{S\}
+$$
+
+\vspace{-0.3cm}
+
+y con esos valores:
+
+\begin{enumerate}[label=(\alph*)]
+\item Verifica que suman uno las probabilidades.
+\item Obtén la media.
+\item Obtén el $VaR_{0.90}^{(S)}$.
+\item Obtén la moda.
+\end{enumerate}
+
+*Sugerencia: para que tú mismo compruebes que lo que estás haciendo está bien, con esta función de densidad que acabas de crear estaría bien que calcularas todo lo del ejercicio 8. Será rápido si ya tienes que suman uno las probabilidades.*
+
+### Solución 
+
+```{r}
+f<- c(12/18, 3/18, 3/18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+# Colocamos muchos 0, pues si la r que le damos a la funci?n pasa la cantidad de
+# elementos en el vector entonces obtenemos NAN, y como la densidad de Y es 0 
+# fuera del soporte, entonces dicho vector conserva las propiedades de la 
+# densidad de Y.
+
+n<- 4
+p<- 1/5
+a<- -p/(1-p)
+b<- ((n+1)*p)/(1-p)
+p0<- dbinom(x=0, size=n, prob=p) # Sabiendo que N~Binom(4, 1/5)
+p1<- dbinom(x=1, size=n, prob=p)
+p0m<- 0.7
+g0<- 1 - (1-p0m)/(1-p0)*(1-Gn(t = f[1], n=n, p=p))
+
+fS<-PanjerConCeroModificado(r=8,a=a,b=b,f=f,p0=p0,p1=p1,p0m=p0m,g0=g0,todo=T)
+print("Las probabilidades están dadas por:")
+print(fS)
+
+```
+
+## Inciso a)
+
+```{r}
+# Suma 1
+sprintf("Veamos que en efecto, suman 1: %f", sum(fS))
+
+prob<- unname(fS)
+```
+$_\blacksquare$
+
+## Inciso b)
+```{r}
+# Media
+
+media = 0
+for(i in 0:8){
+  media = media + i*prob[i+1]
+}
+
+sprintf("Mostremos la media: %f", media)
+sprintf("Valor teórico: %f", 25/123)
+```
+$_\blacksquare$
+
+## Inciso c)
+Notemos que: 
+\begin{align*}
+\mathbb{P}(S = 0) &= 0.877456\\
+\mathbb{P}(S = 1) &= 0.055083\\
+&\implies \mathbb{P}(S = 0) + \mathbb{P}(S = 1) = 0.932539\\
+&\implies VaR_{0.9}(S) = 1
+\end{align*}
+
+$_\blacksquare$
+
+## Inciso d)
+Obtén la moda: Recordemos que la moda es el elementos en ele soporte tal que, maximiza la probabilidad, en nuestro caso, 0 es el que maximiza la probabilidad. $_\blacksquare$
+
+```{r}
+# Segundo momento:
+semo = 0
+for(i in 0:8){
+  semo = semo + (i^2)*prob[i+1]
+}
+
+sprintf("Mostremos el segundo momento: %f", semo)
+sprintf("Valor teórico: %f", 295/738)
+
+# Varianza
+
+varianza = 0
+for(i in 0:8){
+  varianza = varianza + ((i-media)^2)*prob[i+1]
+}
+
+sprintf("Mostremos la varianza: %f", varianza)
+sprintf("Varianza teórica: %f", 1835/15129 + 175/738)
+
+```
+ 
+Finalmente veamos el histograma, y \textcolor{red}{comparemos con el histograma del 6}
+
+```{r}
+# Histograma
+barplot(fS, ylab=expression(P(S==x)), 
+        main="Panjer: Cero Modificado y cero en Sop(X)",col="gold")
+
+```
+
+
+# Ejercicio 10
+
+Utiliza los datos simulados y las probabilidades puntuales teóricas de los ejercicios 6 y 9 para realizar una prueba estadística que pruebe las siguientes hipótesis nulas:
+
+\begin{enumerate}[label=(\alph*)]
+\item $H_0:$  La proporción de observaciones de las categorías "igual a la moda" y "diferente de la moda" concuerda con las probabilidades teóricas.
+\item $H_0:$  La proporción de observaciones de las categorías "menor o igual al $VaR_{0.90}^{(S)}$" y "mayor estricto al $VaR_{0.90}^{(S)}$" concuerda las probabilidades teóricas.
+\end{enumerate}
+
+**Para cada prueba muestra los observados, los esperados, interpreta claramente el p-value y concluye.**
+
+### Solución 
+
+
+
+
