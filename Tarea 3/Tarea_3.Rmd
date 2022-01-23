@@ -222,18 +222,18 @@ lambda2 <- 2^2
 lambda3 <- 3^2
 lambda <- lambda1 + lambda2 + lambda3
 
+#Exponencial
+rate_1 <- 1/2
+S1 <- rcompound(n = n, #Genera n
+               model.freq = rpois(lambda = lambda1), #N~Poi(lambda2)
+               model.sev = rexp(rate = rate_1)) #Y~Exp(rate) 
+
 #Binomial negativa
 r=3
 p=0.9
-S1 <- rcompound(n = n, #Genera n
-                model.freq = rpois(lambda = lambda1), #N~Poi(lambda1)
-                model.sev = rnbinom(size = r,p=p)) #Y~NegBinom(r=3,p=0.9) 
-
-#Exponencial
-rate_1 <- 1/2
 S2 <- rcompound(n = n, #Genera n
-               model.freq = rpois(lambda = lambda2), #N~Poi(lambda2)
-               model.sev = rexp(rate = rate_1)) #Y~Exp(rate) 
+                model.freq = rpois(lambda = lambda2), #N~Poi(lambda1)
+                model.sev = rnbinom(size = r,p=p)) #Y~NegBinom(r=3,p=0.9) 
 
 #Exponencial topada
 rate_2<- 1/100
