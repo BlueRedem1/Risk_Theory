@@ -573,7 +573,7 @@ Pero, como contamos *solo los éxitos* (ya que la v.a. $X$ mide el número de pr
 Entonces, numéricamente, $p=\frac{5}{105}=\frac{1}{21}$
 
 Sin embargo, la parametrización de X *que nos interesa*, dado que es la que cuenta *los aparatos que se fabrican hasta el k-ésimo fallo* es aquella que mide los *intentos antes del k-ésimo éxito*.
-Bajo esta parametrización, $X \sim \text{Binomial Negativa}(k,p)$ con soporte en $X \in \mathbb{N}\{0,1,2,3,4\}$, tenemos que:
+Bajo esta parametrización, $X \sim \text{Binomial Negativa}(k,p)$ con los k y p antes mencionados (k=5,p=$\frac{1}{21}$) y con soporte en $X \in \mathbb{N}\{0,1,2,3,4\}$, tenemos que:
 \begin{align*}
 \mathbb{E}[X] &= \frac{k}{p}\\
 &=\frac{5}{\frac{1}{21}}\\
