@@ -65,7 +65,7 @@ Sustiyendo con $n = 3$ y $p = 0.8 \implies 1 - p = 0.2$
 $$M_{S}(t) = \left(0.2 + 0.8\left(\frac{7}{16}e^{t(1)} + \frac{5}{16}e^{t(2)} +\frac{3}{16}e^{t(3)} + \frac{1}{16}e^{t(4)}\right)\right)^{3}$$
 Y en clase vimos que, para la función de utilidad exponencial $(\alpha)$, con $u \geq 0$, la prima calculada por el principio de utilidad cero es:
 
-$$p = \frac{1}{\alpha} ln(M_{S}(\alpha))$$
+$$p = \frac{1}{\alpha} ln(M_{S}(\alpha))=\frac{1}{\alpha} ln \left(\left(0.2 + 0.8\left(\frac{7}{16}e^{\alpha (1)} + \frac{5}{16}e^{\alpha (2)} +\frac{3}{16}e^{\alpha (3)} + \frac{1}{16}e^{\alpha (4)}\right)\right)^{3}\right)$$
 
 ```{r}
 momentos_y<-function(alpha){
@@ -231,7 +231,7 @@ Usaremos el método de Newton-Raphson de la biblioteca "Pragma" de R con el sigu
 ```{r}
 # Encontrar la prima P
 P<- newtonRaphson(f,x0 = 1)$root
-# Plot de la ra?z de f.
+# Plot de la raíz de f.
 plot(f, xlim = c(0,12))
 ```
 
@@ -644,19 +644,34 @@ Var(Z) = Var(0.25*5) &= 0.25^{2}Var(S)\\
 &=2,930,450
 \end{align*}
 
-Por el principio de la varianza, con $\theta = 0.2$
+Entonces, la desviación estándar es:
+$$sd(Z)=\sqrt(Var(Z))=\sqrt(2,930,450)$$
+Numéricamente:
+```{r}
+sd_z=sqrt(2930450)
+sd_z
+```
+Además:
+```{r}
+p_z<-3925+0.2*sd_z
+p_z
+```
+
+
+Por el principio de la desviación estándar, con $\theta = 0.2$
 \begin{align*}
-p(Z) &= \mathbb{E}[Z] + \theta Var(Z)\\
-&= 3925 + 0.2(2,930,450)\\
-&= 590,015\\
-&\therefore \text{La prima a cobrar bajo el método de varianza es 590,015}_\blacksquare
+p(Z) &= \mathbb{E}[Z] + \theta sd(Z)\\
+&= 3925 + 0.2\sqrt((2,930,450))\\
+&= 4267.371\\
+&\therefore \text{La prima a cobrar bajo el método de desviación estándar es 4267.371}_\blacksquare
 \end{align*}
 
 Finalmente veamos el siguiente código para verificar vía simulación:
 
 ```{r}
-media_teorica <- 15700
-varianza_teorica <- 46887200
+media_teorica <- 3925
+sd_teorica <- 1711.856
+
 set.seed(6)
 
 severidad<-function(n){
@@ -684,11 +699,13 @@ genera.una.S<-function(){
 }
 sims=1000000
 s<-replicate(sims,genera.una.S())
-media_empirica <- mean(s)
-varianza_empirica <- var(s)
+media_empirica <- mean(0.25*s)
+media_empirica
+sd_empirica <- sd(0.25*s)
+sd_empirica
 proporcion_media <- abs(media_empirica/media_teorica-1) *100 ##Porcentaje
-proporcion_varianza <- abs(varianza_empirica/varianza_teorica-1) *100 ##Porcentaje
+proporcion_sd <- abs(sd_empirica/sd_teorica-1) *100 ##Porcentaje
 proporcion_media
-proporcion_varianza
+proporcion_sd
 ```
 
