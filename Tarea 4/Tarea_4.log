@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  30 JAN 2022 05:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  30 JAN 2022 05:27
 entering extended mode
 **./Tarea_4.tex
 (Tarea_4.tex
@@ -562,11 +562,12 @@ ontrar la prima P bajo un siniestro S, dado un capital mínimo u, y\nuna función
  de utilidad cuadr?tica con nivel alpha v(x) = x - alpha*x^2.\n"[] 
  []
 
+[3]
 
 LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
 (Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 265.
 
-[3] [4]
+[4]
 <Tarea_4_files/figure-latex/unnamed-chunk-4-1.pdf, id=53, 469.755pt x 325.215pt
 >
 File: Tarea_4_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
@@ -636,7 +637,7 @@ blic/lm/lmtko10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmtt10.pfb><D:/Miktw
 x LaTex/fonts/type1/public/lm/lmtti10.pfb><D:/Miktwx LaTex/fonts/type1/public/a
 msfonts/symbols/msam10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols
 /msam7.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Tarea_4.pdf (15 pages, 441868 bytes).
+Output written on Tarea_4.pdf (15 pages, 442126 bytes).
 PDF statistics:
  250 PDF objects out of 1000 (max. 8388607)
  49 named destinations out of 1000 (max. 500000)
