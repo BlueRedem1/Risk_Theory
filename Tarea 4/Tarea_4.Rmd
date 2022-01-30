@@ -1,0 +1,370 @@
+---
+output: pdf_document
+header-includes: 
+- \usepackage{enumitem}  
+- \usepackage{caption}
+- \usepackage{amsmath}
+- \captionsetup{labelformat=empty}
+- \usepackage[utf8]{inputenc}
+- \usepackage{geometry}
+- \usepackage{amsmath}
+- \usepackage{amssymb}
+- \usepackage{tabularx}
+---
+
+```{r setup,echo=F}
+knitr::opts_chunk$set(echo=T, message=FALSE, warning=FALSE, 
+                      out.width='100%', fig.align='center', eval=T)
+```
+
+```{r pressure2, echo=FALSE, out.width = '240%'}
+knitr::include_graphics("CARATULA.PNG")
+```
+
+
+\newpage
+
+
+## Ejercicio 3 (2 puntos)
+
+Considera el siguiente riesgo de una compañía:
+
+$$S = \sum_{i = 1}^{N} Y_{i} \sim BinComp (n = 3, p = 0.8, F_{Y})$$
+
+Donde la severidad, $Y$, tiene la siguiente función de masa de probabilidad:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+  $k$ & $1$ & $2$ & $3$ & $4$ \\ \hline
+$\mathbb{P}[Y = k]$ & $\frac{7}{16}$ & $\frac{5}{16}$ & $\frac{3}{16}$ & $\frac{1}{16}$ \\
+\end{tabular}
+\end{center}
+
+Sea P l aprima que se cobrará por asumir este riesgo, **calculada por el principio de utilidad cero.** Se sabe que la función de utilidad es exponencial con $\alpha = 0.5$ y que la compañia tiene un capital inicial $u \geq 0.$
+
+Calcula:
+
+\begin{enumerate}[label=(\alph*)]
+\item $M_{S}(\alpha)$
+\item $P.$
+\end{enumerate}
+
+### Solución
+
+
+## Ejercicio 4 (2 puntos)
+
+
+Considere el siguiente riesgo de una compañia:
+
+$$S = \sum_{i = 1}^{4}Y_{i}$$
+
+Donde la severidad, $Y$, tiene la siguiente función de masa de probabilidad:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+  $k$ & $1$ & $2$ & $3$ & $4$ \\ \hline
+$\mathbb{P}[Y = k]$ & $\frac{4}{10}$ & $\frac{3}{10}$ & $\frac{2}{10}$ & $\frac{1}{10}$ \\
+\end{tabular}
+\end{center}
+
+Sea $P$ la prima que se cobrará por asuimir este riesgo, **calculada por el principío de utilidad cero**. Se sabe que la función de utilidad es cuadrática con $\alpha = \frac{1}{24}$ y que la compañia tiene un capital inicial $u = 10$
+
+Calcula:
+
+\begin{enumerate}[label=(\alph*)]
+\item $P$
+\item Comprueba que $\mathbb{E}[S] \leq P$
+\item Comprueba que $P \leq M = máx\{sop(S)\}$
+\item Comprueba que $v(u) = \mathbb{E}[v(u + p - S)]$
+\end{enumerate} 
+
+
+### Solución 
+
+
+## Ejercicio 5 (3 puntos)
+
+Para un riesgo $S$ a asumir, se sabe que $N^{*}$, su modelo de frecuencia, es de clase (a,b,1), con distribución $Bin(n = 4, p = \frac{1}{3})$ con $P_{0}^{M} = 0.7$ y $Y$ el modelo de severidad tiene la f.m.p. siguiente:
+
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+$k$ & $0$ & $1$ & $2$ & $3$ & $4$ \\ \hline
+$\mathbb{P}[Y = k]$ & $0.4$ & $0.2$ & $0.1$ & $0.15$ & $0.15$ \\
+\end{tabular}
+\end{center}
+
+
+Bajo el **principio de utilidad cero,** asumiendo una función de utilidad exponencial con $\alpha = 0.21$ y un capital inicial $u = 10$
+ 
+
+\begin{enumerate}[label=(\alph*)]
+\item Calcula la prima $(p)$ a cobrar por asumir el riesgo $(S)$
+\item Comprueba que $\mathbb{E}[S] \leq p$
+\item Comprueba que $p \leq M = máx\{sop(S)\}$
+\item Comprueba que $v(u) = \mathbb{E}[v(u + p - S)]$
+\end{enumerate} 
+
+Todas las comprobaciones anteriores verifícalas de forma númerica, **mostrando el resultado obtenida y cómo se obtuvo.** Todos los cálculos deben estar dados de manera teórica (exacta). 
+
+Hints:
+
+
+\begin{enumerate}[label=(\alph*)]
+\item Obtén la función generadora de momentos de $N^{*}$ en términos de la de $N$ para cualquier $t$.
+\item Si no quieres hacer lo anterior, debes calcular todas las probabilidades de $N^{*}$ y obtener la generadora de momentos por definición.
+\item Para calcular $\mathbb{E}[v(u + p - S)]$ usa estadística insconsciente. Recuerda que $v(u + p - S)$ es una v.a. que depende de $S$.
+\end{enumerate}
+
+### Solución 
+
+Dadas las instrucciones notemos que:
+
+$$\mathbb{P}(N^{*} = 0) = 0.7$$
+
+Y como $N \sim Bin \left(3, \frac{1}{3}\right)$
+
+Por practicidad denotemos:
+$$P_{k} := \mathbb{P}(N = k) \quad \forall k \in \{0,1,2,3\} \land P_{k}^{*}:= \mathbb{P}(N^{*} = k) \quad \forall k \in Sop(N^{*})$$
+Observemos que $N^{*}$ pertenece a la clase $(a,b,1)$ dado "preserva" la estructura de N, y por la información dada, estamos considerando el caso *cero-modificado*, es decir,
+
+$$P_{k}^{*} = \left(\frac{1 - P_{0}^{*}}{1 - P_{0}}\right) P_{k} \quad \forall k \in \{1,2,3\}$$
+Para $N^{*}$ tenemos que:
+\begin{align*}
+P_{0}^{*} = \mathbb{P}(N^{*} = 0) = 0.7;P_{k}^{*} &= \mathbb{P}(N^{*} = k) = \frac{0.3}{1 - \left(\frac{2}{3}\right)^{3}} \binom{3}{k} \left(\frac{1}{3}\right)^{k} \left(\frac{2}{3}\right)^{3 - k}\\
+&= \frac{81}{190} \binom{3}{k}\left(\frac{1}{3}\right)^{k}\left(\frac{2}{3}\right)^{3 - k}\\
+&\therefore P_{0}^{*} = \mathbb{P}(N^{*} = 0) = 0.7
+\end{align*}
+
+$$P_{k}^{*} = \left(\frac{81}{190}\right) \binom{3}{k} \left(\frac{1}{3}\right)^{k} \left(\frac{2}{3}\right)^{3 - k} \quad \forall k \in \{1,2,3\}$$
+Para obtener $\mathbb{E}(S)$ es necesario obtener $\mathbb{E}(N^{*}) \quad\text{y} \quad \mathbb{E}(Y) \implies$ 
+\begin{align*}
+\mathbb{E}(N^{*}) &= \sum_{k = 0}^{3}k P_{k}^{*} = \sum_{k = 1}^{3}k P_{k}^{*} = \sum_{k = 1}^{3} k \frac{1 - P_{0}^{*}}{1 - P_{0}} P_{k}\\ 
+&= \frac{1 - P_{0}^{*}}{1 - P_{0}}\sum_{k =1}^{3} k P_{k} = \frac{81}{190} \mathbb{E}(N)\\
+&= \frac{81}{190} (3) \left(\frac{1}{3}\right) = \frac{81}{190}\\
+&\therefore \mathbb{E}(N^{*}) = \frac{81}{190}\\
+\mathbb{E}(Y_{i}) &= 0(0.4) + 1(0.2) + 2(0.1) + [3+4](0.15)\\
+&= 0.2 + 0.2 + 7(0.15) = 1.45\\
+&\therefore \mathbb{E}(Y_{i}) = 1.45 \quad \forall i \in \{1,2,3\}\\
+\implies \mathbb{E}(S) &= \mathbb{E}(N^{*})\mathbb{E}(Y_{i}) = \frac{81}{190}(1.45)\\
+&\approx 0.618157895\\
+&\therefore \mathbb{E}(S) \approx 0.618157895
+\end{align*}
+
+Obtengamos las probabilidades de S por medio del siguiente código usando Panjer para *cero-modificado*
+
+```{r}
+"
+TAREA-EXAMEN 4; Ejercicio 5:
+
+* En este código de R encontrarás todo lo necesario para la resolución
+del ejercicio 5 de la tarea examen 4. Para ello utilizamos la fórmula de Panjer
+para el caso (a,b,1) con cero-modificado desarrollado en la tarea pasada (Tarea 3),
+a su vez, utilizamos la fórmula desarrollada en clase para el cálculo de la prima
+P bajo un riesgo S con función de utilidad, dado una alpha, v(x):= 1-exp(-alpha*x)
+y es P = ln(M_S(alpha)) / alpha.
+"
+
+
+
+# Función Panjer Cero Modificado
+PanjerConCeroModificado <- function(r,a,b,f,p0,p1,p0m,g0,todo=F){
+  
+  "
+  PARAMETROS:
+  ---------------------------------------------------------
+  * r:= Valor de la probabilidad deseada a calcular
+  * g0 := P[S=0]
+  * (a,b) := Parametros de la familia (a,b,0)
+  * f := vector de probabilidades de Y (ordenadas desde 0)
+  * p0, p1 := Probilidad en 0 y 1, respectivamente de la
+  variable de la familia (a,b,0)
+  * p0m := Probabilidad en 0 de la variable N*
+  * todo := Booleano que indica si mostramos todas las
+  probabilidades calculadas o sólo la deseada (r)
+  "
+  
+  #Creamos un vector auxiliar para las probas de S.
+  g<-0:r
+  names(g)<-0:r
+  
+  #Le ponemos nombres al vector de probas de f.
+  names(f)<-0:(length(f)-1)
+  
+  # Panjer cero modificado
+  
+  for(s in 0:r){
+    if(s==0){
+      g["0"]=g0
+    }else{aux = 0
+    p1m <- ((1-p0m)/(1-p0))*p1 # P[N* = 1]
+    for(j in 1:(min(s,length(f)-1))){
+      aux = aux + ((a+b*j/s)*f[as.character(j)]*g[as.character(s-j)])/(1-a*f["0"])
+    }
+    aux2 = (p1m - (a+b)*p0m)*f[as.character(s)] / (1-a*f["0"])
+    g[as.character(s)]=aux + aux2
+    }
+  }
+  names(g)<-paste("P[S=",names(g),"]",sep = "")
+  
+  if(todo){
+    return(g)
+  }else{
+    return(g[r+1])
+  }
+}
+
+# Generadora de probabilidades de una binomial n,p en t
+Gn<- function(t,n,p){
+  x<- (1-p+p*t)^n
+  return(x)
+}
+
+# Funci?n de utilidad con alpha = 0.21
+
+v<-function(x){
+  y = 1- exp(-0.21*x)
+  return(y)
+}
+
+# Capital Inicial
+u <- 10
+
+f<- c(0.4,0.2,0.1,0.15,0.15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+# Colocamos muchos 0, pues si la r que le damos a la funci?n pasa la cantidad de
+# elementos en el vector entonces obtenemos NAN, y como la densidad de Y es 0 
+# fuera del soporte, entonces dicho vector conserva las propiedades de la 
+# densidad de Y.
+
+n<- 3
+p<- 1/3
+a<- -p/(1-p)
+b<- ((n+1)*p)/(1-p)
+p0<- dbinom(x=0, size=n, prob=p) # Sabiendo que N~Binom(3, 1/3)
+p1<- dbinom(x=1, size=n, prob=p)
+p0m<- 0.7
+g0<- 1 - (1-p0m)/(1-p0)*(1-Gn(t = f[1], n=n, p=p))
+
+fS<-PanjerConCeroModificado(r=12,a=a,b=b,f=f,p0=p0,p1=p1,p0m=p0m,g0=g0,todo=T)
+print("Las probabilidades est?n dadas por:")
+print(fS)
+```
+Notemos que el soporte de S está dado por $\{0,1,\dots,12\}$, y además veamos que suma 1 y tiene la misma esperanza:
+
+```{r}
+# Suma 1
+sprintf("Veamos que en efecto, suman 1: %f", sum(fS))
+
+prob<- unname(fS)
+# Media
+
+media = 0
+for(i in 0:12){
+  media = media + i*prob[i+1]
+}
+
+sprintf("Mostremos la media: %f", media)
+sprintf("Valor teórico: %f", 1.45*(81/190))
+
+```
+Y observamos que para encontrar P (prima), y por lo visto en clase:
+$$P = \frac{1}{\alpha}ln(M_{S}(\alpha)) = \frac{1}{0.21} ln \left[\sum_{k = 0}^{12} e^{k(0.21)} \mathbb{P}(S = k)\right]$$
+Y lo hacemos con el siguiente código de R:
+
+```{r}
+# Obtener la prima por medio de la fórmula con v(x) = 1-exp(-x*\alpha)
+mgf = 0
+for(k in 0:12){
+  mgf = mgf + exp(0.21*k)*prob[k+1]
+}
+
+# Inciso a)
+P = log(mgf)/0.21
+sprintf("Prima: %f", P)
+
+```
+
+
+Notemos que el valor de la prima es:
+
+**a)** $$P = 0.906725$$
+
+
+**b)** Dado que $\mathbb{E}(S) = 0.6181$ y comprobamos con el siguiente código:
+
+```{r}
+# Inciso b)
+(media<=P)
+
+```
+
+**c)** Notemos que: $M = máx\{Sop(S)\} = 12$ y P = .906725, donde claramente P $\leq M$, y comprobamos con el siguiente código:
+
+```{r}
+# Inciso c)
+(P <= length(fS)-1) # P <= 12?
+
+```
+
+**d)** Dado que, $v(x) = 1 - e^{-0.21 x}$ y $u = 10$, finalmente tenemos el siguiente código:
+
+```{r}
+# Inciso d)
+
+# Ev_u_P_S= 0
+# for(k in 0:12){
+#   Ev_u_P_S = Ev_u_P_S + (1-exp(-0.21*(10+P-k)))*prob[k+1]
+# }
+
+Ev_u_P_S= 0
+for(s in 0:12){
+  Ev_u_P_S = Ev_u_P_S + v(u+P-s)*prob[s+1]
+}
+
+
+
+sprintf("E[v(u+P-S)] = E[1-exp(-0.21*(u+P-S))]: %f", Ev_u_P_S)
+sprintf("v(u) = 1-exp(-0.21*10): %f", v(u))
+
+(v(u) == Ev_u_P_S)
+```
+
+$\blacksquare$
+
+
+## Ejercicio 6 (3 puntos)
+
+La empresa *"Pear"* se dedica a fabricar productos electrónicos de diferentes precioes. Se sabe que en cada periodo de producción, la fabricación se detendrá cuando salga el quinto producto defectuoso, con la finanlidad de dar mantenimiento al equipo de producción. En promedio, se fabrican 100 productos funcionales antes de que salga el quinto defectuoso. La mercancía se fabrica de manera aleatoria e independientemente de si es defectuosa o no, los gastos por creación de un producto $(Y_{j})$ medida en dolares americanos están dados por la f.m.p siguiente:
+
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+$k$ & $\$120$ & $\$150$ & $\$200$ \\ \hline
+$\mathbb{P}[Y_{j} = k]$ & $0.1$ & $0.7$ & $0.2$ \\
+\end{tabular}
+\end{center}
+
+Ya que, de cada 100 productos que se fabrican aleatoriamente, en promedio se producen 10 *"pearpods"*, 70 *"pearphones"* y 20 *"pearpads"*. *"Pear"* teme producir demasiado y no poder hacer frente a los gastos que tiene que hacer. Por lo tanto, se decide dividir el 25\% de todos los gastos con la empres *"Risk"*, para la cual usted trabaja en el área de riesgo, a cambio de una prima. Considerando un factor de recargo $\theta = 20\%$, calcule: 
+
+\begin{enumerate}[label=(\alph*)]
+\item La prima a cobrar por periodo de producción bajo el principio de la esperanza.
+\item La prima a cobrar por periodo de producción bajo el principio de la desviacón estándar
+\end{enumerate}
+
+ 
+Hints:
+
+
+\begin{enumerate}[label=(\alph*)]
+\item ¿Cuál es el riesgo (S) que está asociado a la prima?
+\item Nota que al menos se fabrican 5 productos, los 5 defectuosos. En cuyo caso, habría 0 funcionales, pero aún así, el gasto por los 5 defectuosos, se tiene que hacer
+\end{enumerate}
+
+
+### Solución 
+
+
+
+
+
