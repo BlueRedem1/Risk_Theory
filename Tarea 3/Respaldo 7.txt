@@ -194,7 +194,7 @@ p_{0} &= (0.9)^{3}\\
 \end{align*}
 
 Por otro lado, \begin{align*}
-F_{Y_{1}}(Y) &= 1 - e^{-0.5_{Y}} \mathbb{I}_{\{Y > 0\}}^{(y)}\\
+F_{Y}(Y) &= 1 - e^{-0.5_{Y}} \mathbb{I}_{\{Y > 0\}}^{(y)}\\
 &\therefore \text{Es Exponencial} \quad \lambda = 0.5 = \frac{1}{2}
 \end{align*}
 
@@ -322,10 +322,10 @@ Notemos que: $-\frac{0.4}{0.6} = -\frac{2}{3} = a$ y que $\frac{11(0.4)}{0.6} = 
 &+  \left(a + \frac{b(2)}{2}\right)\mathbb{P}(X = 2)\mathbb{P}(S = 2 - 2)
 \end{align*}
 \begin{align*}
-&=\left(a + \frac{b}{2}\right)0.4[0.016124314]\\
+&=(a + \frac{b}{2})0.4[0.016124314]\\
 &+ (a + b)0.35[0.6]^{10}\\
-&= \left(\frac{11}{3} - \frac{2}{3}\right)0.4[0.016124314]\\
-&+ \left(\frac{20}{3}\right)0.35[0.6]^{10}\\
+&= (\frac{11}{3} - \frac{2}{3})0.4[0.016124314]\\
+&+ (\frac{20}{3})0.35[0.6]^{10}\\
 &= 0.033457951\\
 \mathbb{P}(S = 3) &= \left(a + \frac{b(1)}{3}\right)\mathbb{P}(X = 1)\mathbb{P}(S = 3 - 1)\\
 &+  \left(a + \frac{b(2)}{3}\right)\mathbb{P}(X = 2)\mathbb{P}(S = 3 - 2)\\
@@ -365,7 +365,7 @@ De esta manera se obtiene que:
 &\textcolor{red}{y}\\
 &\textcolor{red}{\mathbb{P}(S \leq 5)} = \mathbb{P}(S = 0) + \mathbb{P}(S = 1) + \dots + \mathbb{P}(S = 5)\\
 &= 0.6^{10} + 0.016124314 + 0.033457951\\
-&+ 0.05769817 + 0.081540207 + 0.103094169\\
+&+ 0.05769817 0.081540207 + 0.103094169\\
 &= 0.297961428\\
 &\textcolor{red}{\therefore \mathbb{P}(S \leq 5) = .297961428}_\blacksquare
 \end{align*}
@@ -450,9 +450,9 @@ $$ N \sim Poi(1); \quad Y_{i} \sim Exp(1); \quad \mathbb{E}\frac{[(S - \mathbb{E
 Ahora;
 \begin{align*}
 M_{S}(t) &= e^{\lambda(M_{Y}(t) - 1)}; N \sim Poi(1) \implies M_{S}(t) = e^{(M_{Y}(t) - 1)}\\
-\text{Pero}\quad Y_{i} \sim Exp(1) &\implies M_{Y}(t) = \frac{\lambda}{\lambda - t} = \frac{1}{1 - t}\\
+\text{Pero} Y_{i} \sim Exp(1) &\implies M_{Y}(t) = \frac{\lambda}{\lambda - t} = \frac{1}{1 - t}\\
 \implies M_{S}(t) =& e^{\left[\frac{1}{1 - t} - 1\right]} = e^{\frac{1}{1 - t} - \frac{1 - t}{1 - t}} = e^{\frac{\textcolor{red}{1-1} + t}{1 - t}} = e^{\frac{t}{1 - t}}\\
-\implies M_{S}(t) &= e^{\frac{t}{1 - t}}\\
+\implies M_{S}(t) &= \frac{t}{1 - t}\\
 \implies M'_{S}(t) &= e^{\frac{t}{1 - t}}\left[\frac{(1 \textcolor{red}{- t) + t}}{(1 - t)^{2}}\right]\\
 &= e^{\frac{t}{1 - t}}\left[\frac{1}{(1 - t)^{2}}\right]\\
 M'_{S}(t) &= e^{\frac{t}{1 - t}}(1 - t)^{-2}\\
@@ -651,7 +651,7 @@ Así....
 
 \textcolor{red}{Coeficiente de variación:} 2.945858$_\blacksquare$
 
-Ver histograma...
+
 
 Además calculamos otras métricas:
 
@@ -694,7 +694,7 @@ De manera teórica (exacta) utilizando las propiedades del modelo colectivo.
 
 ### Solución 
 
-Primero, identifiquemos $N^{*}$:
+Primero, identifiquemos N^{*}:
 Por lo mencionado en (6), se tiene que:
 $$\mathbb{P}(N^{*} = 0) = 0.7$$
 Y considerando $N :=$ Frecuencia de clientes normales, y por la información proporcionada $\rightarrow N \sim Bin(4, \frac{20}{100}= \frac{1}{5})$
@@ -719,7 +719,7 @@ Notemos que:
 $\implies$ Para $N^{*}$ tenemos que:
 
 \begin{align*}
-P_{0}^{*} = \mathbb{P}(N^{*} = 0) = 0.7; P_{K}^{*} &= \mathbb{P}(N^{*} = K) = \frac{0.3}{1 - \left(\frac{4}{5}\right)^{4}} \binom{4}{k} \left(\frac{1}{5}\right)^{K} \left(\frac{4}{5}\right)^{4 - K}\\
+P_{0}^{*} = \mathbb{P}(N^{*} = 0) = 0.7; P_{K}^{*} &= \mathbb{P}(N^{*} = K) = \frac{0.3}{1 - \left(\frac{4}{5}\right)^{4}} \binom{4}{k} \left(\frac{1}{5}\right)^{K} \left(\frac{4}{5}\right)^{4 = K}\\
 &= \frac{125}{246} \binom{4}{k} \left(\frac{1}{5}\right)^{K} \left(\frac{4}{5}\right)^{4 - K}
 \end{align*}
 
@@ -734,8 +734,8 @@ Observamos que la media de $N^{*}$ está dada por:
 Su segundo momento:
 
 \begin{align*}
-\mathbb{E}(N^{*^{2}}) &= \sum_{K = 0}^{4}K^{2} P_{K}^{*} = \sum_{K = 1}^{4}\frac{K^{2}(1 - P_{0}^{*})}{1 - P_{0}} P_{K} = \frac{125}{246}\sum_{K = 1}^{4}K^{2} P_{K}^{}\\
-&= \frac{125}{246}\mathbb{E}(N^{2}) = \frac{125}{246}\left[4\left(\frac{1}{5}\right)\left(\frac{4}{5}\right) + 4^{2}\left(\frac{1}{5}\right)^{2}\right]\\
+\mathbb{E}(N^{*}) &= \sum_{K = 0}^{4}K^{2} P_{K}^{*} = \sum_{K = 1}^{4}\frac{K^{2}(1 - P_{0}^{*})}{1 - P_{0}} P_{K} = \frac{125}{246}\sum_{K = 1}^{4}K^{2} P_{K}^{*}\\
+&= \frac{125}{246}\mathbb{E}(N^{*}) = \frac{125}{246}\left[4\left(\frac{1}{5}\right)\left(\frac{4}{5}\right) + 4^{2}\left(\frac{1}{5}\right)^{2}\right]\\
 &= \frac{125}{123}\left(\frac{4}{5}\right)^{2} = \frac{80}{123}
 \end{align*}
 
@@ -745,7 +745,7 @@ Su segundo momento:
 &\approx 0.485160949
 \end{align*}
 
-\underline{\text{Conociendo las Yi's:}}
+\underline{\text{Conociendo las Vi's:}}
 
 Notemos que: 
 $$Y_{i} = máx \{mín\{X,u\}-d,0\} = (mín \{X,4\} - 2_{+}) \quad \forall i \in \{1,2,3,4\}$$
@@ -777,12 +777,12 @@ Entonces:
 
 ## Inciso a) 
 
-$$\mathbb{E}(S) = \mathbb{E}(N^{*})\mathbb{E}(Y_{i}) = \frac{50}{123}\left(\frac{1}{2}\right) = \frac{25}{123}_\blacksquare$$
+$$\mathbb{E}(S) = \mathbb{E}(N^{*})\mathbb{E}(Y_{i}) = \frac{50}{123}(\frac{1}{2}) = \frac{25}{123}_\blacksquare$$
 
 ## Inciso b) 
 
 \begin{align*}
-\mathbb{E}(S^{2}) &= \mathbb{E}(N^{*})\mathbb{E}(Y^{2}) +
+\mathbb{E}(S^{*}) &= \mathbb{E}(N^{*})\mathbb{E}(Y^{2}) 
 \mathbb{E}(N^{*}(N^{*} - 1))\mathbb{E}^{2}(Y)\\
 &= \frac{50}{123}\left(\frac{5}{6}\right) + \left[\mathbb{E}(N^{*^{2}}) - \mathbb{E}(N^{*})\right] \frac{1}{4}\\
 &= \frac{125}{369} + \frac{1}{4} \left[\frac{80}{123} - \frac{50}{123}\right] = \frac{125}{369} + \frac{1}{4} \left[\frac{30}{123}\right]\\
@@ -792,16 +792,16 @@ $$\mathbb{E}(S) = \mathbb{E}(N^{*})\mathbb{E}(Y_{i}) = \frac{50}{123}\left(\frac
 ## Inciso c)
 
 \begin{align*}
-Var(S) &= Var[N^{*}]\mathbb{E}^{2}(Y) + Var(Y)\mathbb{E}(N^{*})\\
+Var(S) &= Var[N^{*}]\mathbb{E}^{2}(V) + Var(V)\mathbb{E}(N^{*})\\
 &= \frac{7,340}{15,129}\left(\frac{1}{4}\right) + \frac{7}{12} \left(\frac{50}{123}\right)  = \frac{1,835}{15,129} + \frac{175}{738}\\
-&\approx 0.358417609_\blacksquare
+&\approx 0.358419609_\blacksquare
 \end{align*}
  
 ## Inciso d) 
 
 Coeficiente de Variación:
 
-$$\frac{\sqrt{Var(S)}}{\mathbb{E}(S)} = \frac{\sqrt{0.358417609}}{\left(\frac{25}{123}\right)} \approx 2.94550505_\blacksquare$$
+$$\frac{\sqrt{Var(S)}}{\mathbb{E}(S)} = \frac{\sqrt{0.358419609}}{\left(\frac{25}{123}\right)} \approx 2.94550505_\blacksquare$$
 
 
 # Ejercicio 8
@@ -970,12 +970,13 @@ Notemos que:
 \mathbb{P}(S = 0) &= 0.877456\\
 \mathbb{P}(S = 1) &= 0.055083\\
 &\implies \mathbb{P}(S = 0) + \mathbb{P}(S = 1) = 0.932539\\
-&\implies VaR_{0.9}(S) = 1_\blacksquare
+&\implies VaR_{0.9}(S) = 1
 \end{align*}
 
+$_\blacksquare$
 
 ## Inciso d)
-Obtén la moda: Recordemos que la moda es el elemento en el soporte tal que, maximiza la probabilidad, en nuestro caso, 0 es el que maximiza la probabilidad. $_\blacksquare$
+Obtén la moda: Recordemos que la moda es el elementos en ele soporte tal que, maximiza la probabilidad, en nuestro caso, 0 es el que maximiza la probabilidad. $_\blacksquare$
 
 ```{r}
 # Segundo momento:

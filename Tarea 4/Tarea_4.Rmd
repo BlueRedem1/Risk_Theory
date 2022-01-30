@@ -1,0 +1,694 @@
+---
+output: pdf_document
+header-includes: 
+- \usepackage{enumitem}  
+- \usepackage{caption}
+- \usepackage{amsmath}
+- \captionsetup{labelformat=empty}
+- \usepackage[utf8]{inputenc}
+- \usepackage{geometry}
+- \usepackage{amsmath}
+- \usepackage{amssymb}
+- \usepackage{tabularx}
+---
+
+```{r setup,echo=F}
+knitr::opts_chunk$set(echo=T, message=FALSE, warning=FALSE, 
+                      out.width='100%', fig.align='center', eval=T)
+```
+
+```{r pressure2, echo=FALSE, out.width = '240%'}
+knitr::include_graphics("CARATULA.PNG")
+```
+
+
+\newpage
+
+
+## Ejercicio 3 (2 puntos)
+
+Considera el siguiente riesgo de una compañía:
+
+$$S = \sum_{i = 1}^{N} Y_{i} \sim BinComp (n = 3, p = 0.8, F_{Y})$$
+
+Donde la severidad, $Y$, tiene la siguiente función de masa de probabilidad:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+  $k$ & $1$ & $2$ & $3$ & $4$ \\ \hline
+$\mathbb{P}[Y = k]$ & $\frac{7}{16}$ & $\frac{5}{16}$ & $\frac{3}{16}$ & $\frac{1}{16}$ \\
+\end{tabular}
+\end{center}
+
+Sea P l aprima que se cobrará por asumir este riesgo, **calculada por el principio de utilidad cero.** Se sabe que la función de utilidad es exponencial con $\alpha = 0.5$ y que la compañia tiene un capital inicial $u \geq 0.$
+
+Calcula:
+
+\begin{enumerate}[label=(\alph*)]
+\item $M_{S}(\alpha)$
+\item $P.$
+\end{enumerate}
+
+### Solución
+
+**a)** 
+\begin{align*}
+M_{y}(t) &= \mathbb{E}[e^{tx}]\\
+&= \frac{7}{16}e^{t(1)} + \frac{5}{16}e^{t(2)}\\
+&+ \frac{3}{16}e^{t(3)} + \frac{1}{16}e^{t(4)}
+\end{align*}
+
+Para el modelo Binomial Compuesto, la generadora de momentos está dada por:
+
+$$M_{S}(t) = (1 - p + p M_{Y}(t))^{n}$$
+Sustiyendo con $n = 3$ y $p = 0.8 \implies 1 - p = 0.2$
+$$M_{S}(t) = \left(0.2 + 0.8\left(\frac{7}{16}e^{t(1)} + \frac{5}{16}e^{t(2)} +\frac{3}{16}e^{t(3)} + \frac{1}{16}e^{t(4)}\right)\right)^{3}$$
+Y en clase vimos que, para la función de utilidad exponencial $(\alpha)$, con $u \geq 0$, la prima calculada por el principio de utilidad cero es:
+
+$$p = \frac{1}{\alpha} ln(M_{S}(\alpha))$$
+
+```{r}
+momentos_y<-function(alpha){
+  return((7/16)*exp(alpha*1)+(5/16)*exp(alpha*2)+
+           (3/16)*exp(alpha*3)+(1/16)*exp(alpha*4))
+}
+momentos_s<-function(t,p,n){
+  return((1-p+p*momentos_y(t))^n)
+}
+momentos_s(0.5,0.8,3)
+
+ejercicio_3_b<-function(alpha=0.5,p=0.8,n=3){
+  return((1/alpha)*log(momentos_s(alpha,p,n)))
+}
+ejercicio_3_b()
+```
+
+De esta manera, $P = 5.493733 \quad y \quad M_{S}(\alpha) = 15.59369\blacksquare$
+
+## Ejercicio 4 (2 puntos)
+
+
+Considere el siguiente riesgo de una compañia:
+
+$$S = \sum_{i = 1}^{4}Y_{i}$$
+
+Donde la severidad, $Y$, tiene la siguiente función de masa de probabilidad:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+  $k$ & $1$ & $2$ & $3$ & $4$ \\ \hline
+$\mathbb{P}[Y = k]$ & $\frac{4}{10}$ & $\frac{3}{10}$ & $\frac{2}{10}$ & $\frac{1}{10}$ \\
+\end{tabular}
+\end{center}
+
+Sea $P$ la prima que se cobrará por asuimir este riesgo, **calculada por el principío de utilidad cero**. Se sabe que la función de utilidad es cuadrática con $\alpha = \frac{1}{24}$ y que la compañia tiene un capital inicial $u = 10$
+
+Calcula:
+
+\begin{enumerate}[label=(\alph*)]
+\item $P$
+\item Comprueba que $\mathbb{E}[S] \leq P$
+\item Comprueba que $P \leq M = máx\{sop(S)\}$
+\item Comprueba que $v(u) = \mathbb{E}[v(u + p - S)]$
+\end{enumerate} 
+
+
+### Solución 
+
+Notemos que:
+
+\begin{align*}
+\mathbb{E}(Y_{i}) &= 0 \left(\frac{4}{10}\right) + 1 \left(\frac{3}{10}\right) + 2 \left(\frac{2}{10}\right) + 3  \left(\frac{1}{10}\right)\\ 
+&= \frac{3 + 4 + 3}{10} = 1\\
+&\therefore \mathbb{E}(Y_{i}) = 1 \quad \forall i \in \{1, \dots, 4\}
+\end{align*}
+Además, es claro que: $Sop(S) =\{0,1,\dots,12\}$ y que:
+\begin{align*}
+\mathbb{E}(S) &= \mathbb{E} \left(\sum_{i = 1}^{4} Y_{i}\right) = \sum_{i = 1}^{4} \mathbb{E}(Y_{i}) = 4\\
+&\therefore \mathbb{E}(S) = 4
+\end{align*}
+
+Obtengamos la densidad de S con Panjer para el caso en que $0 \in Sop(Y)$ y usando el siguiente código de R:
+
+```{r}
+"
+TAREA-EXAMEN 4; Ejercicio 4:
+
+* En este código de R encontrarás todo lo necesario para la resolución
+del ejercicio 4 de la tarea examen 4. Para ello utilizamos la fórmula de Panjer
+para el con cero en el soporte de la severidad, a su vez, utilizamos la función
+newtonRaphson para encontrar la prima P bajo un siniestro S, dado un capital mínimo u, y
+una función de utilidad cuadr?tica con nivel alpha v(x) = x - alpha*x^2.
+"
+
+library(pracma)
+
+##Probabilidades reales
+Panjer <- function(x,n,f,todo=F){
+  
+  #n := número de pólizas
+  #f := vector de probabilidades de X (ordenadas desde 0)
+  
+  #Creamos un vector auxiliar para las probas de S.
+  g<-0:x
+  names(g)<-0:x
+  
+  #Le ponemos nombres al vector de probas de f.
+  names(f)<-0:(length(f)-1)
+  
+  #Formula de Panjer
+  for(s in 0:x){
+    if(s==0){
+      g["0"]=f["0"]^n
+    }else{aux = 0
+    for(j in 1:(min(s,length(f)-1))){
+      aux = aux + ((j*(n+1))/s - 1)*f[as.character(j)]*g[as.character(s-j)]
+    }
+    g[as.character(s)]=aux/f["0"]
+    }
+  }
+  
+  if(todo){
+    return(g)
+  }else{
+    return(g[as.character(x)])
+  }
+  
+}
+
+# Funci?n de utilidad. v(x)= x - alpha*x^2
+v<-function(x){
+  y = x - (x^2)/24
+  return(y)
+}
+
+u = 10
+#Número de pólizas
+n<-4
+#Vector de probabilidades
+f<-c(0.4,0.3,0.2,0.1)
+#Probabilidades
+fS<-Panjer(x = 12,n = n,f = f,todo = T)
+print("Las probabilidades están dadas por:")
+print(fS)
+```
+
+Ahora veamos que el soporte de S claramente es $\{0,1,\dots, 12\}$. Comprobemos que la densidad suma 1 y tiene media 4:
+
+```{r}
+# Suma 1
+sprintf("Veamos que en efecto, suman 1: %f", sum(fS))
+
+prob<- unname(fS)
+# Media
+
+media = 0
+for(i in 0:12){
+  media = media + i*prob[i+1]
+}
+sprintf("Mostremos la media: %f", media)
+
+f<-function(P){
+  x = 0
+  for(s in 0:12){
+    x = x + v(10+P-s)*prob[s+1]
+  }
+  y = v(10) - x
+  return(y)
+}
+
+```
+
+Para obtener la prima P se tiene que resolver la ecuación siguiente:
+
+\begin{align*}
+v(u) &= \mathbb{E}(v(u + P - S))\\
+\implies 10 - \frac{100}{24} &= \sum_{s = 0}^{12}\left[(10 + P - s) - \frac{(10 + P - s)^{2}}{24}\right] \mathbb{P}(S = s)
+\end{align*}
+
+Usaremos el método de Newton-Raphson de la biblioteca "Pragma" de R con el siguiente código:
+
+```{r}
+# Encontrar la prima P
+P<- newtonRaphson(f,x0 = 1)$root
+# Plot de la ra?z de f.
+plot(f, xlim = c(0,12))
+```
+
+**a)** 
+De lo cual notamos que la prima es P = 6
+
+```{r}
+# Inciso a)
+sprintf("Prima: %f", P)
+```
+
+**b)** 
+Dado que $\mathbb{E}(S) = 4$ y P = 6 claramente $\mathbb{E}(S) \leq P$ y lo comprobamos con el sigiuente código: 
+
+```{r}
+# Inciso b)
+(media<=P)
+```
+
+**c)** 
+Dado que $Sop(S) = \{0,1,\dots,12\} \implies M= 12$, entonces es claro que es $6 = P \leq M = 12$ y lo comprobamos con el siguiente código:
+
+```{r}
+# Inciso c)
+(P <= length(fS)-1) # P <= 12?
+```
+
+**d)** 
+Dado que $v(x) = x - \frac{x^{2}}{24}$, utilizamos el siguiente código de R para verificar:
+
+```{r}
+# Inciso d)
+
+Ev_u_P_S= 0
+for(s in 0:12){
+  Ev_u_P_S = Ev_u_P_S + v(u+P-s)*prob[s+1]
+}
+
+
+sprintf("E[v(u+P-S)] = E[1-exp(-0.21*(u+P-S))]: %f", Ev_u_P_S)
+sprintf("v(u) = 1-exp(-0.21*10): %f", v(u))
+
+(v(u) == Ev_u_P_S)
+```
+
+
+## Ejercicio 5 (3 puntos)
+
+Para un riesgo $S$ a asumir, se sabe que $N^{*}$, su modelo de frecuencia, es de clase (a,b,1), con distribución $Bin(n = 4, p = \frac{1}{3})$ con $P_{0}^{M} = 0.7$ y $Y$ el modelo de severidad tiene la f.m.p. siguiente:
+
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+$k$ & $0$ & $1$ & $2$ & $3$ & $4$ \\ \hline
+$\mathbb{P}[Y = k]$ & $0.4$ & $0.2$ & $0.1$ & $0.15$ & $0.15$ \\
+\end{tabular}
+\end{center}
+
+
+Bajo el **principio de utilidad cero,** asumiendo una función de utilidad exponencial con $\alpha = 0.21$ y un capital inicial $u = 10$
+ 
+
+\begin{enumerate}[label=(\alph*)]
+\item Calcula la prima $(p)$ a cobrar por asumir el riesgo $(S)$
+\item Comprueba que $\mathbb{E}[S] \leq p$
+\item Comprueba que $p \leq M = máx\{sop(S)\}$
+\item Comprueba que $v(u) = \mathbb{E}[v(u + p - S)]$
+\end{enumerate} 
+
+Todas las comprobaciones anteriores verifícalas de forma númerica, **mostrando el resultado obtenida y cómo se obtuvo.** Todos los cálculos deben estar dados de manera teórica (exacta). 
+
+Hints:
+
+
+\begin{enumerate}[label=(\alph*)]
+\item Obtén la función generadora de momentos de $N^{*}$ en términos de la de $N$ para cualquier $t$.
+\item Si no quieres hacer lo anterior, debes calcular todas las probabilidades de $N^{*}$ y obtener la generadora de momentos por definición.
+\item Para calcular $\mathbb{E}[v(u + p - S)]$ usa estadística insconsciente. Recuerda que $v(u + p - S)$ es una v.a. que depende de $S$.
+\end{enumerate}
+
+### Solución 
+
+Dadas las instrucciones notemos que:
+
+$$\mathbb{P}(N^{*} = 0) = 0.7$$
+
+Y como $N \sim Bin \left(3, \frac{1}{3}\right)$
+
+Por practicidad denotemos:
+$$P_{k} := \mathbb{P}(N = k) \quad \forall k \in \{0,1,2,3\} \land P_{k}^{*}:= \mathbb{P}(N^{*} = k) \quad \forall k \in Sop(N^{*})$$
+Observemos que $N^{*}$ pertenece a la clase $(a,b,1)$ dado "preserva" la estructura de N, y por la información dada, estamos considerando el caso *cero-modificado*, es decir,
+
+$$P_{k}^{*} = \left(\frac{1 - P_{0}^{*}}{1 - P_{0}}\right) P_{k} \quad \forall k \in \{1,2,3\}$$
+Para $N^{*}$ tenemos que:
+\begin{align*}
+P_{0}^{*} = \mathbb{P}(N^{*} = 0) = 0.7;P_{k}^{*} &= \mathbb{P}(N^{*} = k) = \frac{0.3}{1 - \left(\frac{2}{3}\right)^{3}} \binom{3}{k} \left(\frac{1}{3}\right)^{k} \left(\frac{2}{3}\right)^{3 - k}\\
+&= \frac{81}{190} \binom{3}{k}\left(\frac{1}{3}\right)^{k}\left(\frac{2}{3}\right)^{3 - k}\\
+&\therefore P_{0}^{*} = \mathbb{P}(N^{*} = 0) = 0.7
+\end{align*}
+
+$$P_{k}^{*} = \left(\frac{81}{190}\right) \binom{3}{k} \left(\frac{1}{3}\right)^{k} \left(\frac{2}{3}\right)^{3 - k} \quad \forall k \in \{1,2,3\}$$
+Para obtener $\mathbb{E}(S)$ es necesario obtener $\mathbb{E}(N^{*}) \quad\text{y} \quad \mathbb{E}(Y) \implies$ 
+\begin{align*}
+\mathbb{E}(N^{*}) &= \sum_{k = 0}^{3}k P_{k}^{*} = \sum_{k = 1}^{3}k P_{k}^{*} = \sum_{k = 1}^{3} k \frac{1 - P_{0}^{*}}{1 - P_{0}} P_{k}\\ 
+&= \frac{1 - P_{0}^{*}}{1 - P_{0}}\sum_{k =1}^{3} k P_{k} = \frac{81}{190} \mathbb{E}(N)\\
+&= \frac{81}{190} (3) \left(\frac{1}{3}\right) = \frac{81}{190}\\
+&\therefore \mathbb{E}(N^{*}) = \frac{81}{190}\\
+\mathbb{E}(Y_{i}) &= 0(0.4) + 1(0.2) + 2(0.1) + [3+4](0.15)\\
+&= 0.2 + 0.2 + 7(0.15) = 1.45\\
+&\therefore \mathbb{E}(Y_{i}) = 1.45 \quad \forall i \in \{1,2,3\}\\
+\implies \mathbb{E}(S) &= \mathbb{E}(N^{*})\mathbb{E}(Y_{i}) = \frac{81}{190}(1.45)\\
+&\approx 0.618157895\\
+&\therefore \mathbb{E}(S) \approx 0.618157895
+\end{align*}
+
+Obtengamos las probabilidades de S por medio del siguiente código usando Panjer para *cero-modificado*
+
+```{r}
+"
+TAREA-EXAMEN 4; Ejercicio 5:
+
+* En este código de R encontrarás todo lo necesario para la resolución
+del ejercicio 5 de la tarea examen 4. Para ello utilizamos la fórmula de Panjer
+para el caso (a,b,1) con cero-modificado desarrollado en la tarea pasada (Tarea 3),
+a su vez, utilizamos la fórmula desarrollada en clase para el cálculo de la prima
+P bajo un riesgo S con función de utilidad, dado una alpha, v(x):= 1-exp(-alpha*x)
+y es P = ln(M_S(alpha)) / alpha.
+"
+
+
+
+# Función Panjer Cero Modificado
+PanjerConCeroModificado <- function(r,a,b,f,p0,p1,p0m,g0,todo=F){
+  
+  "
+  PARAMETROS:
+  ---------------------------------------------------------
+  * r:= Valor de la probabilidad deseada a calcular
+  * g0 := P[S=0]
+  * (a,b) := Parametros de la familia (a,b,0)
+  * f := vector de probabilidades de Y (ordenadas desde 0)
+  * p0, p1 := Probilidad en 0 y 1, respectivamente de la
+  variable de la familia (a,b,0)
+  * p0m := Probabilidad en 0 de la variable N*
+  * todo := Booleano que indica si mostramos todas las
+  probabilidades calculadas o sólo la deseada (r)
+  "
+  
+  #Creamos un vector auxiliar para las probas de S.
+  g<-0:r
+  names(g)<-0:r
+  
+  #Le ponemos nombres al vector de probas de f.
+  names(f)<-0:(length(f)-1)
+  
+  # Panjer cero modificado
+  
+  for(s in 0:r){
+    if(s==0){
+      g["0"]=g0
+    }else{aux = 0
+    p1m <- ((1-p0m)/(1-p0))*p1 # P[N* = 1]
+    for(j in 1:(min(s,length(f)-1))){
+      aux = aux + ((a+b*j/s)*f[as.character(j)]*g[as.character(s-j)])/(1-a*f["0"])
+    }
+    aux2 = (p1m - (a+b)*p0m)*f[as.character(s)] / (1-a*f["0"])
+    g[as.character(s)]=aux + aux2
+    }
+  }
+  names(g)<-paste("P[S=",names(g),"]",sep = "")
+  
+  if(todo){
+    return(g)
+  }else{
+    return(g[r+1])
+  }
+}
+
+# Generadora de probabilidades de una binomial n,p en t
+Gn<- function(t,n,p){
+  x<- (1-p+p*t)^n
+  return(x)
+}
+
+# Funci?n de utilidad con alpha = 0.21
+
+v<-function(x){
+  y = 1- exp(-0.21*x)
+  return(y)
+}
+
+# Capital Inicial
+u <- 10
+
+f<- c(0.4,0.2,0.1,0.15,0.15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+# Colocamos muchos 0, pues si la r que le damos a la funci?n pasa la cantidad de
+# elementos en el vector entonces obtenemos NAN, y como la densidad de Y es 0 
+# fuera del soporte, entonces dicho vector conserva las propiedades de la 
+# densidad de Y.
+
+n<- 3
+p<- 1/3
+a<- -p/(1-p)
+b<- ((n+1)*p)/(1-p)
+p0<- dbinom(x=0, size=n, prob=p) # Sabiendo que N~Binom(3, 1/3)
+p1<- dbinom(x=1, size=n, prob=p)
+p0m<- 0.7
+g0<- 1 - (1-p0m)/(1-p0)*(1-Gn(t = f[1], n=n, p=p))
+
+fS<-PanjerConCeroModificado(r=12,a=a,b=b,f=f,p0=p0,p1=p1,p0m=p0m,g0=g0,todo=T)
+print("Las probabilidades est?n dadas por:")
+print(fS)
+```
+Notemos que el soporte de S está dado por $\{0,1,\dots,12\}$, y además veamos que suma 1 y tiene la misma esperanza:
+
+```{r}
+# Suma 1
+sprintf("Veamos que en efecto, suman 1: %f", sum(fS))
+
+prob<- unname(fS)
+# Media
+
+media = 0
+for(i in 0:12){
+  media = media + i*prob[i+1]
+}
+
+sprintf("Mostremos la media: %f", media)
+sprintf("Valor teórico: %f", 1.45*(81/190))
+
+```
+Y observamos que para encontrar P (prima), y por lo visto en clase:
+$$P = \frac{1}{\alpha}ln(M_{S}(\alpha)) = \frac{1}{0.21} ln \left[\sum_{k = 0}^{12} e^{k(0.21)} \mathbb{P}(S = k)\right]$$
+Y lo hacemos con el siguiente código de R:
+
+```{r}
+# Obtener la prima por medio de la fórmula con v(x) = 1-exp(-x*\alpha)
+mgf = 0
+for(k in 0:12){
+  mgf = mgf + exp(0.21*k)*prob[k+1]
+}
+
+# Inciso a)
+P = log(mgf)/0.21
+sprintf("Prima: %f", P)
+
+```
+Notemos que el valor de la prima es:
+
+**a)** 
+$$P = 0.906725$$
+
+
+**b)** 
+Dado que $\mathbb{E}(S) = 0.6181$ y comprobamos con el siguiente código:
+
+```{r}
+# Inciso b)
+(media<=P)
+
+```
+
+**c)** 
+Notemos que: $M = máx\{Sop(S)\} = 12$ y P = .906725, donde claramente P $\leq M$, y comprobamos con el siguiente código:
+
+```{r}
+# Inciso c)
+(P <= length(fS)-1) # P <= 12?
+
+```
+
+**d)** 
+Dado que, $v(x) = 1 - e^{-0.21 x}$ y $u = 10$, finalmente tenemos el siguiente código:
+
+```{r}
+# Inciso d)
+
+# Ev_u_P_S= 0
+# for(k in 0:12){
+#   Ev_u_P_S = Ev_u_P_S + (1-exp(-0.21*(10+P-k)))*prob[k+1]
+# }
+
+Ev_u_P_S= 0
+for(s in 0:12){
+  Ev_u_P_S = Ev_u_P_S + v(u+P-s)*prob[s+1]
+}
+
+
+
+sprintf("E[v(u+P-S)] = E[1-exp(-0.21*(u+P-S))]: %f", Ev_u_P_S)
+sprintf("v(u) = 1-exp(-0.21*10): %f", v(u))
+
+(v(u) == Ev_u_P_S)
+```
+
+$\blacksquare$
+
+
+## Ejercicio 6 (3 puntos)
+
+La empresa *"Pear"* se dedica a fabricar productos electrónicos de diferentes precioes. Se sabe que en cada periodo de producción, la fabricación se detendrá cuando salga el quinto producto defectuoso, con la finanlidad de dar mantenimiento al equipo de producción. En promedio, se fabrican 100 productos funcionales antes de que salga el quinto defectuoso. La mercancía se fabrica de manera aleatoria e independientemente de si es defectuosa o no, los gastos por creación de un producto $(Y_{j})$ medida en dolares americanos están dados por la f.m.p siguiente:
+
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+$k$ & $\$120$ & $\$150$ & $\$200$ \\ \hline
+$\mathbb{P}[Y_{j} = k]$ & $0.1$ & $0.7$ & $0.2$ \\
+\end{tabular}
+\end{center}
+
+Ya que, de cada 100 productos que se fabrican aleatoriamente, en promedio se producen 10 *"pearpods"*, 70 *"pearphones"* y 20 *"pearpads"*. *"Pear"* teme producir demasiado y no poder hacer frente a los gastos que tiene que hacer. Por lo tanto, se decide dividir el 25\% de todos los gastos con la empres *"Risk"*, para la cual usted trabaja en el área de riesgo, a cambio de una prima. Considerando un factor de recargo $\theta = 20\%$, calcule: 
+
+\begin{enumerate}[label=(\alph*)]
+\item La prima a cobrar por periodo de producción bajo el principio de la esperanza.
+\item La prima a cobrar por periodo de producción bajo el principio de la desviacón estándar
+\end{enumerate}
+
+ 
+Hints:
+
+
+\begin{enumerate}[label=(\alph*)]
+\item ¿Cuál es el riesgo (S) que está asociado a la prima?
+\item Nota que al menos se fabrican 5 productos, los 5 defectuosos. En cuyo caso, habría 0 funcionales, pero aún así, el gasto por los 5 defectuosos, se tiene que hacer
+\end{enumerate}
+
+
+### Solución 
+
+La producción se detiene con 5 fallos. Se fabrican 100 en promedio antes del 5° fallo. Sea $X$ la v.a del número de productos fabricados de la 5° falla es: *Binomial Negativa*, $k = 5$ $p = ¿?$.
+
+Pero, como contamos todos los intentos (ya que la v.a. $X$ mide el número de productos fabricados).
+
+Bajo esta parametrización, $X \sim \text{Binomial Negativa}(k,p)$ con soporte en $X \in \mathbb{N}\{0,1,2,3,4\}$.
+\begin{align*}
+\mathbb{E}[X] &= \frac{k}{p} = 100 \rightarrow \text{Por hipótesis}\\
+&\implies \frac{k}{100} = p \implies \frac{5}{100} = p
+\end{align*}
+
+$\implies$ La variable de frecuencia $N \sim \text{Binomial Negativa}\left(5, \frac{5}{100}\right)$ con la parametrización que cuenta los ensayos antes del k-ésimo éxito (es decir, con soporte en $X \in \mathbb{N}\backslash \{0,1,2,3,4\}$). 
+
+Luego, la variable de severidad se distribuye: 
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+$k$ & $\$120$ & $\$150$ & $\$200$ \\ \hline
+$\mathbb{P}[Y_{j} = k]$ & $0.1$ & $0.7$ & $0.2$ \\
+\end{tabular}
+\end{center}
+\begin{align*}
+\implies \mathbb{E}[Y] &= (0.1)(120) + (0.7)(150) + (0.2)(200)\\
+&= 12 + 105 + 40\\
+&= 157
+\end{align*}
+
+Luego, por propiedades del modelo colectivo:
+\begin{align*}
+\mathbb{E}[S] &= \mathbb{E}[N]\mathbb{E}[Y]\\
+&= [100]*[157]\\
+&= 15700
+\end{align*}
+
+Como cedemos el 25\% de todos los riesgos, podríamos interpretarlo como un contrato de "reaseguro proporcional" con $\alpha = 25\%$.
+
+Sea $Z$ la v.a. que mide la pérdida asumida por la reaseguradora
+
+$$Z:= \alpha S = [0.25]S$$
+\begin{align*}
+\mathbb{E}[Z] = \mathbb{E}[0.25 * S] = 0.25 &= 0.25(15700)\\
+&= 3925
+\end{align*}
+
+Luego, como el factor de recargo es $\theta = 0.20$
+
+**a)** Por el método del principio del valor esperado:
+\begin{align*}
+p(Z) = p(\alpha S) = p (0.255) &= (1 + \theta) \mathbb{E}[0.25 * 5]\\
+&= (1 + \theta)(0.25) \mathbb{E}[S]\\
+&= (1 + 0.2)(0.25)(15700)\\
+&= (1.2)(0.25)(15700)\\
+&= (1.2)(3925)\\
+&= 4710\\
+&\therefore \text{La prima a cobrar bajo el método de esperanza es 4710}_\blacksquare
+\end{align*}
+
+**b)**
+Notemos que, por la distribución de N y su parametrización:
+
+\begin{align*}
+Var[N] &= k \left(\frac{1 - p}{p^{2}}\right) = 5 \left(\frac{1 - \frac{5}{100}}{\left(\frac{5}{100}\right)^{2}}\right)\\
+&= 1900
+\end{align*}
+
+
+El segundo momento de Y es:
+\begin{align*}
+\mathbb{E}[Y^{2}] &= (0.1)(120^{2}) + 0.7 (150^{2}) + 0.2(200^{2})\\
+&= 25190\\
+\implies Var[Y] &= \mathbb{E}[Y^{2}] - \mathbb{E}^{2}[Y] = 25190 - 157^{2} = 541
+\end{align*}
+
+Por propiedades del modelo colectivo:
+\begin{align*}
+Var(S) &= Var(N)\mathbb{E}^{2}[Y] + Var(Y)\mathbb{E}[N]\\
+&= 1900(157^{2}) + 541(100)\\
+&= 46,887,200
+\end{align*}
+\begin{align*}
+Var(Z) = Var(0.25*5) &= 0.25^{2}Var(S)\\
+&= 0.0625[46,887,200]\\
+&=2,930,450
+\end{align*}
+
+Por el principio de la varianza, con $\theta = 0.2$
+\begin{align*}
+p(Z) &= \mathbb{E}[Z] + \theta Var(Z)\\
+&= 3925 + 0.2(2,930,450)\\
+&= 590,015\\
+&\therefore \text{La prima a cobrar bajo el método de varianza es 590,015}_\blacksquare
+\end{align*}
+
+Finalmente veamos el siguiente código para verificar vía simulación:
+
+```{r}
+media_teorica <- 15700
+varianza_teorica <- 46887200
+set.seed(6)
+
+severidad<-function(n){
+  z<-runif(n)
+  for(i in 1:n){
+    if(z[i]<=0.1){
+      z[i]=120
+      next
+    }
+    else if(z[i]>0.1 && z[i]<=0.8){
+      z[i]=150
+      next
+    }
+    else if(z[i]>0.8){
+      z[i]=200
+      next
+    }
+  }
+  return(z)
+}
+genera.una.S<-function(){
+  n<-(rnbinom(1,5,5/100)+5)
+  y<-severidad(n)
+  return(sum(y))
+}
+sims=1000000
+s<-replicate(sims,genera.una.S())
+media_empirica <- mean(s)
+varianza_empirica <- var(s)
+proporcion_media <- abs(media_empirica/media_teorica-1) *100 ##Porcentaje
+proporcion_varianza <- abs(varianza_empirica/varianza_teorica-1) *100 ##Porcentaje
+proporcion_media
+proporcion_varianza
+```
+

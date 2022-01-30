@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.9.21)  23 JAN 2022 02:00
+=======
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  23 JAN 2022 03:23
+>>>>>>> 67ec3c6b0146b35795f7c67370992e1e5714e220
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -563,7 +567,7 @@ File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 378.
 [6] [7] [8]
-Overfull \vbox (2.22676pt too high) has occurred while \output is active []
+Overfull \vbox (13.81476pt too high) has occurred while \output is active []
 
 [9]
 
@@ -585,7 +589,7 @@ Package pdftex.def Info: Tarea_3_files/figure-latex/unnamed-chunk-6-1.pdf  used
  on input line 912.
 (pdftex.def)             Requested size: 393.48703pt x 199.7549pt.
 [15] [16 <./Tarea_3_files/figure-latex/unnamed-chunk-6-1.pdf>]
-Overfull \hbox (464.74226pt too wide) in paragraph at lines 1012--1012
+Overfull \hbox (464.74226pt too wide) in paragraph at lines 1014--1014
 []\T1/lmtt/m/n/10 ## [1] "\nA continuación mostraremos algunos resultado más co
 n base en la muestra de \n1,000,000 de S generadas, los cuales no serán de util
 idad para ejercicios \nposteriores:\n"[] 
@@ -593,40 +597,40 @@ idad para ejercicios \nposteriores:\n"[]
 
 [17] [18]
 
-LaTeX Warning: Command \' invalid in math mode on input line 1124.
+LaTeX Warning: Command \' invalid in math mode on input line 1126.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1124.
+LaTeX Warning: Command \' invalid in math mode on input line 1126.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1124.
+LaTeX Warning: Command \' invalid in math mode on input line 1126.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1130.
+LaTeX Warning: Command \' invalid in math mode on input line 1132.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1130.
+LaTeX Warning: Command \' invalid in math mode on input line 1132.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1130.
+LaTeX Warning: Command \' invalid in math mode on input line 1132.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1130.
+LaTeX Warning: Command \' invalid in math mode on input line 1132.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1130.
+LaTeX Warning: Command \' invalid in math mode on input line 1132.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1130.
+LaTeX Warning: Command \' invalid in math mode on input line 1132.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1130.
+LaTeX Warning: Command \' invalid in math mode on input line 1132.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1130.
+LaTeX Warning: Command \' invalid in math mode on input line 1132.
 
 [19] [20]
-Underfull \vbox (badness 2119) detected at line 1278
+Underfull \vbox (badness 2119) detected at line 1280
  []
 
 [21] [22] [23]
@@ -637,6 +641,7 @@ File: Tarea_3_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pdf)
 <use Tarea_3_files/figure-latex/unnamed-chunk-13-1.pdf>
 Package pdftex.def Info: Tarea_3_files/figure-latex/unnamed-chunk-13-1.pdf  use
 d on input line 1489.
+<<<<<<< HEAD
 (pdftex.def)             Requested size: 426.62523pt x 256.97896pt.
 [24 <./Tarea_3_files/figure-latex/unnamed-chunk-13-1.pdf>]
 ! Missing $ inserted.
@@ -654,3 +659,42 @@ Here is how much of TeX's memory you used:
  85i,20n,88p,821b,474s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 !  ==> Fatal error occurred, no output PDF file produced!
+=======
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[24 <./Tarea_3_files/figure-latex/unnamed-chunk-13-1.pdf>] [25] [26] (Tarea_3.a
+ux) ) 
+Here is how much of TeX's memory you used:
+ 14998 strings out of 478927
+ 226809 string characters out of 2866168
+ 594731 words of memory out of 3000000
+ 32380 multiletter control sequences out of 15000+600000
+ 449676 words of font info for 104 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 74i,20n,80p,823b,478s stack positions out of 5000i,500n,10000p,200000b,80000s
+{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-ec.enc}{D:/Miktwx LaTex/fonts/enc/d
+vips/lm/lm-mathsy.enc}{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-rm.enc}{D:/Miktwx 
+LaTex/fonts/enc/dvips/lm/lm-ts1.enc}{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-math
+ex.enc}{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-mathit.enc}<D:/Miktwx LaTex/fonts
+/type1/public/lm/lmbx10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmbx12.pfb><
+D:/Miktwx LaTex/fonts/type1/public/lm/lmex10.pfb><D:/Miktwx LaTex/fonts/type1/p
+ublic/lm/lmmi10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmmi5.pfb><D:/Miktwx
+ LaTex/fonts/type1/public/lm/lmmi7.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/l
+mr10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmr5.pfb><D:/Miktwx LaTex/fonts
+/type1/public/lm/lmr7.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmri10.pfb><D:
+/Miktwx LaTex/fonts/type1/public/lm/lmsy10.pfb><D:/Miktwx LaTex/fonts/type1/pub
+lic/lm/lmsy5.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmsy7.pfb><D:/Miktwx La
+Tex/fonts/type1/public/lm/lmtk10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmt
+ko10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmtt10.pfb><D:/Miktwx LaTex/fon
+ts/type1/public/lm/lmtti10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/sym
+bols/msam10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols/msam7.pfb>
+<D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols/msbm10.pfb><D:/Miktwx LaTe
+x/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on Tarea_3.pdf (26 pages, 532118 bytes).
+PDF statistics:
+ 524 PDF objects out of 1000 (max. 8388607)
+ 140 named destinations out of 1000 (max. 500000)
+ 26984 words of extra memory for PDF output out of 29859 (max. 10000000)
+
+
+! pdflatex: major issue: So far, you have not checked for MiKTeX updates.
+>>>>>>> 67ec3c6b0146b35795f7c67370992e1e5714e220
