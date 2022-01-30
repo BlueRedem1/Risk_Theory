@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  30 JAN 2022 05:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  30 JAN 2022 10:53
 entering extended mode
 **./Tarea_4.tex
 (Tarea_4.tex
@@ -550,10 +550,10 @@ LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 174.
 [2]
 
-LaTeX Warning: Command \' invalid in math mode on input line 221.
+LaTeX Warning: Command \' invalid in math mode on input line 232.
 
-
-Overfull \hbox (1845.48825pt too wide) in paragraph at lines 259--259
+[3]
+Overfull \hbox (1845.48825pt too wide) in paragraph at lines 270--270
 []\T1/lmtt/m/n/10 ## [1] "\nTAREA-EXAMEN 4; Ejercicio 4:\n\n* En este código de
  R encontrarás todo lo necesario para la resolución\ndel ejercicio 4 de la tare
 a examen 4. Para ello utilizamos la fórmula de Panjer\npara el con cero en el s
@@ -562,25 +562,28 @@ ontrar la prima P bajo un siniestro S, dado un capital mínimo u, y\nuna función
  de utilidad cuadr?tica con nivel alpha v(x) = x - alpha*x^2.\n"[] 
  []
 
-[3]
 
 LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 265.
+(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 276.
+
+
+Underfull \vbox (badness 10000) detected at line 324
+ []
 
 [4]
-<Tarea_4_files/figure-latex/unnamed-chunk-4-1.pdf, id=53, 469.755pt x 325.215pt
+<Tarea_4_files/figure-latex/unnamed-chunk-4-1.pdf, id=52, 469.755pt x 325.215pt
 >
 File: Tarea_4_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
 <use Tarea_4_files/figure-latex/unnamed-chunk-4-1.pdf>
 Package pdftex.def Info: Tarea_4_files/figure-latex/unnamed-chunk-4-1.pdf  used
- on input line 395.
+ on input line 406.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [5] [6 <./Tarea_4_files/figure-latex/unnamed-chunk-4-1.pdf>]
 
-LaTeX Warning: Command \' invalid in math mode on input line 502.
+LaTeX Warning: Command \' invalid in math mode on input line 513.
 
 [7]
-Overfull \hbox (2060.73763pt too wide) in paragraph at lines 576--576
+Overfull \hbox (2060.73763pt too wide) in paragraph at lines 587--587
 []\T1/lmtt/m/n/10 ## [1] "\nTAREA-EXAMEN 4; Ejercicio 5:\n\n* En este código de
  R encontrarás todo lo necesario para la resolución\ndel ejercicio 5 de la tare
 a examen 4. Para ello utilizamos la fórmula de Panjer\npara el caso (a,b,1) con
@@ -591,25 +594,25 @@ ln(M_S(alpha)) / alpha.\n"[]
  []
 
 [8]
-Underfull \vbox (badness 10000) detected at line 661
+Underfull \vbox (badness 10000) detected at line 672
  []
 
 
-Underfull \vbox (badness 10000) detected at line 661
+Underfull \vbox (badness 10000) detected at line 672
  []
 
 [9] [10]
 
-LaTeX Warning: Command \' invalid in math mode on input line 764.
+LaTeX Warning: Command \' invalid in math mode on input line 775.
 
 [11]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 8
-72.
+83.
 (D:\Miktwx LaTex\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 
-LaTeX Warning: Command \textquestiondown invalid in math mode on input line 873
+LaTeX Warning: Command \textquestiondown invalid in math mode on input line 884
 .
 
 [12] [13] [14] [15] (Tarea_4.aux) ) 
@@ -637,7 +640,7 @@ blic/lm/lmtko10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmtt10.pfb><D:/Miktw
 x LaTex/fonts/type1/public/lm/lmtti10.pfb><D:/Miktwx LaTex/fonts/type1/public/a
 msfonts/symbols/msam10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols
 /msam7.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Tarea_4.pdf (15 pages, 442126 bytes).
+Output written on Tarea_4.pdf (15 pages, 442483 bytes).
 PDF statistics:
  250 PDF objects out of 1000 (max. 8388607)
  49 named destinations out of 1000 (max. 500000)

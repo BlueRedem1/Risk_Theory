@@ -75,13 +75,15 @@ momentos_y<-function(alpha){
 momentos_s<-function(t,p,n){
   return((1-p+p*momentos_y(t))^n)
 }
+momentos_s(0.5,0.8,3)
+
 ejercicio_3_b<-function(alpha=0.5,p=0.8,n=3){
   return((1/alpha)*log(momentos_s(alpha,p,n)))
 }
 ejercicio_3_b()
 ```
 
-De esta manera, $p = 5.493733_\blacksquare$
+De esta manera, $P = 5.493733 \quad y \quad M_{S}(\alpha) = 15.59369\blacksquare$
 
 ## Ejercicio 4 (2 puntos)
 
