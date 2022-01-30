@@ -675,7 +675,7 @@ Por el principio de la desviación estándar, con $\theta = 0.2$
 p(Z) &= \mathbb{E}[Z] + \theta sd(Z)\\
 &= 4121.25 + 0.2\sqrt((3,238,732))\\
 &= 4481.18\\
-&\therefore \text{La prima a cobrar bajo el método de desviación estándar es 5305.43}_\blacksquare
+&\therefore \text{La prima a cobrar bajo el método de desviación estándar es 4481.18}_\blacksquare
 \end{align*}
 
 Finalmente veamos el siguiente código para verificar vía simulación:
