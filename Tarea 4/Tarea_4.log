@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  30 JAN 2022 04:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  30 JAN 2022 05:24
 entering extended mode
 **./Tarea_4.tex
 (Tarea_4.tex
@@ -541,16 +541,19 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (D:\Miktwx LaTex\tex/latex/microtype\mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-
-LaTeX Warning: Command \' invalid in math mode on input line 181.
-
-[2]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-04.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
+73.
 (D:\Miktwx LaTex\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-Overfull \hbox (1845.48825pt too wide) in paragraph at lines 219--219
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 174.
+[2]
+
+LaTeX Warning: Command \' invalid in math mode on input line 221.
+
+
+Overfull \hbox (1845.48825pt too wide) in paragraph at lines 259--259
 []\T1/lmtt/m/n/10 ## [1] "\nTAREA-EXAMEN 4; Ejercicio 4:\n\n* En este código de
  R encontrarás todo lo necesario para la resolución\ndel ejercicio 4 de la tare
 a examen 4. Para ello utilizamos la fórmula de Panjer\npara el con cero en el s
@@ -559,26 +562,24 @@ ontrar la prima P bajo un siniestro S, dado un capital mínimo u, y\nuna función
  de utilidad cuadr?tica con nivel alpha v(x) = x - alpha*x^2.\n"[] 
  []
 
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 225.
 
 LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 225.
+(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 265.
 
 [3] [4]
-<Tarea_4_files/figure-latex/unnamed-chunk-3-1.pdf, id=52, 469.755pt x 325.215pt
+<Tarea_4_files/figure-latex/unnamed-chunk-4-1.pdf, id=53, 469.755pt x 325.215pt
 >
-File: Tarea_4_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type pdf)
-<use Tarea_4_files/figure-latex/unnamed-chunk-3-1.pdf>
-Package pdftex.def Info: Tarea_4_files/figure-latex/unnamed-chunk-3-1.pdf  used
- on input line 355.
+File: Tarea_4_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
+<use Tarea_4_files/figure-latex/unnamed-chunk-4-1.pdf>
+Package pdftex.def Info: Tarea_4_files/figure-latex/unnamed-chunk-4-1.pdf  used
+ on input line 395.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[5 <./Tarea_4_files/figure-latex/unnamed-chunk-3-1.pdf>]
+[5] [6 <./Tarea_4_files/figure-latex/unnamed-chunk-4-1.pdf>]
 
-LaTeX Warning: Command \' invalid in math mode on input line 462.
+LaTeX Warning: Command \' invalid in math mode on input line 502.
 
-[6] [7]
-Overfull \hbox (2060.73763pt too wide) in paragraph at lines 536--536
+[7]
+Overfull \hbox (2060.73763pt too wide) in paragraph at lines 576--576
 []\T1/lmtt/m/n/10 ## [1] "\nTAREA-EXAMEN 4; Ejercicio 5:\n\n* En este código de
  R encontrarás todo lo necesario para la resolución\ndel ejercicio 5 de la tare
 a examen 4. Para ello utilizamos la fórmula de Panjer\npara el caso (a,b,1) con
@@ -588,43 +589,58 @@ go S con función de utilidad, dado una alpha, v(x):= 1-exp(-alpha*x)\ny es P =
 ln(M_S(alpha)) / alpha.\n"[] 
  []
 
-
-Underfull \vbox (badness 10000) detected at line 621
+[8]
+Underfull \vbox (badness 10000) detected at line 661
  []
 
-[8] [9]
 
-LaTeX Warning: Command \' invalid in math mode on input line 724.
+Underfull \vbox (badness 10000) detected at line 661
+ []
 
-[10] [11] (Tarea_4.aux) ) 
+[9] [10]
+
+LaTeX Warning: Command \' invalid in math mode on input line 764.
+
+[11]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 8
+72.
+(D:\Miktwx LaTex\tex/latex/lm\ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+
+LaTeX Warning: Command \textquestiondown invalid in math mode on input line 873
+.
+
+[12] [13] [14] [15] (Tarea_4.aux) ) 
 Here is how much of TeX's memory you used:
- 14764 strings out of 478927
- 223603 string characters out of 2866168
- 581584 words of memory out of 3000000
- 32260 multiletter control sequences out of 15000+600000
- 442714 words of font info for 94 fonts, out of 8000000 for 9000
+ 14808 strings out of 478927
+ 224546 string characters out of 2866168
+ 589584 words of memory out of 3000000
+ 32290 multiletter control sequences out of 15000+600000
+ 443292 words of font info for 98 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,10n,80p,757b,371s stack positions out of 5000i,500n,10000p,200000b,80000s
-{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-ec.enc}{D:/Mikt
-wx LaTex/fonts/enc/dvips/lm/lm-mathsy.enc}{D:/Miktwx LaTex/fonts/enc/dvips/lm/l
-m-rm.enc}{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-mathex.enc}{D:/Miktwx LaTex/fon
-ts/enc/dvips/lm/lm-mathit.enc}<D:/Miktwx LaTex/fonts/type1/public/lm/lmbx10.pfb
-><D:/Miktwx LaTex/fonts/type1/public/lm/lmbx12.pfb><D:/Miktwx LaTex/fonts/type1
-/public/lm/lmex10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmmi10.pfb><D:/Mik
-twx LaTex/fonts/type1/public/lm/lmmi7.pfb><D:/Miktwx LaTex/fonts/type1/public/l
-m/lmr10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmr5.pfb><D:/Miktwx LaTex/fo
-nts/type1/public/lm/lmr7.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmri10.pfb>
-<D:/Miktwx LaTex/fonts/type1/public/lm/lmsy10.pfb><D:/Miktwx LaTex/fonts/type1/
-public/lm/lmsy7.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmtk10.pfb><D:/Miktw
-x LaTex/fonts/type1/public/lm/lmtko10.pfb><D:/Miktwx LaTex/fonts/type1/public/l
-m/lmtt10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmtti10.pfb><D:/Miktwx LaTe
-x/fonts/type1/public/amsfonts/symbols/msam10.pfb><D:/Miktwx LaTex/fonts/type1/p
-ublic/amsfonts/symbols/msbm10.pfb>
-Output written on Tarea_4.pdf (11 pages, 416476 bytes).
+ 74i,11n,80p,757b,476s stack positions out of 5000i,500n,10000p,200000b,80000s
+{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-ts1.e
+nc}{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-ec.enc}{D:/Miktwx LaTex/fonts/enc/dvi
+ps/lm/lm-mathsy.enc}{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-rm.enc}{D:/Miktwx La
+Tex/fonts/enc/dvips/lm/lm-mathex.enc}{D:/Miktwx LaTex/fonts/enc/dvips/lm/lm-mat
+hit.enc}<D:/Miktwx LaTex/fonts/type1/public/lm/lmbx10.pfb><D:/Miktwx LaTex/font
+s/type1/public/lm/lmbx12.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmex10.pfb>
+<D:/Miktwx LaTex/fonts/type1/public/lm/lmmi10.pfb><D:/Miktwx LaTex/fonts/type1/
+public/lm/lmmi7.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmr10.pfb><D:/Miktwx
+ LaTex/fonts/type1/public/lm/lmr5.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lm
+r7.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmri10.pfb><D:/Miktwx LaTex/fonts
+/type1/public/lm/lmsy10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmsy7.pfb><D
+:/Miktwx LaTex/fonts/type1/public/lm/lmtk10.pfb><D:/Miktwx LaTex/fonts/type1/pu
+blic/lm/lmtko10.pfb><D:/Miktwx LaTex/fonts/type1/public/lm/lmtt10.pfb><D:/Miktw
+x LaTex/fonts/type1/public/lm/lmtti10.pfb><D:/Miktwx LaTex/fonts/type1/public/a
+msfonts/symbols/msam10.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols
+/msam7.pfb><D:/Miktwx LaTex/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Tarea_4.pdf (15 pages, 441868 bytes).
 PDF statistics:
- 223 PDF objects out of 1000 (max. 8388607)
- 45 named destinations out of 1000 (max. 500000)
- 20555 words of extra memory for PDF output out of 20736 (max. 10000000)
+ 250 PDF objects out of 1000 (max. 8388607)
+ 49 named destinations out of 1000 (max. 500000)
+ 22603 words of extra memory for PDF output out of 24883 (max. 10000000)
 
 
 ! pdflatex: major issue: So far, you have not checked for MiKTeX updates.
