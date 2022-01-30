@@ -563,13 +563,25 @@ Hints:
 
 La producción se detiene con 5 fallos. Se fabrican 100 en promedio antes del 5° fallo. Sea $X$ la v.a del número de productos fabricados de la 5° falla es: *Binomial Negativa*, $k = 5$ $p = ¿?$.
 
-Pero, como contamos todos los intentos (ya que la v.a. $X$ mide el número de productos fabricados).
-
-Bajo esta parametrización, $X \sim \text{Binomial Negativa}(k,p)$ con soporte en $X \in \mathbb{N}\{0,1,2,3,4\}$.
+Pero, como contamos *solo los éxitos* (ya que la v.a. $X$ mide el número de productos fabricados *funcionales*), aquí estamos hablando de que $X \sim \text{Binomial Negativa}(k,p)$ con soporte en $X \in \mathbb{N}\cup\{0\}$. Bajo esta parametrización tenemos que:
 \begin{align*}
-\mathbb{E}[X] &= \frac{k}{p} = 100 \rightarrow \text{Por hipótesis}\\
-&\implies \frac{k}{100} = p \implies \frac{5}{100} = p
+\mathbb{E}[X] &= k(\frac{1}{p}-1) = 100 \rightarrow \text{Por hipótesis}\\
+&\implies \frac{1}{p}-1 = \frac{100}{k} \implies \frac{1}{p} = \frac{100}{k}+1\\
+&\frac{1}{\frac{100}{k}+1}=\frac{k}{100+k}=p
 \end{align*}
+
+Entonces, numéricamente, $p=\frac{5}{105}=\frac{1}{21}$
+
+Sin embargo, la parametrización de X *que nos interesa*, dado que es la que cuenta *los aparatos que se fabrican hasta el k-ésimo fallo* es aquella que mide los *intentos antes del k-ésimo éxito*.
+Bajo esta parametrización, $X \sim \text{Binomial Negativa}(k,p)$ con soporte en $X \in \mathbb{N}\{0,1,2,3,4\}$, tenemos que:
+\begin{align*}
+\mathbb{E}[X] &= \frac{k}{p}\\
+&=\frac{5}{\frac{1}{21}}\\
+&=5(21)\\
+&=105
+\end{align*}
+
+Lo cual es evidente, puesto que solo se agregan los 5 aparatos defectuosos a la esperanza de los que sí funcionaron, ya que en la primera parametrización, solo se cuentan los que sirven y se descartan los que no sirven
 
 $\implies$ La variable de frecuencia $N \sim \text{Binomial Negativa}\left(5, \frac{5}{100}\right)$ con la parametrización que cuenta los ensayos antes del k-ésimo éxito (es decir, con soporte en $X \in \mathbb{N}\backslash \{0,1,2,3,4\}$). 
 
@@ -589,8 +601,8 @@ $\mathbb{P}[Y_{j} = k]$ & $0.1$ & $0.7$ & $0.2$ \\
 Luego, por propiedades del modelo colectivo:
 \begin{align*}
 \mathbb{E}[S] &= \mathbb{E}[N]\mathbb{E}[Y]\\
-&= [100]*[157]\\
-&= 15700
+&= [105]*[157]\\
+&= 16485
 \end{align*}
 
 Como cedemos el 25\% de todos los riesgos, podríamos interpretarlo como un contrato de "reaseguro proporcional" con $\alpha = 25\%$.
@@ -599,29 +611,29 @@ Sea $Z$ la v.a. que mide la pérdida asumida por la reaseguradora
 
 $$Z:= \alpha S = [0.25]S$$
 \begin{align*}
-\mathbb{E}[Z] = \mathbb{E}[0.25 * S] = 0.25 &= 0.25(15700)\\
-&= 3925
+\mathbb{E}[Z] = \mathbb{E}[0.25 * S] = 0.25 &= 0.25(16485)\\
+&= 4121.25
 \end{align*}
 
 Luego, como el factor de recargo es $\theta = 0.20$
 
 **a)** Por el método del principio del valor esperado:
 \begin{align*}
-p(Z) = p(\alpha S) = p (0.255) &= (1 + \theta) \mathbb{E}[0.25 * 5]\\
+p(Z) = p(\alpha S) = p (0.25\*S) &= (1 + \theta) \mathbb{E}[0.25 * S]\\
 &= (1 + \theta)(0.25) \mathbb{E}[S]\\
-&= (1 + 0.2)(0.25)(15700)\\
-&= (1.2)(0.25)(15700)\\
-&= (1.2)(3925)\\
-&= 4710\\
-&\therefore \text{La prima a cobrar bajo el método de esperanza es 4710}_\blacksquare
+&= (1 + 0.2)(0.25)(16485)\\
+&= (1.2)(0.25)(16485)\\
+&= (1.2)(4121.25)\\
+&= 4945.5\\
+&\therefore \text{La prima a cobrar bajo el método de esperanza es 4945.5}_\blacksquare
 \end{align*}
 
 **b)**
 Notemos que, por la distribución de N y su parametrización:
 
 \begin{align*}
-Var[N] &= k \left(\frac{1 - p}{p^{2}}\right) = 5 \left(\frac{1 - \frac{5}{100}}{\left(\frac{5}{100}\right)^{2}}\right)\\
-&= 1900
+Var[N] &= k \left(\frac{1 - p}{p^{2}}\right) = 5 \left(\frac{1 - \frac{5}{105}}{\left(\frac{5}{105}\right)^{2}}\right)\\
+&= 2100
 \end{align*}
 
 
@@ -635,25 +647,25 @@ El segundo momento de Y es:
 Por propiedades del modelo colectivo:
 \begin{align*}
 Var(S) &= Var(N)\mathbb{E}^{2}[Y] + Var(Y)\mathbb{E}[N]\\
-&= 1900(157^{2}) + 541(100)\\
-&= 46,887,200
+&= 2100(157^{2}) + 541(105)\\
+&= 51,819,705
 \end{align*}
 \begin{align*}
-Var(Z) = Var(0.25*5) &= 0.25^{2}Var(S)\\
-&= 0.0625[46,887,200]\\
-&=2,930,450
+Var(Z) = Var(0.25*S) &= 0.25^{2}Var(S)\\
+&= 0.0625[51,819,705]\\
+&=3,238,732
 \end{align*}
 
 Entonces, la desviación estándar es:
-$$sd(Z)=\sqrt(Var(Z))=\sqrt(2,930,450)$$
+$$sd(Z)=\sqrt(Var(Z))=\sqrt(3,238,732)$$
 Numéricamente:
 ```{r}
-sd_z=sqrt(2930450)
+sd_z=sqrt(3238732)
 sd_z
 ```
 Además:
 ```{r}
-p_z<-3925+0.2*sd_z
+p_z<-4121.25+0.2*sd_z
 p_z
 ```
 
@@ -661,16 +673,16 @@ p_z
 Por el principio de la desviación estándar, con $\theta = 0.2$
 \begin{align*}
 p(Z) &= \mathbb{E}[Z] + \theta sd(Z)\\
-&= 3925 + 0.2\sqrt((2,930,450))\\
-&= 4267.371\\
-&\therefore \text{La prima a cobrar bajo el método de desviación estándar es 4267.371}_\blacksquare
+&= 4121.25 + 0.2\sqrt((3,238,732))\\
+&= 4481.18\\
+&\therefore \text{La prima a cobrar bajo el método de desviación estándar es 5305.43}_\blacksquare
 \end{align*}
 
 Finalmente veamos el siguiente código para verificar vía simulación:
 
 ```{r}
-media_teorica <- 3925
-sd_teorica <- 1711.856
+media_teorica <- 4121.25
+sd_teorica <- 1799.648
 
 set.seed(6)
 
@@ -693,7 +705,7 @@ severidad<-function(n){
   return(z)
 }
 genera.una.S<-function(){
-  n<-(rnbinom(1,5,5/100)+5)
+  n<-(rnbinom(1,5,5/105)+5) #La implementada por R solo cuenta éxitos, sumamos 5
   y<-severidad(n)
   return(sum(y))
 }
@@ -707,5 +719,19 @@ proporcion_media <- abs(media_empirica/media_teorica-1) *100 ##Porcentaje
 proporcion_sd <- abs(sd_empirica/sd_teorica-1) *100 ##Porcentaje
 proporcion_media
 proporcion_sd
+
+prima_media_empirica<-1.2*media_empirica
+prima_media_empirica
+prima_media_teorica<-1.2*media_teorica
+prima_media_teorica
+proporcion_prima_media<- abs(prima_media_empirica/prima_media_teorica-1) *100 ##Porcentaje
+proporcion_prima_media
+
+prima_sd_empirica<-media_empirica+0.2*sd_empirica
+prima_sd_empirica
+prima_sd_teorica<-media_teorica+0.2*sd_teorica
+prima_sd_teorica
+proporcion_prima_sd<- abs(prima_sd_empirica/prima_sd_teorica-1) *100 ##Porcentaje
+proporcion_prima_sd
 ```
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.9.21)  30 JAN 2022 12:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.9.21)  30 JAN 2022 13:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -621,41 +621,41 @@ File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 LaTeX Warning: Command \textquestiondown invalid in math mode on input line 884
 .
 
-[12] [13] [14] [15] (./Tarea_4.aux) ) 
+[12] [13] [14] [15] [16] (./Tarea_4.aux) ) 
 Here is how much of TeX's memory you used:
- 14609 strings out of 478994
- 223439 string characters out of 5858184
+ 14616 strings out of 478994
+ 223508 string characters out of 5858184
  580203 words of memory out of 5000000
  31725 multiletter control sequences out of 15000+600000
- 443292 words of font info for 98 fonts, out of 8000000 for 9000
+ 443588 words of font info for 101 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 85i,11n,88p,755b,400s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2021/texmf-dist/fonts/
-enc/dvips/lm/lm-ts1.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/lm/
-lm-ec.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}
-{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/te
-xlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2021
-/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}</usr/local/texlive/2021/texmf-dis
-t/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/ty
-pe1/public/lm/lmbx12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public
-/lm/lmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/lm/lmmi10
-.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/
-local/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texli
-ve/2021/texmf-dist/fonts/type1/public/lm/lmr5.pfb></usr/local/texlive/2021/texm
-f-dist/fonts/type1/public/lm/lmr7.pfb></usr/local/texlive/2021/texmf-dist/fonts
-/type1/public/lm/lmri10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/pub
-lic/lm/lmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/lm/lms
-y7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></u
-sr/local/texlive/2021/texmf-dist/fonts/type1/public/lm/lmtko10.pfb></usr/local/
-texlive/2021/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/20
-21/texmf-dist/fonts/type1/public/lm/lmtti10.pfb></usr/local/texlive/2021/texmf-
-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2021/te
-xmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texlive/2021
-/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Tarea_4.pdf (15 pages, 396326 bytes).
+ 85i,11n,88p,755b,474s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2021/texmf-dist/f
+onts/enc/dvips/lm/lm-ts1.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvip
+s/lm/lm-ec.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathsy
+.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/loc
+al/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive
+/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}</usr/local/texlive/2021/texm
+f-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2021/texmf-dist/fon
+ts/type1/public/lm/lmbx12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/p
+ublic/lm/lmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/lm/l
+mmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/lm/lmmi7.pfb><
+/usr/local/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/
+texlive/2021/texmf-dist/fonts/type1/public/lm/lmr5.pfb></usr/local/texlive/2021
+/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/local/texlive/2021/texmf-dist/
+fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type
+1/public/lm/lmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/l
+m/lmsy7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/lm/lmtk10.pf
+b></usr/local/texlive/2021/texmf-dist/fonts/type1/public/lm/lmtko10.pfb></usr/l
+ocal/texlive/2021/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texli
+ve/2021/texmf-dist/fonts/type1/public/lm/lmtti10.pfb></usr/local/texlive/2021/t
+exmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/20
+21/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texlive
+/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Tarea_4.pdf (16 pages, 400813 bytes).
 PDF statistics:
- 235 PDF objects out of 1000 (max. 8388607)
- 193 compressed objects within 2 object streams
- 49 named destinations out of 1000 (max. 500000)
+ 239 PDF objects out of 1000 (max. 8388607)
+ 196 compressed objects within 2 object streams
+ 50 named destinations out of 1000 (max. 500000)
  22603 words of extra memory for PDF output out of 24883 (max. 10000000)
 
